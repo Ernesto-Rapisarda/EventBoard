@@ -8,6 +8,7 @@ public class EventBoardApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EventBoardApplication.class, args);
+        System.out.println("CI SONO RAGAZZI");
     }
 
 }
