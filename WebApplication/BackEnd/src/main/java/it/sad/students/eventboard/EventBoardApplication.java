@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EventBoardApplication {
 
     public static void main(String[] args) {
+        System.out.println("ciao a tutti, siete in dev, aggiornato!!!");
         SpringApplication.run(EventBoardApplication.class, args);
     }
 
