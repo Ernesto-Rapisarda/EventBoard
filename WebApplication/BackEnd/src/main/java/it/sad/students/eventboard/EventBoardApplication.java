@@ -11,6 +11,7 @@ public class EventBoardApplication {
         System.out.println("update bis...erne");
         SpringApplication.run(EventBoardApplication.class, args);
         System.out.println("CI SONO RAGAZZI");
+        System.out.print("ASO");
 
     }
 
