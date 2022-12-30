@@ -13,6 +13,8 @@ public class Person {
     private Long position;
     private Long role;
 
+    public Person(){}
+
     public Person(Long id, String name, String lastName, String username, String password, String email, Boolean activeStatus, Long position, Long role) {
         this.id = id;
         this.name = name;
@@ -62,8 +64,25 @@ public class Person {
     }
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Long role) {
+        this.role = role;
+    }
 
     public void setUsername(String username) {
         this.username = username;
