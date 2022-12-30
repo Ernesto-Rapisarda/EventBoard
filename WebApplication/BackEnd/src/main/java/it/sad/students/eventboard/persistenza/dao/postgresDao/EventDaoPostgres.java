@@ -23,7 +23,7 @@ public class EventDaoPostgres implements EventDao {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                Event event = setEvent(rs);
+                Event event = readEvent(rs);
                 if(event!=null)
                     events.add(event);
             }
@@ -41,7 +41,7 @@ public class EventDaoPostgres implements EventDao {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
-                Event event = setEvent(rs);
+                Event event = readEvent(rs);
                 if(event!=null)
                     return event;
             }
@@ -53,16 +53,15 @@ public class EventDaoPostgres implements EventDao {
 
     @Override
     public void saveOrUpdate(Event event) {
-        if (event.getId() == null) {
-            String insertEvent = "INSERT INTO event VALUES (?, ?, ?, ?,?,?,?,?,?)";
+        String insertEvent = "INSERT INTO event VALUES (?, ?, ?, ?,?,?,?,?,?)";
+        String updateEvent = "UPDATE event set position=?, date=?, event_type = ?, price =?,poster=?,soldout=?, description=?,publisher=? where id = ?";
+        PreparedStatement st = null;
 
-            PreparedStatement st;
-            try {
+        try {
+            if (event.getId() == null){
                 st = conn.prepareStatement(insertEvent);
-
                 Long newId = IdBroker.getNewEventID(conn);
                 event.setId(newId);
-
                 st.setLong(1, event.getId());
                 st.setLong(2,event.getPosition());
                 st.setDate(3, (Date) event.getDate());
@@ -72,45 +71,42 @@ public class EventDaoPostgres implements EventDao {
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getPublisher());
-
-                st.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            }else {
+                st = conn.prepareStatement(updateEvent);
+                st.setLong(1,event.getPosition());
+                st.setDate(2, (Date) event.getDate());
+                st.setLong(3,event.getEventType());
+                st.setDouble(4,event.getPrice());
+                st.setString(5,event.getUrlPoster());
+                st.setBoolean(6,event.getSoldOut());
+                st.setString(7,event.getDescription());
+                st.setLong(8,event.getPublisher());
+                st.setLong(9,event.getId());
             }
-        }/*else {
-            String updateStr = "UPDATE ristorante set nome = ?, descrizione = ?, cap_ubicazione = ? where id = ?";
 
-            PreparedStatement st;
-            try {
-                st = conn.prepareStatement(updateStr);
+            st.executeUpdate();
 
-                st.setString(1, ristorante.getNome());
-                st.setString(2, ristorante.getDescrizione());
-                st.setString(3, ristorante.getUbicazione());
-
-                st.setLong(4, ristorante.getId());
-
-
-
-                st.executeUpdate();
-
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }*/
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Event event) {
+        String query = "DELETE FROM event WHERE id = ?";
+        try {
+            // TODO: 30/12/2022 rimozione a cascata 
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, event.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
 
-
-    private Event setEvent (ResultSet rs){
+    private Event readEvent(ResultSet rs){
         try{
             Event event = new Event();
             event.setId(rs.getLong("id"));

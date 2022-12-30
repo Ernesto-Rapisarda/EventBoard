@@ -3,7 +3,7 @@ package it.sad.students.eventboard.persistenza.model;
 import java.util.Date;
 
 public class Event {
-    private Long id;
+    private Long id = null;
     private Date date;
     private Double price;
     private Boolean soldOut;
