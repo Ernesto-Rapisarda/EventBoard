@@ -6,26 +6,36 @@ public class Event {
     private Long id;
     private Date date;
     private Double price;
-    private Boolean available;
+    private Boolean soldOut;
     private String urlPoster;
+    private String description;
 
     //chiavi esterne
     private Long eventType;
     private Long luogo;
-    private Long person;
+    private Long publisher;
 
     public Event() {
     }
 
-    public Event(Long id, Date date, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person) {
+    public Event(Long id, Date date, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
         this.id = id;
         this.date = date;
         this.price = price;
-        this.available = available;
+        this.soldOut = available;
         this.urlPoster = urlPoster;
         this.eventType = eventType;
         this.luogo = luogo;
-        this.person = person;
+        this.publisher = person;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {
@@ -52,12 +62,12 @@ public class Event {
         this.price = price;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public Boolean getSoldOut() {
+        return soldOut;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setSoldOut(Boolean soldOut) {
+        this.soldOut = soldOut;
     }
 
     public String getUrlPoster() {
@@ -84,11 +94,11 @@ public class Event {
         this.luogo = luogo;
     }
 
-    public Long getPerson() {
-        return person;
+    public Long getPublisher() {
+        return publisher;
     }
 
-    public void setPerson(Long person) {
-        this.person = person;
+    public void setPublisher(Long publisher) {
+        this.publisher = publisher;
     }
 }
