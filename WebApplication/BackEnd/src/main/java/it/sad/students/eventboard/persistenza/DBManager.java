@@ -5,6 +5,9 @@ import it.sad.students.eventboard.persistenza.dao.postgresDao.*;
 import it.sad.students.eventboard.persistenza.model.Partecipation;
 import it.sad.students.eventboard.persistenza.model.Person;
 
+import it.sad.students.eventboard.persistenza.dao.*;
+import it.sad.students.eventboard.persistenza.dao.postgresDao.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,6 +33,7 @@ public class DBManager {
 
 
 
+
     public Connection getConnection() {
         if (conn == null) {
             try {
@@ -47,6 +51,13 @@ public class DBManager {
     public ReviewDao getReviewDao() {return new ReviewDaoPostgress(getConnection());}
     public PositionDao getPositionDao() {return new PositionDaoPostgress(getConnection());}
     public RoleDao getRoleDao() {return new RoleDaoPostgress(getConnection());}
+    public EventDao getEventDao (){return new EventDaoPostgres(getConnection());}
+    public EventTypeDao getEventTypeDao(){return new EventTypeDaoPostgres(getConnection());}
+    public CommentDao getCommentDao(){return new CommentDaoPostgres(getConnection());}
+    public ReportDao getReportDao(){return new ReportDaoPostgres(getConnection());}
+    public ReportTypeDao getReportTypeDao(){return new ReportTypeDaoPostgres(getConnection());}
+    public LikeDao getLikeDao(){return new LikeDaoPostgres(getConnection());}
+
 
 }
 
