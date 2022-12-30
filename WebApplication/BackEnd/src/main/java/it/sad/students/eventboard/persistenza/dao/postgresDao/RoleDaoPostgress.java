@@ -63,7 +63,7 @@ public class RoleDaoPostgress implements RoleDao {
             if (role.getId() == null) {
 
                 st = conn.prepareStatement(insertEvent);
-                Long newId = IdBroker.getNewPersonID(conn);
+                Long newId = IdBroker.getNewRoleID(conn);
                 role.setId(newId);
                 st.setLong(1, role.getId());
                 st.setString(2, role.getName());

@@ -38,37 +38,64 @@ public class EventTypeDaoPostgres implements EventTypeDao {
 
     @Override
     public EventType findByPrimaryKey(Long id) {
+        String query ="select * from event_type where id=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            stmt.setLong(1, id);
+            if(rs.next()){
+                EventType eventType = readEvent(rs);
+                if(eventType!=null)
+                    return eventType;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public void saveOrUpdate(EventType eventType) {
-        if (eventType.getId() == null) {
-            String insertEvent = "INSERT INTO event_type VALUES (?, ?, ?)";
+        String insertEventType = "INSERT INTO event_type VALUES (?, ?, ?)";
+        String updateEventType = "UPDATE event_type set name=?, description=? where id = ?";
+        PreparedStatement st = null;
 
-            PreparedStatement st;
-            try {
-                st = conn.prepareStatement(insertEvent);
-
+        try {
+            if (eventType.getId() == null){
+                st = conn.prepareStatement(insertEventType);
                 Long newId = IdBroker.getNewEventTypeID(conn);
                 eventType.setId(newId);
 
                 st.setLong(1, eventType.getId());
                 st.setString(2,eventType.getName());
                 st.setString(3, eventType.getDescription());
-
-
-                st.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-        }
+            else{
+                st = conn.prepareStatement(updateEventType);
+                st.setString(1,eventType.getName());
+                st.setString(2, eventType.getDescription());
+                st.setLong(3, eventType.getId());
 
+            }
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(EventType eventType) {
+        String query = "DELETE FROM event_type WHERE id = ?";
+        try {
+            // TODO: 30/12/2022 rimozione a cascata
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, eventType.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

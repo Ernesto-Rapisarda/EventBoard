@@ -17,11 +17,7 @@ public class IdBroker {
 		return getId(connection,query);
 
 	}
-	public static Long getNewPartecipationID(Connection connection){
-		String query = "SELECT nextval('partecipation_id') AS id";
-		return getId(connection,query);
 
-	}
 	public static Long getNewRoleID(Connection connection){
 		String query = "SELECT nextval('role_id') AS id";
 		return getId(connection,query);
@@ -42,11 +38,12 @@ public class IdBroker {
 		return getId(connection,query);
 
 	}
-	public static Long getNewLikeID(Connection connection){
-		String query = "SELECT nextval('like_id') AS id";
+	public static Long getNewCommentID(Connection connection){
+		String query = "SELECT nextval('comment_id') AS id";
 		return getId(connection,query);
 
 	}
+
 	public static Long getNewReportID(Connection connection){
 		String query = "SELECT nextval('report_id') AS id";
 		return getId(connection,query);
@@ -57,11 +54,7 @@ public class IdBroker {
 		return getId(connection,query);
 
 	}
-	public static Long getNewReviewID(Connection connection){
-		String query = "SELECT nextval('review_id') AS id";
-		return getId(connection,query);
 
-	}
 
 	private static Long getId(Connection connection,String query){
 		Long id = null;

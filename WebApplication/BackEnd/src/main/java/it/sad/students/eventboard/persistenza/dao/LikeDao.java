@@ -8,7 +8,7 @@ import java.util.List;
 public interface LikeDao {
     List<Like> findAll();
 
-    Like findByPrimaryKey(Long id);
+    Like findByPrimaryKey(Long person, Long event);
 
     void saveOrUpdate(Like like);
 

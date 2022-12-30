@@ -8,16 +8,26 @@ public class Comment {
     private String message;
 
     //chiavi esterne
+    private Long event;
     private Long person;
 
     public Comment() {
     }
 
-    public Comment(Long id, Date date, String message, Long person) {
+    public Comment(Long id, Date date, String message, Long person,Long event) {
         this.id = id;
         this.date = date;
         this.message = message;
         this.person = person;
+        this.event = event;
+    }
+
+    public Long getEvent() {
+        return event;
+    }
+
+    public void setEvent(Long event) {
+        this.event = event;
     }
 
     public Long getId() {

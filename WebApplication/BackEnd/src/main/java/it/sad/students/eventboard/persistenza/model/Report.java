@@ -23,6 +23,10 @@ public class Report {
         this.person = person;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
     public Long getId() {
         return id;
     }
