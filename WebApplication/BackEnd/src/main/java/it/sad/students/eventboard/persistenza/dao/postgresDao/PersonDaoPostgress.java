@@ -3,9 +3,14 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.dao.PersonDao;
 import it.sad.students.eventboard.persistenza.model.Person;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class PersonDaoPostgress implements PersonDao {
+    Connection conn;
+    public PersonDaoPostgress(Connection conn) {
+        this.conn = conn;
+    }
     @Override
     public List<Person> findAll() {
         return null;
