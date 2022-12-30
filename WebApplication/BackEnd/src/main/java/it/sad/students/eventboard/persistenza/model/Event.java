@@ -12,7 +12,7 @@ public class Event {
 
     //chiavi esterne
     private Long eventType;
-    private Long luogo;
+    private Long position;
     private Long publisher;
 
     public Event() {
@@ -25,7 +25,7 @@ public class Event {
         this.soldOut = available;
         this.urlPoster = urlPoster;
         this.eventType = eventType;
-        this.luogo = luogo;
+        this.position = luogo;
         this.publisher = person;
         this.description = description;
     }
@@ -86,12 +86,12 @@ public class Event {
         this.eventType = eventType;
     }
 
-    public Long getLuogo() {
-        return luogo;
+    public Long getPosition() {
+        return position;
     }
 
-    public void setLuogo(Long luogo) {
-        this.luogo = luogo;
+    public void setPosition(Long position) {
+        this.position = position;
     }
 
     public Long getPublisher() {
