@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoleDao {
     List<Role> findAll();
 
-    Partecipation findByPrimaryKey(Long id);
+    Role findByPrimaryKey(Long id);
 
     void saveOrUpdate(Role role);
 

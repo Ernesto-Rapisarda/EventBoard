@@ -8,7 +8,7 @@ import java.util.List;
 public interface ReviewDao {
     List<Review> findAll();
 
-    Review findByPrimaryKey(Long id);
+    Review findByPrimaryKey(Long person,Long event);
 
     void saveOrUpdate(Review review);
 

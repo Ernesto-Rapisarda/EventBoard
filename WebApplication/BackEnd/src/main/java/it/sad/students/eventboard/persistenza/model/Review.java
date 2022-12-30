@@ -20,6 +20,8 @@ public class Review {
         this.rating = rating;
     }
 
+    public Review(){}
+
     public Long getPerson() {
         return person;
     }
@@ -38,5 +40,25 @@ public class Review {
 
     public Integer getRating() {
         return rating;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public void setPerson(Long person) {
+        this.person = person;
+    }
+
+    public void setEvent(Long event) {
+        this.event = event;
     }
 }

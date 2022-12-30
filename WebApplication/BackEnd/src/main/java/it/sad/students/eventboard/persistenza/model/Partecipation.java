@@ -15,6 +15,7 @@ public class Partecipation {
         this.person = person;
         this.event = event;
     }
+    public Partecipation(){}
 
     public Date getDate() {
         return date;
@@ -26,5 +27,17 @@ public class Partecipation {
 
     public Long getEvent() {
         return event;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPerson(Long person) {
+        this.person = person;
+    }
+
+    public void setEvent(Long event) {
+        this.event = event;
     }
 }

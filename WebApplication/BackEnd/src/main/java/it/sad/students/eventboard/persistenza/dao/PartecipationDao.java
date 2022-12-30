@@ -7,7 +7,7 @@ import java.util.List;
 public interface PartecipationDao {
     List<Partecipation> findAll();
 
-    Partecipation findByPrimaryKey(Long id);
+    Partecipation findByPrimaryKey(Long person,Long event);
 
     void saveOrUpdate(Partecipation partecipation);
 

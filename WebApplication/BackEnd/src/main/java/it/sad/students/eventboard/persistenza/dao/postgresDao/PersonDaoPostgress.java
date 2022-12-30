@@ -2,7 +2,6 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.PersonDao;
-import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.Person;
 
 import java.sql.*;
@@ -22,7 +21,7 @@ public class PersonDaoPostgress implements PersonDao {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                Person person = setPerson(rs);
+                Person person = readPerson(rs);
                 if(person!=null)
                     people.add(person);
             }
@@ -40,7 +39,7 @@ public class PersonDaoPostgress implements PersonDao {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
-                Person person = setPerson(rs);
+                Person person = readPerson(rs);
                 if(person!=null)
                     return person;
             }
@@ -52,14 +51,17 @@ public class PersonDaoPostgress implements PersonDao {
 
     @Override
     public void saveOrUpdate(Person person) {
-        if (person.getId() == null) {
-            String insertEvent = "INSERT INTO event VALUES (?, ?, ?, ?,?,?,?,?,?)";
-            PreparedStatement st;
-            try {
+        String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?)";
+        String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
+
+        PreparedStatement st=null;
+        try {
+
+            if (person.getId() == null) {
+
                 st = conn.prepareStatement(insertEvent);
                 Long newId = IdBroker.getNewPersonID(conn);
                 person.setId(newId);
-
                 st.setLong(1, person.getId());
                 st.setString(2, person.getName());
                 st.setString(3, person.getLastName());
@@ -69,19 +71,11 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setLong(7, person.getPosition());
                 st.setLong(8, person.getRole());
                 st.setString(9, person.getPassword());
-
                 st.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else {
-            String updateStr = "UPDATE ristorante set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
+            }else {
 
-            PreparedStatement st;
-            try {
                 st = conn.prepareStatement(updateStr);
-
                 st.setString(1, person.getName());
                 st.setString(2,person.getLastName());
                 st.setString(3, person.getUsername());
@@ -90,16 +84,13 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setLong(6, person.getPosition());
                 st.setLong(7, person.getRole());
                 st.setString(8, person.getPassword());
-
                 st.setLong(9, person.getId());
-
-
                 st.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+        }catch (SQLException e) {
+            e.printStackTrace();
         }
+
 
     }
 
@@ -117,7 +108,7 @@ public class PersonDaoPostgress implements PersonDao {
 
 
 
-    private Person setPerson(ResultSet rs){
+    private Person readPerson(ResultSet rs){
         try{
             Person person=new Person();
             person.setId(rs.getLong("id"));
