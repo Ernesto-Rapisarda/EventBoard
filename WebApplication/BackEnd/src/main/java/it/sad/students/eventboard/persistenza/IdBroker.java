@@ -12,9 +12,53 @@ public class IdBroker {
 	
 	//private static final String query = "SELECT nextval('event_id') AS id";//postgresql
 
+	public static Long getNewPersonID(Connection connection){
+		String query = "SELECT nextval('person_id') AS id";
+		return getId(connection,query);
 
+	}
+	public static Long getNewPartecipationID(Connection connection){
+		String query = "SELECT nextval('partecipation_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewRoleID(Connection connection){
+		String query = "SELECT nextval('role_id') AS id";
+		return getId(connection,query);
+
+	}
 	public static Long getNewEventID(Connection connection){
 		String query = "SELECT nextval('event_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewPositionID(Connection connection){
+		String query = "SELECT nextval('position_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewEventTypeID(Connection connection){
+		String query = "SELECT nextval('event_type_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewLikeID(Connection connection){
+		String query = "SELECT nextval('like_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewReportID(Connection connection){
+		String query = "SELECT nextval('report_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewReportTypeID(Connection connection){
+		String query = "SELECT nextval('report_type_id') AS id";
+		return getId(connection,query);
+
+	}
+	public static Long getNewReviewID(Connection connection){
+		String query = "SELECT nextval('review_id') AS id";
 		return getId(connection,query);
 
 	}
