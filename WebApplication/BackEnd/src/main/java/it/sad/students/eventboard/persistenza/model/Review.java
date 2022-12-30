@@ -5,18 +5,18 @@ import java.util.Date;
 public class Review {
 
     private Date date;
-    private String text;
+    private String message;
     private Integer rating;
 
     //chiavi esterne
     private Long person;
     private Long event;
 
-    public Review(Long person, Long event, Date date, String text, Integer rating) {
+    public Review(Long person, Long event, Date date, String message, Integer rating) {
         this.person = person;
         this.event = event;
         this.date = date;
-        this.text = text;
+        this.message = message;
         this.rating = rating;
     }
 
@@ -32,8 +32,8 @@ public class Review {
         return date;
     }
 
-    public String getText() {
-        return text;
+    public String getMessage() {
+        return message;
     }
 
     public Integer getRating() {
