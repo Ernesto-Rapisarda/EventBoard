@@ -7,20 +7,20 @@ public class Person {
     private String username;
     private String password;
     private String email;
-    private Boolean active;
+    private Boolean activeStatus;
 
     //chiavi esterne
     private Long position;
     private Long role;
 
-    public Person(Long id, String name, String lastName, String username, String password, String email, Boolean active, Long position, Long role) {
+    public Person(Long id, String name, String lastName, String username, String password, String email, Boolean activeStatus, Long position, Long role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.active = active;
+        this.activeStatus = activeStatus;
         this.position = position;
         this.role = role;
     }
@@ -49,8 +49,8 @@ public class Person {
         return email;
     }
 
-    public Boolean getActive() {
-        return active;
+    public Boolean getActiveStatus() {
+        return activeStatus;
     }
 
     public Long getPosition() {
@@ -73,8 +73,8 @@ public class Person {
         this.password = password;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setActiveStatus(Boolean active) {
+        this.activeStatus = active;
     }
 
     public void setPosition(Long position) {
