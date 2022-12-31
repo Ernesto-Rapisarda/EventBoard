@@ -64,14 +64,6 @@ public class PartecipationDaoPostgress implements PartecipationDao {
                 st.setDate(3, (Date) partecipation.getDate());
                 st.executeUpdate();
 
-            }else {
-
-                st = conn.prepareStatement(updateStr);
-                st.setDate(1, (Date) partecipation.getDate());
-
-                st.setLong(2, partecipation.getPerson());
-                st.setLong(3, partecipation.getEvent());
-                st.executeUpdate();
             }
         }catch (SQLException e) {
             e.printStackTrace();
