@@ -8,6 +8,7 @@ public interface PersonDao {
     List<Person> findAll();
 
     Person findByPrimaryKey(Long id);
+    Person findByUsername (String username);
 
     void saveOrUpdate(Person person);
 

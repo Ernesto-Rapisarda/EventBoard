@@ -1,12 +1,10 @@
 package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
+import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.PositionDao;
 import it.sad.students.eventboard.persistenza.model.Position;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +50,22 @@ public class PositionDaoPostgress implements PositionDao {
 
     @Override
     public void saveOrUpdate(Position position) {
-        String insertEvent = "INSERT INTO position VALUES (?,?)";
-        String updateStr = "UPDATE position set name=? where id = ?";
+        String insertPosition = "INSERT INTO position VALUES (?)";
+        //String updatePosition = "UPDATE position set name=? where id = ?";
 
         PreparedStatement st=null;
+        try {
+            position.setId(IdBroker.getNewPositionID(conn));
+            st = conn.prepareStatement(insertPosition);
+
+            st.setLong(1, position.getId());
+
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         /*
         try {
 

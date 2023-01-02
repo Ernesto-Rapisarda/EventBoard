@@ -50,6 +50,24 @@ public class PersonDaoPostgress implements PersonDao {
     }
 
     @Override
+    public Person findByUsername (String username){
+        String query = "select * from person where username=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                Person person = readPerson(rs);
+                if(person!=null)
+                    return person;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void saveOrUpdate(Person person) {
         String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?)";
         String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
