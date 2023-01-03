@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 public class RestApiController {
     /* si utilizza la seguente annotazione per far innietare a spring, la dipendenza
     del service nel controller
@@ -50,7 +51,7 @@ public class RestApiController {
         return list;
     }
 
-    @RequestMapping("/api/persons/{id}")
+    @RequestMapping("/api/persons/{id}")//cerca persone con id
     public Person getById(@PathVariable Long id){
         Optional<Person> person = list.stream().filter(item->item.getId() == id).findFirst();
 
