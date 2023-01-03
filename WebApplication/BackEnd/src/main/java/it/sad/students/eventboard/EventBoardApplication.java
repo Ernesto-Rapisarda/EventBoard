@@ -1,18 +1,17 @@
 package it.sad.students.eventboard;
 
-import it.sad.students.eventboard.persistenza.DBManager;
-import it.sad.students.eventboard.persistenza.model.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Date;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
+@ServletComponentScan
+
 public class EventBoardApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EventBoardApplication.class, args);
-        Position position = new Position();
+        /*Position position = new Position();
         DBManager.getInstance().getPositionDao().saveOrUpdate(position);
 
         Role role = new Role();
@@ -30,7 +29,7 @@ public class EventBoardApplication {
         person.setRole(role.getId());
 
 
-        DBManager.getInstance().getPersonDao().saveOrUpdate(person);
+        DBManager.getInstance().getPersonDao().saveOrUpdate(person);*/
 
     }
 
