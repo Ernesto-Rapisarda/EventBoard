@@ -1,6 +1,12 @@
 package it.sad.students.eventboard.persistenza.model;
 
-public class Person {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+public class Person implements UserDetails {
+
     private Long id;
     private String name;
     private String lastName;
@@ -8,6 +14,11 @@ public class Person {
     private String password;
     private String email;
     private Boolean activeStatus;
+
+    private Boolean expired;
+    private Boolean locked;
+    private Boolean credExpired;
+    public Boolean isEnabled;
 
     //chiavi esterne
     private Long position;
@@ -41,6 +52,47 @@ public class Person {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return expired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public void setCredExpired(Boolean credExpired) {
+        this.credExpired = credExpired;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 
     public String getPassword() {

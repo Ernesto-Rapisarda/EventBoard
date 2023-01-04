@@ -3,6 +3,9 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.PersonDao;
 import it.sad.students.eventboard.persistenza.model.Person;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -137,10 +140,16 @@ public class PersonDaoPostgress implements PersonDao {
             person.setActiveStatus(rs.getBoolean("active_status"));
             person.setPosition(rs.getLong("position"));
             person.setRole(rs.getLong("role"));
-            person.setPassword(rs.getString("password"));
+            person.setPassword("{noop}"+rs.getString("password"));
+            person.setEnabled(true);
+            person.setLocked(true);
+            person.setExpired(true);
+            person.setCredExpired(true);
             return person;
         }catch (SQLException e){e.printStackTrace();}
 
         return null;
     }
+
+
 }
