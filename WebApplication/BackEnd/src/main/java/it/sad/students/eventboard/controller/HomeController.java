@@ -13,8 +13,8 @@ import java.security.Principal;
 public class HomeController {
     @GetMapping("/")
     @ResponseBody
-    public String home(){
-        return "Hello,JWT";
+    public String home(Principal principal){
+        return "Hello,JWT "+principal.getName();
     }
 
     @GetMapping("/admin")
