@@ -60,7 +60,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, partecipation.getPerson());
                 st.setLong(2, partecipation.getEvent());
-                st.setDate(3, (Date) partecipation.getDate());
+                st.setDate(3, Date.valueOf(partecipation.getDate()));
                 st.executeUpdate();
 
             }
@@ -86,7 +86,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
             Partecipation partecipation=new Partecipation();
             partecipation.setPerson(rs.getLong("person"));
             partecipation.setEvent(rs.getLong("event"));
-            partecipation.setDate(rs.getDate("date"));
+            partecipation.setDate(rs.getDate("date").toLocalDate());
             return partecipation;
         }catch (SQLException e){e.printStackTrace();}
 

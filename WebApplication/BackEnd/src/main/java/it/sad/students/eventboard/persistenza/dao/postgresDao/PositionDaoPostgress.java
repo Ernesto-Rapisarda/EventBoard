@@ -108,13 +108,13 @@ public class PositionDaoPostgress implements PositionDao {
     }
 
     private Position readPosition(ResultSet rs){
-        //try{
+        try{
             Position position=new Position();
-            //position.setId(rs.getLong("id"));
+            position.setId(rs.getLong("id"));
             //position.setName(rs.getString("name"));
             return position;
-        //}catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){e.printStackTrace();}
 
-        //return null;
+        return null;
     }
 }

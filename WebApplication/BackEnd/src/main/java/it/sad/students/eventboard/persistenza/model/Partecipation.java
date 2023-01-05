@@ -1,23 +1,24 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Partecipation {
 
-    private Date date;
+    private LocalDate date;
 
     //chiavi esterne
     private Long person;
     private Long event;
 
-    public Partecipation(Date date, Long person, Long event) {
+    public Partecipation(LocalDate date, Long person, Long event) {
         this.date = date;
         this.person = person;
         this.event = event;
     }
     public Partecipation(){}
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -29,7 +30,7 @@ public class Partecipation {
         return event;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

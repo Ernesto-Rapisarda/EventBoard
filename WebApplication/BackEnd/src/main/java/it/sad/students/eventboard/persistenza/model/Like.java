@@ -1,5 +1,6 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Like {
@@ -7,11 +8,11 @@ public class Like {
     private Long person;
     private Long idEvent;
 
-    private Date date;
+    private LocalDate date;
 
     public Like (){}
 
-    public Like(Long person, Long idEvent, Date date) {
+    public Like(Long person, Long idEvent, LocalDate date) {
         this.person = person;
         this.idEvent = idEvent;
         this.date = date;
@@ -33,11 +34,11 @@ public class Like {
         this.idEvent = idEvent;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

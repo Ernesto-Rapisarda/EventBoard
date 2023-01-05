@@ -85,7 +85,7 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(newId);
                 st.setLong(1, event.getId());
                 st.setLong(2,event.getPosition());
-                st.setDate(3, (Date) event.getDate());
+                st.setDate(3, Date.valueOf(event.getDate()));
                 st.setLong(4,event.getEventType());
                 st.setDouble(5,event.getPrice());
                 st.setString(6,event.getUrlPoster());
@@ -95,7 +95,7 @@ public class EventDaoPostgres implements EventDao {
             }else {
                 st = conn.prepareStatement(updateEvent);
                 st.setLong(1,event.getPosition());
-                st.setDate(2, (Date) event.getDate());
+                st.setDate(2, Date.valueOf(event.getDate()));
                 st.setLong(3,event.getEventType());
                 st.setDouble(4,event.getPrice());
                 st.setString(5,event.getUrlPoster());
@@ -132,7 +132,7 @@ public class EventDaoPostgres implements EventDao {
             Event event = new Event();
             event.setId(rs.getLong("id"));
             event.setPosition(rs.getLong("position"));
-            event.setDate(rs.getDate("date"));
+            event.setDate(rs.getDate("date").toLocalDate());
             event.setEventType(rs.getLong("event_type"));
             event.setPrice(rs.getDouble("price"));
             event.setUrlPoster(rs.getString("poster"));

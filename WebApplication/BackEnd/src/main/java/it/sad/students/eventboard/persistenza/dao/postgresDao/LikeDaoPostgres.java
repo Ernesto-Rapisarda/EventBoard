@@ -83,7 +83,7 @@ public class LikeDaoPostgres implements LikeDao {
             st = conn.prepareStatement(insertLike);
             st.setLong(1, like.getPerson());
             st.setLong(2, like.getIdEvent());
-            st.setDate(3, (Date) like.getDate());
+            st.setDate(3, Date.valueOf(like.getDate()));
 
             st.executeUpdate();
 
@@ -112,7 +112,7 @@ public class LikeDaoPostgres implements LikeDao {
             Like like = new Like();
             like.setPerson(rs.getLong("person"));
             like.setIdEvent(rs.getLong("event"));
-            like.setDate(rs.getDate("date"));
+            like.setDate(rs.getDate("date").toLocalDate());
             return like;
         }catch (SQLException e){e.printStackTrace();}
 
