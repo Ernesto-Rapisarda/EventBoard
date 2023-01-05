@@ -3,11 +3,12 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.PersonDao;
 import it.sad.students.eventboard.persistenza.model.Person;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import it.sad.students.eventboard.persistenza.model.Role;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,24 @@ public class PersonDaoPostgress implements PersonDao {
     }
 
     @Override
+    public Person findByEmail(String email) {
+        String query = "select * from person where email=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                Person person = readPerson(rs);
+                if(person!=null)
+                    return person;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void saveOrUpdate(Person person) {
         String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?)";
         String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
@@ -90,7 +109,7 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(5, person.getEmail());
                 st.setBoolean(6, person.getActiveStatus());
                 st.setLong(7, person.getPosition());
-                st.setLong(8, person.getRole());
+                st.setString(8, person.getRole().toString());
                 st.setString(9, person.getPassword());
                 st.executeUpdate();
 
@@ -103,7 +122,7 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(4, person.getEmail());
                 st.setBoolean(5, person.getActiveStatus());
                 st.setLong(6, person.getPosition());
-                st.setLong(7, person.getRole());
+                st.setString(7, person.getRole().toString());
                 st.setString(8, person.getPassword());
                 st.setLong(9, person.getId());
                 st.executeUpdate();
@@ -139,8 +158,8 @@ public class PersonDaoPostgress implements PersonDao {
             person.setEmail(rs.getString("email"));
             person.setActiveStatus(rs.getBoolean("active_status"));
             person.setPosition(rs.getLong("position"));
-            person.setRole(rs.getLong("role"));
-            person.setPassword("{noop}"+rs.getString("password"));
+            person.setRole(Role.valueOf(rs.getString("role")));
+            person.setPassword(rs.getString("password"));
             person.setEnabled(true);
             person.setLocked(true);
             person.setExpired(true);

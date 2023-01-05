@@ -1,6 +1,5 @@
 package it.sad.students.eventboard.persistenza.dao;
 
-import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.ReportType;
 
 import java.util.List;

@@ -9,6 +9,7 @@ public interface PersonDao {
 
     Person findByPrimaryKey(Long id);
     Person findByUsername (String username);
+    Person findByEmail (String email);
 
     void saveOrUpdate(Person person);
 

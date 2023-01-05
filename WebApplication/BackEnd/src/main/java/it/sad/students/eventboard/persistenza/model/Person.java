@@ -1,9 +1,13 @@
 package it.sad.students.eventboard.persistenza.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Person implements UserDetails {
 
@@ -22,11 +26,11 @@ public class Person implements UserDetails {
 
     //chiavi esterne
     private Long position;
-    private Long role;
+    private Role role;
 
     public Person(){}
 
-    public Person(Long id, String name, String lastName, String username, String password, String email, Boolean activeStatus, Long position, Long role) {
+    public Person(Long id, String name, String lastName, String username, String password, String email, Boolean activeStatus, Long position, Role role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -76,7 +80,7 @@ public class Person implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     public void setExpired(Boolean expired) {
@@ -111,7 +115,7 @@ public class Person implements UserDetails {
         return position;
     }
 
-    public Long getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -132,7 +136,7 @@ public class Person implements UserDetails {
         this.email = email;
     }
 
-    public void setRole(Long role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

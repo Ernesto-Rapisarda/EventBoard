@@ -3,7 +3,6 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.CommentDao;
 import it.sad.students.eventboard.persistenza.model.Comment;
-import it.sad.students.eventboard.persistenza.model.EventType;
 
 import java.sql.*;
 import java.util.ArrayList;

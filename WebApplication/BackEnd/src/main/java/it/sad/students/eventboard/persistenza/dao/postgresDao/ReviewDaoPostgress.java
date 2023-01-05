@@ -3,7 +3,6 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.dao.ReviewDao;
 import it.sad.students.eventboard.persistenza.model.Review;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

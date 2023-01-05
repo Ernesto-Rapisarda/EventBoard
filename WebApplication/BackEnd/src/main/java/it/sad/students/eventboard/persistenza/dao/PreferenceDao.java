@@ -1,6 +1,5 @@
 package it.sad.students.eventboard.persistenza.dao;
 
-import it.sad.students.eventboard.persistenza.model.Position;
 import it.sad.students.eventboard.persistenza.model.Preference;
 
 import java.util.List;

@@ -2,9 +2,11 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
 import it.sad.students.eventboard.persistenza.dao.PreferenceDao;
 import it.sad.students.eventboard.persistenza.model.Preference;
-import it.sad.students.eventboard.persistenza.model.Review;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
-import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.LikeDao;
-import it.sad.students.eventboard.persistenza.model.Comment;
 import it.sad.students.eventboard.persistenza.model.Like;
 
 import java.sql.*;

@@ -2,7 +2,6 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.ReportTypeDao;
-import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.ReportType;
 
 import java.sql.Connection;

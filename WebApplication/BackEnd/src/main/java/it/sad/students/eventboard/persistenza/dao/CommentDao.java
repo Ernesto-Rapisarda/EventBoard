@@ -1,7 +1,6 @@
 package it.sad.students.eventboard.persistenza.dao;
 
 import it.sad.students.eventboard.persistenza.model.Comment;
-import it.sad.students.eventboard.persistenza.model.Event;
 
 import java.util.List;
 
