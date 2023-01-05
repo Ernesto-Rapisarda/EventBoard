@@ -27,6 +27,7 @@ public class Person implements UserDetails {
     private List<Like> likes;
     private List<Comment> comments;
     private List<Review> reviews;
+    private List<Preference> preferences;
 
     //chiavi esterne
     private Long position;
