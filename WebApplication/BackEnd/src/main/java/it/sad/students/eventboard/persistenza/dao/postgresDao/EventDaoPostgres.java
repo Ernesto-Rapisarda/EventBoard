@@ -52,6 +52,27 @@ public class EventDaoPostgres implements EventDao {
     }
 
     @Override
+    public List<Event> findByType(Long type) {
+        ArrayList<Event> events = new ArrayList<>();
+        String query ="select * from event where event_type=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,type);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Event event = readEvent(rs);
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+
+
+    @Override
     public void saveOrUpdate(Event event) {
         String insertEvent = "INSERT INTO event VALUES (?, ?, ?, ?,?,?,?,?,?)";
         String updateEvent = "UPDATE event set position=?, date=?, event_type = ?, price =?,poster=?,soldout=?, description=?,publisher=? where id = ?";

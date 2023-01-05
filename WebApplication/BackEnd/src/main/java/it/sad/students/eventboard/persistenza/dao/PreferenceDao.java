@@ -7,6 +7,8 @@ import java.util.List;
 public interface PreferenceDao {
     List<Preference> findAll();
 
+    List<Preference> findPreferences(Long person);
+
     Preference findByPrimaryKey(Long person,Long event_type);
 
     void saveOrUpdate(Preference preference);

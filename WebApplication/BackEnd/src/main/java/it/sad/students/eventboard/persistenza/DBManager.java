@@ -2,6 +2,7 @@ package it.sad.students.eventboard.persistenza;
 
 import it.sad.students.eventboard.persistenza.dao.*;
 import it.sad.students.eventboard.persistenza.dao.postgresDao.*;
+import it.sad.students.eventboard.service.EventService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,6 +48,7 @@ public class DBManager {
     public PositionDao getPositionDao() {return new PositionDaoPostgress(getConnection());}
     //public RoleDao getRoleDao() {return new RoleDaoPostgress(getConnection());}
     public EventDao getEventDao (){return new EventDaoPostgres(getConnection());}
+    public PreferenceDao getPreferenceDao(){return new PreferenceDaoPostgress(getConnection());}
     public EventTypeDao getEventTypeDao(){return new EventTypeDaoPostgres(getConnection());}
     public CommentDao getCommentDao(){return new CommentDaoPostgres(getConnection());}
     public ReportDao getReportDao(){return new ReportDaoPostgres(getConnection());}

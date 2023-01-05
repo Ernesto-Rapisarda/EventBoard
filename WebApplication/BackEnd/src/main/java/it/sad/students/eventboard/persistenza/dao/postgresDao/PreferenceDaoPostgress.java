@@ -12,6 +12,7 @@ import java.util.List;
 
 public class PreferenceDaoPostgress implements PreferenceDao {
 
+
     Connection conn;
     public PreferenceDaoPostgress(Connection conn) {
         this.conn = conn;
@@ -23,6 +24,25 @@ public class PreferenceDaoPostgress implements PreferenceDao {
         String query ="select * from preferences";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Preference preference = readPreference(rs);
+                if(preference!=null)
+                    preferences.add(preference);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return preferences;
+    }
+
+    @Override
+    public List<Preference> findPreferences(Long person) {
+        ArrayList<Preference> preferences = new ArrayList<>();
+        String query ="select * from preferences where person=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,person);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Preference preference = readPreference(rs);

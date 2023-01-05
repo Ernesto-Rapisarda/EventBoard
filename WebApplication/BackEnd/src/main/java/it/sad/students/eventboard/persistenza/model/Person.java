@@ -22,7 +22,11 @@ public class Person implements UserDetails {
     private Boolean expired;
     private Boolean locked;
     private Boolean credExpired;
-    public Boolean isEnabled;
+    private Boolean isEnabled;
+
+    private List<Like> likes;
+    private List<Comment> comments;
+    private List<Review> reviews;
 
     //chiavi esterne
     private Long position;

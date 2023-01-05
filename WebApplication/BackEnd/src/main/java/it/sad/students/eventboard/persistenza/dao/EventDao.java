@@ -9,6 +9,8 @@ public interface EventDao {
 
     Event findByPrimaryKey(Long id);
 
+    List<Event> findByType(Long type);
+
     void saveOrUpdate(Event event);
 
     void delete(Event event);
