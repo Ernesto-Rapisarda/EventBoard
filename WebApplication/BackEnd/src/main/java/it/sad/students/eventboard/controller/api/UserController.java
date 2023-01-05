@@ -20,4 +20,6 @@ public class UserController {
     public ResponseEntity<Person> getPerson(@PathVariable String username){
         return ResponseEntity.ok(userService.getPerson(username));
     }
+
+
 }

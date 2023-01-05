@@ -12,45 +12,47 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DemoData {
 
     public DemoData(){
-        /*
-        Position position=createPosition();
+
+        /*Position position=createPosition();
         DBManager.getInstance().getPositionDao().saveOrUpdate(position);
 
+        EventType eventType2= createEventType("porno","easy peasy");
+        DBManager.getInstance().getEventTypeDao().saveOrUpdate(eventType2);
         EventType eventType=createEventType("azione","Nu burdell");
         DBManager.getInstance().getEventTypeDao().saveOrUpdate(eventType);
-        */
+
         //System.out.println(DBManager.getInstance().getPositionDao().findAll().get(0).getId());
 
-        /*
+
         Person person1=createPerson("Andrea","Tocci","YocoPocoMaYoco",
-                "andrea@tcc",true, 4L, Role.ADMIN,"password");
+                "andrea@tcc",true, 1L, Role.ADMIN,"password");
         DBManager.getInstance().getPersonDao().saveOrUpdate(person1);
 
         Person person2=createPerson("Simone","Rotundo","Catanzarese",
-                "simo@tcc",true, 5L, Role.USER,"password");
+                "simo@tcc",true, 2L, Role.USER,"password");
         DBManager.getInstance().getPersonDao().saveOrUpdate(person2);
 
 
         Person person3=createPerson("Alessandro","Monetti","Pingu",
-                "pingu@tcc",true, 4L, Role.PUBLISHER,"password");
+                "pingu@tcc",true, 1L, Role.PUBLISHER,"password");
         DBManager.getInstance().getPersonDao().saveOrUpdate(person3);
 
 
         Person person4=createPerson("Ernesto","Rapisarda","Nocera",
-                "erne@tcc",true, 5L, Role.PUBLISHER,"password");
+                "erne@tcc",true, 2L, Role.PUBLISHER,"password");
         DBManager.getInstance().getPersonDao().saveOrUpdate(person4);
-         */
+*/
 
         LocalDateTime date = LocalDateTime.now();
         date = date.minusSeconds(ThreadLocalRandom.current().nextInt(1, 30326400));
 
 
-        Event event1 =createEvent(4L, LocalDate.from(date), 2L,10.5,
+        Event event1 =createEvent(1L, LocalDate.from(date), 2L,10.5,
                 "nulla piu totale",false, "Evento incredibile",
                 DBManager.getInstance().getPersonDao().findByUsername("Pingu").getId());
         DBManager.getInstance().getEventDao().saveOrUpdate(event1);
 
-        Event event2 =createEvent(5L,LocalDate.from(date), 1L,10.5,
+        Event event2 =createEvent(2L,LocalDate.from(date), 1L,10.5,
                 "easy easy",false, "Evento incredibile",
                 DBManager.getInstance().getPersonDao().findByUsername("Nocera").getId());
         DBManager.getInstance().getEventDao().saveOrUpdate(event2);

@@ -2,6 +2,7 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Event;
+import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Preference;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ public class EventService {
         return DBManager.getInstance().getEventDao().findAll();
     }
 
-    public Iterable<Event> getPreferredEvents(List<Preference> preferences) {
+    public Iterable<Event> getPreferredEvents(List<EventType> eventTypes) {
 
         List<Event> events = new ArrayList<>();
-        for (Preference preference: preferences){
-            events.addAll(DBManager.getInstance().getEventDao().findByType(preference.getEvent_type()));
+        for (EventType eventType: eventTypes){
+            events.addAll(DBManager.getInstance().getEventDao().findByType(eventType.getId()));
         }
 
         return  events;
