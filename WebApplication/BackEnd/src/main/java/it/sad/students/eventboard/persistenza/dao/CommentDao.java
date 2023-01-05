@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CommentDao {
     List<Comment> findAll();
+    List<Comment> findByPerson(Long person);
 
     Comment findByPrimaryKey(Long id);
 

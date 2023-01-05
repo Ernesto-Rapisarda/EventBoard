@@ -4,10 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Person implements UserDetails {
 
@@ -45,6 +42,42 @@ public class Person implements UserDetails {
         this.activeStatus = activeStatus;
         this.position = position;
         this.role = role;
+        likes = new ArrayList<>();
+        comments = new ArrayList<>();
+        reviews = new ArrayList<>();
+        preferences = new ArrayList<>();
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Preference> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(List<Preference> preferences) {
+        this.preferences = preferences;
     }
 
     public Long getId() {

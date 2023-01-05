@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService eventService;
+    private final UserService userService;
 
     @PreAuthorize("hasRole('USER')")
-    @RequestMapping("/user")
-    public ResponseEntity<Person> getHomeWithPreferences(@PathVariable String username){
-        return ResponseEntity.ok(eventService.getPerson(username));
+    @RequestMapping("/api/user/{username}")
+    public ResponseEntity<Person> getPerson(@PathVariable String username){
+        return ResponseEntity.ok(userService.getPerson(username));
     }
 }

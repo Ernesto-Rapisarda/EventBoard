@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ReviewDao {
     List<Review> findAll();
+    List<Review> findByPerson(Long person);
 
     Review findByPrimaryKey(Long person,Long event);
 

@@ -31,6 +31,25 @@ public class ReviewDaoPostgress implements ReviewDao {
     }
 
     @Override
+    public List<Review> findByPerson(Long person) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        String query ="select * from review where person=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,person);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Review review = readReview(rs);
+                if(review!=null)
+                    reviews.add(review);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+    @Override
     public Review findByPrimaryKey(Long person,Long event) {
         String query = "select * from review where person = ? and event=?";
         try {

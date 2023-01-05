@@ -33,6 +33,24 @@ public class CommentDaoPostgres implements CommentDao {
         return eventsComment;
     }
 
+    @Override
+    public List<Comment> findByPerson(Long person) {
+        ArrayList<Comment> eventsComment = new ArrayList<>();
+        String query ="select * from comment where person=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,person);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Comment comment = readEvent(rs);
+                if(comment!=null)
+                    eventsComment.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventsComment;
+    }
 
 
     @Override

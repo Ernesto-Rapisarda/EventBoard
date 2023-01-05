@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface LikeDao {
     List<Like> findAll();
+    List<Like> findByPerson(Long person);
 
     Like findByPrimaryKey(Long person, Long event);
 
