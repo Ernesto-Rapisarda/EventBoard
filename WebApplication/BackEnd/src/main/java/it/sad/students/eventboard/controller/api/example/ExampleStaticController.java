@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.controller.api;
+package it.sad.students.eventboard.controller.api.example;
 
 import org.springframework.stereotype.Controller;
 

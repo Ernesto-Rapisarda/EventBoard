@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.controller.api;
+package it.sad.students.eventboard.controller.api.example;
 
 import it.sad.students.eventboard.persistenza.model.Person;
 import org.springframework.http.HttpStatus;

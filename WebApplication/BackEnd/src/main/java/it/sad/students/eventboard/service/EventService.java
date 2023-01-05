@@ -16,9 +16,8 @@ public class EventService {
         return DBManager.getInstance().getEventDao().findAll();
     }
 
-    public Iterable<Event> getPreferredEvents(String username) {
-        Long id = DBManager.getInstance().getPersonDao().findByUsername(username).getId();
-        List<Preference> preferences= DBManager.getInstance().getPreferenceDao().findPreferences(id);
+    public Iterable<Event> getPreferredEvents(List<Preference> preferences) {
+
         List<Event> events = new ArrayList<>();
         for (Preference preference: preferences){
             events.addAll(DBManager.getInstance().getEventDao().findByType(preference.getEvent_type()));
