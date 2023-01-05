@@ -11,9 +11,7 @@ public class UserService { //utente loggato
 
         Person person= DBManager.getInstance().getPersonDao().findByUsername(username);
 
-        person.setId(null);
         person.setPassword(null);
-
 
         person.setComments(
                 DBManager.getInstance().getCommentDao().findByPerson(person.getId())
