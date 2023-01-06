@@ -26,4 +26,10 @@ public class EventService {
 
         return  events;
     }
+
+    public Boolean createEvent(Event event) {
+
+
+        return DBManager.getInstance().getEventDao().saveOrUpdate(event);
+    }
 }

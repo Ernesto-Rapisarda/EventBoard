@@ -73,9 +73,9 @@ public class EventDaoPostgres implements EventDao {
 
 
     @Override
-    public void saveOrUpdate(Event event) {
-        String insertEvent = "INSERT INTO event VALUES (?, ?, ?, ?,?,?,?,?,?)";
-        String updateEvent = "UPDATE event set position=?, date=?, event_type = ?, price =?,poster=?,soldout=?, description=?,publisher=? where id = ?";
+    public Boolean saveOrUpdate(Event event) {
+        String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?)";
+        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,publisher=? where id = ?";
         PreparedStatement st = null;
 
         try {
@@ -92,23 +92,28 @@ public class EventDaoPostgres implements EventDao {
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getPublisher());
+                st.setString(10,event.getTitle());
+
             }else {
                 st = conn.prepareStatement(updateEvent);
                 st.setLong(1,event.getPosition());
                 st.setDate(2, java.sql.Date.valueOf(event.getDate()));
-                st.setLong(3,event.getEventType());
-                st.setDouble(4,event.getPrice());
-                st.setString(5,event.getUrlPoster());
-                st.setBoolean(6,event.getSoldOut());
-                st.setString(7,event.getDescription());
-                st.setLong(8,event.getPublisher());
-                st.setLong(9,event.getId());
+                st.setString(3,event.getTitle());
+                st.setLong(4,event.getEventType());
+                st.setDouble(5,event.getPrice());
+                st.setString(6,event.getUrlPoster());
+                st.setBoolean(7,event.getSoldOut());
+                st.setString(8,event.getDescription());
+                st.setLong(9,event.getPublisher());
+                st.setLong(10,event.getId());
             }
 
             st.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -131,6 +136,7 @@ public class EventDaoPostgres implements EventDao {
         try{
             Event event = new Event();
             event.setId(rs.getLong("id"));
+            event.setTitle(rs.getString("title"));
             event.setPosition(rs.getLong("position"));
             event.setDate(rs.getDate("date").toLocalDate());
             event.setEventType(rs.getLong("event_type"));

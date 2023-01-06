@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Event {
     private Long id = null;
     private LocalDate date;
+    private String title;
     private Double price;
     private Boolean soldOut;
     private String urlPoster;
@@ -18,9 +19,10 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, LocalDate date, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
+    public Event(Long id, LocalDate date,String title, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
         this.id = id;
         this.date = date;
+        this.title = title;
         this.price = price;
         this.soldOut = available;
         this.urlPoster = urlPoster;
@@ -28,6 +30,14 @@ public class Event {
         this.position = luogo;
         this.publisher = person;
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
