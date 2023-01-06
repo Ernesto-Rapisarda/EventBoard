@@ -1,0 +1,76 @@
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <mat-card-title>Registrati</mat-card-title>
+    <mat-card-subtitle>Benvenuto! Inserisci i tuoi dati</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <!-- username -->
+    <div class="field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="" [formControl]="username" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- email -->
+    <div class="field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-icon matSuffix>{{email.invalid? "sentiment_very_dissatisfied" : "sentiment_very_satisfied"}}</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- password -->
+    <div>
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" required>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- verifica password -->
+    <div>
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Conferma password</mat-label>
+          <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" [formControl]="passwordConfirm" required>
+          <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hidePasswordConfirm">
+            <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </mat-card-content>
+
+
+
+  <mat-card-actions>
+    <button [disabled]="this.getButtonStatus()=='disabled'" mat-raised-button color="primary" class="login-btn">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      Registrati
+    </button>
+  </mat-card-actions>
+
+  <mat-divider></mat-divider>
+
+  <!-- Utente non registrato -->
+  <a class="login-container" href=""><p class="login-txt">Hai già un account? Accedi</p></a> <!-- deve indirizzare alla pagina di login -->
+
+  <!-- Progress bar -->
+  <mat-card-footer>
+    <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

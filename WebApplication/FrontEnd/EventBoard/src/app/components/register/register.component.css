@@ -28,7 +28,7 @@
 }
 
 /* Redirect alla pagina di registrazione */
-.register-container {
+.login-container {
   color: slategray;
   text-align: center;
   margin-top: 20px;
@@ -36,6 +36,6 @@
   font-size: 12px;
 }
 
-.register-txt {
+.login-txt {
   color: slategray;
 }
