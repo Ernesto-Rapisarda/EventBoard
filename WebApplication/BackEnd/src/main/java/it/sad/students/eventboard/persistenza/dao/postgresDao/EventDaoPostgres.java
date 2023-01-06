@@ -3,6 +3,7 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
+import it.sad.students.eventboard.persistenza.model.Preference;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -119,14 +120,30 @@ public class EventDaoPostgres implements EventDao {
 
     @Override
     public void delete(Event event) {
-        String query = "DELETE FROM event WHERE id = ?";
+        String eventQuery = "DELETE FROM event WHERE id = ?";
+        String commentQuery ="DELETE FROM comment where event=?";
         try {
-            // TODO: 30/12/2022 rimozione a cascata 
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, event.getId());
-            st.executeUpdate();
+            conn.setAutoCommit(false);
+            PreparedStatement deleteEvent = conn.prepareStatement(eventQuery);
+            PreparedStatement deleteComment = conn.prepareStatement(commentQuery);
+
+            deleteEvent.setLong(1, event.getId());
+            deleteEvent.executeUpdate();
+
+            deleteComment.setLong(1,event.getId());
+            deleteComment.executeUpdate();
+            conn.commit();
+            conn.setAutoCommit(true);
+
         } catch (SQLException e) {
             e.printStackTrace();
+            if (conn != null){
+                try{
+                    conn.rollback();
+                }catch (SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
         }
 
     }
