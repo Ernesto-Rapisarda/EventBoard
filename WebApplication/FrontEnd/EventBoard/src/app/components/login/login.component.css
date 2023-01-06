@@ -1,0 +1,41 @@
+/* Container principale */
+.card {
+  display:flex;
+  max-width: 350px;
+  padding: 40px 40px;
+  margin: 40px auto;
+}
+
+/* Card header */
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* Inserimento Email e Password */
+.field-container {
+  margin-left: -6px;
+  width: auto;
+}
+
+/* Pulsante per effettuare il login */
+.login-btn {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Redirect alla pagina di registrazione */
+.register-container {
+  color: slategray;
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 12px;
+}
+
+.register-txt {
+  color: slategray;
+}

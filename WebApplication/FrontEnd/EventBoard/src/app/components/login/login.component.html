@@ -1,1 +1,58 @@
-<p>login works!</p>
+<mat-card class="card">
+
+  <!-- Card Header -->
+  <mat-card-header class="card-header">
+    <mat-card-title>Accedi</mat-card-title>
+    <mat-card-subtitle>Bentornato! Effettua l'accesso.</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- Card Body -->
+  <mat-card-content>
+    <div>
+
+      <!-- Username -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="" [formControl]="username" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" required>
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login button -->
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button [disabled]="this.getButtonStatus()=='disabled'" mat-raised-button color="primary" class="login-btn">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      Login
+    </button>
+  </mat-card-actions>
+
+  <mat-divider></mat-divider>
+
+  <!-- Utente non registrato -->
+  <a class="register-container" href=""><p class="register-txt">Non hai un account? Iscriviti</p></a> <!-- deve indirizzare alla pagina di registrazione -->
+
+
+  <!-- Progress bar -->
+  <mat-card-footer>
+    <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

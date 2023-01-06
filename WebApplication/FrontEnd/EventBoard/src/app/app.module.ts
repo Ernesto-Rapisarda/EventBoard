@@ -11,8 +11,16 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchComponent } from './components/search/search.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { RegisterComponent } from './components/register/register.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from "@angular/material/list";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -25,12 +33,20 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
     LoginComponent,
     NotFoundComponent,
     SearchComponent,
-    SignUpComponent,
     TopBarComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
