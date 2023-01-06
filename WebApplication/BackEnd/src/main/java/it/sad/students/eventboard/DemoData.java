@@ -19,14 +19,14 @@ public class DemoData {
         DBManager.getInstance().getPositionDao().saveOrUpdate(position);
         */
 
-        /*
-                    EVENT_TYPE
+
+        /*         //   EVENT_TYPE
         EventType eventType2= createEventType("porno","easy peasy");
         DBManager.getInstance().getEventTypeDao().saveOrUpdate(eventType2);
         EventType eventType=createEventType("azione","Nu burdell");
         DBManager.getInstance().getEventTypeDao().saveOrUpdate(eventType);
-        */
 
+*/
 
         //System.out.println(DBManager.getInstance().getPositionDao().findAll().get(0).getId());
 
@@ -51,8 +51,8 @@ public class DemoData {
 
 
 
-        /*
-                    EVENT
+
+  /*                 // EVENT
         Event event1 =createEvent(1L, LocalDate.from(dateTime()), 2L,10.5,
                 "nulla piu totale",false, "Evento incredibile",
                 DBManager.getInstance().getPersonDao().findByUsername("Pingu").getId());
@@ -62,21 +62,21 @@ public class DemoData {
                 "easy easy",false, "Evento incredibile",
                 DBManager.getInstance().getPersonDao().findByUsername("Nocera").getId());
         DBManager.getInstance().getEventDao().saveOrUpdate(event2);
-        */
+*/
 
 
-        /*
-                    LIKE
-        Like like1=createLike(24L,4L,LocalDate.from(dateTime()));
+/*
+                  // LIKE
+        Like like1=createLike(28L,5L,LocalDate.from(dateTime()));
         DBManager.getInstance().getLikeDao().saveOrUpdate(like1);
-        Like like2=createLike(24L,3L,LocalDate.from(dateTime()));
+        Like like2=createLike(28L,6L,LocalDate.from(dateTime()));
         DBManager.getInstance().getLikeDao().saveOrUpdate(like2);
-        Like like3=createLike(18L,4L,LocalDate.from(dateTime()));
+        Like like3=createLike(29L,5L,LocalDate.from(dateTime()));
         DBManager.getInstance().getLikeDao().saveOrUpdate(like3);
-        Like like4=createLike(17L,3L,LocalDate.from(dateTime()));
+        Like like4=createLike(32L,7L,LocalDate.from(dateTime()));
         DBManager.getInstance().getLikeDao().saveOrUpdate(like4);
-        */
 
+*/
 
 
 
