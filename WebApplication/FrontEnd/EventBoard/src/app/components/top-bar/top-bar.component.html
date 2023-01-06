@@ -1,1 +1,12 @@
-<p>top-bar works!</p>
+<mat-toolbar>
+  <!--<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>-->
+  <span>EventBoard</span>
+  <span class="spacer"></span>
+  <div class="toolbar-buttons">
+    <button mat-raised-button class="navbar-button" routerLink="/crea-evento">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->
+    <button mat-raised-button class="navbar-button" routerLink="/login">ACCEDI</button>
+    <button mat-raised-button class="navbar-button" routerLink="/register">ISCRIVITI</button>
+  </div>
+</mat-toolbar>

@@ -21,6 +21,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatRadioModule} from "@angular/material/radio";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import {MatButtonModule} from "@angular/material/button";
     MatIconModule,
     MatListModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatRadioModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

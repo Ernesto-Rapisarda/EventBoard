@@ -1,0 +1,20 @@
+* {
+  primaryBackgroundColor: #1C1B1F;
+  secondaryBackgroundColor: #49454F;
+  transparentBackgroundColor: transparent;
+  iconOverBackgroundColor: #E6E1E5;
+  primarySelectionColor: #D0BCFF;
+  secondarySelectionColor: #CCC2DC;
+  tertiarySelectionColor: #7D5260;
+  imagesColor: #E6E1E5;
+  textColor: #E6E1E5;
+  sliderTrackColor: #E6E1E5;
+  alternateTextColor: #B0B0B0;
+  headersTextColor: #E6E1E5;
+  dropShadowColor: #49454F;
+  selectedTextColor: #121212;
+  lineColor: #b3b3b3;
+  separatorColor: #7b90b0;
+  settingsIconHoverColor: #121212;
+  errorColor: #E2010a;
+}
