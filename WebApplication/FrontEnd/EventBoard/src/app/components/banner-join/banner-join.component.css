@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  text-align: center;
+  color: white;
+}
+.background-img {
+  scale: 1;
+  width: auto;
+  height: 35vh;
+  object-fit: cover;
+}
+
+.centered {
+  position: relative;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+
+.cta-elements {
+  margin: 5px;
+  position: center;
+}
+
+.cta-text {
+  font-size: 2.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 35px;
+  text-align: right;
+}
+.cta-btn {
+  width: 100%;
+}

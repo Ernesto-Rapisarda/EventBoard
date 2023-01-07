@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user.model";
 import {Route, Router} from "@angular/router";
 
@@ -8,9 +8,9 @@ import {Route, Router} from "@angular/router";
 })
 export class AuthService {
 
-  url: string = "localhost:8080"
+  url: string = "http://localhost:8080"
   isLoggedIn = false
-  user: User
+  user!: User
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -24,20 +24,33 @@ export class AuthService {
     return this.http.post(this.url, {email: email, username: username, password: password, type: type})
   }
 
-  signIn(username: string, password: string){
-    console.log(`username sign: ${username}`)
-    console.log(`password sign: ${password}`)
+  signIn(username: string, password: string) {
     return this.http.post(this.url+"/api/noauth/authenticate", {username: username, password: password})
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     return this.isLoggedIn
   }
 
-  logout(){
+  logout() {
     this.isLoggedIn = false
-    this.user = null
+    /*this.user = null*/
     localStorage.removeItem('')
     this.router.navigate(['/login'])
+  }
+
+  getData(token: string, username: string) {
+    console.log(`Authorization: Bearer ${token}`)
+    const httpHeader = new HttpHeaders()
+    httpHeader.set('Authorization', `Bearer ${token}`)
+
+    return this.http.post(this.url+`/api/user/${username}`, {},{headers: httpHeader})
+  }
+
+  prova(token: string) {
+    const httpHeader = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    })
+    return this.http.post(this.url+`/api/demo-controller`, {},{headers: httpHeader})
   }
 }

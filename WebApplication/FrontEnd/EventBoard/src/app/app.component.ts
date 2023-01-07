@@ -13,9 +13,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('user')){
-      const user = JSON.parse(localStorage.getItem('user'))
-      this.authService.createUser(user.email, user.username, user.name, user.lastName, user.role, user.id, user._token)
+    if(localStorage.getItem('token')){
+      // TODO: Sistemare login automatico, fare richiesta con il token per i dati dell'utente
+
+      /*const user = JSON.parse(<string>localStorage.getItem('user'))
+      this.authService.createUser(user.email, user.username, user.name, user.lastName, user.role, user.id, user._token)*/
     }
   }
 }

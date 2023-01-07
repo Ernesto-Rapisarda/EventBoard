@@ -24,6 +24,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {AuthService} from "./auth/auth.service";
+import { BannerJoinComponent } from './components/banner-join/banner-join.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     SearchComponent,
     TopBarComponent,
     RegisterComponent,
+    BannerJoinComponent,
   ],
   imports: [
     BrowserModule,
