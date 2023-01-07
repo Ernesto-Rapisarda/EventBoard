@@ -20,7 +20,6 @@ public class UserController {
         private final UserService userService;
     private final InteractionService interactionService;
 
-    @PreAuthorize("hasRole('USER')")
     @RequestMapping("/api/user/{username}")
     public ResponseEntity<Person> getPerson(@PathVariable String username){
         return ResponseEntity.ok(userService.getPerson(username));
