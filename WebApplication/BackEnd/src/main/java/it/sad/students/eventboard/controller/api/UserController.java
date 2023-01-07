@@ -25,26 +25,24 @@ public class UserController {
     // TODO: 06/01/2023 Rivisionare path scritti
 
     @PostMapping("/api/like")
-    public ResponseEntity<Boolean> setLike(@RequestBody RequestPersonEvent pe/*Long person, Long event*/){
+    public ResponseEntity setLike(@RequestBody RequestPersonEvent pe/*Long person, Long event*/){
         System.out.println(pe.getPerson());
         if(interactionService.setLike(pe.getPerson(),pe.getEvent()))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+            return ResponseEntity.ok("");
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/api/partecipation")
-    public ResponseEntity<Boolean> setPartecipation(@RequestBody RequestPersonEvent pe){
+    public ResponseEntity setPartecipation(@RequestBody RequestPersonEvent pe){
         if(interactionService.setPartecipation(pe.getPerson(), pe.getEvent()))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+            return ResponseEntity.ok("");
+        return ResponseEntity.notFound().build();
     }
 
 
     @PostMapping("/api/comment/add")
-    public ResponseEntity<Boolean> addComment(@RequestBody Comment comment){
-        if(interactionService.addComment(comment))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+    public ResponseEntity addComment(@RequestBody Comment comment,@RequestHeader (name="Authorization") String token){
+       return interactionService.addComment(comment,token);
     }
 
     @PostMapping("api/review/add")

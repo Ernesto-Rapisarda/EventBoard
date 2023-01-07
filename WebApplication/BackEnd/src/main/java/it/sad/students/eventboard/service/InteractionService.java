@@ -2,9 +2,11 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
+import it.sad.students.eventboard.security.auth.AuthorizationControll;
 import it.sad.students.eventboard.security.config.JwtService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.sound.midi.Soundbank;
@@ -16,8 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 public class InteractionService {
 
-    private final JwtService jwtService;
-
+    //private final JwtService jwtService;
+    private final AuthorizationControll authorizationControll;
 
     // TODO: 06/01/2023 Settare eventuali error, Exception è generale??
 
@@ -50,13 +52,18 @@ public class InteractionService {
         }
     }
 
-    public Boolean addComment(Comment comment){
+    public ResponseEntity addComment(Comment comment, String token){
         try{
+            /*
+            if(!authorizationControll.checkOwnerAuthorization(comment.getPerson(),token))
+                return ResponseEntity.badRequest().body("Error not authorize");
+
             comment.setDate(LocalDate.from(date()));
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
-            return true;
+            */
+             return ResponseEntity.ok().body("ok");
         }catch (Exception e){
-            return false;
+            return ResponseEntity.ok().body("ok");
         }
     }
 
@@ -84,7 +91,7 @@ public class InteractionService {
         try {
             Comment comment=DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
 
-            if(!checkUserAndAdmin(comment.getPerson(), token))
+            if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
                 return false;
 
             //si potrebbe gestire come scritto sopra nel secondo metodo
@@ -102,7 +109,7 @@ public class InteractionService {
 
     public Boolean deleteReview(Long person,Long event,String token){
         try {
-            if(!checkUserAndAdmin(person,token))
+            if(!authorizationControll.checkOwnerOrAdminAuthorization(person, token))
                 return false;
 
             //si potrebbe gestire come scritto sopra nel secondo metodo addReview
@@ -132,6 +139,7 @@ public class InteractionService {
 
     // TODO: 06/01/2023 IL comando extractUsername da errore "  Illegal base64url character: ' '    "
     //  (se metti il e.printStackTrace() nel metodo che richiama questo metodo lo noti)
+    /*
     public boolean checkUserAndAdmin(Long id,String token){
         System.out.println(token);
         String jwt = token.substring(7);
@@ -153,5 +161,6 @@ public class InteractionService {
         if(person==null) return false;
         return person.getId().equals(id);
     }
+    */
 
 }
