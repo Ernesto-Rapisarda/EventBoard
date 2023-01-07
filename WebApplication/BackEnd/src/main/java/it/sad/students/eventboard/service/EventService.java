@@ -39,6 +39,10 @@ public class EventService {
     }
 
     public ResponseEntity deleteEvent (Long id, String token){
+        //utente non autorizzato 403
+        //organizer non proprietario dell'evento 400
+        //evento non trovato 404 not found
+        //rimozione effettuata codice 200 ok
 
         Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
         if (event==null)

@@ -23,12 +23,14 @@ public class HomeController {
     private final AuthenticationService service;
     private final EventService eventService;
 
+    //get
     @RequestMapping ("/api/noauth/home")
     public Iterable<Event> getHome(){
         return eventService.getAllEvents();
     }
     // TODO: 05/01/2023 carichiamo tutti?senza limiti? 
 
+    //post
     @RequestMapping("/api/noauth/homefiltered")
     public ResponseEntity<Iterable<Event>> getHomeWithPreferences(@RequestBody List<EventType> eventTypes){
         return ResponseEntity.ok(eventService.getPreferredEvents(eventTypes));
