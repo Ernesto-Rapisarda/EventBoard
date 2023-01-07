@@ -11,10 +11,7 @@ public class EventBoardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EventBoardApplication.class, args);
 
-		Event event=new Event();
-		event.setId(5L);
 
-		DBManager.getInstance().getEventDao().delete(event);
 		//DemoData demoData=new DemoData();
 
 	}
