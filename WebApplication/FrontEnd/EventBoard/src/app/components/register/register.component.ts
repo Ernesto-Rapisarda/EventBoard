@@ -1,42 +1,48 @@
-import { Component } from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   constructor() {
-    this.username.valueChanges.subscribe(() => {
-      this.usernameChanged();
-    });
-    this.email.valueChanges.subscribe(() => {
-      this.emailChanged();
-    });
-    this.password.valueChanges.subscribe(() => {
-      this.passwordChanged();
-    });
-    this.passwordConfirm.valueChanges.subscribe(() => {
-      this.passwordConfirmChanged();
-    });
-    this.radioType.valueChanges.subscribe(() => {
-      this.radioChanged();
-    });
+
   }
 
-  username = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
-  passwordConfirm = new FormControl('', [Validators.required]);
-  radioType = new FormControl('', [Validators.required])
+  // TODO: Lasciare un po' di avvisi per password troppo corte, verifica password errata, ecc...
 
+  registerForm!: FormGroup
+
+  ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      username: new FormControl('', [Validators.required, Validators.maxLength(16)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, /*Validators.minLength(8)*/]),
+      passwordConfirm: new FormControl('', [Validators.required]),
+      radioType: new FormControl('', [Validators.required])
+    },{ validators: this.checkPasswords })
+
+  }
+
+  onSubmit() {
+    console.log(this.registerForm)
+  }
 
   /** UI elements **/
-  /* password */
+  //password
   hidePassword = true;
   hidePasswordConfirm = true;
 
+  // Custom validator for password confirm
+  checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {
+    let pass = group.get('password').value;
+    let confirmPass = group.get('passwordConfirm').value
+    return pass === confirmPass ? null : { notSame: true }
+  }
+
+  /*
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
@@ -128,5 +134,7 @@ export class RegisterComponent {
       this.radioAlreadyTriggered = true;
       this.updateProgressBar('add');
     }
-  }
+  }*/
+
+
 }

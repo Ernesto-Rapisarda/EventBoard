@@ -1,0 +1,30 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Il mio profilo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <p class="profile-card-paragraph">
+        <span class="profile-card-text">Username:</span>
+        <span class="profile-card-value">{{this.authService.user.username}}</span>
+      </p>
+      <p class="profile-card-paragraph">
+        <span class="profile-card-text">Nome:</span>
+        <span class="profile-card-value">{{this.authService.user.name}}</span>
+      </p>
+      <p class="profile-card-paragraph">
+        <span class="profile-card-text">Cognome:</span>
+        <span class="profile-card-value">{{this.authService.user.lastName}}</span>
+      </p>
+      <p class="profile-card-paragraph">
+        <span class="profile-card-text">E-mail:</span>
+        <span class="profile-card-value">{{this.authService.user.email}}</span>
+      </p>
+      <p class="profile-card-paragraph">
+        <span class="profile-card-text">Ruolo:</span>
+        <span class="profile-card-value">{{this.authService.user.role}}</span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

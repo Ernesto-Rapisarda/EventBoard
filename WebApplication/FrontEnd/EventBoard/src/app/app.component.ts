@@ -13,11 +13,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //TODO: Funziona, però va gestita la scadenza del token
     if(localStorage.getItem('token')){
-      // TODO: Sistemare login automatico, fare richiesta con il token per i dati dell'utente
-
-      /*const user = JSON.parse(<string>localStorage.getItem('user'))
-      this.authService.createUser(user.email, user.username, user.name, user.lastName, user.role, user.id, user._token)*/
+      if(localStorage.getItem('username')){
+        this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe((userData: any) => {
+          this.authService.createUser(userData.email, userData.username, userData.name, userData.lastName, userData.role, userData.id, JSON.parse(localStorage.getItem('token')))
+          this.authService.isLoggedIn = true;
+          console.log(this.authService.user)
+        })
+      }
     }
   }
 }

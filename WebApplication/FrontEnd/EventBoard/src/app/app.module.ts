@@ -26,6 +26,8 @@ import {MatRadioModule} from "@angular/material/radio";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./auth/auth.service";
 import { BannerJoinComponent } from './components/banner-join/banner-join.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { BannerJoinComponent } from './components/banner-join/banner-join.compon
     TopBarComponent,
     RegisterComponent,
     BannerJoinComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { BannerJoinComponent } from './components/banner-join/banner-join.compon
     MatButtonModule,
     MatToolbarModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

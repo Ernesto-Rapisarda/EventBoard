@@ -34,23 +34,17 @@ export class AuthService {
 
   logout() {
     this.isLoggedIn = false
-    /*this.user = null*/
-    localStorage.removeItem('')
+    this.user = null
+    localStorage.removeItem('token')
+    localStorage.removeItem('username')
     this.router.navigate(['/login'])
   }
 
-  getData(token: string, username: string) {
-    console.log(`Authorization: Bearer ${token}`)
-    const httpHeader = new HttpHeaders()
-    httpHeader.set('Authorization', `Bearer ${token}`)
-
-    return this.http.post(this.url+`/api/user/${username}`, {},{headers: httpHeader})
-  }
-
-  prova(token: string) {
-    const httpHeader = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+  getData(username: string) {
+    const httpHeaders = new HttpHeaders({
+      "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
     })
-    return this.http.post(this.url+`/api/demo-controller`, {},{headers: httpHeader})
+
+    return this.http.post(this.url + `/api/user/${username}`, {}, {headers: httpHeaders})
   }
 }

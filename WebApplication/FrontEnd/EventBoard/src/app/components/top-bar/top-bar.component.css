@@ -3,6 +3,16 @@
 }
 
 .navbar-button {
-  margin: 8px 8px 8px 0;
+  margin: 10px;
+}
+
+.toolbar-buttons {
+  display: block;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }
 

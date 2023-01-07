@@ -2,11 +2,24 @@
   <!--<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>-->
-  <span>EventBoard</span>
+  <a routerLink=""><span>EventBoard</span></a>
   <span class="spacer"></span>
   <div class="toolbar-buttons">
-    <button mat-raised-button class="navbar-button" routerLink="/crea-evento">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->
-    <button mat-raised-button class="navbar-button" routerLink="/login">ACCEDI</button>
-    <button mat-raised-button class="navbar-button" routerLink="/register">ISCRIVITI</button>
+    <button mat-raised-button class="navbar-button" routerLink="/create-event">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->
+    <button mat-raised-button class="navbar-button" *ngIf="!authService.isLoggedIn" routerLink="/login">ACCEDI</button>
+    <button mat-raised-button class="navbar-button" *ngIf="!authService.isLoggedIn" routerLink="/register">ISCRIVITI</button>
   </div>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu profilo" *ngIf="authService.isLoggedIn">
+    <mat-icon>perm_identity</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>face</mat-icon>
+      <span>Il mio profilo</span>
+    </button>
+    <button mat-menu-item (click)="authService.logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

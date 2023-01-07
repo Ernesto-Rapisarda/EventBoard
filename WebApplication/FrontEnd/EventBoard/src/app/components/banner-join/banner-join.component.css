@@ -1,34 +1,29 @@
-.container {
-  display: flex;
-  text-align: center;
-  color: white;
-}
-.background-img {
-  scale: 1;
-  width: auto;
-  height: 35vh;
-  object-fit: cover;
+.bg-image {
+  background-image: url('https://wallpapercave.com/wp/wp6438678.jpg');
+  background-size: cover;
+  vertical-align: center;
+  height: 35%;
+  width: 100%;
+  position: relative;
 }
 
-.centered {
-  position: relative;
+.bg-text {
+  position: absolute;
+  top: 50%;
   left: 70%;
   transform: translate(-50%, -50%);
-}
-
-.cta-elements {
-  margin: 5px;
-  position: center;
-}
-
-.cta-text {
-  font-size: 2.8em;
-  font-weight: 700;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  line-height: 35px;
-  text-align: right;
+  color: white;
 }
-.cta-btn {
-  width: 100%;
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  font-size: 18px;
 }
