@@ -20,12 +20,16 @@ export class RegisterComponent {
     this.passwordConfirm.valueChanges.subscribe(() => {
       this.passwordConfirmChanged();
     });
+    this.radioType.valueChanges.subscribe(() => {
+      this.radioChanged();
+    });
   }
 
   username = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
   passwordConfirm = new FormControl('', [Validators.required]);
+  radioType = new FormControl('', [Validators.required])
 
 
   /** UI elements **/
@@ -53,15 +57,16 @@ export class RegisterComponent {
   emailAlreadyTriggered = false;
   passwordAlreadyTriggered = false;
   passwordConfirmAlreadyTriggered = false;
+  radioAlreadyTriggered = false;
   private updateProgressBar(option: string) {
     switch (option) {
 
       case 'add':
-        this.progressBarStatus += 25;
+        this.progressBarStatus += 20;
         break;
 
       case 'remove':
-        this.progressBarStatus -= 25;
+        this.progressBarStatus -= 20;
         break;
 
       default:
@@ -115,6 +120,13 @@ export class RegisterComponent {
         this.passwordConfirmAlreadyTriggered = false;
         this.updateProgressBar('remove');
       }
+    }
+  }
+
+  radioChanged() {
+    if(!this.radioAlreadyTriggered) {
+      this.radioAlreadyTriggered = true;
+      this.updateProgressBar('add');
     }
   }
 }

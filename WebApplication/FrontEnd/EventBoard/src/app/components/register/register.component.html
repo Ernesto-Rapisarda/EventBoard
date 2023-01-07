@@ -53,6 +53,14 @@
       </div>
     </div>
 
+    <!-- scelta tipo di account -->
+    <div class="radio-container">
+      <mat-radio-group aria-label="Select an account type" required>
+        <mat-radio-button value="user" class="radio-button" (click)="radioChanged()">Utente</mat-radio-button>
+        <mat-radio-button value="organizer" class="radio-button" (click)="radioChanged()">Organizzatore</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
   </mat-card-content>
 
 
@@ -67,7 +75,7 @@
   <mat-divider></mat-divider>
 
   <!-- Utente non registrato -->
-  <a class="login-container" href=""><p class="login-txt">Hai già un account? Accedi</p></a> <!-- deve indirizzare alla pagina di login -->
+  <a class="login-container" routerLink="/login"><p class="login-txt">Hai già un account? Accedi</p></a>
 
   <!-- Progress bar -->
   <mat-card-footer>

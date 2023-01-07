@@ -1,26 +1,37 @@
-import { Component } from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup
+  authService: AuthService
   constructor() {
     /* quando i campi username e password vengono modificati, viene invocata una funzione che aggiorna la progress bar */
-    this.username.valueChanges.subscribe(() => {
+    /*this.loginForm.value.username.valueChanges.subscribe(() => {
       this.usernameChanged();
     });
     this.password.valueChanges.subscribe(() => {
       this.passwordChanged();
+    });*/
+  }
+
+
+
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     });
   }
 
 
   /** User information **/
-  username = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
+
 
 
   /** UI elements **/
@@ -31,7 +42,7 @@ export class LoginComponent {
   progressBarStatus = 0;
   usernameAlreadyTriggered = false;
   passwordAlreadyTriggered = false;
-  private updateProgressBar(option: string) {
+  /*private updateProgressBar(option: string) {
     switch (option) {
 
       case 'add':
@@ -77,5 +88,31 @@ export class LoginComponent {
       return 'enabled';
     }
     return 'disabled';
+  }
+*/
+
+  onSubmit() {
+    const username = this.loginForm.value.username
+    const password = this.loginForm.value.password
+
+    console.log("username: " + username)
+    console.log("password: " + password)
+
+
+    this.authService.signIn(username, password).subscribe((data: any) => {
+      /*console.log("username: " + data.username)
+      console.log("name: " + data.name)
+      console.log("lastName: " + data.lastName)
+      console.log("role: " + data.role)
+      console.log("id: " + data.id)
+      console.log("token: " + data.token)*/
+      this.authService.createUser(data.email, data.username, data.name, data.lastName, data.role, data.id, data.token)
+
+      // sets local storage variable for automatic logins
+      localStorage.setItem('user', JSON.stringify(this.authService.user))
+      //console.log("loggato")
+    })
+
+
   }
 }

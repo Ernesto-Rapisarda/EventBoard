@@ -8,51 +8,52 @@
 
   <!-- Card Body -->
   <mat-card-content>
-    <div>
-
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <!-- Username -->
       <div class="field-container">
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
-          <input matInput placeholder="" [formControl]="username" required>
+          <input matInput placeholder="" formControlName="username" required>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
 
       <!-- Password -->
-      <div>
+
         <div class="field-container">
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" required>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hidePassword">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
         </div>
-      </div>
-    </div>
 
-    <!-- Login button -->
+
+      <!-- Login button -->
+
+
+      <mat-card-actions>
+      <button [disabled]="!loginForm.valid" mat-raised-button color="primary" class="login-btn" type="submit">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        Login
+      </button>
+      </mat-card-actions>
+    </form>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button [disabled]="this.getButtonStatus()=='disabled'" mat-raised-button color="primary" class="login-btn">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-      Login
-    </button>
-  </mat-card-actions>
 
   <mat-divider></mat-divider>
 
   <!-- Utente non registrato -->
-  <a class="register-container" href=""><p class="register-txt">Non hai un account? Iscriviti</p></a> <!-- deve indirizzare alla pagina di registrazione -->
+  <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
 
 
-  <!-- Progress bar -->
-  <mat-card-footer>
+  <!-- Progress bar (DA FIXARE - Se vogliamo tenerla) -->
+  <!--<mat-card-footer>
     <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
-  </mat-card-footer>
+  </mat-card-footer>-->
 
 </mat-card>
