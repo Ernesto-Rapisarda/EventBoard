@@ -46,29 +46,22 @@ public class UserController {
     }
 
     @PostMapping("api/review/add")
-    public ResponseEntity<Boolean> addReviews(@RequestBody Review review){
-        if(interactionService.addReview(review))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+    public ResponseEntity addReviews(@RequestBody Review review,@RequestHeader (name="Authorization") String token){
+        return interactionService.addReview(review,token);
     }
 
 
     // TODO: 06/01/2023 Eliminare commenti e review tramite i vari id
 
     @RequestMapping(value = "api/comment/delete/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> removeComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity removeComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
+        return interactionService.deleteComment(id,token);
 
-        if(interactionService.deleteComment(id,token))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
     }
 
     @RequestMapping(value = "api/review/delete",method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> removeReviews(@RequestBody RequestPersonEvent pe,@RequestHeader (name="Authorization") String token){
-
-        if(interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token))
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+    public ResponseEntity removeReviews(@RequestBody RequestPersonEvent pe,@RequestHeader (name="Authorization") String token){
+        return interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token);
     }
 
 

@@ -18,8 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 public class InteractionService {
 
-    //private final JwtService jwtService;
     private final AuthorizationControll authorizationControll;
+    private final StatusCodes statusCodes;
 
     // TODO: 06/01/2023 Settare eventuali error, Exception è generale??
 
@@ -54,28 +54,31 @@ public class InteractionService {
 
     public ResponseEntity addComment(Comment comment, String token){
         try{
-            /*
+
             if(!authorizationControll.checkOwnerAuthorization(comment.getPerson(),token))
-                return ResponseEntity.badRequest().body("Error not authorize");
+                return statusCodes.unauthorized();
 
             comment.setDate(LocalDate.from(date()));
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
-            */
-             return ResponseEntity.ok().body("ok");
+
+             return statusCodes.ok();
         }catch (Exception e){
-            return ResponseEntity.ok().body("ok");
+            return statusCodes.notFound();
         }
     }
 
-    public Boolean addReview(Review review){
+    public ResponseEntity addReview(Review review,String token){
         try {
             //      PRIMO METODO
+            if(!authorizationControll.checkOwnerAuthorization(review.getPerson(),token))
+                return statusCodes.unauthorized();
+
             if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent())==null){
                 review.setDate(LocalDate.from(date()));
                 DBManager.getInstance().getReviewDao().saveOrUpdate(review);
-                return true;
+                return statusCodes.ok();
             }
-            return false;
+            return statusCodes.notFound();
 
             /*
             //      SECONDO METODO: si puo gestire nel try cath del daoReview, se è gia esistente invia una eccezione
@@ -83,47 +86,47 @@ public class InteractionService {
             return true;
             */
         }catch (Exception e){
-            return false;
+            return statusCodes.notFound();
         }
     }
 
-    public Boolean deleteComment(Long id,String token){
+    public ResponseEntity deleteComment(Long id,String token){
         try {
             Comment comment=DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
 
             if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
-                return false;
+                return statusCodes.unauthorized();
 
             //si potrebbe gestire come scritto sopra nel secondo metodo
             if(comment==null)
-                return false;
+                return statusCodes.notFound();
 
             DBManager.getInstance().getCommentDao().delete(comment);
             // TODO: 06/01/2023 valutare eliminazione solo con chiave e non passando tutto il commento
-            return true;
+            return statusCodes.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return  false;
+            return  statusCodes.notFound();
         }
     }
 
-    public Boolean deleteReview(Long person,Long event,String token){
+    public ResponseEntity deleteReview(Long person,Long event,String token){
         try {
             if(!authorizationControll.checkOwnerOrAdminAuthorization(person, token))
-                return false;
+                return statusCodes.unauthorized();
 
             //si potrebbe gestire come scritto sopra nel secondo metodo addReview
             Review review=DBManager.getInstance().getReviewDao().findByPrimaryKey(person, event);
 
             if(review==null)
-                return false;
+                return statusCodes.notFound();
             DBManager.getInstance().getReviewDao().delete(review);
             // TODO: 06/01/2023 valutare eliminazione solo con chiavi e non passando tutta la review
-            return true;
+            return statusCodes.ok();
 
         }catch (Exception e){
             //e.printStackTrace();
-            return  false;
+            return statusCodes.notFound();
         }
     }
 
