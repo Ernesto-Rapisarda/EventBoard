@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +34,22 @@ public class EventService {
         return  events;
     }
 
-    public Boolean createEvent(Event event) {
+    public ResponseEntity<ResponseEventCreation> createEvent(Event event,String token) {
+        if (event==null)
+            return ResponseEntity.notFound().build();
+
+        event.setDate(LocalDate.from(LocalDateTime.now()));
 
 
-        return DBManager.getInstance().getEventDao().saveOrUpdate(event);
+        if(authorizationControll.checkOwnerAuthorization(event.getOrganizer(),token) && DBManager.getInstance().getEventDao().saveOrUpdate(event))
+            return ResponseEntity.ok(ResponseEventCreation.builder().id(event.getId()).build()) ;
+        else
+            return ResponseEntity.badRequest().build();
+
     }
 
     public ResponseEntity deleteEvent (Long id, String token){
+
 
         Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
         if (event==null)

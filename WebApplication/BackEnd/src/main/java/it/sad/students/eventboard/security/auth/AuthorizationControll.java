@@ -18,4 +18,13 @@ public class AuthorizationControll {
         if(person==null) return false;
         return (person.getId().equals(id) || person.getRole().toString().equals("ADMIN"));
     }
+
+    //id della persona
+    public boolean checkOwnerAuthorization(Long id,String token){
+        String jwt = token.substring(7);
+        Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
+        if(person==null) return false;
+        return person.getId().equals(id);
+    }
+
 }
