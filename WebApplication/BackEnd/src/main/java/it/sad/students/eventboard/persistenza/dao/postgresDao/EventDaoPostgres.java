@@ -4,7 +4,6 @@ import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
-import it.sad.students.eventboard.persistenza.model.Preference;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -93,7 +92,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setString(6,event.getUrlPoster());
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
-                st.setLong(9,event.getPublisher());
+                st.setLong(9,event.getOrganizer());
                 st.setString(10,event.getTitle());
 
             }else {
@@ -106,7 +105,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setString(6,event.getUrlPoster());
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
-                st.setLong(9,event.getPublisher());
+                st.setLong(9,event.getOrganizer());
                 st.setLong(10,event.getId());
             }
 
@@ -164,7 +163,7 @@ public class EventDaoPostgres implements EventDao {
             event.setUrlPoster(rs.getString("poster"));
             event.setSoldOut(rs.getBoolean("soldout"));
             event.setDescription(rs.getString("description"));
-            event.setPublisher(rs.getLong("publisher"));
+            event.setOrganizer(rs.getLong("organizer"));
             return event;
         }catch (SQLException e){e.printStackTrace();}
 

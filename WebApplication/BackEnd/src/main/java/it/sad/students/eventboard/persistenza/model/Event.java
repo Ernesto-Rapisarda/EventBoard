@@ -14,7 +14,7 @@ public class Event {
     //chiavi esterne
     private Long eventType;
     private Long position;
-    private Long publisher;
+    private Long organizer;
 
     public Event() {
     }
@@ -28,7 +28,7 @@ public class Event {
         this.urlPoster = urlPoster;
         this.eventType = eventType;
         this.position = luogo;
-        this.publisher = person;
+        this.organizer = person;
         this.description = description;
     }
 
@@ -104,11 +104,11 @@ public class Event {
         this.position = position;
     }
 
-    public Long getPublisher() {
-        return publisher;
+    public Long getOrganizer() {
+        return organizer;
     }
 
-    public void setPublisher(Long publisher) {
-        this.publisher = publisher;
+    public void setOrganizer(Long organizer) {
+        this.organizer = organizer;
     }
 }

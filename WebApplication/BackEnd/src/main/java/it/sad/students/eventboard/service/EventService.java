@@ -3,16 +3,21 @@ package it.sad.students.eventboard.service;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
-import it.sad.students.eventboard.persistenza.model.Preference;
-import lombok.NoArgsConstructor;
+import it.sad.students.eventboard.persistenza.model.Person;
+import it.sad.students.eventboard.security.auth.AuthorizationControll;
+import it.sad.students.eventboard.security.config.JwtService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EventService {
-
+    private final JwtService jwtService;
+    private final AuthorizationControll authorizationControll;
     public Iterable<Event> getAllEvents(){
         return DBManager.getInstance().getEventDao().findAll();
     }
@@ -31,5 +36,20 @@ public class EventService {
 
 
         return DBManager.getInstance().getEventDao().saveOrUpdate(event);
+    }
+
+    public ResponseEntity deleteEvent (Long id, String token){
+
+        Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
+        if (event==null)
+            return ResponseEntity.notFound().build();
+
+
+        if(authorizationControll.checkOwnerOrAdminAuthorization(event.getOrganizer(), token)){
+            DBManager.getInstance().getEventDao().delete(event);
+            return ResponseEntity.ok("Rimozione effettuata");
+        }
+        else
+            return ResponseEntity.badRequest().body("Non hai i permessi per rimuovere l'evento");
     }
 }

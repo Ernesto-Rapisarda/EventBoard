@@ -1,12 +1,9 @@
 package it.sad.students.eventboard;
 
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DemoData {
@@ -138,7 +135,7 @@ public class DemoData {
         event.setUrlPoster(poster);
         event.setSoldOut(soldout);
         event.setDescription(description);
-        event.setPublisher(publisher);
+        event.setOrganizer(publisher);
         return event;
     }
     public Like createLike(

@@ -26,7 +26,9 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/noauth/**") //per pagine ospite
                 .permitAll()
                 .requestMatchers("/api/create/event")
-                .hasAnyAuthority("PUBLISHER","ADMIN")
+                .hasAnyAuthority("ORGANIZER","ADMIN")
+                .requestMatchers("/api/delete/event/**")
+                .hasAnyAuthority("ORGANIZER","ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
