@@ -76,27 +76,31 @@ public class ReviewDaoPostgress implements ReviewDao {
 
         PreparedStatement st=null;
         try {
-            if (review.getPerson() == null&&review.getEvent() == null) {
+            //if (review.getPerson() == null&&review.getEvent() == null) {
 
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, review.getPerson());
                 st.setLong(2, review.getEvent());
-                st.setDate(3, (Date) review.getDate());
+                st.setDate(3, Date.valueOf(review.getDate()));
                 st.setString(4,review.getMessage());
                 st.setInt(5,review.getRating());
                 st.executeUpdate();
 
-            }else {
+            /*}else {
 
                 st = conn.prepareStatement(updateStr);
-                st.setDate(1, (Date) review.getDate());
+                st.setDate(1, Date.valueOf(review.getDate()));
                 st.setString(2,review.getMessage());
                 st.setInt(3,review.getRating());
 
                 st.setLong(4, review.getPerson());
                 st.setLong(5, review.getEvent());
                 st.executeUpdate();
+
+
             }
+            */
+
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,7 +125,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             Review review=new Review();
             review.setPerson(rs.getLong("person"));
             review.setEvent(rs.getLong("event"));
-            review.setDate(rs.getDate("date"));
+            review.setDate(rs.getDate("date").toLocalDate());
             review.setMessage(rs.getString("message"));
             review.setRating(rs.getInt("rating"));
             return review;

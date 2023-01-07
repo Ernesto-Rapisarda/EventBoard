@@ -58,8 +58,9 @@ public class CommentDaoPostgres implements CommentDao {
         String query ="select * from comment where id=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
             stmt.setLong(1, id);
+
+            ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
                 Comment comment = readEvent(rs);
@@ -85,7 +86,7 @@ public class CommentDaoPostgres implements CommentDao {
                 comment.setId(newId);
 
                 st.setLong(1,comment.getId());
-                st.setDate(2, (Date) comment.getDate());
+                st.setDate(2, Date.valueOf(comment.getDate()));
                 st.setString(3,comment.getMessage());
                 st.setLong(4,comment.getPerson());
                 st.setLong(5,comment.getEvent());
@@ -93,7 +94,7 @@ public class CommentDaoPostgres implements CommentDao {
             }
             else{
                 st = conn.prepareStatement(updateComment);
-                st.setDate(1, (Date) comment.getDate());
+                st.setDate(1, Date.valueOf(comment.getDate()));
                 st.setString(2,comment.getMessage());
                 st.setLong(3,comment.getPerson());
                 st.setLong(4,comment.getEvent());
@@ -127,7 +128,7 @@ public class CommentDaoPostgres implements CommentDao {
         try{
             Comment comment = new Comment();
             comment.setId(rs.getLong("id"));
-            comment.setDate(rs.getDate("date"));
+            comment.setDate(rs.getDate("date").toLocalDate());
             comment.setMessage(rs.getString("message"));
             comment.setPerson(rs.getLong("person"));
             comment.setEvent(rs.getLong("event"));

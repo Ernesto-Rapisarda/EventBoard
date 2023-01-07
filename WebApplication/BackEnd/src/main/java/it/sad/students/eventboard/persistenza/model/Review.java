@@ -1,10 +1,11 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Review {
 
-    private Date date;
+    private LocalDate date;
     private String message;
     private Integer rating;
 
@@ -12,7 +13,7 @@ public class Review {
     private Long person;
     private Long event;
 
-    public Review(Long person, Long event, Date date, String message, Integer rating) {
+    public Review(Long person, Long event, LocalDate date, String message, Integer rating) {
         this.person = person;
         this.event = event;
         this.date = date;
@@ -30,7 +31,7 @@ public class Review {
         return event;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -42,7 +43,7 @@ public class Review {
         return rating;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

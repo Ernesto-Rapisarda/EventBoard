@@ -1,10 +1,11 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Comment {
     private Long id;
-    private Date date;
+    private LocalDate date;
     private String message;
 
     //chiavi esterne
@@ -14,7 +15,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Long id, Date date, String message, Long person,Long event) {
+    public Comment(Long id, LocalDate date, String message, Long person,Long event) {
         this.id = id;
         this.date = date;
         this.message = message;
@@ -38,11 +39,11 @@ public class Comment {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
