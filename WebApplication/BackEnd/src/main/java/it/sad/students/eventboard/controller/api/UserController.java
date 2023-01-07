@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("http://localhost:4200")
 @RequiredArgsConstructor
 public class UserController {
-        private final UserService userService;
+    private final UserService userService;
     private final InteractionService interactionService;
 
    @RequestMapping("/api/user/{username}")
