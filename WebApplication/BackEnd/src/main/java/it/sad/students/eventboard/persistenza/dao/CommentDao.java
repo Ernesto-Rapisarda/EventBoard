@@ -2,6 +2,7 @@ package it.sad.students.eventboard.persistenza.dao;
 
 import it.sad.students.eventboard.persistenza.model.Comment;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CommentDao {
@@ -13,4 +14,6 @@ public interface CommentDao {
     void saveOrUpdate(Comment comment);
 
     void delete(Comment comment);
+
+    boolean deleteByEvent(Long idEvent) throws SQLException;
 }

@@ -124,6 +124,17 @@ public class CommentDaoPostgres implements CommentDao {
 
     }
 
+    public boolean deleteByEvent(Long idEvent) throws SQLException{
+        //delega gestione errori
+
+        String query = "DELETE FROM comment WHERE event = ?";
+
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setLong(1, idEvent);
+        st.executeUpdate();
+        return true;
+    }
+
     private Comment readEvent(ResultSet rs) {
         try{
             Comment comment = new Comment();

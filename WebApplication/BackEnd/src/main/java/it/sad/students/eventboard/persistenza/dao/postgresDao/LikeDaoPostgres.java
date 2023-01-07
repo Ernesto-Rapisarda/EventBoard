@@ -106,6 +106,14 @@ public class LikeDaoPostgres implements LikeDao {
         }
 
     }
+    @Override
+    public boolean deleteByEvent(Long idEvent) throws SQLException{
+        String query = "DELETE FROM mipiace WHERE event = ?";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setLong(1, idEvent);
+        st.executeUpdate();
+        return true;
+    }
 
     private Like readEvent(ResultSet rs) {
         try{

@@ -23,8 +23,8 @@ public class UserService { //utente loggato
                 DBManager.getInstance().getPreferenceDao().findPreferences(person.getId())
         );
         person.setLikes(
-                //DBManager.getInstance().getLikeDao().findByPerson(person.getId())
-                DBManager.getInstance().getLikeDao().findAll()
+                DBManager.getInstance().getLikeDao().findByPerson(person.getId())
+                //DBManager.getInstance().getLikeDao().findAll()
         );
 
         return person;

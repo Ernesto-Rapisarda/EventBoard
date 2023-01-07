@@ -2,6 +2,7 @@ package it.sad.students.eventboard.persistenza.dao;
 
 import it.sad.students.eventboard.persistenza.model.Like;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface LikeDao {
@@ -13,4 +14,6 @@ public interface LikeDao {
     void saveOrUpdate(Like like);
 
     void delete(Like like);
+
+    boolean deleteByEvent(Long idEvent)throws SQLException;
 }
