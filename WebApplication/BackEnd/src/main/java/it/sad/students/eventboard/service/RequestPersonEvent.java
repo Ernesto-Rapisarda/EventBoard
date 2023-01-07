@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.net.http.HttpHeaders;
+import java.net.http.HttpRequest;
+
 @Data
 @Builder
 @AllArgsConstructor

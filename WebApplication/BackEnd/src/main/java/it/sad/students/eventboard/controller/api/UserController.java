@@ -1,20 +1,17 @@
 package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.persistenza.model.Comment;
-import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.persistenza.model.Review;
-import it.sad.students.eventboard.security.auth.AuthenticationRequest;
 import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.RequestPersonEvent;
 import it.sad.students.eventboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
