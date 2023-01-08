@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user.model";
 import {Route, Router} from "@angular/router";
+import {UpperCasePipe} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,15 @@ export class AuthService {
     this.isLoggedIn = true
   }
 
-  signUp(email: string, username: string, password: string, type: string){
-    return this.http.post(this.url, {email: email, username: username, password: password, type: type})
+  signUp(name: string, lastName: string, email: string, username: string, password: string, role: string){
+    console.log(`name ${name}`)
+    console.log(`lastName ${lastName}`)
+    console.log(`email ${email}`)
+    console.log(`username ${username}`)
+    console.log(`password ${password}`)
+    console.log(`type ${role}`)
+
+    return this.http.post(this.url+"/api/noauth/register", {id: null, email: email, name: name, lastName: lastName, username: username, password: password, role: role, activeStatus: true, position: null})
   }
 
   signIn(username: string, password: string) {

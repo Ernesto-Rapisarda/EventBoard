@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {AuthService} from "../../auth/auth.service";
+import {UpperCasePipe} from "@angular/common";
+import {Router} from "@angular/router";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -7,7 +11,7 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, 
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
@@ -18,16 +22,40 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.maxLength(16)]),
+      name: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, /*Validators.minLength(8)*/]),
       passwordConfirm: new FormControl('', [Validators.required]),
-      radioType: new FormControl('', [Validators.required])
+      role: new FormControl('', [Validators.required])
     },{ validators: this.checkPasswords })
-
   }
 
   onSubmit() {
-    console.log(this.registerForm)
+    const username = this.registerForm.value.username
+    const email = this.registerForm.value.email
+    const password = this.registerForm.value.password
+    const role = this.registerForm.value.role
+    const name = this.registerForm.value.name
+    const lastName = this.registerForm.value.lastName
+
+
+    this.authService.signUp(name, lastName, email, username, password, role).subscribe((response: any) => {
+      const token = response.token
+
+      // TODO: Raccogliere questo e quello che è nel signIn (LoginComponent) in una funzione da qualche parte per evitare di duplicare codice
+      // sets local storage variable for automatic logins
+      localStorage.setItem('token', JSON.stringify(token))
+      localStorage.setItem('username', JSON.stringify(username))
+
+      if(localStorage.getItem('token')){
+        this.authService.getData(username).subscribe((userData: any) => {
+          this.authService.createUser(userData.email, userData.username, userData.name, userData.lastName, userData.role, userData.id, token)
+          console.log(this.authService.user)
+        })
+        this.router.navigate(['/'])
+      }
+    })
   }
 
   /** UI elements **/

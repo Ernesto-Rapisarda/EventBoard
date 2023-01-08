@@ -15,6 +15,24 @@
         </mat-form-field>
       </div>
 
+      <!-- name -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="" formControlName="name" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- last name -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Cognome</mat-label>
+          <input matInput placeholder="" formControlName="lastName" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
       <!-- email -->
       <div class="field-container">
         <mat-form-field appearance="outline">
@@ -54,14 +72,14 @@
 
       <!-- scelta tipo di account -->
       <div class="radio-container">
-        <mat-radio-group aria-label="Select an account type" required formControlName="radioType">
-          <mat-radio-button value="user" class="radio-button">Utente</mat-radio-button>
-          <mat-radio-button value="organizer" class="radio-button">Organizzatore</mat-radio-button>
+        <mat-radio-group aria-label="Select an account type" formControlName="role" required>
+          <mat-radio-button value="USER" class="radio-button">Utente</mat-radio-button>
+          <mat-radio-button value="ORGANIZER" class="radio-button">Organizzatore</mat-radio-button>
         </mat-radio-group>
       </div>
 
       <mat-card-actions>
-        <button mat-raised-button color="primary" class="login-btn" [disabled]="!registerForm.valid">
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="!registerForm.valid" type="submit">
           <mat-icon>keyboard_arrow_right</mat-icon>
           Registrati
         </button>
