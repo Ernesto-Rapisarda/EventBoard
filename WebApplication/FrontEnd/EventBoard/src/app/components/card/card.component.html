@@ -1,17 +1,15 @@
-<div class="container"> <!-- il foglio di stile va fatto in base al container definitivo -->
-  <div class="card">
-    <div class="card-img">
-      <!-- L'immagine deve essere in 16:9 -->
-      <img src="{{poster}}" alt="sample">
-    </div>
-    <div class="card-body">
-      <h2 class="card-title">
-        {{title}}
-      </h2>
-      <h4 class="card-organizer">{{organizer}}</h4>
-      <h5 class="card-data">
-        {{date.getDay()}}/{{date.getMonth()}}/{{date.getFullYear()}}
-      </h5>
-    </div>
+<div class="card" *ngFor="let event of this.eventsService.events">
+  <div class="card-img">
+    <!-- L'immagine deve essere in 16:9 -->
+    <img src="{{poster}}" alt="sample">
+  </div>
+  <div class="card-body">
+    <h2 class="card-title">
+      {{event.title}}
+    </h2>
+    <h4 class="card-organizer">{{event.organizer}}</h4>
+    <h5 class="card-data">
+      {{event.date | date}}
+    </h5>
   </div>
 </div>

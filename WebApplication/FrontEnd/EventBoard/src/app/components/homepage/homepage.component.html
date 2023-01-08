@@ -1,5 +1,5 @@
 
-<div *ngIf="authService.isLoggedIn; then isLoggedIn else isNotLoggedIn"></div>
+<div *ngIf="authService.isAuthenticated(); then isLoggedIn else isNotLoggedIn"></div>
 <ng-template #isLoggedIn>
   sei loggato, niente banner x te xD
 </ng-template>
@@ -7,3 +7,4 @@
   <app-banner-join ></app-banner-join>
 </ng-template>
 
+<app-card></app-card>
