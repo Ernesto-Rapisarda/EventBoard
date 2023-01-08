@@ -51,23 +51,37 @@ public class UserController {
     }
 
 
-    // TODO: 06/01/2023 Eliminare commenti e review tramite i vari id
-
     @RequestMapping(value = "api/comment/delete/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity removeComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity deleteComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
         return interactionService.deleteComment(id,token);
 
     }
 
     @RequestMapping(value = "api/review/delete",method = RequestMethod.DELETE)
-    public ResponseEntity removeReviews(@RequestBody RequestPersonEvent pe,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity deleteReviews(@RequestBody RequestPersonEvent pe,@RequestHeader (name="Authorization") String token){
         return interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token);
     }
 
     @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
-    public ResponseEntity editProfile(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
-       return userService.editProfile(person,token);
+    public ResponseEntity editUser(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
+       return userService.editUser(person,token);
     }
+
+
+    // TODO: 08/01/2023 Decidere se fare rimozione a cascata dal database
+    @RequestMapping(value="api/user/delete",method = RequestMethod.DELETE)
+    public ResponseEntity deleteUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
+        return userService.disableUser(id,token);
+    }
+    @RequestMapping(value="api/user/enable",method = RequestMethod.POST)
+    public ResponseEntity enableUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
+        return userService.enableUser(id,token);
+    }
+
+
+
+
+
 
 
 

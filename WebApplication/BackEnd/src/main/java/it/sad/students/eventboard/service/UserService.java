@@ -44,7 +44,7 @@ public class UserService { //utente loggato
     }
 
     //nome casomai da cambiare
-    public ResponseEntity<Person> editProfile(Person person,String token){
+    public ResponseEntity<Person> editUser(Person person,String token){
         try {
             if(!authorizationControll.checkOwnerOrAdminAuthorization(person.getId(), token))
                 return statusCodes.unauthorized();
@@ -71,6 +71,7 @@ public class UserService { //utente loggato
             DBManager.getInstance().getPersonDao().saveOrUpdate(person);
             return statusCodes.ok();
 
+            // TODO: 08/01/2023 controllare campo ruolo modificabile??
             /*
                    {
                         "id": 29, // se lo modifichi ti da errore non autorizzato
@@ -99,6 +100,8 @@ public class UserService { //utente loggato
         }
     }
 
+
+    // TODO: 08/01/2023 da controllare in base a cosa si decide di fare (eliminazione accout)
     public ResponseEntity disableUser(Long id,String token){ //id person
         try {
             if(!authorizationControll.checkOwnerOrAdminAuthorization(id, token))
@@ -131,7 +134,6 @@ public class UserService { //utente loggato
             personDb.setActiveStatus(true);
             DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
             return statusCodes.ok();
-
 
         }catch (Exception e){
             return statusCodes.notFound();
