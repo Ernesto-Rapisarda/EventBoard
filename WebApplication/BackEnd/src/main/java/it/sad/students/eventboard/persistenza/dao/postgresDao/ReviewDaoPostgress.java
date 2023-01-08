@@ -127,6 +127,25 @@ public class ReviewDaoPostgress implements ReviewDao {
         return true;
     }
 
+    @Override
+    public List<Review> findByEvent(Long id) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        String query ="select * from review where event=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Review review = readReview(rs);
+                if(review!=null)
+                    reviews.add(review);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
 
     private Review readReview(ResultSet rs){
         try{

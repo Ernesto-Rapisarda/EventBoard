@@ -52,6 +52,25 @@ public class CommentDaoPostgres implements CommentDao {
         return eventsComment;
     }
 
+    @Override
+    public List<Comment> findByEvent(Long id) {
+        ArrayList<Comment> eventsComment = new ArrayList<>();
+        String query ="select * from comment where event=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Comment comment = readEvent(rs);
+                if(comment!=null)
+                    eventsComment.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventsComment;
+    }
+
 
     @Override
     public Comment findByPrimaryKey(Long id) {

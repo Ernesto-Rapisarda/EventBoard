@@ -9,10 +9,13 @@ public interface PartecipationDao {
     List<Partecipation> findAll();
 
     Partecipation findByPrimaryKey(Long person,Long event);
+    List<Partecipation> findByEvent(Long id);
+
 
     void saveOrUpdate(Partecipation partecipation);
 
     void delete(Partecipation partecipation);
 
     boolean deleteByEvent(Long idEvent) throws SQLException;
+
 }

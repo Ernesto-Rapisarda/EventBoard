@@ -16,4 +16,6 @@ public interface ReviewDao {
     void delete(Review review);
 
     boolean deleteByEvent(Long idEvent)throws SQLException;
+
+    List<Review> findByEvent(Long id);
 }

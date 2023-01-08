@@ -4,6 +4,7 @@ import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
+import it.sad.students.eventboard.persistenza.model.EventType;
 
 import java.sql.*;
 import java.time.temporal.ChronoUnit;
@@ -54,12 +55,12 @@ public class EventDaoPostgres implements EventDao {
     }
 
     @Override
-    public List<Event> findByType(Long type) {
+    public List<Event> findByType(EventType type) {
         ArrayList<Event> events = new ArrayList<>();
         String query ="select * from event where event_type=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setLong(1,type);
+            stmt.setString(1,type.toString());
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Event event = readEvent(rs);
@@ -77,7 +78,7 @@ public class EventDaoPostgres implements EventDao {
     @Override
     public Boolean saveOrUpdate(Event event) {
         String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?,?)";
-        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,publisher=?,time=? where id = ?";
+        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,organizer=?,time=? where id = ?";
         PreparedStatement st = null;
 
         try {
@@ -88,7 +89,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setLong(1, event.getId());
                 st.setLong(2,event.getPosition());
                 st.setDate(3, java.sql.Date.valueOf(event.getDate()));
-                st.setLong(4,event.getEventType());
+                st.setString(4,event.getEventType().toString());
                 st.setDouble(5,event.getPrice());
                 st.setString(6,event.getUrlPoster());
                 st.setBoolean(7,event.getSoldOut());
@@ -102,7 +103,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setLong(1,event.getPosition());
                 st.setDate(2, java.sql.Date.valueOf(event.getDate()));
                 st.setString(3,event.getTitle());
-                st.setLong(4,event.getEventType());
+                st.setString(4,event.getEventType().toString());
                 st.setDouble(5,event.getPrice());
                 st.setString(6,event.getUrlPoster());
                 st.setBoolean(7,event.getSoldOut());
@@ -161,7 +162,7 @@ public class EventDaoPostgres implements EventDao {
             event.setTitle(rs.getString("title"));
             event.setPosition(rs.getLong("position"));
             event.setDate(rs.getDate("date").toLocalDate());
-            event.setEventType(rs.getLong("event_type"));
+            event.setEventType(EventType.valueOf(rs.getString("event_type")));
             event.setPrice(rs.getDouble("price"));
             event.setUrlPoster(rs.getString("poster"));
             event.setSoldOut(rs.getBoolean("soldout"));

@@ -112,15 +112,10 @@ public class DemoData {
         return person;
     }
 
-    public EventType createEventType(String name,String description){
-        EventType eventType=new EventType();
-        eventType.setName(name);
-        eventType.setDescription(description);
-        return eventType;
-    }
+
     public Event createEvent(Long position
             ,LocalDate date
-            ,Long event_type
+            ,EventType event_type
             ,Double price
             ,String poster
             ,Boolean soldout

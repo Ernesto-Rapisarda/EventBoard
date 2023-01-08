@@ -53,6 +53,25 @@ public class LikeDaoPostgres implements LikeDao {
         return likes;
     }
 
+    @Override
+    public List<Like> findByEvent(Long id) {
+        ArrayList<Like> likes = new ArrayList<>();
+        String query ="select * from mipiace where event= ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Like like = readEvent(rs);
+                if(like!=null)
+                    likes.add(like);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return likes;
+    }
+
 
     @Override
     public Like findByPrimaryKey(Long person, Long event) {

@@ -14,14 +14,14 @@ public class Event {
     private String description;
 
     //chiavi esterne
-    private Long eventType;
+    private EventType eventType;
     private Long position;
     private Long organizer;
 
     public Event() {
     }
 
-    public Event(Long id, LocalDate date,LocalTime time,String title, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
+    public Event(Long id, LocalDate date,LocalTime time,String title, Double price, Boolean available, String urlPoster, EventType eventType, Long luogo, Long person, String description) {
         this.id = id;
         this.date = date;
         this.time=time;
@@ -99,11 +99,11 @@ public class Event {
         this.urlPoster = urlPoster;
     }
 
-    public Long getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 
-    public void setEventType(Long eventType) {
+    public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }
 

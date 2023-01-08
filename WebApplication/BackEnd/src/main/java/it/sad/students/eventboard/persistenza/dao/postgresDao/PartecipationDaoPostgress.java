@@ -49,6 +49,25 @@ public class PartecipationDaoPostgress implements PartecipationDao {
         return null;    }
 
     @Override
+    public List<Partecipation> findByEvent(Long id) {
+        ArrayList<Partecipation> partecipations = new ArrayList<>();
+        String query ="select * from partecipation where event=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Partecipation partecipation = readPartecipation(rs);
+                if(partecipation!=null)
+                    partecipations.add(partecipation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return partecipations;
+    }
+
+    @Override
     public void saveOrUpdate(Partecipation partecipation) {
         String insertEvent = "INSERT INTO partecipation VALUES (?,?,?)";
         String updateStr = "UPDATE partecipation set date=? where person = ? and event=?";
