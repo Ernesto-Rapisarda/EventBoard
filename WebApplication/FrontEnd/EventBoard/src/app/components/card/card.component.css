@@ -15,7 +15,7 @@
   overflow: hidden;
   margin: 1rem;
   width: 250px;
-  display: flex;
+  display: inline-block;
   flex-wrap: wrap;
 }
 
