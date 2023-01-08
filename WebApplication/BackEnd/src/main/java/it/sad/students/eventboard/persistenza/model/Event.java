@@ -1,10 +1,12 @@
 package it.sad.students.eventboard.persistenza.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Event {
     private Long id = null;
     private LocalDate date;
+    private LocalTime time;
     private String title;
     private Double price;
     private Boolean soldOut;
@@ -19,9 +21,10 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, LocalDate date,String title, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
+    public Event(Long id, LocalDate date,LocalTime time,String title, Double price, Boolean available, String urlPoster, Long eventType, Long luogo, Long person, String description) {
         this.id = id;
         this.date = date;
+        this.time=time;
         this.title = title;
         this.price = price;
         this.soldOut = available;
@@ -30,6 +33,14 @@ public class Event {
         this.position = luogo;
         this.organizer = person;
         this.description = description;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getTitle() {
