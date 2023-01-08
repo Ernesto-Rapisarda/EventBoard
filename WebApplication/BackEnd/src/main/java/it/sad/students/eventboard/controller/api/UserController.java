@@ -64,6 +64,11 @@ public class UserController {
         return interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token);
     }
 
+    @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
+    public ResponseEntity editProfile(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
+       return userService.editProfile(person,token);
+    }
+
 
 
 

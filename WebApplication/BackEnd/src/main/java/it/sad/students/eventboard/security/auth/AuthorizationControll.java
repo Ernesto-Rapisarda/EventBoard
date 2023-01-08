@@ -27,4 +27,21 @@ public class AuthorizationControll {
         return person.getId().equals(id);
     }
 
+
+    /*
+    public boolean checkSpecificAdminAuthorization(Long id,String token){
+        String jwt = token.substring(7);
+        Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
+        if(person==null) return false;
+        return (person.getId().equals(id) && person.getRole().toString().equals("ADMIN"));
+    }
+     */
+
+    public boolean checkAdminAuthorization(String token){
+        String jwt = token.substring(7);
+        Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
+        if(person==null) return false;
+        return person.getRole().toString().equals("ADMIN");
+    }
+
 }

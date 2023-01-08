@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class StatusCodes {
 
     public ResponseEntity unauthorized(){return ResponseEntity.badRequest().body("Unauthorized access to the resource");}
+    public ResponseEntity commandError(){return ResponseEntity.badRequest().body("Operation not executable");}
     public ResponseEntity ok(){return  ResponseEntity.ok("Success"); }
     public ResponseEntity notFound(){return ResponseEntity.notFound().build();}
 
