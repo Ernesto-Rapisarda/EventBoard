@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.function.ToDoubleBiFunction;
+
 @Service
 @RequiredArgsConstructor
 public class UserService { //utente loggato
@@ -44,8 +46,12 @@ public class UserService { //utente loggato
     }
 
     //nome casomai da cambiare
+    // TODO: 09/01/2023  UTILIZZARE RegisterRequest INVECE DI Person
     public ResponseEntity<Person> editUser(Person person,String token){
         try {
+            if(person==null)
+                return statusCodes.notFound();
+
             if(!authorizationControll.checkOwnerOrAdminAuthorization(person.getId(), token))
                 return statusCodes.unauthorized();
 
@@ -60,40 +66,25 @@ public class UserService { //utente loggato
                     return statusCodes.commandError();      //se la posizione è stata inserita deve essere presente nel db????
             }
 
-            if(person.getName()==null||person.getEmail()==null||person.getLastName()==null)
+            if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName()))
                 return statusCodes.commandError();          //non possono essere campi nulli
 
             if(person.getPassword()==null)
                 person.setPassword(personDb.getPassword()); //se l'utente non ha cambiato password la riprendo dal db
-            else
+            else if (!checkPassword(person.getPassword()))   // se è inserita male rispondo con errore
+                return statusCodes.commandError();
+            else                                            // se è inserita bene la cripto e la setto
                 person.setPassword(passwordEncoder.encode(person.getPassword()));
 
-            DBManager.getInstance().getPersonDao().saveOrUpdate(person);
-            return statusCodes.ok();
+            // MANCA AGGIUNTA CAMPI DI DEFAULT
+
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(person))
+                return statusCodes.ok();
+            else
+                return statusCodes.notFound();
 
             // TODO: 08/01/2023 controllare campo ruolo modificabile??
-            /*
-                   {
-                        "id": 29, // se lo modifichi ti da errore non autorizzato
-                        "name": "Alessandro", //modificabile
-                        "lastName": "Monetti", //modificabile
-                        "username": "Pingu",   //se lo modifichi ti da errore sul comando
-                        "password": null,      //modificabile
-                        "email": "pingu@fratm",  //modificabile
-                        "activeStatus": true,   //default da qui in giu
-                        "likes": [],
-                        "comments": [],
-                        "reviews": [],
-                        "preferences": [],
-                        "position": 1,         //modificabile
-                        "role": "ORGANIZER",  //modificabile???
-                        "enabled": true,
-                        "accountNonExpired": true,
-                        "credentialsNonExpired": true,
-                        "authorities": [],
-                        "accountNonLocked": true
-                    }
-             */
+
 
         }catch (Exception e){
             return  statusCodes.notFound();
@@ -138,5 +129,23 @@ public class UserService { //utente loggato
         }catch (Exception e){
             return statusCodes.notFound();
         }
+    }
+
+
+    // FUNCTION EXTRA
+    private boolean nullOrEmpty(String string){
+        return string==null||string.trim()=="";
+    }
+    private boolean nullOrNegative(Integer num){
+        return num==null||num<0;
+    }
+    private boolean nullOrNegative(Double num){
+        return num==null||num<0;
+    }
+
+    private boolean checkPassword(String password){
+        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
+        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
+        return password.matches("^\\S{8,}$"); // TODO: 09/01/2023 CONTROLLA
     }
 }

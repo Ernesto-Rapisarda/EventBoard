@@ -11,7 +11,7 @@ public interface PersonDao {
     Person findByUsername (String username);
     Person findByEmail (String email);
 
-    void saveOrUpdate(Person person);
+    boolean saveOrUpdate(Person person);
 
     void delete(Person person);
 }

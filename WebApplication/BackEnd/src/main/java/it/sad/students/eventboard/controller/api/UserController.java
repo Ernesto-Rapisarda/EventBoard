@@ -26,6 +26,10 @@ public class UserController {
 
     @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
+        //utente non autorizzato 403`
+        //utente non proprietario di quel account, campi sbagliati operazione non eseguibile codice 400`
+        //utente nullo, errore elaborazione 404 not found`
+        //utente modificato aggiunto codice 200 ok`
        return userService.editUser(person,token);
     }
 

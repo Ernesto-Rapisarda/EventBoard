@@ -24,31 +24,47 @@ public class InteractionService {
     // TODO: 06/01/2023 Settare eventuali error, Exception è generale??
 
 
-    public Boolean setLike(Long person,Long event){
+    public ResponseEntity setLike(Long person,Long event,String token){
         try {
+            if(!authorizationControll.checkOwnerAuthorization(person,token))
+                return statusCodes.unauthorized();
+
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
+                return statusCodes.notFound();
+
             Like like=DBManager.getInstance().getLikeDao().findByPrimaryKey(person,event);
+
             if(like==null)
                 DBManager.getInstance().getLikeDao().saveOrUpdate(new Like(person,event,LocalDate.from(date())));
             else
                 DBManager.getInstance().getLikeDao().delete(like);
 
-            return true;
+            return statusCodes.ok();
+
         }catch (Exception e){
-            return false;
+            return statusCodes.notFound();
         }
     }
 
-    public Boolean setPartecipation(Long person,Long event){
+    public ResponseEntity setPartecipation(Long person,Long event,String token){
         try {
+            if(!authorizationControll.checkOwnerAuthorization(person,token))
+                return statusCodes.unauthorized();
+
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
+                return statusCodes.notFound();
+
             Partecipation partecipation = DBManager.getInstance().getPartecipationDao().findByPrimaryKey(person, event);
+
             if(partecipation==null)
                 DBManager.getInstance().getPartecipationDao().saveOrUpdate(new Partecipation(LocalDate.from(date()),person,event));
             else
                 DBManager.getInstance().getPartecipationDao().delete(partecipation);
 
-            return true;
+            return statusCodes.ok();
+
         }catch (Exception e){
-            return false;
+            return statusCodes.notFound();
         }
     }
 
@@ -57,6 +73,8 @@ public class InteractionService {
 
             if(!authorizationControll.checkOwnerAuthorization(comment.getPerson(),token))
                 return statusCodes.unauthorized();
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent())==null)
+                return statusCodes.notFound();
 
             comment.setDate(LocalDate.from(date()));
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
@@ -72,6 +90,8 @@ public class InteractionService {
             //      PRIMO METODO
             if(!authorizationControll.checkOwnerAuthorization(review.getPerson(),token))
                 return statusCodes.unauthorized();
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent())==null)
+                return statusCodes.notFound();
 
             if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent())==null){
                 review.setDate(LocalDate.from(date()));
@@ -93,13 +113,11 @@ public class InteractionService {
     public ResponseEntity deleteComment(Long id,String token){
         try {
             Comment comment=DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
+            if(comment==null)
+                return statusCodes.notFound();
 
             if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
                 return statusCodes.unauthorized();
-
-            //si potrebbe gestire come scritto sopra nel secondo metodo
-            if(comment==null)
-                return statusCodes.notFound();
 
             DBManager.getInstance().getCommentDao().delete(comment);
             // TODO: 06/01/2023 valutare eliminazione solo con chiave e non passando tutto il commento
@@ -131,15 +149,6 @@ public class InteractionService {
     }
 
 
-
-
-
-    //extra functions
-    public LocalDateTime date(){
-        LocalDateTime date = LocalDateTime.now();
-        return date;
-    }
-
     public ResponseEntity updateComment(Comment comment, String token) {
 
         if(comment==null)
@@ -158,7 +167,61 @@ public class InteractionService {
 
     }
 
-    public ResponseEntity<Comment> getEvent(Long id) {
+
+    public ResponseEntity updateReview(Review review, String token) {
+        try {
+            if(review==null)
+                return statusCodes.notFound();
+
+            if(!authorizationControll.checkOwnerOrAdminAuthorization(review.getPerson(), token))
+                return statusCodes.unauthorized();
+
+            if(review.getRating()==null || review.getRating()<=0||review.getRating()>10||
+                    review.getMessage()==null ||review.getMessage()=="")
+                return statusCodes.commandError();
+            System.out.println("ok");
+            // TODO: 09/01/2023 modificare la data??
+            //review.setDate(LocalDate.from(date()));
+            if(DBManager.getInstance().getReviewDao().saveOrUpdate(review))
+                return statusCodes.ok();
+            else
+                return statusCodes.commandError();
+        }catch (Exception e){
+            return statusCodes.notFound();
+        }
+
+    }
+
+    public ResponseEntity getReview(Long person,Long event){
+        try {
+            if (person==null||event==null )
+                return statusCodes.commandError();
+            Review review = DBManager.getInstance().getReviewDao().findByPrimaryKey(person,event);
+            if (review==null)
+                return  statusCodes.notFound();
+            else
+                return statusCodes.okGetElement(review);
+        }catch (Exception e){
+            return statusCodes.notFound();
+        }
+    }
+
+
+
+
+
+
+
+
+    //extra functions
+    public LocalDateTime date(){
+        LocalDateTime date = LocalDateTime.now();
+        return date;
+    }
+
+
+
+    public ResponseEntity<Comment> getComment(Long id) {
         if (id==null )
             return statusCodes.commandError();
         Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
