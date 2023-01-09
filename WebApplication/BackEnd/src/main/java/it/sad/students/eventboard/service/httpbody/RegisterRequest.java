@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.security.auth;
+package it.sad.students.eventboard.service.httpbody;
 
 
 import it.sad.students.eventboard.persistenza.model.Role;

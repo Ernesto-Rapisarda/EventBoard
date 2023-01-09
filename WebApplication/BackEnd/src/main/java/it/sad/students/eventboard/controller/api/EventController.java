@@ -3,8 +3,8 @@ package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
-import it.sad.students.eventboard.security.auth.AuthenticationService;
-import it.sad.students.eventboard.security.config.JwtService;
+import it.sad.students.eventboard.service.AuthenticationService;
+import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.service.EventService;
 import it.sad.students.eventboard.service.httpbody.ResponseEvent;
 import it.sad.students.eventboard.service.httpbody.ResponseEventCreation;

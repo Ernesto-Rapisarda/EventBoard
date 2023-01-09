@@ -3,7 +3,6 @@ package it.sad.students.eventboard.service;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.persistenza.model.Position;
-import it.sad.students.eventboard.security.auth.AuthorizationControll;
 import it.sad.students.eventboard.service.httpbody.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

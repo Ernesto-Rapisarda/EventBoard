@@ -1,9 +1,9 @@
-package it.sad.students.eventboard.security;
+package it.sad.students.eventboard.controller.api;
 
-import it.sad.students.eventboard.security.auth.AuthenticationRequest;
-import it.sad.students.eventboard.security.auth.AuthenticationResponse;
-import it.sad.students.eventboard.security.auth.AuthenticationService;
-import it.sad.students.eventboard.security.auth.RegisterRequest;
+import it.sad.students.eventboard.service.httpbody.AuthenticationRequest;
+import it.sad.students.eventboard.service.httpbody.AuthenticationResponse;
+import it.sad.students.eventboard.service.AuthenticationService;
+import it.sad.students.eventboard.service.httpbody.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

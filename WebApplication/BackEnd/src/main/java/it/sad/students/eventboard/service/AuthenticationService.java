@@ -1,9 +1,12 @@
-package it.sad.students.eventboard.security.auth;
+package it.sad.students.eventboard.service;
 
 
-import it.sad.students.eventboard.security.config.JwtService;
+import it.sad.students.eventboard.service.httpbody.AuthenticationRequest;
+import it.sad.students.eventboard.service.httpbody.AuthenticationResponse;
+import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
+import it.sad.students.eventboard.service.httpbody.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
