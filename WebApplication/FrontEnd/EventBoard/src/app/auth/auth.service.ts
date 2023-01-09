@@ -55,4 +55,8 @@ export class AuthService {
 
     return this.http.post(this.url + `/api/user/${username}`, {}, {headers: httpHeaders})
   }
+
+  editData() {
+    //return this.http.post(this.url + `/api/user/${username}`, {}, {headers: httpHeaders})
+  }
 }

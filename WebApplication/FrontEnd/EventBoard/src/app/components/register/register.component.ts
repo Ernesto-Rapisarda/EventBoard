@@ -33,11 +33,11 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     const username = this.registerForm.value.username
-    const email = this.registerForm.value.email
-    const password = this.registerForm.value.password
-    const role = this.registerForm.value.role
     const name = this.registerForm.value.name
     const lastName = this.registerForm.value.lastName
+    const email = this.registerForm.value.email
+    const role = this.registerForm.value.role
+    const password = this.registerForm.value.password
 
 
     this.authService.signUp(name, lastName, email, username, password, role).subscribe((response: any) => {
