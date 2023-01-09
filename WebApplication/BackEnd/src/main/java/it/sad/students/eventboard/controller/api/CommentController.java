@@ -26,6 +26,7 @@ public class CommentController {
 
     @RequestMapping(value = "/api/comment/update", method = RequestMethod.PUT)
     public ResponseEntity updateComment(@RequestBody Comment comment, @RequestHeader(name="Authorization") String token){
+        //codice 403 ...utente non loggato
         //comment non trovato o passato vuoto errore not found 404
         //non sei il proprietario del commento o un admin 400
         //codice 200, commento modificato
@@ -34,7 +35,15 @@ public class CommentController {
         return interactionService.updateComment(comment,token);
     }
 
-    // TODO: 09/01/2023 get singolo commento
+    @RequestMapping(value ="/api/comment/{id}")
+    public ResponseEntity<Comment> getComment(@PathVariable Long id){
+        //codice 403 ...utente non loggato
+        //comment non trovato not found 404
+        //codice 200, e restituisce il commento
+        //code 400 , bad request, è stato passato id null
+        return interactionService.getEvent(id);
+    }
+
 
 
 }
