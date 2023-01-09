@@ -3,6 +3,7 @@ package it.sad.students.eventboard.controller.api;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.UserService;
+import it.sad.students.eventboard.service.httpbody.EditRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UserController {
     // TODO: 06/01/2023 Revisionare path scritti
 
     @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
-    public ResponseEntity editUser(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity editUser(@RequestBody EditRequest person, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account, campi sbagliati operazione non eseguibile codice 400`
         //utente nullo, errore elaborazione 404 not found`

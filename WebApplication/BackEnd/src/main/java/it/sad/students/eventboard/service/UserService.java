@@ -3,6 +3,7 @@ package it.sad.students.eventboard.service;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.persistenza.model.Position;
+import it.sad.students.eventboard.service.httpbody.EditRequest;
 import it.sad.students.eventboard.service.httpbody.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,8 @@ public class UserService { //utente loggato
     }
 
     //nome casomai da cambiare
-    // TODO: 09/01/2023  UTILIZZARE RegisterRequest INVECE DI Person
-    public ResponseEntity<Person> editUser(Person person,String token){
+    // TODO: 09/01/2023  CONTROLLARE COME GESTIRE I VARI STATUS RISPETTO AD EMAIL GIA UTILIZATA ECC.
+    public ResponseEntity editUser(EditRequest person, String token){
         try {
             if(person==null)
                 return statusCodes.notFound();
@@ -54,17 +55,17 @@ public class UserService { //utente loggato
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(person.getId());
 
-            if(!person.getUsername().equals(personDb.getUsername()))
-                return statusCodes.commandError();          //se l'username risulta modificato non effettuo nessuna modifica
-
             if(person.getPosition()!=null){
                 Position position=DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition());
                 if(position==null)
-                    return statusCodes.commandError();      //se la posizione è stata inserita deve essere presente nel db????
+                    return statusCodes.commandError();      //se la posizione è stata inserita deve essere presente nel db
             }
 
-            if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName()))
+            if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName())||nullOrEmpty(person.getEmail()))
                 return statusCodes.commandError();          //non possono essere campi nulli
+
+            if(DBManager.getInstance().getPersonDao().findByEmail(person.getEmail())!=null&&!personDb.getEmail().equals(person.getEmail()))
+                return statusCodes.commandError();          //se la email è gia esistente (non contato la sua vecchia nel db) ritorna errore
 
             if(person.getPassword()==null)
                 person.setPassword(personDb.getPassword()); //se l'utente non ha cambiato password la riprendo dal db
@@ -73,9 +74,19 @@ public class UserService { //utente loggato
             else                                            // se è inserita bene la cripto e la setto
                 person.setPassword(passwordEncoder.encode(person.getPassword()));
 
-            // MANCA AGGIUNTA CAMPI DI DEFAULT
+            Person newPerson=new Person(
+                    person.getId(),
+                    person.getName(),
+                    person.getLastName(),
+                    personDb.getUsername(),
+                    person.getPassword(),
+                    person.getEmail(),
+                    personDb.getActiveStatus(),
+                    person.getPosition(),
+                    personDb.getRole()
+            );
 
-            if(DBManager.getInstance().getPersonDao().saveOrUpdate(person))
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(newPerson))
                 return statusCodes.ok();
             else
                 return statusCodes.notFound();
@@ -143,6 +154,6 @@ public class UserService { //utente loggato
     private boolean checkPassword(String password){
         //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
         //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
-        return password.matches("^\\S{8,}$"); // TODO: 09/01/2023 CONTROLLA
+        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
     }
 }
