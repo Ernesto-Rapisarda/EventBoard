@@ -22,56 +22,19 @@ public class UserController {
         return ResponseEntity.ok(userService.getPerson(username));
     }
 
-    // TODO: 06/01/2023 Rivisionare path scritti
-
-    @PostMapping("/api/like")
-    public ResponseEntity setLike(@RequestBody RequestPersonEvent pe/*Long person, Long event*/){
-        System.out.println(pe.getPerson());
-        if(interactionService.setLike(pe.getPerson(),pe.getEvent()))
-            return ResponseEntity.ok("");
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/api/partecipation")
-    public ResponseEntity setPartecipation(@RequestBody RequestPersonEvent pe){
-        if(interactionService.setPartecipation(pe.getPerson(), pe.getEvent()))
-            return ResponseEntity.ok("");
-        return ResponseEntity.notFound().build();
-    }
-
-
-    @PostMapping("/api/comment/add")
-    public ResponseEntity addComment(@RequestBody Comment comment,@RequestHeader (name="Authorization") String token){
-       return interactionService.addComment(comment,token);
-    }
-
-    @PostMapping("api/review/add")
-    public ResponseEntity addReviews(@RequestBody Review review,@RequestHeader (name="Authorization") String token){
-        return interactionService.addReview(review,token);
-    }
-
-
-    @RequestMapping(value = "api/comment/delete/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity deleteComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
-        return interactionService.deleteComment(id,token);
-
-    }
-
-    @RequestMapping(value = "api/review/delete",method = RequestMethod.DELETE)
-    public ResponseEntity deleteReviews(@RequestBody RequestPersonEvent pe,@RequestHeader (name="Authorization") String token){
-        return interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token);
-    }
+    // TODO: 06/01/2023 Revisionare path scritti
 
     @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody Person person,@RequestHeader (name="Authorization") String token){
        return userService.editUser(person,token);
     }
 
-
     // TODO: 08/01/2023 Decidere se fare rimozione a cascata dal database
     @RequestMapping(value="api/user/delete",method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
         return userService.disableUser(id,token);
+        //id lo passi dal path
+        //nel body, deve mettere nel body username e password, admin mette tutto null
     }
     @RequestMapping(value="api/user/enable",method = RequestMethod.POST)
     public ResponseEntity enableUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
