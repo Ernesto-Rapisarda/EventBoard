@@ -1,0 +1,7 @@
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Scegli una data</mat-label>
+  <input matInput [min]="minDate" [max]="maxDate" [formControlName]="controlName" readonly="readonly"><!--[ngxMatDatetimePicker]="picker"-->
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+</mat-form-field>

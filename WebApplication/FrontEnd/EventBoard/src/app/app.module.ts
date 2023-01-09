@@ -30,6 +30,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import { ProfileEditDialogComponent } from './components/profile-edit-dialog/profile-edit-dialog.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
 
 @NgModule({
   declarations: [
@@ -47,25 +51,33 @@ import { ProfileEditDialogComponent } from './components/profile-edit-dialog/pro
     BannerJoinComponent,
     ProfileComponent,
     ProfileEditDialogComponent,
+    DatepickerComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatRadioModule,
-    HttpClientModule,
-    MatMenuModule,
-    MatDialogModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatInputModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatRadioModule,
+        HttpClientModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule
+    ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: "it-IT"}
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

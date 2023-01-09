@@ -1,1 +1,71 @@
-<p>create-event works!</p>
+<h1 style="text-align: center">CREA EVENTO</h1>
+
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <mat-card-title>Registrati</mat-card-title>
+    <mat-card-subtitle>Benvenuto! Inserisci i tuoi dati</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="eventCreateForm" (ngSubmit)="onSubmit()">
+      <!-- title -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome dell'evento</mat-label>
+          <input matInput placeholder="" formControlName="title">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <app-datepicker controlName="date"></app-datepicker>
+
+      <!-- location -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Luogo</mat-label>
+          <input matInput placeholder="" formControlName="location" required>
+          <mat-icon matSuffix>face icon</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- price -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Prezzo di partenza</mat-label>
+          <input matInput placeholder="" formControlName="price" required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- event type -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo evento</mat-label>
+          <input matInput placeholder="" formControlName="eventType">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- description -->
+      <div class="field-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Descrizione</mat-label>
+          <input matInput placeholder="" formControlName="description">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid" type="submit">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+          Crea l'evento
+        </button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
