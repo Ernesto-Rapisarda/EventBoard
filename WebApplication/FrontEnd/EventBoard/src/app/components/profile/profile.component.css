@@ -31,4 +31,11 @@
 .profile-card-paragraph {
   margin-top: 10px;
 }
+.profile-btn {
+  margin-right: 20px;
+}
+
+.profile-btn-container {
+  text-align: center;
+}
 
