@@ -34,7 +34,7 @@ public class DBManager {
         if (conn == null) {
             try {
                 // TODO: 30/12/2022 ricordarsi di inserire la propria password locale
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventBoard", "postgres", "Toco1522");
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventBoard", "postgres", "123456");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -49,7 +49,6 @@ public class DBManager {
     //public RoleDao getRoleDao() {return new RoleDaoPostgress(getConnection());}
     public EventDao getEventDao (){return new EventDaoPostgres(getConnection());}
     public PreferenceDao getPreferenceDao(){return new PreferenceDaoPostgress(getConnection());}
-    public EventTypeDao getEventTypeDao(){return new EventTypeDaoPostgres(getConnection());}
     public CommentDao getCommentDao(){return new CommentDaoPostgres(getConnection());}
     public ReportDao getReportDao(){return new ReportDaoPostgres(getConnection());}
     public ReportTypeDao getReportTypeDao(){return new ReportTypeDaoPostgres(getConnection());}

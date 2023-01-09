@@ -12,7 +12,7 @@ public interface CommentDao {
 
     Comment findByPrimaryKey(Long id);
 
-    void saveOrUpdate(Comment comment);
+    boolean saveOrUpdate(Comment comment);
 
     void delete(Comment comment);
 

@@ -93,7 +93,7 @@ public class CommentDaoPostgres implements CommentDao {
     }
 
     @Override
-    public void saveOrUpdate(Comment comment) {
+    public boolean saveOrUpdate(Comment comment) {
         String insertComment = "INSERT INTO comment VALUES (?, ?, ?,?,?)";
         String updateComment = "UPDATE comment set date=?, message=?, person=?, event=? where id = ?";
         PreparedStatement st = null;
@@ -122,9 +122,11 @@ public class CommentDaoPostgres implements CommentDao {
             }
 
             st.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }

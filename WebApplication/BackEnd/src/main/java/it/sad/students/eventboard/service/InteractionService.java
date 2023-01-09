@@ -140,6 +140,34 @@ public class InteractionService {
         return date;
     }
 
+    public ResponseEntity updateComment(Comment comment, String token) {
+
+        if(comment==null)
+            return statusCodes.notFound();
+
+        if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
+            return statusCodes.unauthorized();
+        else
+        {
+            if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment))
+                return statusCodes.ok();
+            else
+                return statusCodes.commandError();
+        }
+
+
+    }
+
+    public ResponseEntity<Comment> getEvent(Long id) {
+        if (id==null )
+            return statusCodes.commandError();
+        Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
+        if (comment==null)
+            return  statusCodes.notFound();
+        else
+            return ResponseEntity.ok(comment);
+    }
+
     // TODO: 06/01/2023 IL comando extractUsername da errore "  Illegal base64url character: ' '    "
     //  (se metti il e.printStackTrace() nel metodo che richiama questo metodo lo noti)
     /*
