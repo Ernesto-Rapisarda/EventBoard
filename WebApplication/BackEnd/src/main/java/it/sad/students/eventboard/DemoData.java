@@ -114,7 +114,7 @@ public class DemoData {
 
 
     public Event createEvent(Long position
-            ,LocalDate date
+            ,LocalDateTime date
             ,EventType event_type
             ,Double price
             ,String poster

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,8 +16,7 @@ import java.util.List;
 public class ResponseEvent {
 
     private Long id;
-    private LocalDate date;
-    private LocalTime time;
+    private LocalDateTime date;
     private String title;
     private String urlPoster;
     private String eventType;

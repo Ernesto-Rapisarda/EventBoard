@@ -5,6 +5,7 @@ import it.sad.students.eventboard.persistenza.dao.ReviewDao;
 import it.sad.students.eventboard.persistenza.model.Review;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class ReviewDaoPostgress implements ReviewDao {
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, review.getPerson());
                 st.setLong(2, review.getEvent());
-                st.setDate(3, Date.valueOf(review.getDate()));
+                st.setTimestamp(3, Timestamp.valueOf(review.getDate()));
                 st.setString(4,review.getMessage());
                 st.setInt(5,review.getRating());
                 st.executeUpdate();
@@ -91,7 +92,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             }else {
 
                 st = conn.prepareStatement(updateStr);
-                st.setDate(1, Date.valueOf(review.getDate()));
+                st.setTimestamp(1, Timestamp.valueOf(review.getDate()));
                 st.setString(2,review.getMessage());
                 st.setInt(3,review.getRating());
 
@@ -155,7 +156,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             Review review=new Review();
             review.setPerson(rs.getLong("person"));
             review.setEvent(rs.getLong("event"));
-            review.setDate(rs.getDate("date").toLocalDate());
+            review.setDate(rs.getTimestamp("date").toLocalDateTime());
             review.setMessage(rs.getString("message"));
             review.setRating(rs.getInt("rating"));
             return review;
