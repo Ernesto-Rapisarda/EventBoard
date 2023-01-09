@@ -57,7 +57,6 @@ public class EventService {
             events.add(new ResponseEvent
                     (event.getId(),
                             event.getDate(),
-                            event.getTime(),
                             event.getTitle(),
                             event.getUrlPoster(),
                             event.getEventType().toString(),
@@ -76,7 +75,7 @@ public class EventService {
         if (event==null)
             return ResponseEntity.notFound().build();
 
-        event.setDate(LocalDate.from(LocalDateTime.now()));
+        //event.setDate(LocalDateTime.now());
 
 
         if(authorizationControll.checkOwnerAuthorization(event.getOrganizer(),token) && DBManager.getInstance().getEventDao().saveOrUpdate(event))

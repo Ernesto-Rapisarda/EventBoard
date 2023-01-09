@@ -1,11 +1,16 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Comment {
     private Long id;
-    private LocalDate date;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
     private String message;
 
     //chiavi esterne
@@ -15,7 +20,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Long id, LocalDate date, String message, Long person,Long event) {
+    public Comment(Long id, LocalDateTime date, String message, Long person,Long event) {
         this.id = id;
         this.date = date;
         this.message = message;
@@ -39,11 +44,11 @@ public class Comment {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

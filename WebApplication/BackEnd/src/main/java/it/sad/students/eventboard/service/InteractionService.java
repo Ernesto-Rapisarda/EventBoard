@@ -72,7 +72,7 @@ public class InteractionService {
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent())==null)
                 return statusCodes.notFound();
 
-            comment.setDate(LocalDate.from(date()));
+            comment.setDate(date());
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
 
              return statusCodes.ok();
@@ -90,7 +90,7 @@ public class InteractionService {
                 return statusCodes.notFound();
 
             if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent())==null){
-                review.setDate(LocalDate.from(date()));
+                review.setDate(date());
                 DBManager.getInstance().getReviewDao().saveOrUpdate(review);
                 return statusCodes.ok();
             }
@@ -202,7 +202,15 @@ public class InteractionService {
         }
     }
 
-
+    public ResponseEntity<Comment> getComment(Long id) {
+        if (id==null )
+            return statusCodes.commandError();
+        Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
+        if (comment==null)
+            return  statusCodes.notFound();
+        else
+            return ResponseEntity.ok(comment);
+    }
 
 
 
@@ -217,15 +225,7 @@ public class InteractionService {
 
 
 
-    public ResponseEntity<Comment> getComment(Long id) {
-        if (id==null )
-            return statusCodes.commandError();
-        Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
-        if (comment==null)
-            return  statusCodes.notFound();
-        else
-            return ResponseEntity.ok(comment);
-    }
+
 
     // TODO: 06/01/2023 IL comando extractUsername da errore "  Illegal base64url character: ' '    "
     //  (se metti il e.printStackTrace() nel metodo che richiama questo metodo lo noti)
