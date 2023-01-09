@@ -49,7 +49,7 @@
             <mat-label>Password</mat-label>
             <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePassword">
+                    [attr.aria-pressed]="hidePassword" type="button">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
@@ -63,7 +63,7 @@
             <mat-label>Conferma password</mat-label>
             <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm" required>
             <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePasswordConfirm">
+                    [attr.aria-pressed]="hidePasswordConfirm" type="button">
               <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>

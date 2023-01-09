@@ -17,19 +17,29 @@ export class ProfileComponent {
   onProfileEdit() {
     let dialogRef = this.dialog.open(ProfileEditDialogComponent,{
       data: {
-        username: this.authService.user.username,
         name: this.authService.user.name,
         lastName: this.authService.user.lastName,
         email: this.authService.user.email,
-      }
+        password: ''
+      }, disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
-        this.authService.user.username = result.username,
-        this.authService.user.name = result.name,
-        this.authService.user.lastName = result.lastName,
-        this.authService.user.email = result.email
+        if(
+          this.authService.user.name === result.name &&
+          this.authService.user.lastName === result.lastName &&
+          this.authService.user.email === result.email &&
+          (!result.password)
+        ){ alert("Nessun dato cambiato, richiesta annullata") }
+        else {
+            alert("Richiesta la modifica dei dati")
+            this.authService.editData(result.name, result.lastName, result.email, result.password).subscribe((result: any) => {
+              console.log(result)
+            })
+        }
       }
     )
+
+
   }
 }
