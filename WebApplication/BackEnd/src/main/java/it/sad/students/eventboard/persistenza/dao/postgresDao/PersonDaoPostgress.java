@@ -90,7 +90,7 @@ public class PersonDaoPostgress implements PersonDao {
     }
 
     @Override
-    public void saveOrUpdate(Person person) {
+    public boolean saveOrUpdate(Person person) {
         String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?)";
         String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
 
@@ -127,10 +127,11 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setLong(9, person.getId());
                 st.executeUpdate();
             }
+            return true;
         }catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-
 
     }
 

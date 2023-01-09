@@ -1,4 +1,5 @@
-package it.sad.students.eventboard.service;
+package it.sad.students.eventboard.service.httpbody;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseEventCreation {
-    private Long id;
+public class AuthenticationResponse {
+
+    private String token;
 }

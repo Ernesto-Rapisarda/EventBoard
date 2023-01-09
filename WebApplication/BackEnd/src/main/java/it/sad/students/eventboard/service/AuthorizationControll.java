@@ -1,8 +1,8 @@
-package it.sad.students.eventboard.security.auth;
+package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
-import it.sad.students.eventboard.security.config.JwtService;
+import it.sad.students.eventboard.configsecurity.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

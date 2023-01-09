@@ -14,9 +14,27 @@
   border-radius: 10px;
   overflow: hidden;
   margin: 1rem;
-  width: 250px;
+  width: 15vw;
   display: inline-block;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1500px) {
+  .card{
+    width: 20vw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .card{
+    width: 30vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .card{
+    width: 40vw;
+  }
 }
 
 .card-img {

@@ -28,6 +28,8 @@ import {AuthService} from "./auth/auth.service";
 import { BannerJoinComponent } from './components/banner-join/banner-join.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import { ProfileEditDialogComponent } from './components/profile-edit-dialog/profile-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import {MatMenuModule} from "@angular/material/menu";
     RegisterComponent,
     BannerJoinComponent,
     ProfileComponent,
+    ProfileEditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import {MatMenuModule} from "@angular/material/menu";
     MatToolbarModule,
     MatRadioModule,
     HttpClientModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

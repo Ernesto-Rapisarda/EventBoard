@@ -15,11 +15,19 @@ public class CommentController {
 
     @PostMapping("/api/comment/add")
     public ResponseEntity addComment(@RequestBody Comment comment, @RequestHeader(name="Authorization") String token){
+        //utente non autorizzato 403`
+        //utente non proprietario di quel account 400`
+        //evento non trovato, errore 404 not found`
+        //commento aggiunto codice 200 ok`
         return interactionService.addComment(comment,token);
     }
 
     @RequestMapping(value = "/api/comment/delete/{id}",method = RequestMethod.DELETE)
     public ResponseEntity deleteComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
+        //utente non autorizzato 403`
+        // utente non proprietario di quel account/oppure non Admin 400`
+        //evento non trovato, errore 404 not found`
+        //commento rimosso codice 200 ok`
         return interactionService.deleteComment(id,token);
 
     }
@@ -41,7 +49,7 @@ public class CommentController {
         //comment non trovato not found 404
         //codice 200, e restituisce il commento
         //code 400 , bad request, è stato passato id null
-        return interactionService.getEvent(id);
+        return interactionService.getComment(id);
     }
 
 

@@ -77,8 +77,8 @@ public class EventDaoPostgres implements EventDao {
 
     @Override
     public Boolean saveOrUpdate(Event event) {
-        String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?,?)";
-        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,organizer=?,time=? where id = ?";
+        String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?)";
+        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,organizer=? where id = ?";
         PreparedStatement st = null;
 
         try {
@@ -88,7 +88,7 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(newId);
                 st.setLong(1, event.getId());
                 st.setLong(2,event.getPosition());
-                st.setDate(3, java.sql.Date.valueOf(event.getDate()));
+                st.setTimestamp(3, Timestamp.valueOf(event.getDate()));
                 st.setString(4,event.getEventType().toString());
                 st.setDouble(5,event.getPrice());
                 st.setString(6,event.getUrlPoster());
@@ -96,12 +96,11 @@ public class EventDaoPostgres implements EventDao {
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
                 st.setString(10,event.getTitle());
-                st.setTime(11,java.sql.Time.valueOf(event.getTime().truncatedTo(ChronoUnit.MINUTES)));
 
             }else {
                 st = conn.prepareStatement(updateEvent);
                 st.setLong(1,event.getPosition());
-                st.setDate(2, java.sql.Date.valueOf(event.getDate()));
+                st.setTimestamp(2, Timestamp.valueOf(event.getDate()));
                 st.setString(3,event.getTitle());
                 st.setString(4,event.getEventType().toString());
                 st.setDouble(5,event.getPrice());
@@ -109,8 +108,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
-                st.setTime(10,java.sql.Time.valueOf(event.getTime().truncatedTo(ChronoUnit.MINUTES)));
-                st.setLong(11,event.getId());
+                st.setLong(10,event.getId());
             }
 
             st.executeUpdate();
@@ -161,14 +159,13 @@ public class EventDaoPostgres implements EventDao {
             event.setId(rs.getLong("id"));
             event.setTitle(rs.getString("title"));
             event.setPosition(rs.getLong("position"));
-            event.setDate(rs.getDate("date").toLocalDate());
+            event.setDate(rs.getTimestamp("date").toLocalDateTime());
             event.setEventType(EventType.valueOf(rs.getString("event_type")));
             event.setPrice(rs.getDouble("price"));
             event.setUrlPoster(rs.getString("poster"));
             event.setSoldOut(rs.getBoolean("soldout"));
             event.setDescription(rs.getString("description"));
             event.setOrganizer(rs.getLong("organizer"));
-            event.setTime(rs.getTime("time").toLocalTime().truncatedTo(ChronoUnit.MINUTES));
             return event;
         }catch (SQLException e){e.printStackTrace();}
 

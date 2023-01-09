@@ -11,7 +11,7 @@ public interface ReviewDao {
 
     Review findByPrimaryKey(Long person,Long event);
 
-    void saveOrUpdate(Review review);
+    boolean saveOrUpdate(Review review);
 
     void delete(Review review);
 

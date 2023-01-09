@@ -55,4 +55,34 @@ export class AuthService {
 
     return this.http.post(this.url + `/api/user/${username}`, {}, {headers: httpHeaders})
   }
+
+  editData( name: string, lastName: string, email: string, password: string) {
+    const httpHeaders = new HttpHeaders({
+      "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
+    })
+
+    if(password === '')
+      password = null
+
+    return this.http.put(this.url + `/api/user/edit`, {
+      id: this.user.id,
+      name: name,
+      lastName: lastName,
+      username: this.user.username,
+      password: password,
+      email: email,
+      activeStatus: true,
+      likes: [],
+      comments: [],
+      reviews: [],
+      preferences: [],
+      position: 1,
+      role: this.user.role,
+      enabled: true,
+      accountNonExpired: true,
+      credentialsNonExpired: true,
+      authorities: [],
+      accountNonLocked: true,
+    }, {headers: httpHeaders})
+  }
 }

@@ -25,6 +25,11 @@
         <span class="profile-card-text">Ruolo:</span>
         <span class="profile-card-value">{{this.authService.user.role}}</span>
       </p>
+      <div class="profile-btn-container">
+        <button mat-raised-button color="primary" class="profile-btn" (click)="onProfileEdit()">Modifica</button>
+        <button mat-raised-button color="warn" class="profile-btn" (click)="onProfileRemove()">Rimuovi</button>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>

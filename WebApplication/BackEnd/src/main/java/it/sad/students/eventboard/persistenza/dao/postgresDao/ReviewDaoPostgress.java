@@ -1,9 +1,11 @@
 package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
+import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.dao.ReviewDao;
 import it.sad.students.eventboard.persistenza.model.Review;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,26 +72,27 @@ public class ReviewDaoPostgress implements ReviewDao {
     }
 
     @Override
-    public void saveOrUpdate(Review review) {
+    public boolean saveOrUpdate(Review review) {
         String insertEvent = "INSERT INTO review VALUES (?,?,?,?,?)";
         String updateStr = "UPDATE review set date=?,message=?,rating=? where person = ? and event=?";
 
         PreparedStatement st=null;
         try {
-            //if (review.getPerson() == null&&review.getEvent() == null) {
+            Review revieDb= findByPrimaryKey(review.getPerson(), review.getEvent());
+            if (revieDb==null) {
 
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, review.getPerson());
                 st.setLong(2, review.getEvent());
-                st.setDate(3, Date.valueOf(review.getDate()));
+                st.setTimestamp(3, Timestamp.valueOf(review.getDate()));
                 st.setString(4,review.getMessage());
                 st.setInt(5,review.getRating());
                 st.executeUpdate();
 
-            /*}else {
+            }else {
 
                 st = conn.prepareStatement(updateStr);
-                st.setDate(1, Date.valueOf(review.getDate()));
+                st.setTimestamp(1, Timestamp.valueOf(review.getDate()));
                 st.setString(2,review.getMessage());
                 st.setInt(3,review.getRating());
 
@@ -99,10 +102,11 @@ public class ReviewDaoPostgress implements ReviewDao {
 
 
             }
-            */
 
+            return true;
         }catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return false;
         }
     }
 
@@ -152,7 +156,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             Review review=new Review();
             review.setPerson(rs.getLong("person"));
             review.setEvent(rs.getLong("event"));
-            review.setDate(rs.getDate("date").toLocalDate());
+            review.setDate(rs.getTimestamp("date").toLocalDateTime());
             review.setMessage(rs.getString("message"));
             review.setRating(rs.getInt("rating"));
             return review;

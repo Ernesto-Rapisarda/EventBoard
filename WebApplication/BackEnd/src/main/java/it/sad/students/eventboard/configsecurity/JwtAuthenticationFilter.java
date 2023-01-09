@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.security.config;
+package it.sad.students.eventboard.configsecurity;
 
 
 import jakarta.servlet.FilterChain;

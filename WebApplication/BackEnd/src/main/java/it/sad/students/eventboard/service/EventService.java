@@ -2,8 +2,10 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
-import it.sad.students.eventboard.security.auth.AuthorizationControll;
-import it.sad.students.eventboard.security.config.JwtService;
+import it.sad.students.eventboard.configsecurity.JwtService;
+import it.sad.students.eventboard.service.httpbody.ResponseEvent;
+import it.sad.students.eventboard.service.httpbody.ResponseEventCreation;
+import it.sad.students.eventboard.service.httpbody.ResponseEventDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,7 +57,6 @@ public class EventService {
             events.add(new ResponseEvent
                     (event.getId(),
                             event.getDate(),
-                            event.getTime(),
                             event.getTitle(),
                             event.getUrlPoster(),
                             event.getEventType().toString(),
@@ -70,11 +71,11 @@ public class EventService {
         return events;
     }
 
-    public ResponseEntity<ResponseEventCreation> createEvent(Event event,String token) {
+    public ResponseEntity<ResponseEventCreation> createEvent(Event event, String token) {
         if (event==null)
             return ResponseEntity.notFound().build();
 
-        event.setDate(LocalDate.from(LocalDateTime.now()));
+        //event.setDate(LocalDateTime.now());
 
 
         if(authorizationControll.checkOwnerAuthorization(event.getOrganizer(),token) && DBManager.getInstance().getEventDao().saveOrUpdate(event))
