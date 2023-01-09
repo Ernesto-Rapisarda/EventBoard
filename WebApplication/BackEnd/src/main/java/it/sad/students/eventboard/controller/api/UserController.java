@@ -1,10 +1,7 @@
 package it.sad.students.eventboard.controller.api;
 
-import it.sad.students.eventboard.persistenza.model.Comment;
 import it.sad.students.eventboard.persistenza.model.Person;
-import it.sad.students.eventboard.persistenza.model.Review;
 import it.sad.students.eventboard.service.InteractionService;
-import it.sad.students.eventboard.service.RequestPersonEvent;
 import it.sad.students.eventboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

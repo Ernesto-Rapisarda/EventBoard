@@ -3,16 +3,13 @@ package it.sad.students.eventboard.service;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.security.auth.AuthorizationControll;
-import it.sad.students.eventboard.security.config.JwtService;
-import lombok.Data;
+import it.sad.students.eventboard.service.httpbody.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.sound.midi.Soundbank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor

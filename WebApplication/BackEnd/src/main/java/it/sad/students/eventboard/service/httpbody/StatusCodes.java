@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.service;
+package it.sad.students.eventboard.service.httpbody;
 
 
 import lombok.AllArgsConstructor;
