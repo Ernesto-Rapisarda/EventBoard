@@ -47,7 +47,7 @@ public class ReportController {
         return reportService.addReport(id_event,id_person,report,"review");
     }
 
-    @RequestMapping("/close/{id_report}")
+    @RequestMapping(value = "/close/{id_report}",method = RequestMethod.PUT)
     public ResponseEntity closeReport(@PathVariable Long id_report){
         //400 id inserito nullo o errore nella chiusura
         //404 id non trotato
@@ -55,4 +55,15 @@ public class ReportController {
         return reportService.closeReport(id_report);
 
     }
+
+    @RequestMapping("/all")
+    public ResponseEntity<Iterable<Report>> getReports(){
+        return reportService.getReports();
+    }
+
+    @RequestMapping("/{id_rep}")
+    public ResponseEntity<Report> getReport(@PathVariable Long id){
+        return null;
+    }
+
 }

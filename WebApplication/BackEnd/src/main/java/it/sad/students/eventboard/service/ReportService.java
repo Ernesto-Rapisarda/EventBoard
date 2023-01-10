@@ -51,4 +51,8 @@ public class ReportService {
         else
             return statusCodes.commandError();//400
     }
+
+    public ResponseEntity<Iterable<Report>> getReports() {
+        return null;
+    }
 }
