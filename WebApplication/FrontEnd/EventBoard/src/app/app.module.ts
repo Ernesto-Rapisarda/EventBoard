@@ -34,6 +34,7 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerMo
         NgxMatNativeDateModule
     ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: "it-IT"}
+    {provide: MAT_DATE_LOCALE, useValue: "it-IT"},
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

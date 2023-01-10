@@ -16,8 +16,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  createUser(email: string, username: string, name: string, lastName: string, role: string, id: string, token: string){
-    this.user = new User(email, username, name, lastName, role, id, token)
+  createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string){
+    this.user = new User(id, name, lastName, username, email, role, token)
     this.isLoggedIn = true
   }
 
