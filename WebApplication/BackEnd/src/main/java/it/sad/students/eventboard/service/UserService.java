@@ -1,14 +1,21 @@
 package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.persistenza.DBManager;
+import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.persistenza.model.Position;
 import it.sad.students.eventboard.service.httpbody.EditRequest;
+import it.sad.students.eventboard.service.httpbody.ResponseEvent;
+import it.sad.students.eventboard.service.httpbody.ResponseOrganizer;
 import it.sad.students.eventboard.service.httpbody.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -111,7 +118,7 @@ public class UserService { //utente loggato
                 return statusCodes.notFound();
 
             if(authorizationControll.checkAdminAuthorization(token) && !personDb.getActiveStatus())
-                return statusCodes.commandError();
+                return statusCodes.commandError(); //se è stato un admin controllo se è attivo l'account che vuole disattivare
 
             personDb.setActiveStatus(false);
             DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
@@ -139,6 +146,32 @@ public class UserService { //utente loggato
         }
     }
 
+    public ResponseEntity<ResponseOrganizer> getOrganizer(Long id){
+        try {
+            // TODO: 10/01/2023 CONTROLLARE SE è DISABILITATO
+
+
+            Person person=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
+            if(person==null)
+                return statusCodes.notFound();
+
+            String name= person.getName()+" "+person.getLastName();
+
+            List<Event> fullEvent=DBManager.getInstance().getEventDao().findByOrganizer(id);
+            if(fullEvent==null)
+                return statusCodes.notFound();
+
+            List<ResponseEvent> events=new ArrayList<>();
+            for(Event event:fullEvent){
+                events.add(new ResponseEvent(event.getId(),event.getDate(),event.getTitle(), event.getUrlPoster(), event.getEventType().toString(), event.getPosition(),name ));
+            }
+
+            return statusCodes.okGetElement(new ResponseOrganizer(name,person.getEmail(), events)) ;
+        }catch (Exception e){
+            return statusCodes.notFound();
+        }
+    }
+
 
     // FUNCTION EXTRA
     private boolean nullOrEmpty(String string){
@@ -156,4 +189,6 @@ public class UserService { //utente loggato
         //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
         return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
     }
+
+
 }

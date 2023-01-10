@@ -11,6 +11,7 @@ public interface EventDao {
     Event findByPrimaryKey(Long id);
 
     List<Event> findByType(EventType type);
+    List<Event> findByOrganizer(Long id);
 
     Boolean saveOrUpdate(Event event);
 
