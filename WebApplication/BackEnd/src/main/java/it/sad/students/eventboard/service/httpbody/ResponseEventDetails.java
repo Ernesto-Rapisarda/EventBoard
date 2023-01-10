@@ -13,24 +13,9 @@ import java.util.List;
 public class ResponseEventDetails {
     Event event;
     String organizerFullName;
-    List<Comment> commentList;
+    List<ResponseComment> commentList;
     List<Like> likeList;
     List<Partecipation> partecipationList;
-    List<Review> reviewList;
+    List<ResponseReview> reviewList;
 }
 
-/*card eventi:
-immagine,
-id, titolo
-data, ora, luogo
-Nome organizzatore
- */
-
-/*full details dell'evento:
-    Event event;
-    List<Comment> commentList;
-    List<Like> likeList;
-    List<Partecipation> partecipationList;
-    List<Review> reviewList;
-
- */

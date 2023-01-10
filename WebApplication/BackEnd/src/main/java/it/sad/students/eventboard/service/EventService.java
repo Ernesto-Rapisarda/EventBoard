@@ -1,11 +1,10 @@
 package it.sad.students.eventboard.service;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.configsecurity.JwtService;
-import it.sad.students.eventboard.service.httpbody.ResponseEvent;
-import it.sad.students.eventboard.service.httpbody.ResponseEventCreation;
-import it.sad.students.eventboard.service.httpbody.ResponseEventDetails;
+import it.sad.students.eventboard.service.httpbody.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -122,10 +121,38 @@ public class EventService {
         Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
         if (event==null)
             return ResponseEntity.notFound().build();
-        List<Comment> commentList = DBManager.getInstance().getCommentDao().findByEvent(id);
+        List<Comment> comments = DBManager.getInstance().getCommentDao().findByEvent(id);
+        List<ResponseComment> commentList = new ArrayList<>();
+        for (Comment comment:comments){
+            Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson());
+            commentList.add(new ResponseComment(
+                    comment.getId(),
+                    comment.getDate(),
+                    comment.getMessage(),
+                    comment.getEvent(),
+                    comment.getPerson(),
+                    (person.getName()+" "+person.getLastName())));
+        }
+
+
         List<Like> likeList = DBManager.getInstance().getLikeDao().findByEvent(id);
         List<Partecipation> partecipationList = DBManager.getInstance().getPartecipationDao().findByEvent(id);
-        List<Review> reviewList = DBManager.getInstance().getReviewDao().findByEvent(id);
+
+        List<Review> reviews =  DBManager.getInstance().getReviewDao().findByEvent(id);
+        List<ResponseReview> reviewList = new ArrayList<>();
+        for (Review review:reviews){
+            Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(review.getPerson());
+            reviewList.add(new ResponseReview(
+                    review.getDate(),
+                    review.getMessage(),
+                    review.getRating(),
+                    review.getPerson(),
+                    review.getEvent(),
+                    (person.getName()+" "+person.getLastName())));
+        }
+
+
+
         Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
         String organizerFullName =person.getName() + " "+person.getLastName();
 

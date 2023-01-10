@@ -53,6 +53,17 @@ public class ReportService {
     }
 
     public ResponseEntity<Iterable<Report>> getReports() {
-        return null;
+
+        return statusCodes.okGetElements(DBManager.getInstance().getReportDao().findAll());
+    }
+
+    public ResponseEntity<Report> getReport(Long id) {
+        if (id==null)
+            return statusCodes.commandError();//400
+        Report report = DBManager.getInstance().getReportDao().findByPrimaryKey(id);
+        if(report!=null)
+            return statusCodes.okGetElement(report);
+        else
+            return statusCodes.notFound();
     }
 }

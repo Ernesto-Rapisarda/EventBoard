@@ -17,6 +17,7 @@ public class ReportController {
 
     @PostMapping("/comment/{id_comment}")
     public ResponseEntity reportComment(@PathVariable Long id_comment, @RequestBody Report report){
+        //codice 403 se non si è loggati
         //400 report vuoto o errore di salvataggio nel db o nell'invio della email
         //404 evento,commento,review non trovato
         //200 ok
@@ -25,6 +26,7 @@ public class ReportController {
 
     @PostMapping("/event/{id_event}")
     public ResponseEntity reportEvent(@PathVariable Long id_event, @RequestBody Report report){
+        //codice 403 se non si è loggati
         //400 report vuoto o errore di salvataggio nel db o nell'invio della email
         //404 evento,commento,review non trovato
         //200 ok
@@ -33,6 +35,7 @@ public class ReportController {
 
     @PostMapping("/bug")
     public ResponseEntity reportBug(@RequestBody Report report){
+        //codice 403 se non si è loggati
         //400 report vuoto o errore di salvataggio nel db o nell'invio della email
         //404 evento,commento,review non trovato
         //200 ok
@@ -41,14 +44,16 @@ public class ReportController {
 
     @PostMapping("/review/{id_event}/{id_person}")
     public ResponseEntity reportReview(@PathVariable Long id_event, @PathVariable Long id_person, @RequestBody Report report){
+        //codice 403 se non si è loggati
         //400 report vuoto o errore di salvataggio nel db o nell'invio della email
         //404 evento,commento,review non trovato
         //200 ok
         return reportService.addReport(id_event,id_person,report,"review");
     }
 
-    @RequestMapping(value = "/close/{id_report}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/close/{id_report}",method = RequestMethod.PUT)
     public ResponseEntity closeReport(@PathVariable Long id_report){
+        //codice 403 se non si è admin
         //400 id inserito nullo o errore nella chiusura
         //404 id non trotato
         //200 ok
@@ -56,14 +61,20 @@ public class ReportController {
 
     }
 
-    @RequestMapping("/all")
+    @RequestMapping("/admin/all")
     public ResponseEntity<Iterable<Report>> getReports(){
+        //codice 403 se non si è admin
+        //restituisce sempre 200 , e lista dei report presenti
         return reportService.getReports();
     }
 
-    @RequestMapping("/{id_rep}")
-    public ResponseEntity<Report> getReport(@PathVariable Long id){
-        return null;
+    @RequestMapping("/admin/{id_rep}")
+    public ResponseEntity<Report> getReport(@PathVariable Long id_rep){
+        //codice 403 se non si è admin
+        //id nullo errore 400
+        //ok 200, e restituisce il report
+        //404 id non trovato
+        return reportService.getReport(id_rep);
     }
 
 }

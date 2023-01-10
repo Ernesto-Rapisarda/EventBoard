@@ -43,8 +43,8 @@ public class ReportDaoPostgres implements ReportDao {
         String query ="select * from report where id=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
             stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
                 Report report = readEvent(rs);
