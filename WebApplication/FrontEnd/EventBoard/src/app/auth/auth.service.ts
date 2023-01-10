@@ -17,18 +17,19 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string){
-    this.user = new User(id, name, lastName, username, email, role, token)
+    this.user = {
+      id: id,
+      name: name,
+      lastName: lastName,
+      username: username,
+      email: email,
+      role: role,
+      token: token
+    }
     this.isLoggedIn = true
   }
 
   signUp(name: string, lastName: string, email: string, username: string, password: string, role: string){
-    console.log(`name ${name}`)
-    console.log(`lastName ${lastName}`)
-    console.log(`email ${email}`)
-    console.log(`username ${username}`)
-    console.log(`password ${password}`)
-    console.log(`type ${role}`)
-
     return this.http.post(this.url+"/api/noauth/register", {id: null, email: email, name: name, lastName: lastName, username: username, password: password, role: role, activeStatus: true, position: null})
   }
 

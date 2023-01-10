@@ -60,6 +60,10 @@
         </mat-form-field>
       </div>
 
+      <!-- poster -->
+      <div>
+        <input type="file" (change)="onFileUpload($event)">
+      </div>
 
       <mat-card-actions>
         <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid" type="submit">

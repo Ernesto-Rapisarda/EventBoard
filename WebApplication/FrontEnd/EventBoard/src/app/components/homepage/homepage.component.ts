@@ -15,13 +15,15 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.eventsService.events = new Array<Event>()
     this.requestService.getAllEvents().subscribe(response => {
+      console.log(response)
       for(let element in response){
-        let event = new Event()
-        event.id = response[element].id
-        event.title = response[element].title
-        event.date = response[element].date
-        event.urlPoster = response[element].urlPoster
-        event.organizerFullName = response[element].organizerFullName
+        let event = {
+          id: response[element].id,
+          title: response[element].title,
+          date: response[element].date,
+          urlPoster: response[element].urlPoster,
+          organizerFullName: response[element].organizerFullName,
+        }
         this.eventsService.events.push(event)
       }
     })

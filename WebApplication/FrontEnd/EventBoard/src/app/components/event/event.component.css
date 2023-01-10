@@ -71,6 +71,7 @@
   width: auto;
 }
 
+.organizer-name:hover { cursor: pointer }
 
 /* Date and Location */
 .date-location-container {

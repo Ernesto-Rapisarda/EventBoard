@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
+import {Router} from "@angular/router";
+import {ImgurApiService} from "../../services/imgur-api.service";
 
 @Component({
   selector: 'app-create-event',
@@ -11,8 +13,7 @@ import {AuthService} from "../../auth/auth.service";
 export class CreateEventComponent implements OnInit{
   eventCreateForm: FormGroup
 
-
-  constructor(private requestService: RequestService, private authService: AuthService) { }
+  constructor(private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurApiService) { }
 
   onSubmit() {
     this.requestService.createEvent(
@@ -26,7 +27,7 @@ export class CreateEventComponent implements OnInit{
       1, //CAMBIARE APPENA POSSIBILE
       this.authService.user.id
     ).subscribe((result: any) => {
-      console.log(result)
+      this.router.navigate([''])
     })
   }
 
@@ -39,7 +40,12 @@ export class CreateEventComponent implements OnInit{
         price: new FormControl('', [Validators.required, Validators.pattern('^((\\d+)|(\\d+\\.\\d+))$')]),
         eventType: new FormControl('', Validators.required),
         description: new FormControl('')
-    }
-    )
+    })
+  }
+
+  onFileUpload(event: Event) {
+    const element = event.currentTarget as HTMLInputElement
+    this.imgurService.upload(element.files[0])
+      .subscribe(res => console.log(res));
   }
 }
