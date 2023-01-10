@@ -2,14 +2,15 @@ import {User} from "./user.model";
 
 export class Event {
   public id: number
-  public title: string
   public date: Date
+  public title: string
+  public price: number
   public urlPoster: string
   public eventType: string
   public position: string
-  public location: string
   public description: string
-  public organizer: string
+  public organizerId: number
+  public organizerFullName: string
   constructor() { }
 
   /*get Organizer() {
