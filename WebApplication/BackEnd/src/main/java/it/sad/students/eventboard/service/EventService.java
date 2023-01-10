@@ -126,8 +126,10 @@ public class EventService {
         List<Like> likeList = DBManager.getInstance().getLikeDao().findByEvent(id);
         List<Partecipation> partecipationList = DBManager.getInstance().getPartecipationDao().findByEvent(id);
         List<Review> reviewList = DBManager.getInstance().getReviewDao().findByEvent(id);
+        Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
+        String organizerFullName =person.getName() + " "+person.getLastName();
 
-        return ResponseEntity.ok(new ResponseEventDetails(event,commentList,likeList,partecipationList,reviewList));
+        return ResponseEntity.ok(new ResponseEventDetails(event,organizerFullName ,commentList,likeList,partecipationList,reviewList));
 
     }
 }

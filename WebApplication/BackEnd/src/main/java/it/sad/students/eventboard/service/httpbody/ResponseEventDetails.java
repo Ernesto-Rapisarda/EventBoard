@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ResponseEventDetails {
     Event event;
+    String organizerFullName;
     List<Comment> commentList;
     List<Like> likeList;
     List<Partecipation> partecipationList;

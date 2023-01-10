@@ -73,6 +73,26 @@ public class EventDaoPostgres implements EventDao {
         return events;
     }
 
+    @Override
+    public List<Event> findByOrganizer(Long id) {
+        ArrayList<Event> events = new ArrayList<>();
+        String query ="select * from event where organizer=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Event event = readEvent(rs);
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return events;
+    }
+
 
 
     @Override

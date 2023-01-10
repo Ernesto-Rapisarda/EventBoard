@@ -51,7 +51,6 @@ public class DBManager {
     public PreferenceDao getPreferenceDao(){return new PreferenceDaoPostgress(getConnection());}
     public CommentDao getCommentDao(){return new CommentDaoPostgres(getConnection());}
     public ReportDao getReportDao(){return new ReportDaoPostgres(getConnection());}
-    public ReportTypeDao getReportTypeDao(){return new ReportTypeDaoPostgres(getConnection());}
     public LikeDao getLikeDao(){return new LikeDaoPostgres(getConnection());}
 
 

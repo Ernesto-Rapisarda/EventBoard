@@ -41,6 +41,8 @@ public class SecurityConfiguration  {
                 .hasAnyAuthority("ORGANIZER","ADMIN")
                 .requestMatchers("/api/update/event")
                 .hasAnyAuthority("ORGANIZER","ADMIN")
+                .requestMatchers("/api/report/close/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

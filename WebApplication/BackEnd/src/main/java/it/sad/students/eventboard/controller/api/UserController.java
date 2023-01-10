@@ -4,6 +4,7 @@ import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.UserService;
 import it.sad.students.eventboard.service.httpbody.EditRequest;
+import it.sad.students.eventboard.service.httpbody.ResponseOrganizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UserController {
 
     // TODO: 06/01/2023 Revisionare path scritti
 
-    @RequestMapping(value="api/user/edit",method = RequestMethod.PUT)
+    @RequestMapping(value="/api/user/edit",method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody EditRequest person, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account, campi sbagliati operazione non eseguibile codice 400`
@@ -32,18 +33,26 @@ public class UserController {
     }
 
     // TODO: 08/01/2023 Decidere se fare rimozione a cascata dal database
-    @RequestMapping(value="api/user/delete",method = RequestMethod.DELETE)
+    @RequestMapping(value="/api/user/delete",method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
         return userService.disableUser(id,token);
         //id lo passi dal path
         //nel body, deve mettere nel body username e password, admin mette tutto null
     }
-    @RequestMapping(value="api/user/enable",method = RequestMethod.POST)
+    @RequestMapping(value="/api/user/enable",method = RequestMethod.POST)
     public ResponseEntity enableUser(@RequestBody Long id,@RequestHeader (name="Authorization") String token){
         return userService.enableUser(id,token);
     }
 
 
+    @RequestMapping(value="/api/noauth/organizer/{id}",method = RequestMethod.GET)
+    public ResponseEntity getOrganizer(@PathVariable Long id){
+        //utente non autorizzato 403
+        //utente non è un Organizer 400
+        //utente non trovato, errore nel sistema 404 not found
+        //responde dei dati (nome,email e elenco eventi) 200 ok
+        return userService.getOrganizer(id);
+    }
 
 
 

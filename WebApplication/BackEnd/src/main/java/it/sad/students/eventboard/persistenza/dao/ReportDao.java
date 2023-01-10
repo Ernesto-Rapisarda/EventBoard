@@ -9,7 +9,7 @@ public interface ReportDao {
 
     Report findByPrimaryKey(Long id);
 
-    void saveOrUpdate(Report report);
+    boolean saveOrUpdate(Report report);
 
     void delete(Report report);
 }
