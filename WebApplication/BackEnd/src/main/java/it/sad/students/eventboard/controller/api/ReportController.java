@@ -17,26 +17,41 @@ public class ReportController {
 
     @PostMapping("/comment/{id_comment}")
     public ResponseEntity reportComment(@PathVariable Long id_comment, @RequestBody Report report){
+        //400 report vuoto o errore di salvataggio nel db o nell'invio della email
+        //404 evento,commento,review non trovato
+        //200 ok
         return reportService.addReport(id_comment,null,report,"comment");
     }
 
     @PostMapping("/event/{id_event}")
     public ResponseEntity reportEvent(@PathVariable Long id_event, @RequestBody Report report){
+        //400 report vuoto o errore di salvataggio nel db o nell'invio della email
+        //404 evento,commento,review non trovato
+        //200 ok
         return reportService.addReport(id_event,null,report,"event");
     }
 
     @PostMapping("/bug")
     public ResponseEntity reportBug(@RequestBody Report report){
+        //400 report vuoto o errore di salvataggio nel db o nell'invio della email
+        //404 evento,commento,review non trovato
+        //200 ok
         return reportService.addReport(null,null,report,"bug");
     }
 
     @PostMapping("/review/{id_event}/{id_person}")
     public ResponseEntity reportReview(@PathVariable Long id_event, @PathVariable Long id_person, @RequestBody Report report){
+        //400 report vuoto o errore di salvataggio nel db o nell'invio della email
+        //404 evento,commento,review non trovato
+        //200 ok
         return reportService.addReport(id_event,id_person,report,"review");
     }
 
     @RequestMapping("/close/{id_report}")
     public ResponseEntity closeReport(@PathVariable Long id_report){
+        //400 id inserito nullo o errore nella chiusura
+        //404 id non trotato
+        //200 ok
         return reportService.closeReport(id_report);
 
     }

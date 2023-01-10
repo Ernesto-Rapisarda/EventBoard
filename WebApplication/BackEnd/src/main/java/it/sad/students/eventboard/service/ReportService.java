@@ -18,7 +18,6 @@ public class ReportService {
 
 
     public ResponseEntity addReport(Long id,Long person, Report report, String type) {
-
         if(report==null)
             return statusCodes.commandError();//400
 
