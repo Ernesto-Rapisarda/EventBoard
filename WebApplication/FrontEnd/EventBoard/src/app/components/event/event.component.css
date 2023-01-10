@@ -77,8 +77,8 @@
   width: auto;
   height: auto;
   display: inline;
-  padding-top: 75px;
-  padding-bottom: 75px;
+  margin-top: 30px;
+  padding-bottom: 30px;
   margin-left: 10%;
   margin-right: 10%;
 
@@ -94,7 +94,7 @@
   --display: inline-block;
   --icon-color: #3a0ca3;
 
-  --bg-card-color: #e2e2e2;
+  --bg-card-color: #dee2e6;
   --bg-card-header-color: #d1d1d1;
   --bg-card-border-radius: 12px;
 
@@ -140,16 +140,70 @@
 }
 
 
-/* delete me */
-.test {
+
+
+.like-partecipate-container {
+  display: inline-block;
+}
+.partecipate-button-container, .like-button-container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.partecipate-button-container {
+  float: left;
+}
+.like-button-container {
+  float: right;
+}
+.partecipate-button, .like-button {
+
+  --bg-color-partecipate-notpressed: #ced4da;
+  --bg-color-partecipate-pressed: primary;
+
+  --bg-color-like-notpressed: #ced4da;
+  --bg-color-like-pressed: accent;
+
+}
+.partecipate-button {
+  background-color: var(--bg-color-partecipate-notpressed);
+  /* da cambiare quando è pressed con angular */
+}
+.like-button {
+  background-color: var(--bg-color-like-notpressed);
+  /* da cambiare quando è pressed con angular */
+}
+
+
+.line-break {
   display: flex;
   background-color: black;
   height: 100%;
   width: 100%;
-  margin-top: 150px;
+}
+
+.comments-reviews-container {
+  background-color: #ced4da;
+  border-radius: 10px;
+  margin-top: 36px;
+  margin-left: 18%;
+  margin-right: 18%;
+}
+.comments-tab {
+  background-color: #dee2e6;
+  border-radius: 10px;
+}
+.comments-header-cpy {
+  padding-top: 24px;
 }
 
 
+
+.blank-space-at-bottom {
+  margin-top: 30px;
+  width: 1920px;
+  height: 300px;
+  background-color: lightgrey;
+}
 /* TODO: se serve */
 @media screen and (max-width: 550px) {
   .date-icon, .location-icon {
