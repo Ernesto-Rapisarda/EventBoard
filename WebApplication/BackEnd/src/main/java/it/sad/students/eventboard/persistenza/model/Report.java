@@ -1,25 +1,30 @@
 package it.sad.students.eventboard.persistenza.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Report {
     private Long id;
     private Boolean status;
     private String message;
-    private Date date;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
 
     //chiavi esterne
-    private Long type;
+    private ReportType type;
     private Long person;
 
     public Report(){}
 
-    public Report(Long id, Long type, Boolean status, String message, Date date, Long person) {
+    public Report(Long id, Boolean status, String message, LocalDateTime date, ReportType type, Long person) {
         this.id = id;
-        this.type = type;
         this.status = status;
         this.message = message;
         this.date = date;
+        this.type = type;
         this.person = person;
     }
 
@@ -35,11 +40,11 @@ public class Report {
         this.id = id;
     }
 
-    public Long getType() {
+    public ReportType getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(ReportType type) {
         this.type = type;
     }
 
@@ -59,11 +64,11 @@ public class Report {
         this.message = message;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ResponseEventDetails {
     Event event;
+    // TODO: 10/01/2023 nome + cognome 
     List<Comment> commentList;
     List<Like> likeList;
     List<Partecipation> partecipationList;

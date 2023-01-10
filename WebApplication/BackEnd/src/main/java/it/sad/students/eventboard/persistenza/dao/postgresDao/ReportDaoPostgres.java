@@ -3,8 +3,10 @@ package it.sad.students.eventboard.persistenza.dao.postgresDao;
 import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.ReportDao;
 import it.sad.students.eventboard.persistenza.model.Report;
+import it.sad.students.eventboard.persistenza.model.ReportType;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class ReportDaoPostgres implements ReportDao {
     }
 
     @Override
-    public void saveOrUpdate(Report report) {
+    public boolean saveOrUpdate(Report report) {
         String insertReport = "INSERT INTO report VALUES (?, ?, ?, ?,?,?)";
         String updateReport = "UPDATE report set type=?, status=?, message = ?, date =?,person=? where id = ?";
         PreparedStatement st = null;
@@ -67,27 +69,29 @@ public class ReportDaoPostgres implements ReportDao {
                 Long newId = IdBroker.getNewReportID(conn);
                 report.setId(newId);
                 st.setLong(1, report.getId());
-                st.setLong(2, report.getType());
+                st.setString(2, String.valueOf(report.getType()));
                 st.setBoolean(3, report.getStatus());
                 st.setString(4,report.getMessage());
-                st.setDate(5, (Date) report.getDate());
+                st.setTimestamp(5, Timestamp.valueOf(report.getDate()));
                 st.setLong(6,report.getPerson());
 
             }else {
                 st = conn.prepareStatement(updateReport);
-                st.setLong(1, report.getType());
+                st.setString(1, String.valueOf(report.getType()));
                 st.setBoolean(2, report.getStatus());
                 st.setString(3,report.getMessage());
-                st.setDate(4, (Date) report.getDate());
+                st.setTimestamp(4, Timestamp.valueOf(report.getDate()));
                 st.setLong(5,report.getPerson());
                 st.setLong(6, report.getId());
 
             }
 
             st.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -110,10 +114,10 @@ public class ReportDaoPostgres implements ReportDao {
         try{
             Report report = new Report();
             report.setId(rs.getLong("id"));
-            report.setType(rs.getLong("type"));
+            report.setType(ReportType.valueOf(rs.getString("type")));
             report.setStatus(rs.getBoolean("status"));
             report.setMessage(rs.getString("message"));
-            report.setDate(rs.getDate("date"));
+            report.setDate(rs.getTimestamp("date").toLocalDateTime());
             report.setPerson(rs.getLong("person"));
             return report;
         }catch (SQLException e){e.printStackTrace();}

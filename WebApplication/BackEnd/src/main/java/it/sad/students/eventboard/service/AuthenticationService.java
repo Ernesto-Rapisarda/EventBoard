@@ -1,6 +1,8 @@
 package it.sad.students.eventboard.service;
 
 
+import it.sad.students.eventboard.communication.EmailMessage;
+import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.service.httpbody.AuthenticationRequest;
 import it.sad.students.eventboard.service.httpbody.AuthenticationResponse;
 import it.sad.students.eventboard.configsecurity.JwtService;
@@ -19,6 +21,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailSenderService emailSenderService;
 
 
     public AuthenticationResponse register (RegisterRequest request) {
@@ -31,6 +34,20 @@ public class AuthenticationService {
                 request.getActiveStatus(), 1L, request.getRole());
         DBManager.getInstance().getPersonDao().saveOrUpdate(user);
         var jwtToken = jwtService.generateToken(user);
+
+        EmailMessage emailMessage = new EmailMessage();
+        emailMessage.setTo(request.getEmail());
+        emailMessage.setSubject("Conferma avvenuta registrazione");
+        emailMessage.setMessage("Benvenuto "+
+                request.getName()+" "+
+                request.getLastName()+", \n"+
+                "la tua registrazione è andata a buon fine.\n"+
+                "Da adesso in poi, potrai navigare sul sito sfruttando tutte le sue funzionalità."
+
+        );
+        emailSenderService.sendEmail(emailMessage);
+
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
