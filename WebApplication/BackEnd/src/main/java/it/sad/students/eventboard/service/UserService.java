@@ -155,6 +155,9 @@ public class UserService { //utente loggato
             if(person==null)
                 return statusCodes.notFound();
 
+            if(!person.getRole().toString().equals("ORGANIZER"))
+                return statusCodes.unauthorized();
+
             String name= person.getName()+" "+person.getLastName();
 
             List<Event> fullEvent=DBManager.getInstance().getEventDao().findByOrganizer(id);

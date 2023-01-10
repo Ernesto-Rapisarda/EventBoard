@@ -47,9 +47,10 @@ public class UserController {
 
     @RequestMapping(value="/api/noauth/organizer/{id}",method = RequestMethod.GET)
     public ResponseEntity getOrganizer(@PathVariable Long id){
-        //utente non autorizzato 403`
-        //utente non trovato, errore nel sistema 404 not found`
-        //responde dei dati (nome,email e elenco eventi) 200 ok`
+        //utente non autorizzato 403
+        //utente non è un Organizer 400
+        //utente non trovato, errore nel sistema 404 not found
+        //responde dei dati (nome,email e elenco eventi) 200 ok
         return userService.getOrganizer(id);
     }
 
