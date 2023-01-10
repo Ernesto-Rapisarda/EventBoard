@@ -19,6 +19,10 @@
   flex-wrap: wrap;
 }
 
+.card:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1500px) {
   .card{
     width: 20vw;

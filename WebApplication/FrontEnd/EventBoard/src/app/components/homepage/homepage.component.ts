@@ -21,7 +21,7 @@ export class HomepageComponent implements OnInit {
         event.title = response[element].title
         event.date = response[element].date
         event.urlPoster = response[element].urlPoster
-        event.organizer = response[element].organizer
+        event.organizerFullName = response[element].organizerFullName
         this.eventsService.events.push(event)
       }
     })
