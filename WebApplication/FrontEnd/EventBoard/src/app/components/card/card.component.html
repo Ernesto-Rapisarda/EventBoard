@@ -7,8 +7,8 @@
       <h2 class="card-title">
         {{event.title}}
       </h2>
-      <h4 class="card-organizer">{{event.date | date: 'EEEE dd/MM/yyyy H:mm'}}</h4>
-      <h5 class="card-data">
+      <h4 class="card-data">{{event.date | date: 'EEEE dd/MM/yyyy H:mm'}}</h4>
+      <h5 class="card-organizer">
         {{event.organizerFullName}}
       </h5>
     </div>

@@ -9,15 +9,15 @@ import {SearchComponent} from "./components/search/search.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
-  {path: 'create-event', component: CreateEventComponent},
-  {path: 'event', component: EventComponent},
+  {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {path: 'event/:id', component: EventComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   {path: 'search', component: SearchComponent},
   {path: '**', component: NotFoundComponent},
 ];

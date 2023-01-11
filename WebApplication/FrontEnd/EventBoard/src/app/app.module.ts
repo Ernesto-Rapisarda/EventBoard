@@ -38,6 +38,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import localeIt from '@angular/common/locales/it';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReviewComponent } from './components/review/review.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 registerLocaleData(localeIt, 'it');
@@ -62,29 +63,30 @@ registerLocaleData(localeIt, 'it');
     CommentComponent,
     ReviewComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatInputModule,
-        MatIconModule,
-        MatListModule,
-        MatProgressBarModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatRadioModule,
-        HttpClientModule,
-        MatMenuModule,
-        MatDialogModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        NgxMatDatetimePickerModule,
-        NgxMatTimepickerModule,
-        NgxMatNativeDateModule,
-        MatTabsModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatRadioModule,
+    HttpClientModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    MatTabsModule,
+    MatBadgeModule,
+  ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},
     DatePipe

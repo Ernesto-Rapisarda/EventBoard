@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Review} from "../../models/review.model";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-review',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent {
+  @Input() review: Review
 
+  constructor(protected authService: AuthService) { }
 }

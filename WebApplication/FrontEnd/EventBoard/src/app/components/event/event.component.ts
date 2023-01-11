@@ -12,7 +12,7 @@ import {Event} from "../../models/event.model";
 export class EventComponent implements OnInit {
   event: Event
 
-  constructor(private requestService: RequestService, private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
@@ -25,7 +25,7 @@ export class EventComponent implements OnInit {
       console.log(response)
       this.event = response.event
       this.event.commentList = response.commentList
-      this.event.reviewList = response.event.reviewList
+      this.event.reviewList = response.reviewList
       this.event.participationList = response.event.partecipationList
       this.event.organizerFullName = response.organizerFullName
     })
