@@ -23,7 +23,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import { BannerJoinComponent } from './components/banner-join/banner-join.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatMenuModule} from "@angular/material/menu";
@@ -31,12 +31,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ProfileEditDialogComponent } from './components/profile-edit-dialog/profile-edit-dialog.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MatNativeDateModule} from "@angular/material/core";
 import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
 import {DatePipe, registerLocaleData} from "@angular/common";
 import { MatTabsModule } from "@angular/material/tabs";
 import localeIt from '@angular/common/locales/it';
-import {CloudinaryModule} from "@cloudinary/ng";
 import { CommentComponent } from './components/comment/comment.component';
 
 
@@ -83,7 +82,6 @@ registerLocaleData(localeIt, 'it');
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         MatTabsModule,
-        CloudinaryModule,
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},
