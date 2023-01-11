@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://0.0.0.0:4200")
 @RequestMapping("/api/noauth")
 @RequiredArgsConstructor
 public class AuthenticationController {
