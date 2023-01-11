@@ -37,6 +37,7 @@ import {DatePipe, registerLocaleData} from "@angular/common";
 import { MatTabsModule } from "@angular/material/tabs";
 import localeIt from '@angular/common/locales/it';
 import { CommentComponent } from './components/comment/comment.component';
+import { ReviewComponent } from './components/review/review.component';
 
 
 registerLocaleData(localeIt, 'it');
@@ -59,6 +60,7 @@ registerLocaleData(localeIt, 'it');
     ProfileEditDialogComponent,
     DatepickerComponent,
     CommentComponent,
+    ReviewComponent,
   ],
     imports: [
         BrowserModule,
