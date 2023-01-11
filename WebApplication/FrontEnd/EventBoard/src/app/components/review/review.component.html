@@ -1,0 +1,20 @@
+<div class="card-container">
+  <div class="card-rating">
+    <div class="rating">{{review.rating}}/10</div>
+  </div>
+  <div class="card-header">
+    <div class="username">{{review.namePerson}}</div>
+    <div class="date">{{review.date | date: "dd/MM/YYYY H:MM"}}</div>
+  </div>
+  <div class="card-content">
+    <p>{{review.message}}</p>
+  </div>
+  <div class="card-footer">
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+      <mat-icon class="icon-report">report</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" *ngIf="this.authService.user && (this.authService.user.id === review.person)">
+      <mat-icon class="icon-edit">edit</mat-icon>
+    </button>
+  </div>
+</div>

@@ -5,9 +5,9 @@
   <a routerLink=""><span>EventBoard</span></a>
   <span class="spacer"></span>
   <div class="toolbar-buttons">
-    <button mat-raised-button class="navbar-button" routerLink="/create-event">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->
-    <button mat-raised-button class="navbar-button" *ngIf="!authService.isLoggedIn" routerLink="/login">ACCEDI</button>
-    <button mat-raised-button class="navbar-button" *ngIf="!authService.isLoggedIn" routerLink="/register">ISCRIVITI</button>
+    <button mat-raised-button class="navbar-button" *ngIf="authService.isAuthenticated() && authService.user.role === 'ORGANIZER'" routerLink="/create-event">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->
+    <button mat-raised-button class="navbar-button" *ngIf="!authService.isAuthenticated()" routerLink="/login">ACCEDI</button>
+    <button mat-raised-button class="navbar-button" *ngIf="!authService.isAuthenticated()" routerLink="/register">ISCRIVITI</button>
   </div>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu profilo" *ngIf="authService.isLoggedIn">
     <mat-icon>perm_identity</mat-icon>

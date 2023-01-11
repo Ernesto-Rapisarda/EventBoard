@@ -1,0 +1,81 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  margin: 16px auto;
+  padding: 16px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12),
+  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.rating {
+  background-color: #ffb703;
+  color: black;
+  padding: 8px 24px 8px 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 16px;
+}
+.username {
+  padding-right: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #303f9f;
+}
+.date {
+  font-size: 14px;
+  color: gray;
+}
+
+.card-content {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+}
+.icon-edit {
+  color: #303f9f;
+}
+.icon-report {
+  color: #d00000;
+}
+.button-primary {
+  padding: 8px 16px;
+  border-radius: 2px;
+  background-color: #4caf50;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.button-secondary {
+  padding: 8px 16px;
+  border-radius: 2px;
+  background-color: #f44336;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

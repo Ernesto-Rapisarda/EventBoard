@@ -16,12 +16,12 @@
   <!-- Like / Attendance -->
   <div class="like-partecipate-container">
     <div class="partecipate-button-container">
-      <button class="partecipate-button" mat-fab aria-label="Partecipate">
+      <button class="partecipate-button" mat-fab aria-label="Partecipate" [disabled]="!this.authService.isAuthenticated()">
         <mat-icon>how_to_reg</mat-icon>
       </button>
     </div>
     <div class="like-button-container">
-      <button class="like-button" mat-fab aria-label="Like">
+      <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()">
         <mat-icon>favorite</mat-icon>
       </button>
     </div>
@@ -62,26 +62,27 @@
     </div>
   </div>
 
-  <!-- Comments -->
+  <!-- Comments / Reviews -->
   <div class="comments-reviews-container">
     <div class="comments-header-cpy">
-      <h2>12 persone hanno commentato</h2>
+      <h2>{{((this.event.commentList.length)+(this.event.reviewList.length)).toString()}} persone hanno interagito</h2>
     </div>
     <div>
       <mat-tab-group class="comments-tab">
-        <mat-tab label="Commenti">
-          <div class="mock-comment">
-            <p class="comment-title">Title</p>
-            <p class="comment-comment">This is a normal size comment. Wow!</p>
-            <p class="comment-author">Antonino</p>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
+          </ng-template>
+          <div *ngFor="let comment of event.commentList">
+            <app-comment [comment]="comment"></app-comment>
           </div>
         </mat-tab>
-        <mat-tab label="Recensioni">
-          <div class="mock-review">
-            <p>[4 stelle (?)]</p>
-            <p class="review-title">Title</p>
-            <p class="review-comment">This is a normal size comment. Wow!</p>
-            <p class="review-author">Antonino</p>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
+          </ng-template>
+          <div *ngFor="let review of event.reviewList">
+            <app-review [review]="review"></app-review>
           </div>
         </mat-tab>
       </mat-tab-group>

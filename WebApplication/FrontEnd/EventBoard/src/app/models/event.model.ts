@@ -1,5 +1,6 @@
 import {Review} from "./review.model";
 import {Partecipation} from "./partecipation.model";
+import {Comment} from "./comment.model";
 
 export interface Event {
   id: number

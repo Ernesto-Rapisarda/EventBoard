@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit {
           title: response[element].title,
           date: response[element].date,
           urlPoster: response[element].urlPoster,
-          organizerFullName: response[element].organizerFullName,
+          organizerFullName: response[element].organizer.toString(),
         }
         this.eventsService.events.push(event)
       }
