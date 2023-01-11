@@ -35,20 +35,22 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.value.username
     const password = this.loginForm.value.password
 
-    this.authService.signIn(username, password).subscribe((response: any) => {
-      const token = response.token
+    this.authService.signIn(username, password).subscribe({
+      next: (response: any) =>{
+        const token = response.token
 
-      // sets local storage variable for automatic logins
-      localStorage.setItem('token', JSON.stringify(token))
-      localStorage.setItem('username', JSON.stringify(username))
+        // sets local storage variable for automatic logins
+        localStorage.setItem('token', JSON.stringify(token))
+        localStorage.setItem('username', JSON.stringify(username))
 
         if(localStorage.getItem('token')){
           this.authService.getData(username).subscribe((userData: any) => {
             this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token)
             console.log(this.authService.user)
           })
-          this.router.navigate(['/'])
+          this.router.navigate([''])
         }
+      }
     })
   }
 }

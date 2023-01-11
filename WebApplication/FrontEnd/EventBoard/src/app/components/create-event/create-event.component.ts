@@ -26,8 +26,10 @@ export class CreateEventComponent implements OnInit{
       this.eventCreateForm.value.eventType,
       1, //CAMBIARE APPENA POSSIBILE
       this.authService.user.id
-    ).subscribe((result: any) => {
-      this.router.navigate([''])
+    ).subscribe({
+      next: response => {
+        this.router.navigate([''])
+      }
     })
   }
 
@@ -46,6 +48,6 @@ export class CreateEventComponent implements OnInit{
   onFileUpload(event: Event) {
     const element = event.currentTarget as HTMLInputElement
     this.imgurService.upload(element.files[0])
-      .subscribe(res => console.log(res));
+      .subscribe({next: res => console.log(res)});
   }
 }
