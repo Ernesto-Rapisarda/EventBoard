@@ -1,19 +1,19 @@
 <div class="event-main-container">
 
-  <!-- Locandina -->
+  <!-- Poster -->
   <div class="poster-container">
     <img class="poster" src="https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8MTYlM0E5fGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
   </div>
 
-  <!-- Data e Titolo -->
+  <!-- Date and Time -->
   <div class="date-name-container">
-    <p class="date-header">Gen 9</p>
-    <h1 class="name-header">Compleanno di Simoncino</h1>
-    <p class="price-header">ingresso: 15€</p>
+    <p class="date-header">{{event.date | date: "dd MMM YYYY"}}</p>
+    <h1 class="name-header">{{event.title}}</h1>
+    <p class="price-header">Ingressi a partire da: {{event.price | currency: "EUR"}}</p>
   </div>
 
 
-  <!-- Mi piace / Parteciperò -->
+  <!-- Like / Attendance -->
   <div class="like-partecipate-container">
     <div class="partecipate-button-container">
       <button class="partecipate-button" mat-fab aria-label="Partecipate">
@@ -29,21 +29,20 @@
   <div class="line-break"></div>
 
 
-  <!-- Descrizione -->
+  <!-- Description -->
   <div class="event-description">
     <p>
-      Il Roadshow Smau, circuito di riferimento dell’ecosistema dell’innovazione nazionale e internazionale, farà tappa a Taranto.
-      Il Roadshow Smau, circuito di riferimento dell’ecosistema dell’innovazione nazionale e internazionale, farà tappa a Taranto.
+      {{event.description}}
     </p>
   </div>
 
-  <!-- Organizzatore -->
+  <!-- Organizer -->
   <div class="organizer-container">
     <p class="organizer-cpy">organizzato da</p>
-    <p class="organizer-name">Alejandro</p>
+    <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
   </div>
 
-  <!-- Quando e dove -->
+  <!-- When and where -->
   <div style="display: grid">
     <div class="date-location-container">
       <div class="date-container">
@@ -51,7 +50,7 @@
           <mat-icon class="date-icon">date_range</mat-icon>
           <p class="date-cpy">Data e ora</p>
         </div>
-        <p class="date">Gio 26 Gennaio, 09:30 – 17:30</p>
+        <p class="date">{{event.date | date}}</p>
       </div>
       <div class="location-container">
         <div class="card-location-header">
@@ -63,7 +62,7 @@
     </div>
   </div>
 
-  <!-- Commenti -->
+  <!-- Comments -->
   <div class="comments-reviews-container">
     <div class="comments-header-cpy">
       <h2>12 persone hanno commentato</h2>

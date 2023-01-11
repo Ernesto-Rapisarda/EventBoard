@@ -1,9 +1,7 @@
-<h1 style="text-align: center">CREA EVENTO</h1>
-
 <mat-card class="card">
   <mat-card-header class="card-header">
-    <mat-card-title>Registrati</mat-card-title>
-    <mat-card-subtitle>Benvenuto! Inserisci i tuoi dati</mat-card-subtitle>
+    <mat-card-title>Crea evento</mat-card-title>
+    <mat-card-subtitle>Inserisci i dettagli dell'evento</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -18,7 +16,9 @@
       </div>
 
       <!-- date and time -->
-      <app-datepicker controlName="date"></app-datepicker>
+      <div class="date-picker">
+        <app-datepicker controlName="date"></app-datepicker>
+      </div>
 
       <!-- location -->
       <div class="field-container">
@@ -34,7 +34,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Prezzo di partenza</mat-label>
           <input matInput placeholder="" formControlName="price" required>
-          <mat-icon matSuffix>email</mat-icon>
+          <mat-icon matSuffix>euro_symbol</mat-icon>
         </mat-form-field>
       </div>
 
@@ -60,6 +60,10 @@
         </mat-form-field>
       </div>
 
+      <!-- poster -->
+      <div>
+        <input type="file" (change)="onFileUpload($event)">
+      </div>
 
       <mat-card-actions>
         <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid" type="submit">

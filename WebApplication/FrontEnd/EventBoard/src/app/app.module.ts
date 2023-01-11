@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +24,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./auth/auth.service";
 import { BannerJoinComponent } from './components/banner-join/banner-join.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatMenuModule} from "@angular/material/menu";
@@ -34,7 +33,13 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
-import {DatePipe} from "@angular/common";
+import {DatePipe, registerLocaleData} from "@angular/common";
+import { MatTabsModule } from "@angular/material/tabs";
+import localeIt from '@angular/common/locales/it';
+import {CloudinaryModule} from "@cloudinary/ng";
+
+
+registerLocaleData(localeIt, 'it');
 
 @NgModule({
   declarations: [
@@ -74,10 +79,12 @@ import {DatePipe} from "@angular/common";
         MatNativeDateModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
-        NgxMatNativeDateModule
+        NgxMatNativeDateModule,
+        MatTabsModule,
+        CloudinaryModule,
     ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: "it-IT"},
+    {provide: LOCALE_ID, useValue: "it-IT"},
     DatePipe
   ],
   bootstrap: [AppComponent]

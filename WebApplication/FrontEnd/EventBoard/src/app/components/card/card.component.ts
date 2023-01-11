@@ -16,9 +16,4 @@ export class CardComponent {
   date: Date  // basta che sia una data valida che deve ancora arrivare
 
   constructor(protected eventsService: EventsService) { }
-
-  onClick(id: number){
-
-  }
-
 }
