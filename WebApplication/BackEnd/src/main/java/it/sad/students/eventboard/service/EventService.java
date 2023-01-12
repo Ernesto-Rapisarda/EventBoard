@@ -159,4 +159,9 @@ public class EventService {
         return ResponseEntity.ok(new ResponseEventDetails(event,organizerFullName ,commentList,likeList,partecipationList,reviewList));
 
     }
+
+
+    public ResponseEntity<EventType[]> getEventType(){
+        return ResponseEntity.ok(EventType.values());
+    }
 }

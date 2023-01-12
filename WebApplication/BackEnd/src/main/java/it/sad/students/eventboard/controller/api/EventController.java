@@ -79,6 +79,11 @@ public class EventController {
         return eventService.getEventFullDetails(id);
     }
 
+    @RequestMapping("/api/noauth/type/events")
+    public ResponseEntity<EventType[]> getEventType(){
+        return eventService.getEventType();
+    }
+
 
 
 
