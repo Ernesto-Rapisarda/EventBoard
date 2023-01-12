@@ -40,20 +40,21 @@ export class RegisterComponent implements OnInit {
     const password = this.registerForm.value.password
 
 
-    this.authService.signUp(name, lastName, email, username, password, role).subscribe((response: any) => {
-      const token = response.token
+    this.authService.signUp(name, lastName, email, username, password, role).subscribe({
+      next: (response: any) =>{
+        const token = response.token
 
-      // TODO: Raccogliere questo e quello che è nel signIn (LoginComponent) in una funzione da qualche parte per evitare di duplicare codice
-      // sets local storage variable for automatic logins
-      localStorage.setItem('token', JSON.stringify(token))
-      localStorage.setItem('username', JSON.stringify(username))
+        // sets local storage variable for automatic logins
+        localStorage.setItem('token', JSON.stringify(token))
+        localStorage.setItem('username', JSON.stringify(username))
 
-      if(localStorage.getItem('token')){
-        this.authService.getData(username).subscribe((userData: any) => {
-          this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token)
-          console.log(this.authService.user)
-        })
-        this.router.navigate(['/'])
+        if(localStorage.getItem('token')){
+          this.authService.getData(username).subscribe((userData: any) => {
+            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token)
+            console.log(this.authService.user)
+          })
+          this.router.navigate([''])
+        }
       }
     })
   }

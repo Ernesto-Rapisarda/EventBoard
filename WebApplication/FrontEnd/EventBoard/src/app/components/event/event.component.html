@@ -14,17 +14,29 @@
 
 
   <!-- Like / Attendance -->
-  <div class="like-partecipate-container">
-    <div class="partecipate-button-container">
-      <button class="partecipate-button" mat-fab aria-label="Partecipate" [disabled]="!this.authService.isAuthenticated()">
+  <div class="like-participate-container">
+
+
+    <div class="participate-button-container">
+      <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
+              [ngClass]="{
+              'participate-button-false': !participate,
+              'participate-button-true': participate
+              }">
         <mat-icon>how_to_reg</mat-icon>
       </button>
     </div>
+
     <div class="like-button-container">
-      <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()">
+      <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
+              [ngClass]="{
+              'like-button-false': !liked,
+              'like-button-true': liked
+              }">
         <mat-icon>favorite</mat-icon>
       </button>
     </div>
+
   </div>
   <div class="line-break"></div>
 

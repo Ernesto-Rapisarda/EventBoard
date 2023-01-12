@@ -1,6 +1,7 @@
 import {Review} from "./review.model";
 import {Partecipation} from "./partecipation.model";
 import {Comment} from "./comment.model";
+import {Like} from "./like.model";
 
 export interface Event {
   id: number
@@ -15,6 +16,7 @@ export interface Event {
   organizer?: number      // organizer id
   organizerFullName: string
   commentList?: Comment[]
+  likeList?: Like[]
   participationList?: Partecipation[]
   reviewList?: Review[]
 }
