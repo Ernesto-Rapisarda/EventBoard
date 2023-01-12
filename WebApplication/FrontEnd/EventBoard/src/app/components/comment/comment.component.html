@@ -1,17 +1,17 @@
 <div class="card-container">
   <div class="card-header">
-    <div class="username">{{this.comment.namePerson}}</div>
-    <div class="date">{{this.comment.date | date: "dd/MM/YYYY H:MM" }}</div>
+    <div class="username">ALEJANDRO MONETTI</div>
+    <div class="date">09-01-2023</div>
   </div>
   <div class="card-content">
-    <p>{{this.comment.message}}</p>
+    <p>CARD COMMENT</p>
   </div>
   <div class="card-footer">
     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon class="icon">report</mat-icon>
+      <mat-icon class="icon-report">report</mat-icon>
     </button>
     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" *ngIf="this.authService.user && (this.authService.user.id === comment.person)">
-      <mat-icon class="icon">edit</mat-icon>
+      <mat-icon class="icon-edit">edit</mat-icon>
     </button>
   </div>
 </div>
