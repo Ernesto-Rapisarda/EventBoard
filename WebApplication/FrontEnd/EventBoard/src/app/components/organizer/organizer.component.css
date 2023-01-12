@@ -1,0 +1,56 @@
+* {
+  text-align: center;
+
+  --primary-text-size: 48px;
+  --primary-font-weight: 600;
+
+  --container-bg-color: #e5e5e5;
+  --container-border-radius: 15px;
+
+}
+
+.main-container {
+  margin-top: 6%;
+}
+
+.organizer-header {
+  margin-bottom: 6%;
+}
+.organizer-header-name {
+  font-size: var(--primary-text-size);
+  font-weight: var(--primary-font-weight);
+  margin-bottom: 24px;
+}
+.organizer-header-mail { }
+
+.card-container {
+  margin: 0 12%;
+  background-color: var(--container-bg-color);
+  display: inline-block;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: var(--container-border-radius);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+}
+.card-header {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.explore-cpy {
+  font-size: 28px;
+  font-weight: 500;
+}
+.cards {
+  margin-bottom: 6%;
+}
+.card {
+  border-radius: 4px;
+}
+
+.contact-btn {
+  margin-top: -32px;
+}
+
+.main-footer {
+  height: 100px;
+}
