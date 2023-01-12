@@ -1,41 +1,77 @@
-.container {
-  position: relative;
-  top: 5%;
-  width: 30%;
-  margin: 0 auto;
-}
+/* TODO: pulire il codice */
 
-@media (max-width: 1000px) {
-  .container {
-    width: 50%;
-  }
-}
-
-@media (max-width: 600px) {
-  .container {
-    width: 70%;
-  }
-}
-
-.profile-card-text {
-  font-size: 1.3em;
-  font-weight: normal;
-}
-
-.profile-card-value {
-  font-size: 1.3em;
-  font-weight: lighter;
-  margin-left: 10px;
-}
-
-.profile-card-paragraph {
-  margin-top: 10px;
-}
-.profile-btn {
-  margin-right: 20px;
-}
-
-.profile-btn-container {
+* {
   text-align: center;
+
+  --primary-text-size: 48px;
+  --primary-font-weight: 600;
+
+  --container-bg-color: #e5e5e5;
+  --container-border-radius: 15px;
+
 }
 
+.main-container {
+  margin-top: 6%;
+}
+
+.organizer-header {
+  margin-bottom: 6%;
+}
+.organizer-header-name {
+  font-size: var(--primary-text-size);
+  font-weight: var(--primary-font-weight);
+  margin-top: 92px;
+  margin-bottom: 62px;
+}
+.organizer-header-mail { }
+
+.card-container {
+  margin: 0 36px;
+  background-color: var(--container-bg-color);
+  border-radius: var(--container-border-radius);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  padding-bottom: 36px;
+}
+.card-header {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-top: 32px;
+}
+.explore-cpy {
+  font-size: 28px;
+  font-weight: 600;
+}
+.divider {
+  --divider-margin: 10%;
+
+  margin-left: var(--divider-margin);
+  margin-right: var(--divider-margin);
+}
+
+.info-container {
+  margin: 32px 0;
+}
+.info-cpy {
+  margin-right: 5px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.info-data {
+  margin-top: -8px;
+  font-size: 16px;
+}
+
+
+.interaction-buttons-container {
+  margin-top: -32px;
+}
+.btn {
+  --margin-lr: 20px;
+
+  margin-left: var(--margin-lr);
+  margin-right: var(--margin-lr);
+}
+.main-footer {
+  height: 100px;
+}

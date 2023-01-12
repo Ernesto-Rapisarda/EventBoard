@@ -1,35 +1,50 @@
-<div class="container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Il mio profilo</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-divider></mat-divider>
-      <p class="profile-card-paragraph">
-        <span class="profile-card-text">Username:</span>
-        <span class="profile-card-value">{{this.authService.user.username}}</span>
-      </p>
-      <p class="profile-card-paragraph">
-        <span class="profile-card-text">Nome:</span>
-        <span class="profile-card-value">{{this.authService.user.name}}</span>
-      </p>
-      <p class="profile-card-paragraph">
-        <span class="profile-card-text">Cognome:</span>
-        <span class="profile-card-value">{{this.authService.user.lastName}}</span>
-      </p>
-      <p class="profile-card-paragraph">
-        <span class="profile-card-text">E-mail:</span>
-        <span class="profile-card-value">{{this.authService.user.email}}</span>
-      </p>
-      <p class="profile-card-paragraph">
-        <span class="profile-card-text">Ruolo:</span>
-        <span class="profile-card-value">{{this.authService.user.role}}</span>
-      </p>
-      <div class="profile-btn-container">
-        <button mat-raised-button color="primary" class="profile-btn" (click)="onProfileEdit()">Modifica</button>
-        <button mat-raised-button color="warn" class="profile-btn" (click)="onProfileRemove()">Rimuovi</button>
-      </div>
+<div>
 
-    </mat-card-content>
-  </mat-card>
+  <div class="organizer-header">
+    <h1 class="organizer-header-name">Il mio profilo</h1>
+  </div>
+
+
+  <div class="card-container">
+    <div class="card-header">
+      <h2 class="explore-cpy">Dati personali</h2>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="cards">
+
+      <!-- !!! -->
+      <div class="info-container">
+        <p class="info-cpy">USERNAME</p>
+        <p class="info-data">{{this.authService.user.username}}</p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">NOME</p>
+        <p class="info-data">{{this.authService.user.name}}</p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">COGNOME</p>
+        <p class="info-data">{{this.authService.user.lastName}}</p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">EMAIL</p>
+        <p class="info-data">{{this.authService.user.email}}</p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">RUOLO</p>
+        <p class="info-data">{{this.authService.user.role}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="interaction-buttons-container">
+    <button class="btn" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button class="btn" mat-fab color="warn" aria-label="Example icon button with a delete icon">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
 </div>
