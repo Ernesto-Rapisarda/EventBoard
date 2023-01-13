@@ -66,7 +66,7 @@
           <mat-icon class="date-icon">date_range</mat-icon>
           <p class="date-cpy">Data e ora</p>
         </div>
-        <p class="date">{{event.date | date}}</p>
+        <p class="date">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
       </div>
       <div class="location-container">
         <div class="card-location-header">
@@ -106,8 +106,27 @@
     </div>
   </div>
 
-  <div class="blank-space-at-bottom"></div>
+  <!-- Floating buttons - to fix -->
+  <div class="floating-buttons-left">
+
+    <div class="edit-button-container">
+      <button class="edit-button" mat-fab aria-label="Report" color="primary">
+        <mat-icon class="icon-edit">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="remove-button-container">
+      <button class="remove-button" mat-fab aria-label="Report" color="warn">
+        <mat-icon class="icon-remove">delete</mat-icon>
+      </button>
+    </div>
+
+    <div class="report-button-container">
+      <button class="report-button" mat-fab aria-label="Report">
+        <mat-icon class="icon-report">report</mat-icon>
+      </button>
+    </div>
+
+  </div>
 
 </div>
-
-
