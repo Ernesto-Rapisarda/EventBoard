@@ -11,9 +11,11 @@ import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthGuard} from "./auth/auth.guard";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
+import {ActivateComponent} from "./activate/activate.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
+  {path: 'profile/activate/:token', component: ActivateComponent},
   {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {path: 'event/:id', component: EventComponent},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},

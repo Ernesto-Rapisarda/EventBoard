@@ -46,6 +46,7 @@ import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 import {CommentFormComponent} from "./components/comment-form/comment-form.component";
 import {ReviewFormComponent} from "./components/review-form/review-form.component";
 import { BannerWelcomebackComponent } from './components/banner-welcomeback/banner-welcomeback.component';
+import {ActivateComponent} from "./activate/activate.component";
 
 
 registerLocaleData(localeIt, 'it');
@@ -72,7 +73,8 @@ registerLocaleData(localeIt, 'it');
         OrganizerComponent,
         CommentFormComponent,
         ReviewFormComponent,
-        BannerWelcomebackComponent
+        BannerWelcomebackComponent,
+        ActivateComponent
     ],
     imports: [
         BrowserModule,

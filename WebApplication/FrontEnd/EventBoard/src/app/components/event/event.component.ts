@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Event} from "../../models/event.model";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-event',
@@ -15,7 +16,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   participate: boolean
   likesNumber: number
   participantsNumber: number
-  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute) { }
+  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
@@ -28,7 +29,6 @@ export class EventComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.liked = this.didILikeThis()
     this.participate = this.willIParticipate()
-    console.log("imposto")
     this.likesNumber = this.event.likeList.length
     this.participantsNumber = this.event.participationList.length
   }
@@ -75,7 +75,7 @@ export class EventComponent implements OnInit, AfterViewInit {
               this.liked = !this.liked
             }
           },
-          error: error => { this.errorHandle(error.status) }
+          error: error => { this.errorHandler(error.status) }
       })
     }
   }
@@ -89,12 +89,27 @@ export class EventComponent implements OnInit, AfterViewInit {
             this.participate = !this.participate
           }
         },
-        error: error => { this.errorHandle(error.status) }
+        error: error => { this.errorHandler(error.status) }
       })
     }
   }
 
-  errorHandle(error: number) {
+  onDelete() {
+    let choice = confirm("Sei sicuro di voler rimuovere l'evento? Questa operazione è irreversibile.")
+    if(choice && this.event){
+      this.requestService.deleteEvent(this.event.id).subscribe({
+        next: response => {
+          alert("L'evento è stato rimosso con successo, ritorno alla pagina principale.")
+          this.router.navigateByUrl('')
+        },
+        error: error => {
+          this.errorHandler(error)
+        }
+      })
+    }
+  }
+
+  private errorHandler(error: number) {
     switch (error) {
       case 400:
         alert("ERRORE: Token non corrispondende all'id utente")
