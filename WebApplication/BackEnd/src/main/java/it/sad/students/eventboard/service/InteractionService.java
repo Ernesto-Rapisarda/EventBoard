@@ -1,5 +1,7 @@
 package it.sad.students.eventboard.service;
 
+import it.sad.students.eventboard.communication.EmailMessage;
+import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.service.httpbody.StatusCodes;
@@ -7,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.StyledEditorKit;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,6 +19,7 @@ public class InteractionService {
 
     private final AuthorizationControll authorizationControll;
     private final StatusCodes statusCodes;
+    private final EmailSenderService emailSenderService;
 
     // TODO: 06/01/2023 Settare eventuali error, Exception è generale??
 
@@ -75,6 +79,14 @@ public class InteractionService {
             comment.setDate(date());
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
 
+            Long organizer=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent()).getOrganizer();
+            if(organizer!=comment.getPerson()){ //se chi ha fatto il commento è diverso da chi ha creato il post dell'evento
+
+                Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(organizer);
+                Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
+                emailSenderService.sendEmail(newMessageAdd(person,true,event.getTitle()));
+            }
+
              return statusCodes.ok();
         }catch (Exception e){
             return statusCodes.notFound();
@@ -92,6 +104,13 @@ public class InteractionService {
             if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent())==null){
                 review.setDate(date());
                 DBManager.getInstance().getReviewDao().saveOrUpdate(review);
+                Long organizer=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent()).getOrganizer();
+                if(organizer!=review.getPerson()){ //se chi ha fatto il commento è diverso da chi ha creato il post dell'evento
+
+                    Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(organizer);
+                    Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent());
+                    emailSenderService.sendEmail(newMessageAdd(person,false,event.getTitle()));
+                }
                 return statusCodes.ok();
             }
             return statusCodes.notFound();
@@ -106,7 +125,7 @@ public class InteractionService {
         }
     }
 
-    public ResponseEntity deleteComment(Long id,String token){
+    public ResponseEntity deleteComment(Long id,String token,String message){
         try {
             Comment comment=DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
             if(comment==null)
@@ -116,6 +135,11 @@ public class InteractionService {
                 return statusCodes.unauthorized();
 
             DBManager.getInstance().getCommentDao().delete(comment);
+            if(authorizationControll.checkAdminAuthorization(token)){
+                Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
+                String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
+                emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,true,event.getTitle(), message));
+            }
             // TODO: 06/01/2023 valutare eliminazione solo con chiave e non passando tutto il commento
             return statusCodes.ok();
         }catch (Exception e){
@@ -124,7 +148,7 @@ public class InteractionService {
         }
     }
 
-    public ResponseEntity deleteReview(Long person,Long event,String token){
+    public ResponseEntity deleteReview(Long person,Long event,String token,String message){
         try {
             if(!authorizationControll.checkOwnerOrAdminAuthorization(person, token))
                 return statusCodes.unauthorized();
@@ -135,6 +159,11 @@ public class InteractionService {
             if(review==null)
                 return statusCodes.notFound();
             DBManager.getInstance().getReviewDao().delete(review);
+            if(authorizationControll.checkAdminAuthorization(token)){
+                Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(event);
+                String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(person).getEmail();
+                emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,false,true,e.getTitle(), message));
+            }
             // TODO: 06/01/2023 valutare eliminazione solo con chiavi e non passando tutta la review
             return statusCodes.ok();
 
@@ -145,7 +174,7 @@ public class InteractionService {
     }
 
 
-    public ResponseEntity updateComment(Comment comment, String token) {
+    public ResponseEntity updateComment(Comment comment, String token,String message) {
 
         if(comment==null)
             return statusCodes.notFound();
@@ -154,8 +183,14 @@ public class InteractionService {
             return statusCodes.unauthorized();
         else
         {
-            if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment))
+            if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment)) {
+                if(authorizationControll.checkAdminAuthorization(token)){
+                    Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
+                    String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
+                    emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));
+                }
                 return statusCodes.ok();
+            }
             else
                 return statusCodes.commandError();
         }
@@ -164,7 +199,7 @@ public class InteractionService {
     }
 
 
-    public ResponseEntity updateReview(Review review, String token) {
+    public ResponseEntity updateReview(Review review, String token,String message) {
         try {
             if(review==null)
                 return statusCodes.notFound();
@@ -173,13 +208,18 @@ public class InteractionService {
                 return statusCodes.unauthorized();
 
             if(review.getRating()==null || review.getRating()<=0||review.getRating()>10||
-                    review.getMessage()==null ||review.getMessage()=="")
+                    review.getMessage()==null ||review.getMessage().equals(""))
                 return statusCodes.commandError();
-            System.out.println("ok");
             // TODO: 09/01/2023 modificare la data??
             //review.setDate(LocalDate.from(date()));
-            if(DBManager.getInstance().getReviewDao().saveOrUpdate(review))
+            if(DBManager.getInstance().getReviewDao().saveOrUpdate(review)) {
+                if(authorizationControll.checkAdminAuthorization(token)){
+                    Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent());
+                    String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(review.getPerson()).getEmail();
+                    emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));
+                }
                 return statusCodes.ok();
+            }
             else
                 return statusCodes.commandError();
         }catch (Exception e){
@@ -218,9 +258,44 @@ public class InteractionService {
 
 
     //extra functions
-    public LocalDateTime date(){
+    private LocalDateTime date(){
         LocalDateTime date = LocalDateTime.now();
         return date;
+    }
+
+
+    private EmailMessage newMessageAdd(Person person,Boolean type,String title){ // type: true(comment) false(review)
+        String object="";
+        String message="";
+        if(type){
+            object="Hai ricevuto un commento ad un tuo Evento";
+            message="L'utente "+person.getName()+" "+person.getLastName()+"ha commentato il tuo evento '"+title+"'";
+        }else{
+            object="Hai ricevuto una recensione ad un tuo Evento";
+            message="L'utente "+person.getName()+" "+person.getLastName()+"ha recensito il tuo evento '"+title+"'";
+        }
+
+        return new EmailMessage(
+                person.getEmail(),
+                object,
+                message);
+    }
+
+    private EmailMessage newMessageDeleteOrUpdate(String to,Boolean type,Boolean deleteOrUpdate,String title,String message){ //type true(comment) false(review)
+        String object="";
+        if(deleteOrUpdate){
+            if(type)
+                object="L'admin ha eliminato il tuo commento all'evento '"+title+"'";
+            else
+                object="L'admin ha eliminato la tua recensione all'evento '"+title+"'";
+        }else{
+            if(type)
+                object="L'admin ha modificato il tuo commento all'evento '"+title+"'";
+            else
+                object="L'admin ha modificato la tua recensione all'evento '"+title+"'";
+
+        }
+        return new EmailMessage(to,object,message);
     }
 
 

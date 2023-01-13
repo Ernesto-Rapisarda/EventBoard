@@ -2,6 +2,7 @@ package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.persistenza.model.Review;
 import it.sad.students.eventboard.service.InteractionService;
+import it.sad.students.eventboard.service.httpbody.RequestMotivationObject;
 import it.sad.students.eventboard.service.httpbody.RequestPersonEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,21 +25,21 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "api/review/delete",method = RequestMethod.DELETE)
-    public ResponseEntity deleteReviews(@RequestBody RequestPersonEvent pe, @RequestHeader (name="Authorization") String token){
+    public ResponseEntity deleteReviews(@RequestBody RequestMotivationObject<RequestPersonEvent> pe, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account/oppure non Admin 400`
         //evento non trovato, errore 404 not found`
         //review rimossa codice 200 ok`
-        return interactionService.deleteReview(pe.getPerson(),pe.getEvent(),token);
+        return interactionService.deleteReview(pe.getObject().getPerson(),pe.getObject().getEvent(),token, pe.getMessage());
     }
 
-    @RequestMapping(value = "api/review/edit",method = RequestMethod.PUT)
-    public ResponseEntity updateReview(@RequestBody Review review, @RequestHeader (name="Authorization") String token){
+    @RequestMapping(value = "api/review/update",method = RequestMethod.PUT)
+    public ResponseEntity updateReview(@RequestBody RequestMotivationObject<Review> ob, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account 400`
         //errore campi modificati, errore server 404 not found`
         //utente modificato aggiunto codice 200 ok`
-        return interactionService.updateReview(review,token);
+        return interactionService.updateReview(ob.getObject(),token,ob.getMessage());
     }
 
 
