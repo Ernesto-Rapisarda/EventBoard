@@ -110,17 +110,17 @@
   <!-- Floating buttons - to fix -->
   <div class="floating-buttons-left">
     <div class="edit-button-container">
-      <button class="edit-button" mat-fab aria-label="Report" color="primary">
+      <button class="edit-button" mat-fab aria-label="Edit" color="primary" *ngIf="authService.isAuthenticated && (authService.user.id === event.organizer)">
         <mat-icon class="icon-edit">edit</mat-icon>
       </button>
     </div>
-    <div class="remove-button-container">
-      <button class="remove-button" mat-fab aria-label="Report" color="warn">
-        <mat-icon class="icon-remove">delete</mat-icon>
+    <div class="delete-button-container">
+      <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+        <mat-icon class="icon-delete">delete</mat-icon>
       </button>
     </div>
     <div class="report-button-container">
-      <button class="report-button" mat-fab aria-label="Report">
+      <button class="report-button" mat-fab aria-label="Report" *ngIf="authService.isAuthenticated && (authService.user.id != event.organizer && authService.user.role == 'ORGANIZER')">
         <mat-icon class="icon-report">report</mat-icon>
       </button>
     </div>

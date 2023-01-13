@@ -15,6 +15,7 @@ export interface Event {
   position?: number
   organizer?: number      // organizer id
   organizerFullName: string
+  urlTicket?: string
   commentList?: Comment[]
   likeList?: Like[]
   participationList?: Participation[]

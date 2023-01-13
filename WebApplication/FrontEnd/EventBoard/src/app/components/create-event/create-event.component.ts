@@ -28,6 +28,7 @@ export class CreateEventComponent implements OnInit{
       location: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required, Validators.pattern('^((\\d+)|(\\d+\\.\\d+))$')]),
       eventType: new FormControl('', Validators.required),
+      ticketUrl: new FormControl(''),
       description: new FormControl('')
     })
   }
@@ -41,6 +42,7 @@ export class CreateEventComponent implements OnInit{
       this.urlPoster,
       this.eventCreateForm.value.description,
       this.eventCreateForm.value.eventType,
+      this.eventCreateForm.value.ticketUrl,
       1, //CAMBIARE APPENA POSSIBILE
       this.authService.user.id
     ).subscribe({

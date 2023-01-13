@@ -57,6 +57,8 @@ public class UserService { //utente loggato
                     .email(person.getEmail())
                     .position(person.getPosition())
                     .role(person.getRole())
+                    .locked(person.isAccountNonLocked())
+                            .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
                     .build()
             );
         else

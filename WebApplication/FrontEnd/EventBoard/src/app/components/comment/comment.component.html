@@ -9,17 +9,17 @@
   <div class="card-footer">
 
     <!-- Modifica -->
-    <button mat-icon-button aria-label="Edit button" *ngIf="this.authService.user && (this.authService.user.id === comment.person)">
+    <button mat-icon-button aria-label="Edit button" *ngIf="this.authService.user && (this.authService.user.id === comment.person)" (click)="onEdit()">
       <mat-icon class="icon-edit">edit</mat-icon>
     </button>
 
     <!-- Rimuovi -->
-    <button mat-icon-button aria-label="Remove button" *ngIf="this.authService.user && (this.authService.user.id === comment.person)">
-      <mat-icon class="icon-remove">delete</mat-icon>
+    <button mat-icon-button aria-label="Delete button" *ngIf="this.authService.user && (this.authService.user.id === comment.person || this.authService.user.role === 'ADMIN')" (click)="onDelete()">
+      <mat-icon class="icon-delete">delete</mat-icon>
     </button>
 
     <!-- Segnala -->
-    <button mat-icon-button aria-label="Report button" *ngIf="this.authService.user && (this.authService.user.id != comment.person)">
+    <button mat-icon-button aria-label="Report button" *ngIf="this.authService.user && (this.authService.user.id != comment.person) && this.authService.user.role != 'ADMIN'" (click)="onReport()">
       <mat-icon class="icon-report">report</mat-icon>
     </button>
   </div>

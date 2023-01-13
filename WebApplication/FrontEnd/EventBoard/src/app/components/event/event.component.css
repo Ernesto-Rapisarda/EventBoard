@@ -216,26 +216,22 @@
 }
 
 .floating-buttons-left {
-  display: table-column;
+  display: inline-flex;
   position: fixed;
-  left: 15px;
-  bottom: 15px;
+  left: 24px;
+  bottom: 24px;
+  gap: 12px;
 }
 
 .report-button-container {
   float: top;
 }
 
-.report-button-container, .edit-button-container, .remove-button-container {
-  padding-top: 9px;
-  padding-bottom: 9px;
-  padding-left: 9px;
-}
 .report-button {
   background-color: orange;
 }
 
-.remove-button {
+.delete-button {
   background-color: #DB4437;
 }
 
