@@ -13,7 +13,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchComponent } from './components/search/search.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { RegisterComponent } from './components/register/register.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
@@ -31,7 +31,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ProfileEditDialogComponent } from './components/profile-edit-dialog/profile-edit-dialog.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
 import {DatePipe, registerLocaleData} from "@angular/common";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -39,6 +39,11 @@ import localeIt from '@angular/common/locales/it';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReviewComponent } from './components/review/review.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatSelectModule} from "@angular/material/select";
+import {OrganizerComponent} from "./components/organizer/organizer.component";
+import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
+import {CommentFormComponent} from "./components/comment-form/comment-form.component";
 
 
 registerLocaleData(localeIt, 'it');
@@ -62,31 +67,38 @@ registerLocaleData(localeIt, 'it');
     DatepickerComponent,
     CommentComponent,
     ReviewComponent,
+    OrganizerComponent,
+    CommentFormComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatRadioModule,
-    HttpClientModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    MatTabsModule,
-    MatBadgeModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatInputModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatRadioModule,
+        HttpClientModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        MatTabsModule,
+        MatBadgeModule,
+        MatOptionModule,
+        MatChipsModule,
+        MatSelectModule,
+        MatLegacyChipsModule,
+        FormsModule,
+    ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},
     DatePipe

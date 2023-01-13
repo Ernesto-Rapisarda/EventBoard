@@ -1,15 +1,15 @@
 <div class="card-container">
   <div class="card-header">
-    <div class="header-text">A cosa stai pensando?</div>
+    <div class="header-text">Hai qualche dubbio oppure vuoi semplicemente esprimerti?</div>
   </div>
 
   <div class="field-container">
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Scrivi qui...</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!">
+      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
     </mat-form-field>
     <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === ''" (click)="onSend()">
         <mat-icon>send</mat-icon>
       </button>
     </div>

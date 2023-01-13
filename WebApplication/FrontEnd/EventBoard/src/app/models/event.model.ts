@@ -1,5 +1,5 @@
 import {Review} from "./review.model";
-import {Partecipation} from "./partecipation.model";
+import {Participation} from "./partecipation.model";
 import {Comment} from "./comment.model";
 import {Like} from "./like.model";
 
@@ -17,6 +17,6 @@ export interface Event {
   organizerFullName: string
   commentList?: Comment[]
   likeList?: Like[]
-  participationList?: Partecipation[]
+  participationList?: Participation[]
   reviewList?: Review[]
 }

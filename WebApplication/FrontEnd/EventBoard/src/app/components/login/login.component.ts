@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
         if(localStorage.getItem('token')){
           this.authService.getData(username).subscribe((userData: any) => {
-            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token)
+            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, userData.preferences)
             console.log(this.authService.user)
           })
           this.router.navigate([''])

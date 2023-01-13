@@ -1,7 +1,7 @@
 <div class="card" *ngFor="let event of this.eventsService.events" routerLink="/event/{{event.id}}">
     <div class="card-img">
       <!-- L'immagine deve essere in 16:9 -->
-      <img src="{{poster}}" alt="sample">
+      <img src="{{event.urlPoster || 'https://images.unsplash.com/photo-1604311795833-25e1d5c128c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8OSUzQTE2fGVufDB8fDB8fA%3D%3D&w=1000&q=80'}}" alt="sample">
     </div>
     <div class="card-body">
       <h2 class="card-title">
