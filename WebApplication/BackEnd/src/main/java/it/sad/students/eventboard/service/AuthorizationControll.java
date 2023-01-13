@@ -44,4 +44,9 @@ public class AuthorizationControll {
         return person.getRole().toString().equals("ADMIN");
     }
 
+    public String extractUsername(String token){
+        //String jwt = token.substring(7);
+        return jwtService.extractUsername(token);
+    }
+
 }

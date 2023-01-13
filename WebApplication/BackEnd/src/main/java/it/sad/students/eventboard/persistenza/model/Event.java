@@ -15,7 +15,7 @@ public class Event {
     private Double price;
     private Boolean soldOut;
     private String urlPoster;
-    private String urlTicket;
+    private String urlTicket ="";
     private String description;
 
     //chiavi esterne

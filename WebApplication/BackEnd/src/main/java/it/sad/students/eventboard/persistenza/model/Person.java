@@ -14,17 +14,9 @@ public class Person implements UserDetails {
     private String username;
     private String password;
     private String email;
-    private Boolean activeStatus;
 
-    private Boolean expired;
-    private Boolean locked;
-    private Boolean credExpired;
-    private Boolean isEnabled;
-
-    private List<Like> likes;
-    private List<Comment> comments;
-    private List<Review> reviews;
-    private List<Preference> preferences;
+    private Boolean enabled; //ex activeStatus
+    private Boolean locked; //ban
 
     //chiavi esterne
     private Long position;
@@ -32,53 +24,18 @@ public class Person implements UserDetails {
 
     public Person(){}
 
-    public Person(Long id, String name, String lastName, String username, String password, String email, Boolean activeStatus, Long position, Role role) {
+    public Person(Long id, String name, String lastName, String username, String password, String email, Long position, Role role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.activeStatus = activeStatus;
         this.position = position;
         this.role = role;
-        likes = new ArrayList<>();
-        comments = new ArrayList<>();
-        reviews = new ArrayList<>();
-        preferences = new ArrayList<>();
+
     }
 
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<Preference> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(List<Preference> preferences) {
-        this.preferences = preferences;
-    }
 
     public Long getId() {
         return id;
@@ -98,7 +55,7 @@ public class Person implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return expired;
+        return true;
     }
 
     @Override
@@ -108,12 +65,12 @@ public class Person implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return credExpired;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     @Override
@@ -121,21 +78,14 @@ public class Person implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setExpired(Boolean expired) {
-        this.expired = expired;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
 
-    public void setCredExpired(Boolean credExpired) {
-        this.credExpired = credExpired;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
-    }
 
     public String getPassword() {
         return password;
@@ -143,10 +93,6 @@ public class Person implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    public Boolean getActiveStatus() {
-        return activeStatus;
     }
 
     public Long getPosition() {
@@ -186,9 +132,6 @@ public class Person implements UserDetails {
         this.password = password;
     }
 
-    public void setActiveStatus(Boolean active) {
-        this.activeStatus = active;
-    }
 
     public void setPosition(Long position) {
         this.position = position;

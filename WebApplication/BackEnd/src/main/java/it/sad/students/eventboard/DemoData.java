@@ -89,7 +89,7 @@ public class DemoData {
         Position position=new Position();
         return position;
     }
-
+/*
     public Person createPerson(
             String name
             ,String lastname
@@ -110,7 +110,7 @@ public class DemoData {
         person.setPosition(position);
         person.setPassword(password);
         return person;
-    }
+    }*/
 
 
     public Event createEvent(Long position
