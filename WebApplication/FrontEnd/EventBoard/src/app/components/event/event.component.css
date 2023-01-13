@@ -214,6 +214,36 @@
   height: 300px;
   background-color: lightgrey;
 }
+
+.floating-buttons-left {
+  display: table-column;
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+}
+
+.report-button-container {
+  float: top;
+}
+
+.report-button-container, .edit-button-container, .remove-button-container {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 9px;
+}
+.report-button {
+  background-color: orange;
+}
+
+.remove-button {
+  background-color: #DB4437;
+}
+
+.edit-button {
+  /* background-color: #0000FF; SI è OPTATO PER I COLORI DI MATERIAL */
+}
+
+
 /* TODO: se serve */
 @media screen and (max-width: 550px) {
   .date-icon, .location-icon {

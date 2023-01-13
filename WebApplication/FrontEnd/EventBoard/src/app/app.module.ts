@@ -44,32 +44,36 @@ import {MatSelectModule} from "@angular/material/select";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 import {CommentFormComponent} from "./components/comment-form/comment-form.component";
+import {ReviewFormComponent} from "./components/review-form/review-form.component";
+import { BannerWelcomebackComponent } from './components/banner-welcomeback/banner-welcomeback.component';
 
 
 registerLocaleData(localeIt, 'it');
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AboutComponent,
-    CardComponent,
-    CreateEventComponent,
-    EventComponent,
-    HomepageComponent,
-    LoginComponent,
-    NotFoundComponent,
-    SearchComponent,
-    TopBarComponent,
-    RegisterComponent,
-    BannerJoinComponent,
-    ProfileComponent,
-    ProfileEditDialogComponent,
-    DatepickerComponent,
-    CommentComponent,
-    ReviewComponent,
-    OrganizerComponent,
-    CommentFormComponent
-  ],
+    declarations: [
+        AppComponent,
+        AboutComponent,
+        CardComponent,
+        CreateEventComponent,
+        EventComponent,
+        HomepageComponent,
+        LoginComponent,
+        NotFoundComponent,
+        SearchComponent,
+        TopBarComponent,
+        RegisterComponent,
+        BannerJoinComponent,
+        ProfileComponent,
+        ProfileEditDialogComponent,
+        DatepickerComponent,
+        CommentComponent,
+        ReviewComponent,
+        OrganizerComponent,
+        CommentFormComponent,
+        ReviewFormComponent,
+        BannerWelcomebackComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
