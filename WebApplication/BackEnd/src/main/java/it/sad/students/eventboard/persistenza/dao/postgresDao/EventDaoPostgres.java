@@ -97,8 +97,8 @@ public class EventDaoPostgres implements EventDao {
 
     @Override
     public Boolean saveOrUpdate(Event event) {
-        String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?)";
-        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,organizer=? where id = ?";
+        String insertEvent = "INSERT INTO event VALUES (?, ?, ?,?, ?,?,?,?,?,?,?)";
+        String updateEvent = "UPDATE event set position=?, date=?,title=?, event_type = ?, price =?,poster=?,soldout=?, description=?,organizer=?,urlticket=? where id = ?";
         PreparedStatement st = null;
 
         try {
@@ -116,6 +116,7 @@ public class EventDaoPostgres implements EventDao {
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
                 st.setString(10,event.getTitle());
+                st.setString(11,event.getUrlTicket());
 
             }else {
                 st = conn.prepareStatement(updateEvent);
@@ -128,7 +129,8 @@ public class EventDaoPostgres implements EventDao {
                 st.setBoolean(7,event.getSoldOut());
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
-                st.setLong(10,event.getId());
+                st.setString(10,event.getUrlTicket());
+                st.setLong(11,event.getId());
             }
 
             st.executeUpdate();
@@ -186,6 +188,8 @@ public class EventDaoPostgres implements EventDao {
             event.setSoldOut(rs.getBoolean("soldout"));
             event.setDescription(rs.getString("description"));
             event.setOrganizer(rs.getLong("organizer"));
+            event.setUrlTicket(rs.getString("urlticket"));
+
             return event;
         }catch (SQLException e){e.printStackTrace();}
 
