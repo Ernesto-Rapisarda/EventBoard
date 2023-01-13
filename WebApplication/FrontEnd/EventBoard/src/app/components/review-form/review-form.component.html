@@ -8,10 +8,10 @@
     <!-- Text input -->
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Scrivi qui</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!">
+      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="comment">
     </mat-form-field>
     <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="comment===''" (click)="onSend()">
         <mat-icon>send</mat-icon>
       </button>
     </div>

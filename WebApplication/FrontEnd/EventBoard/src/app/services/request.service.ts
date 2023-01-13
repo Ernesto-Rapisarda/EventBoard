@@ -103,6 +103,18 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: 'text'})
   }
 
+  addReviewToEvent(review: number, text: string, eventId: number, userId: number){
+    const url = this.API_SERVER_URL + "/api/review/add"
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.post(url, {
+      person: userId,
+      event: eventId,
+      date:null,
+      message: text,
+      rating: review
+    }, {headers: httpHeaders, responseType: 'text'})
+  }
+
   deleteComment(id: number) {
     let message = ''
     if(this.isAdmin())
