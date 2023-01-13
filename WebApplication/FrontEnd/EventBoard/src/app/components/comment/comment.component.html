@@ -7,6 +7,7 @@
     <p>{{this.comment.message}}</p>
   </div>
   <div class="card-footer">
+
     <!-- Modifica -->
     <button mat-icon-button aria-label="Edit button" *ngIf="this.authService.user && (this.authService.user.id === comment.person)">
       <mat-icon class="icon-edit">edit</mat-icon>
@@ -16,7 +17,6 @@
     <button mat-icon-button aria-label="Remove button" *ngIf="this.authService.user && (this.authService.user.id === comment.person)">
       <mat-icon class="icon-remove">delete</mat-icon>
     </button>
-
 
     <!-- Segnala -->
     <button mat-icon-button aria-label="Report button" *ngIf="this.authService.user && (this.authService.user.id != comment.person)">
