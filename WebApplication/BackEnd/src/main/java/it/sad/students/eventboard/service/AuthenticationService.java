@@ -28,13 +28,21 @@ public class AuthenticationService {
 
 
     public ResponseEntity<AuthenticationResponse> register (RegisterRequest request) {
-        var user = new Person(null,
-                request.getName(),
-                request.getLastName(),
-                request.getUsername(),
-                passwordEncoder.encode(request.getPassword()),
-                request.getEmail(),
-                request.getActiveStatus(), 1L, request.getRole());
+        var user = new Person();
+        user.setId(null);
+        user.setName(request.getName());
+        user.setLastName(request.getLastName());
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
+        user.setEnabled(false);
+        if(request.getPosition()==null)
+            user.setPosition(1L);
+        else
+            user.setPosition(request.getPosition());
+        user.setRole(request.getRole());
+        user.setLocked(true);
+
         if(!DBManager.getInstance().getPersonDao().saveOrUpdate(user))
             return statusCodes.commandError();
         var jwtToken = jwtService.generateToken(user);
@@ -46,7 +54,8 @@ public class AuthenticationService {
                 request.getName()+" "+
                 request.getLastName()+", \n"+
                 "la tua registrazione è andata a buon fine.\n"+
-                "Da adesso in poi, potrai navigare sul sito sfruttando tutte le sue funzionalità."
+                "Per poter accedere ai servizi, devi confermare il tuo indirizzo email, cliccando sul link seguente:\n"+
+                htmlActivation(jwtToken)
 
         );
         emailSenderService.sendEmail(emailMessage);
@@ -71,4 +80,11 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    private String htmlActivation(String token){
+        return "<a title=\"ATTIVA L'ACCOUNT\" href=\"http://localhost:8080/api/noauth/activate/"+token+"\">ATTIVA L'ACCOUNT</a>";
+        //http://localhost:4200/activate/token
+    }
+
 }
+

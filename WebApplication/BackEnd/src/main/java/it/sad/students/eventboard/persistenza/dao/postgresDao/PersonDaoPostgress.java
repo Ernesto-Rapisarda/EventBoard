@@ -91,8 +91,8 @@ public class PersonDaoPostgress implements PersonDao {
 
     @Override
     public boolean saveOrUpdate(Person person) {
-        String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?)";
-        String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,active_status=?,position=?,role=?,password=? where id = ?";
+        String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,enabled=?,position=?,role=?,password=?,locked=? where id = ?";
 
         PreparedStatement st=null;
         try {
@@ -107,10 +107,11 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(3, person.getLastName());
                 st.setString(4, person.getUsername());
                 st.setString(5, person.getEmail());
-                st.setBoolean(6, person.getActiveStatus());
+                st.setBoolean(6, person.isEnabled());
                 st.setLong(7, person.getPosition());
                 st.setString(8, person.getRole().toString());
                 st.setString(9, person.getPassword());
+                st.setBoolean(10,person.isAccountNonLocked());
                 st.executeUpdate();
 
             }else {
@@ -120,11 +121,12 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(2,person.getLastName());
                 st.setString(3, person.getUsername());
                 st.setString(4, person.getEmail());
-                st.setBoolean(5, person.getActiveStatus());
+                st.setBoolean(5, person.isEnabled());
                 st.setLong(6, person.getPosition());
                 st.setString(7, person.getRole().toString());
                 st.setString(8, person.getPassword());
-                st.setLong(9, person.getId());
+                st.setBoolean(9,person.isAccountNonLocked());
+                st.setLong(10, person.getId());
                 st.executeUpdate();
             }
             return true;
@@ -157,14 +159,11 @@ public class PersonDaoPostgress implements PersonDao {
             person.setLastName(rs.getString("lastname"));
             person.setUsername(rs.getString("username"));
             person.setEmail(rs.getString("email"));
-            person.setActiveStatus(rs.getBoolean("active_status"));
+            person.setEnabled(rs.getBoolean("enabled"));
             person.setPosition(rs.getLong("position"));
             person.setRole(Role.valueOf(rs.getString("role")));
             person.setPassword(rs.getString("password"));
-            person.setEnabled(true);
-            person.setLocked(true);
-            person.setExpired(true);
-            person.setCredExpired(true);
+            person.setLocked(rs.getBoolean("locked"));
             return person;
         }catch (SQLException e){e.printStackTrace();}
 

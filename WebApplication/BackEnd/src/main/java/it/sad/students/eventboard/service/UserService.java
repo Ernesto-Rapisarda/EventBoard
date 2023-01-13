@@ -1,16 +1,16 @@
 package it.sad.students.eventboard.service;
 
+import it.sad.students.eventboard.communication.EmailMessage;
+import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.Person;
 import it.sad.students.eventboard.persistenza.model.Position;
-import it.sad.students.eventboard.service.httpbody.EditRequest;
-import it.sad.students.eventboard.service.httpbody.ResponseEvent;
-import it.sad.students.eventboard.service.httpbody.ResponseOrganizer;
-import it.sad.students.eventboard.service.httpbody.StatusCodes;
+import it.sad.students.eventboard.service.httpbody.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +23,17 @@ public class UserService { //utente loggato
 
     private final AuthorizationControll authorizationControll;
     private final StatusCodes statusCodes;
+    private final EmailSenderService emailSenderService;
+    private final AuthenticationManager authenticationManager;
 
     private final PasswordEncoder passwordEncoder;
 
 
-    public Person getPerson(String username) {
+
+    public ResponseEntity<ResponsePerson> getPerson(String username) {
 
         Person person= DBManager.getInstance().getPersonDao().findByUsername(username);
-
-        person.setPassword(null);
-
+        /*
         person.setComments(
                 DBManager.getInstance().getCommentDao().findByPerson(person.getId())
         );
@@ -45,9 +46,23 @@ public class UserService { //utente loggato
         person.setLikes(
                 DBManager.getInstance().getLikeDao().findByPerson(person.getId())
                 //DBManager.getInstance().getLikeDao().findAll()
-        );
-
-        return person;
+        );*/
+        if(person!=null)
+            return statusCodes.okGetElement(ResponsePerson
+                    .builder()
+                    .id(person.getId())
+                    .name(person.getName())
+                    .lastName(person.getLastName())
+                    .username(username)
+                    .email(person.getEmail())
+                    .position(person.getPosition())
+                    .role(person.getRole())
+                    .locked(person.isAccountNonLocked())
+                            .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
+                    .build()
+            );
+        else
+            return statusCodes.notFound();
     }
 
     //nome casomai da cambiare
@@ -88,7 +103,7 @@ public class UserService { //utente loggato
                     personDb.getUsername(),
                     person.getPassword(),
                     person.getEmail(),
-                    personDb.getActiveStatus(),
+                    //personDb.getActiveStatus(),
                     person.getPosition(),
                     personDb.getRole()
             );
@@ -107,27 +122,39 @@ public class UserService { //utente loggato
     }
 
 
-    // TODO: 08/01/2023 da controllare in base a cosa si decide di fare (eliminazione accout)
-    public ResponseEntity disableUser(Long id,String token){ //id person
+    public ResponseEntity deleteUser(RequestCancellation requestCancellation, String token){ //id person
         try {
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(id, token))
+            if(!authorizationControll.checkOwnerOrAdminAuthorization(requestCancellation.getId(), token))
                 return statusCodes.unauthorized();
 
-            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
+            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(requestCancellation.getId());
             if(personDb==null)
                 return statusCodes.notFound();
 
-            if(authorizationControll.checkAdminAuthorization(token) && !personDb.getActiveStatus())
-                return statusCodes.commandError(); //se è stato un admin controllo se è attivo l'account che vuole disattivare
 
-            personDb.setActiveStatus(false);
+            if(!authorizationControll.checkAdminAuthorization(token)){
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                personDb.getUsername(),
+                                requestCancellation.getPassword()
+                        )
+                );
+            }
+            else{
+                // TODO: 13/01/2023 inviare notifica se admin
+            }
+            personDb.setEnabled(false);
+            personDb.setLocked(false);
+            personDb.setEmail(personDb.getId().toString());
+            personDb.setName("Utente");
+            personDb.setLastName("rimosso");
             DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
             return statusCodes.ok();
         }catch (Exception e){
             return statusCodes.notFound();
         }
     }
-
+/*
     public ResponseEntity enableUser(Long id,String token) { //id person
         try {
             if(!authorizationControll.checkAdminAuthorization(token))
@@ -144,7 +171,7 @@ public class UserService { //utente loggato
         }catch (Exception e){
             return statusCodes.notFound();
         }
-    }
+    }*/
 
     public ResponseEntity<ResponseOrganizer> getOrganizer(Long id){
         try {
@@ -194,4 +221,34 @@ public class UserService { //utente loggato
     }
 
 
+    public String activateUser(String token) {
+        System.out.println(token);
+        Person person = DBManager.getInstance().getPersonDao().findByUsername(authorizationControll.extractUsername(token));
+        person.setEnabled(true);
+        DBManager.getInstance().getPersonDao().saveOrUpdate(person);
+        return "FUNZIONA";
+    }
+
+    public ResponseEntity retrievePassword(String username) {
+        try{
+            Person person = DBManager.getInstance().getPersonDao().findByUsername(username);
+            person.setPassword(passwordEncoder.encode("password"));
+            DBManager.getInstance().getPersonDao().saveOrUpdate(person);
+            EmailMessage emailMessage = new EmailMessage();
+            emailMessage.setTo(person.getEmail());
+            emailMessage.setSubject("Reset Password");
+            emailMessage.setMessage("La tua nuova password è:\n\npassword\n\nSei pregato di cambiare la tua password una volta fatto login.");
+            emailSenderService.sendEmail(emailMessage);
+            return statusCodes.ok();
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return statusCodes.notFound();
+        }
+
+    }
+
+    public ResponseEntity banUser(RequestMotivation requestMotivation, Long id, String token) {
+        // TODO: 13/01/2023
+        return null;
+    }
 }

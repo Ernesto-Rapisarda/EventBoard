@@ -43,6 +43,8 @@ public class SecurityConfiguration  {
                 .hasAnyAuthority("ORGANIZER","ADMIN")
                 .requestMatchers("/api/report/admin/**")
                 .hasAuthority("ADMIN")
+                .requestMatchers("/api/user/admin/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
