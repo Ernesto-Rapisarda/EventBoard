@@ -19,9 +19,9 @@
 
   <!-- Rating input -->
   <div class="rating-button-container">
-    <button class="set-rating-btn" mat-mini-fab aria-label="Example icon button with a filter list icon">
+    <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateReview()">
       <mat-icon>star</mat-icon>
-      10
+      {{review}}
     </button>
   </div>
 </div>
