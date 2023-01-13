@@ -6,10 +6,7 @@ import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.service.AuthenticationService;
 import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.service.EventService;
-import it.sad.students.eventboard.service.httpbody.RequestMotivation;
-import it.sad.students.eventboard.service.httpbody.ResponseEvent;
-import it.sad.students.eventboard.service.httpbody.ResponseEventCreation;
-import it.sad.students.eventboard.service.httpbody.ResponseEventDetails;
+import it.sad.students.eventboard.service.httpbody.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +44,12 @@ public class EventController {
     }
 
     @RequestMapping(value = "/api/update/event", method= RequestMethod.PUT)
-    public ResponseEntity updateEvent(@RequestBody Event event,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity updateEvent(@RequestBody RequestEventUpdate requestEventUpdate, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403
         //organizer non proprietario dell'evento o modifica non riuscita 400
         //evento non trovato 404 not found
         //modifica effettuata codice 200 ok
-        return eventService.updateEvent(event,token);
+        return eventService.updateEvent(requestEventUpdate.getEvent(),requestEventUpdate.getMessage(),token);
     }
 
     //get

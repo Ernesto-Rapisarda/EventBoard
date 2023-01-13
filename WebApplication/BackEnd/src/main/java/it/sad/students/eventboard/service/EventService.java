@@ -1,6 +1,5 @@
 package it.sad.students.eventboard.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
@@ -11,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +96,8 @@ public class EventService {
             DBManager.getInstance().getEventDao().delete(event);
             if(authorizationControll.checkAdminAuthorization( token)){
                 String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer()).getEmail();
-                emailSenderService.sendEmail(deleteEventNotification(email, event.getTitle(), message));
+                emailSenderService.sendEmail(AdminActionEventNotification(email,
+                        "Notifica rimozione evento "+event.getTitle(), message));
             }
             return ResponseEntity.ok("Rimozione effettuata");
         }
@@ -107,12 +105,18 @@ public class EventService {
             return ResponseEntity.badRequest().body("Non hai i permessi per rimuovere l'evento");
     }
 
-    public ResponseEntity updateEvent(Event event, String token) {
+    public ResponseEntity updateEvent(Event event,String message, String token) {
         if(event==null)
             return ResponseEntity.notFound().build();
         if (authorizationControll.checkOwnerOrAdminAuthorization(event.getOrganizer(),token)){
-            if(DBManager.getInstance().getEventDao().saveOrUpdate(event))
+            if(DBManager.getInstance().getEventDao().saveOrUpdate(event)) {
+                if (authorizationControll.checkAdminAuthorization(token)) {
+                    String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer()).getEmail();
+                    emailSenderService.sendEmail(AdminActionEventNotification(email,
+                            "Notifica modifica evento " + event.getTitle(), message));
+                }
                 return ResponseEntity.ok("Evento modificato");
+            }
             else
                 return ResponseEntity.badRequest().body("Impossibile modificare l'evento.");
 
@@ -172,11 +176,8 @@ public class EventService {
         return ResponseEntity.ok(EventType.values());
     }
 
-    private EmailMessage deleteEventNotification(String email,String title, String message){
+    private EmailMessage AdminActionEventNotification(String email, String subject, String message){
 
-        return new EmailMessage(email,
-                "Notifica rimozione evento "+title,
-                message
-                );
+        return new EmailMessage(email,subject,message);
     }
 }
