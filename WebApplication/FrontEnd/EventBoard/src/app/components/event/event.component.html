@@ -98,6 +98,7 @@
           <ng-template mat-tab-label>
             <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
           </ng-template>
+          <app-review-form></app-review-form>
           <div *ngFor="let review of event.reviewList">
             <app-review [review]="review"></app-review>
           </div>
@@ -108,25 +109,21 @@
 
   <!-- Floating buttons - to fix -->
   <div class="floating-buttons-left">
-
     <div class="edit-button-container">
       <button class="edit-button" mat-fab aria-label="Report" color="primary">
         <mat-icon class="icon-edit">edit</mat-icon>
       </button>
     </div>
-
     <div class="remove-button-container">
       <button class="remove-button" mat-fab aria-label="Report" color="warn">
         <mat-icon class="icon-remove">delete</mat-icon>
       </button>
     </div>
-
     <div class="report-button-container">
       <button class="report-button" mat-fab aria-label="Report">
         <mat-icon class="icon-report">report</mat-icon>
       </button>
     </div>
-
   </div>
 
 </div>
