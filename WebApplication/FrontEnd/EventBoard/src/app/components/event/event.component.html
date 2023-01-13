@@ -98,7 +98,7 @@
           <ng-template mat-tab-label>
             <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
           </ng-template>
-          <app-review-form></app-review-form>
+          <app-review-form *ngIf="authService.isAuthenticated()"></app-review-form>
           <div *ngFor="let review of event.reviewList">
             <app-review [review]="review"></app-review>
           </div>
