@@ -2,7 +2,7 @@
 
   <!-- Poster -->
   <div class="poster-container">
-    <img class="poster" src="https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8MTYlM0E5fGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
+    <img class="poster" src="{{event.urlPoster}}" alt="">
   </div>
 
   <!-- Date and Time -->
@@ -25,6 +25,8 @@
               }">
         <mat-icon>how_to_reg</mat-icon>
       </button>
+      <br><br>
+      {{participantsNumber.toString()}}
     </div>
 
     <div class="like-button-container">
@@ -35,6 +37,8 @@
               }">
         <mat-icon>favorite</mat-icon>
       </button>
+      <br><br>
+      {{likesNumber.toString()}}
     </div>
 
   </div>
@@ -69,7 +73,7 @@
           <mat-icon class="location-icon">location_on</mat-icon>
           <p class="location-cpy">Località</p>
         </div>
-        <p class="location">Piazza Dogana, 4, 88100 Catanzaro CZ</p>
+        <p class="location">DA MODIFICARE</p>
       </div>
     </div>
   </div>
@@ -85,6 +89,7 @@
           <ng-template mat-tab-label>
             <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
           </ng-template>
+          <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
           <div *ngFor="let comment of event.commentList">
             <app-comment [comment]="comment"></app-comment>
           </div>

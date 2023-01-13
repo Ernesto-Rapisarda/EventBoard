@@ -42,12 +42,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Tipologia evento</mat-label>
         <select matNativeControl formControlName="eventType" required>
-          <option value="culturale">Culturale</option>
-          <option value="teatrale">Teatrale</option>
-          <option value="sportivo">Sportivo</option>
-          <option value="piazza">Piazza</option>
-          <option value="concerto">Concerto</option>
-          <option value="sagre">Sagre</option>
+          <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
         </select>
       </mat-form-field>
 
