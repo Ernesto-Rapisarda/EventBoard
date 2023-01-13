@@ -13,6 +13,8 @@ export class EventComponent implements OnInit, AfterViewInit {
   event: Event
   liked: boolean
   participate: boolean
+  likesNumber: number
+  participantsNumber: number
   constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,20 +22,26 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.getEvent(id)
     this.liked = false
     this.participate = false
+    this.likesNumber = 0
+    this.participantsNumber = 0
   }
   ngAfterViewInit(): void {
     this.liked = this.didILikeThis()
     this.participate = this.willIParticipate()
+    console.log("imposto")
+    this.likesNumber = this.event.likeList.length
+    this.participantsNumber = this.event.participationList.length
   }
 
   getEvent(id: number) {
     this.requestService.getEventById(id).subscribe(
       {
         next: (response: any) => {
+          console.log(response)
           this.event = response.event
-          this.event.commentList = response.commentList
+          this.event.commentList = response.commentList.reverse()           // Reverse so that they'll appear from last to first
           this.event.likeList = response.likeList
-          this.event.reviewList = response.reviewList
+          this.event.reviewList = response.reviewList.reverse()             // Reverse so that they'll appear from last to first
           this.event.participationList = response.partecipationList
           this.event.organizerFullName = response.organizerFullName
         }
@@ -62,22 +70,12 @@ export class EventComponent implements OnInit, AfterViewInit {
     if(this.authService.user && this.event){
       this.requestService.doLike(this.authService.user.id, this.event.id).subscribe({
           next: response => {
-            if (response === "Success")
+            if (response === "Success"){
+              this.liked ? --this.likesNumber : ++this.likesNumber
               this.liked = !this.liked
-          }
-          , error: error => {
-            switch (error.status) {
-              case 400:
-                alert("ERRORE: Token non corrispondende all'id utente")
-                break
-              case 403:
-                alert("ERRORE: Utente non autorizzato")
-                break
-              case 404:
-                alert("ERRORE: Evento non trovato")
-                break
             }
-          }
+          },
+          error: error => { this.errorHandle(error.status) }
       })
     }
   }
@@ -86,23 +84,27 @@ export class EventComponent implements OnInit, AfterViewInit {
     if(this.authService.user && this.event){
       this.requestService.doParticipate(this.authService.user.id, this.event.id).subscribe({
         next: (response) => {
-          if (response === "Success")
+          if (response === "Success") {
+            this.participate ? --this.participantsNumber : ++this.participantsNumber
             this.participate = !this.participate
-        },
-        error: (error) => {
-          switch (error.status) {
-            case 400:
-              alert("ERRORE: Token non corrispondende all'id utente")
-              break
-            case 403:
-              alert("ERRORE: Utente non autorizzato")
-              break
-            case 404:
-              alert("ERRORE: Evento non trovato")
-              break
           }
-        }
+        },
+        error: error => { this.errorHandle(error.status) }
       })
+    }
+  }
+
+  errorHandle(error: number) {
+    switch (error) {
+      case 400:
+        alert("ERRORE: Token non corrispondende all'id utente")
+        break
+      case 403:
+        alert("ERRORE: Utente non autorizzato")
+        break
+      case 404:
+        alert("ERRORE: Evento non trovato")
+        break
     }
   }
 }

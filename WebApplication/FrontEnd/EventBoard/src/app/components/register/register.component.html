@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <!-- verifica password -->
+      <!-- password verify -->
       <div>
         <div class="field-container">
           <mat-form-field appearance="outline">
@@ -70,7 +70,27 @@
         </div>
       </div>
 
-      <!-- scelta tipo di account -->
+      <!-- Preferenze -->
+      <mat-form-field>
+        <mat-label>Tipi di evento preferiti</mat-label>
+        <mat-select formControlName="preferences" multiple>
+
+          <mat-select-trigger>
+            <mat-chip-list>
+              <mat-chip *ngFor="let type of registerForm.value.preferences"
+                        [removable]="true" (removed)="onTypeRemoved(type)">
+                {{ type }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-select-trigger>
+
+          <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+      <!-- account type -->
       <div class="radio-container">
         <mat-radio-group aria-label="Select an account type" formControlName="role" required>
           <mat-radio-button value="USER" class="radio-button">Utente</mat-radio-button>
@@ -84,7 +104,6 @@
           Registrati
         </button>
       </mat-card-actions>
-
     </form>
   </mat-card-content>
 
