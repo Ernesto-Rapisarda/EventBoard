@@ -6,6 +6,7 @@ import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.service.AuthenticationService;
 import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.service.EventService;
+import it.sad.students.eventboard.service.httpbody.RequestMotivation;
 import it.sad.students.eventboard.service.httpbody.ResponseEvent;
 import it.sad.students.eventboard.service.httpbody.ResponseEventCreation;
 import it.sad.students.eventboard.service.httpbody.ResponseEventDetails;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://0.0.0.0:4200")
+@CrossOrigin("http://localhost:4200")
 @RequiredArgsConstructor
 public class EventController {
 
@@ -36,12 +37,13 @@ public class EventController {
 
 
     @RequestMapping(value="/api/delete/event/{id}",method= RequestMethod.DELETE)
-    public ResponseEntity deleteEvent(@PathVariable Long id,@RequestHeader (name="Authorization") String token ){
+    public ResponseEntity deleteEvent(@PathVariable Long id, @RequestHeader (name="Authorization") String token , @RequestBody RequestMotivation requestMotivation){
         //utente non autorizzato 403
         //organizer non proprietario dell'evento 400
         //evento non trovato 404 not found
         //rimozione effettuata codice 200 ok
-        return eventService.deleteEvent(id,token);
+
+        return eventService.deleteEvent(id,token, requestMotivation.getMessage());
     }
 
     @RequestMapping(value = "/api/update/event", method= RequestMethod.PUT)

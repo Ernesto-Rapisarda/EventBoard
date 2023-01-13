@@ -1,6 +1,8 @@
 package it.sad.students.eventboard.service;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.sad.students.eventboard.communication.EmailMessage;
+import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.configsecurity.JwtService;
@@ -19,6 +21,7 @@ import java.util.List;
 public class EventService {
     private final JwtService jwtService;
     private final AuthorizationControll authorizationControll;
+    private final EmailSenderService emailSenderService;
 
     public ResponseEntity<Iterable<ResponseEvent>>  getAllEvents(){
         //errore 404 not found...lista vuota
@@ -84,7 +87,7 @@ public class EventService {
 
     }
 
-    public ResponseEntity deleteEvent (Long id, String token){
+    public ResponseEntity deleteEvent (Long id, String token, String message){
 
 
         Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
@@ -94,6 +97,10 @@ public class EventService {
 
         if(authorizationControll.checkOwnerOrAdminAuthorization(event.getOrganizer(), token)){
             DBManager.getInstance().getEventDao().delete(event);
+            if(authorizationControll.checkAdminAuthorization( token)){
+                String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer()).getEmail();
+                emailSenderService.sendEmail(deleteEventNotification(email, event.getTitle(), message));
+            }
             return ResponseEntity.ok("Rimozione effettuata");
         }
         else
@@ -163,5 +170,13 @@ public class EventService {
 
     public ResponseEntity<EventType[]> getEventType(){
         return ResponseEntity.ok(EventType.values());
+    }
+
+    private EmailMessage deleteEventNotification(String email,String title, String message){
+
+        return new EmailMessage(email,
+                "Notifica rimozione evento "+title,
+                message
+                );
     }
 }
