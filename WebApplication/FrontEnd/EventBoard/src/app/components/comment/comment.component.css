@@ -65,5 +65,13 @@
 }
 
 .icon-report {
+  color: orange;
+}
+
+.icon-edit {
+  color: black;
+}
+
+.icon-remove {
   color: #d00000;
 }
