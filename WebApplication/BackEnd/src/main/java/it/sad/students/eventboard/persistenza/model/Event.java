@@ -15,6 +15,7 @@ public class Event {
     private Double price;
     private Boolean soldOut;
     private String urlPoster;
+    private String urlTicket;
     private String description;
 
     //chiavi esterne
@@ -25,13 +26,14 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, LocalDateTime date,String title, Double price, Boolean available, String urlPoster, EventType eventType, Long luogo, Long person, String description) {
+    public Event(Long id, LocalDateTime date,String title, Double price, Boolean available, String urlPoster,String urlTicket, EventType eventType, Long luogo, Long person, String description) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.price = price;
         this.soldOut = available;
         this.urlPoster = urlPoster;
+        this.urlTicket = urlTicket;
         this.eventType = eventType;
         this.position = luogo;
         this.organizer = person;
@@ -39,6 +41,13 @@ public class Event {
     }
 
 
+    public String getUrlTicket() {
+        return urlTicket;
+    }
+
+    public void setUrlTicket(String urlTicket) {
+        this.urlTicket = urlTicket;
+    }
 
     public String getTitle() {
         return title;

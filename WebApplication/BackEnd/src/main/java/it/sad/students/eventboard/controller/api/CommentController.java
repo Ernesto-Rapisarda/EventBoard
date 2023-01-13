@@ -2,6 +2,8 @@ package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.persistenza.model.Comment;
 import it.sad.students.eventboard.service.InteractionService;
+import it.sad.students.eventboard.service.httpbody.RequestMotivation;
+import it.sad.students.eventboard.service.httpbody.RequestMotivationObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,24 +25,24 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/api/comment/delete/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity deleteComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token){
+    public ResponseEntity deleteComment(@PathVariable Long id,@RequestHeader (name="Authorization") String token,@RequestBody RequestMotivation message){
         //utente non autorizzato 403`
         // utente non proprietario di quel account/oppure non Admin 400`
         //evento non trovato, errore 404 not found`
         //commento rimosso codice 200 ok`
-        return interactionService.deleteComment(id,token);
+        return interactionService.deleteComment(id,token,message.getMessage());
 
     }
 
     @RequestMapping(value = "/api/comment/update", method = RequestMethod.PUT)
-    public ResponseEntity updateComment(@RequestBody Comment comment, @RequestHeader(name="Authorization") String token){
+    public ResponseEntity updateComment(@RequestBody RequestMotivationObject<Comment> ob, @RequestHeader(name="Authorization") String token){
         //codice 403 ...utente non loggato
         //comment non trovato o passato vuoto errore not found 404
         //non sei il proprietario del commento o un admin 400
         //codice 200, commento modificato
         //code 400 , bad request, errore nel salvataggio nel db
 
-        return interactionService.updateComment(comment,token);
+        return interactionService.updateComment(ob.getObject(),token,ob.getMessage());
     }
 
     @RequestMapping(value ="/api/comment/{id}")

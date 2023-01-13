@@ -44,12 +44,12 @@ public class EventController {
     }
 
     @RequestMapping(value = "/api/update/event", method= RequestMethod.PUT)
-    public ResponseEntity updateEvent(@RequestBody RequestEventUpdate requestEventUpdate, @RequestHeader (name="Authorization") String token){
+    public ResponseEntity updateEvent(@RequestBody RequestMotivationObject<Event> requestMotivationObject, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403
         //organizer non proprietario dell'evento o modifica non riuscita 400
         //evento non trovato 404 not found
         //modifica effettuata codice 200 ok
-        return eventService.updateEvent(requestEventUpdate.getEvent(),requestEventUpdate.getMessage(),token);
+        return eventService.updateEvent(requestMotivationObject.getObject(), requestMotivationObject.getMessage(), token);
     }
 
     //get
