@@ -139,13 +139,44 @@ public class UserService { //utente loggato
                 );
             }
             else{
-                // TODO: 13/01/2023 inviare notifica se admin
+                if(personDb.isEnabled()){
+                    EmailMessage emailMessage = new EmailMessage();
+                    emailMessage.setTo(personDb.getEmail());
+                    emailMessage.setSubject("Eliminazione account");
+                    emailMessage.setMessage("Il tuo account è stato cancellato per ripetute violazioni al regolamento");
+                    emailSenderService.sendEmail(emailMessage);
+                }
             }
             personDb.setEnabled(false);
             personDb.setLocked(false);
             personDb.setEmail(personDb.getId().toString());
             personDb.setName("Utente");
             personDb.setLastName("rimosso");
+            DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
+            return statusCodes.ok();
+        }catch (Exception e){
+            return statusCodes.notFound();
+        }
+    }
+    public ResponseEntity banUser(RequestMotivation requestMotivation, Long id, String token) {
+        try {
+            if(!authorizationControll.checkAdminAuthorization(token))
+                return statusCodes.unauthorized();
+
+            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
+            if(personDb==null)
+                return statusCodes.notFound();
+
+
+            if(personDb.isEnabled()&& personDb.isAccountNonLocked()){
+                EmailMessage emailMessage = new EmailMessage();
+                emailMessage.setTo(personDb.getEmail());
+                emailMessage.setSubject("Ban dell'account");
+                emailMessage.setMessage(requestMotivation.getMessage());
+                emailSenderService.sendEmail(emailMessage);
+            }
+
+            personDb.setLocked(false);
             DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
             return statusCodes.ok();
         }catch (Exception e){
@@ -200,25 +231,6 @@ public class UserService { //utente loggato
         }
     }
 
-
-    // FUNCTION EXTRA
-    private boolean nullOrEmpty(String string){
-        return string==null||string.trim()=="";
-    }
-    private boolean nullOrNegative(Integer num){
-        return num==null||num<0;
-    }
-    private boolean nullOrNegative(Double num){
-        return num==null||num<0;
-    }
-
-    private boolean checkPassword(String password){
-        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
-        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
-        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
-    }
-
-
     public String activateUser(String token) {
         System.out.println(token);
         Person person = DBManager.getInstance().getPersonDao().findByUsername(authorizationControll.extractUsername(token));
@@ -245,8 +257,26 @@ public class UserService { //utente loggato
 
     }
 
-    public ResponseEntity banUser(RequestMotivation requestMotivation, Long id, String token) {
-        // TODO: 13/01/2023
-        return null;
+    // FUNCTION EXTRA
+    private boolean nullOrEmpty(String string){
+        return string==null||string.trim()=="";
     }
+    private boolean nullOrNegative(Integer num){
+        return num==null||num<0;
+    }
+    private boolean nullOrNegative(Double num){
+        return num==null||num<0;
+    }
+
+
+    private boolean checkPassword(String password){
+        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
+        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
+        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
+    }
+
+
+
+
+
 }
