@@ -8,8 +8,7 @@ import {UpperCasePipe} from "@angular/common";
   providedIn: 'root'
 })
 export class AuthService {
-
-  url: string = "http://localhost:8080"
+  readonly API_SERVER_URL: string = "http://localhost:8080"
   isLoggedIn = false
   user!: User
 
@@ -30,12 +29,20 @@ export class AuthService {
     this.isLoggedIn = true
   }
 
+  deleteUser(id: number, password: string) {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + '/api/user/delete'
+    return this.http.delete(url, {headers: httpHeaders, body: {password: password, id: id}, responseType: 'text'})
+  }
+
   signUp(name: string, lastName: string, email: string, username: string, password: string, role: string){
-    return this.http.post(this.url+"/api/noauth/register", {id: null, email: email, name: name, lastName: lastName, username: username, password: password, role: role, activeStatus: true, position: null})
+    const url = this.API_SERVER_URL + "/api/noauth/register"
+    return this.http.post(url, {id: null, email: email, name: name, lastName: lastName, username: username, password: password, role: role, activeStatus: true, position: null})
   }
 
   signIn(username: string, password: string) {
-    return this.http.post(this.url+"/api/noauth/authenticate", {username: username, password: password})
+    const url = this.API_SERVER_URL + "/api/noauth/authenticate"
+    return this.http.post(url, {username: username, password: password})
   }
 
   isAuthenticated() {
@@ -47,26 +54,24 @@ export class AuthService {
     this.user = null
     localStorage.removeItem('token')
     localStorage.removeItem('username')
-    this.router.navigate(['/login'])
+    this.router.navigateByUrl('/login')
   }
 
   getData(username: string) {
-    const httpHeaders = new HttpHeaders({
-      "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
-    })
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + `/api/user/${username}`
 
-    return this.http.post(this.url + `/api/user/${username}`, {}, {headers: httpHeaders})
+    return this.http.post(url, {}, {headers: httpHeaders})
   }
 
   editData( name: string, lastName: string, email: string, password: string) {
-    const httpHeaders = new HttpHeaders({
-      "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
-    })
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + '/api/user/edit'
 
     if(password === '')
       password = null
 
-    return this.http.put(this.url + `/api/user/edit`, {
+    return this.http.put(url, {
       id: this.user.id,
       name: name,
       lastName: lastName,
@@ -86,5 +91,11 @@ export class AuthService {
       authorities: [],
       accountNonLocked: true,
     }, {headers: httpHeaders})
+  }
+
+  private getAuthorizationHeader() {
+    return new HttpHeaders({
+      "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
+    })
   }
 }

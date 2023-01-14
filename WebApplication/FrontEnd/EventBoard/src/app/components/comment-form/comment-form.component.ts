@@ -21,7 +21,7 @@ export class CommentFormComponent {
   onSend() {
     const eventId = this.route.snapshot.params['id']
     const userId = this.authService.user.id
-    this.requestService.addCommentToEvent(this.text, eventId, userId).subscribe({
+    this.requestService.addComment(this.text, eventId, userId).subscribe({
       next: response => { this.router.navigateByUrl(`/event/${eventId}`) },
       error: error => {}
     })

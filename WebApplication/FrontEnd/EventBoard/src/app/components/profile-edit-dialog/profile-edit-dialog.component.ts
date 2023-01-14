@@ -12,6 +12,7 @@ export class ProfileEditDialogComponent implements OnInit, OnDestroy {
   editForm!: FormGroup
   hidePassword = true
   hidePasswordConfirm = true
+  operationConfirmed = false
   constructor(@Inject(MAT_DIALOG_DATA) protected data:  {
                                                         name: string,
                                                         lastName: string,

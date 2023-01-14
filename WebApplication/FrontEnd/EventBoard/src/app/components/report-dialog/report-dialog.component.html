@@ -1,0 +1,30 @@
+<div>
+  <form [formGroup]="reportForm">
+    <!-- report types  -->
+    <mat-form-field appearance="fill">
+      <mat-label>Tipologia evento</mat-label>
+      <select matNativeControl formControlName="eventType" required>
+        <option *ngFor="let type of reportTypes" value="{{type}}">{{type}}</option>
+      </select>
+    </mat-form-field>
+
+    <!-- reason -->
+    <div class="field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Motivazione</mat-label>
+        <input matInput placeholder="" formControlName="report">
+        <mat-icon matSuffix>chat</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- confirm/cancel -->
+    <div class="interaction-buttons-container">
+      <button class="btn" mat-fab color="warn" aria-label="Conferma" (click)="onConfirm()" [disabled]="reportForm.valid">
+        <mat-icon>send</mat-icon>
+      </button>
+      <button class="btn" mat-fab color="primary" aria-label="Annulla" (click)="onCancel()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

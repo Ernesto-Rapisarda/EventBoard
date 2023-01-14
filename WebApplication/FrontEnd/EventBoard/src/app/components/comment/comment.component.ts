@@ -3,6 +3,9 @@ import {Comment} from "../../models/comment.model";
 import {AuthService} from "../../auth/auth.service";
 import {RequestService} from "../../services/request.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 
 @Component({
   selector: 'app-comment',
@@ -12,7 +15,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CommentComponent {
   @Input() comment: Comment
 
-  constructor(protected authService: AuthService, private requestService: RequestService, private router: Router, private route: ActivatedRoute) {
+  constructor(protected authService: AuthService, private requestService: RequestService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -36,13 +39,31 @@ export class CommentComponent {
   }
 
   onReport() {
+    let dialogRef = this.dialog.open(ReportDialogComponent,{
+      data: {
+        type: '',
+        reason: ''
+      }, disableClose: true
+    })
 
+    dialogRef.afterClosed().subscribe(result => {
+      const type = result.type
+      const reason = result.reason
+      this.requestService.doReportComment(this.comment.id, reason, type).subscribe({
+        next: response => {
+          alert("Il commento è stato segnalato con successo")
+        },
+        error: error => {
+          this.errorHandler(error)
+        }
+      })
+    })
   }
 
   private errorHandler(error: number) {
     switch (error) {
       case 400:
-        alert("ERRORE: Token non corrispondende all'id utente")
+        alert("ERRORE: Token non corrispondende all'id utente o all'admin")
         break
       case 403:
         alert("ERRORE: Utente non autorizzato")

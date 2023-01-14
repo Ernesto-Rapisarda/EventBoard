@@ -18,9 +18,9 @@ export class AuthGuard implements CanActivate {
     if(localStorage.getItem('token'))
     console.log(this.authService.isAuthenticated())
     // if the user is trying to go to:
-    if( (path === 'profile' && !this.authService.isAuthenticated()) ||                                                          // profile page, but they are not authenticated
-        (path === 'create-event' && (!this.authService.isAuthenticated() || this.authService.user.role != "ORGANIZER")) ||      // create event page, but either they are not authenticated or they are not an organizer
-        (((path === 'register') || (path === 'login')) && this.authService.isAuthenticated())                                     // login/register page, but they are authenticated
+    if( (path === 'profile' && !this.authService.isAuthenticated()) ||                                                           // profile page, but they are not authenticated
+        (path === 'create-event' && (!this.authService.isAuthenticated() || this.authService.user.role !== "ORGANIZER")) ||      // create event page, but either they are not authenticated or they are not an organizer
+        (((path === 'register') || (path === 'login')) && this.authService.isAuthenticated())                                    // login/register page, but they are authenticated
     ){
       // block this operation
       this.router.navigate(['/'])

@@ -10,10 +10,8 @@ import {AuthService} from "../../auth/auth.service";
 })
 export class ReviewFormComponent {
 
-
-
-  private min = 1;
-  private max = 10;
+  private readonly MIN = 1;
+  private readonly MAX = 10;
 
   review: number
   comment: string
@@ -27,15 +25,13 @@ export class ReviewFormComponent {
   }
 
   updateReview() {
-    this.review++;
-    if (this.review > this.max) {
-      this.review = this.min;
-    }
+    if (++this.review > this.MAX)
+      this.review = this.MIN;
   }
   onSend() {
     const eventId = this.route.snapshot.params['id']
     const userId = this.authService.user.id
-    this.requestService.addReviewToEvent(this.review, this.comment, eventId, userId).subscribe( {
+    this.requestService.addReview(this.review, this.comment, eventId, userId).subscribe( {
       next: response => { this.router.navigateByUrl(`/event/${eventId}`) },
       error: error => {}
     })

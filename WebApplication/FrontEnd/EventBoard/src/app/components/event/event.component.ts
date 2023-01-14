@@ -4,6 +4,8 @@ import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Event} from "../../models/event.model";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-event',
@@ -16,7 +18,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   participate: boolean
   likesNumber: number
   participantsNumber: number
-  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
@@ -107,6 +109,14 @@ export class EventComponent implements OnInit, AfterViewInit {
         }
       })
     }
+  }
+
+  onReport() {
+    let dialogRef = this.dialog.open(ProfileEditDialogComponent,{
+      data: {
+
+      }, disableClose: true
+    })
   }
 
   private errorHandler(error: number) {
