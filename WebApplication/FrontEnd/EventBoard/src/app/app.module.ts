@@ -48,6 +48,7 @@ import {ReviewFormComponent} from "./components/review-form/review-form.componen
 import { BannerWelcomebackComponent } from './components/banner-welcomeback/banner-welcomeback.component';
 import {ActivateComponent} from "./activate/activate.component";
 import {ReportDialogComponent} from "./components/report-dialog/report-dialog.component";
+import {EventEditDialogComponent} from "./components/event-edit-dialog/event-edit-dialog.component";
 
 
 registerLocaleData(localeIt, 'it');
@@ -76,7 +77,8 @@ registerLocaleData(localeIt, 'it');
         ReviewFormComponent,
         BannerWelcomebackComponent,
         ActivateComponent,
-        ReportDialogComponent
+        ReportDialogComponent,
+        EventEditDialogComponent,
     ],
     imports: [
         BrowserModule,
