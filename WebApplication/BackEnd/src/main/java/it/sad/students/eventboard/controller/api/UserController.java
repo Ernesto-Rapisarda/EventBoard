@@ -22,6 +22,11 @@ public class UserController {
         return userService.getPerson(username);
     }
 
+    @RequestMapping("/api/user/admin/get/all")
+    public ResponseEntity<Iterable<ResponsePerson>> getPersons(@RequestHeader (name="Authorization") String token){
+       return userService.getPersons(token);
+    }
+
     // TODO: 06/01/2023 Revisionare path scritti
 
     @RequestMapping(value="/api/user/edit",method = RequestMethod.PUT)

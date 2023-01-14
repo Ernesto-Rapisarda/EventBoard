@@ -57,7 +57,7 @@ public class UserService { //utente loggato
                     .email(person.getEmail())
                     .position(person.getPosition())
                     .role(person.getRole())
-                    .locked(person.isAccountNonLocked())
+                    .is_not_locked(person.isAccountNonLocked())
                             .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
                     .build()
             );
@@ -150,7 +150,7 @@ public class UserService { //utente loggato
                 }
             }
             personDb.setEnabled(false);
-            personDb.setLocked(false);
+            personDb.setIs_not_locked(false);
             personDb.setEmail(personDb.getId().toString());
             personDb.setName("Utente");
             personDb.setLastName("rimosso");
@@ -178,11 +178,11 @@ public class UserService { //utente loggato
                 emailMessage.setSubject("Ban dell'account");
                 emailMessage.setMessage(requestMotivation.getMessage());
                 emailSenderService.sendEmail(emailMessage);
-                personDb.setLocked(false);
+                personDb.setIs_not_locked(false);
             }
             else{
                 // TODO: 14/01/2023 mandare messaggio se l'account viene sbloccato?
-                personDb.setLocked(true);
+                personDb.setIs_not_locked(true);
             }
 
             
@@ -289,5 +289,26 @@ public class UserService { //utente loggato
     }
 
 
+    public ResponseEntity<Iterable<ResponsePerson>> getPersons(String token) {
+        if(!authorizationControll.checkAdminAuthorization(token))
+            return statusCodes.unauthorized();
+        List<Person> people = DBManager.getInstance().getPersonDao().findAll();
+        List<ResponsePerson> responsePeople = new ArrayList<>();
+        for (Person person:people){
+            ResponsePerson responsePerson = new ResponsePerson();
+            responsePerson.setId(person.getId());
+            responsePerson.setName(person.getName());
+            responsePerson.setLastName(person.getLastName());
+            responsePerson.setUsername(person.getUsername());
+            responsePerson.setEmail(person.getEmail());
+            responsePerson.setPosition(person.getPosition());
+            responsePerson.setRole(person.getRole());
+            responsePerson.setIs_not_locked(person.isAccountNonLocked());
+            responsePeople.add(responsePerson);
 
+        }
+
+        return statusCodes.okGetElements(responsePeople);
+
+    }
 }

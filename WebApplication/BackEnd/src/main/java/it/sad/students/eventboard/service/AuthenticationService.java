@@ -41,7 +41,7 @@ public class AuthenticationService {
         else
             user.setPosition(request.getPosition());
         user.setRole(request.getRole());
-        user.setLocked(true);
+        user.setIs_not_locked(true);
 
         if(!DBManager.getInstance().getPersonDao().saveOrUpdate(user))
             return statusCodes.commandError();

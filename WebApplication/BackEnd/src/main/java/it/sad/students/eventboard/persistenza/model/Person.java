@@ -16,7 +16,7 @@ public class Person implements UserDetails {
     private String email;
 
     private Boolean enabled; //ex activeStatus
-    private Boolean locked; //ban
+    private Boolean is_not_locked; //ban
 
     //chiavi esterne
     private Long position;
@@ -60,7 +60,7 @@ public class Person implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return locked;
+        return is_not_locked;
     }
 
     @Override
@@ -82,8 +82,8 @@ public class Person implements UserDetails {
         this.enabled = enabled;
     }
 
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
+    public void setIs_not_locked(Boolean is_not_locked) {
+        this.is_not_locked = is_not_locked;
     }
 
 

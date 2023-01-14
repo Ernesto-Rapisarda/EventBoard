@@ -5,12 +5,14 @@ import it.sad.students.eventboard.persistenza.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ResponsePerson {
     private Long id;
     private String name;
@@ -19,6 +21,6 @@ public class ResponsePerson {
     private String email;
     private Long position;
     private Role role;
-    private Boolean locked;
+    private Boolean is_not_locked;
     private List<Preference> preferences;
 }
