@@ -1,7 +1,9 @@
 package it.sad.students.eventboard.controller.api;
 
 
+import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Report;
+import it.sad.students.eventboard.persistenza.model.ReportType;
 import it.sad.students.eventboard.service.ReportService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +78,11 @@ public class ReportController {
         //ok 200, e restituisce il report
         //404 id non trovato
         return reportService.getReport(id_rep);
+    }
+
+    @RequestMapping("/type/report")
+    public ResponseEntity<ReportType[]> getEventType(){
+        return reportService.getReportType();
     }
 
 }

@@ -2,7 +2,9 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
+import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Report;
+import it.sad.students.eventboard.persistenza.model.ReportType;
 import it.sad.students.eventboard.service.httpbody.StatusCodes;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -66,4 +68,8 @@ public class ReportService {
         else
             return statusCodes.notFound();
     }
+    public ResponseEntity<ReportType[]> getReportType(){
+        return ResponseEntity.ok(ReportType.values());
+    }
+
 }
