@@ -80,7 +80,7 @@ public class ReportController {
         return reportService.getReport(id_rep);
     }
 
-    @RequestMapping("/type/report")
+    @RequestMapping("/type")
     public ResponseEntity<ReportType[]> getEventType(){
         return reportService.getReportType();
     }
