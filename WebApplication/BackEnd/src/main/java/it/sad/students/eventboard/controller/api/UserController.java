@@ -54,9 +54,9 @@ public class UserController {
     }
 
     // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
-    @RequestMapping(value="/api/user/admin/ban/{id}",method = RequestMethod.POST)
-    public ResponseEntity enableUser(@RequestBody RequestMotivation requestMotivation, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
-        return userService.banUser(requestMotivation,id,token);
+    @RequestMapping(value="/api/user/admin/block/{id}",method = RequestMethod.POST)
+    public ResponseEntity userLock(@RequestBody RequestMotivation requestMotivation, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return userService.setUserLock(requestMotivation,id,token);
     }
 
 

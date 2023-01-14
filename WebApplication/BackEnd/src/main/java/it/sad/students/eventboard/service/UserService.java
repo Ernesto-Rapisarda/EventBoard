@@ -160,7 +160,7 @@ public class UserService { //utente loggato
             return statusCodes.notFound();
         }
     }
-    public ResponseEntity banUser(RequestMotivation requestMotivation, Long id, String token) {
+    public ResponseEntity setUserLock(RequestMotivation requestMotivation, Long id, String token) {
         try {
             if(!authorizationControll.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
@@ -168,23 +168,34 @@ public class UserService { //utente loggato
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
             if(personDb==null)
                 return statusCodes.notFound();
+            
+            if(!personDb.isEnabled())
+                return statusCodes.notFound();
 
-
-            if(personDb.isEnabled()&& personDb.isAccountNonLocked()){
+            if(personDb.isAccountNonLocked()){
                 EmailMessage emailMessage = new EmailMessage();
                 emailMessage.setTo(personDb.getEmail());
                 emailMessage.setSubject("Ban dell'account");
                 emailMessage.setMessage(requestMotivation.getMessage());
                 emailSenderService.sendEmail(emailMessage);
+                personDb.setLocked(false);
+            }
+            else{
+                // TODO: 14/01/2023 mandare messaggio se l'account viene sbloccato?
+                personDb.setLocked(true);
             }
 
-            personDb.setLocked(false);
-            DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
-            return statusCodes.ok();
+            
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
+                return statusCodes.ok();
+            else
+                return statusCodes.commandError();
+
         }catch (Exception e){
             return statusCodes.notFound();
         }
     }
+
 /*
     public ResponseEntity enableUser(Long id,String token) { //id person
         try {
@@ -276,8 +287,6 @@ public class UserService { //utente loggato
         //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
         return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
     }
-
-
 
 
 
