@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup
   eventTypes: string[]
   ngOnInit(): void {
-    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response }})
+    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
 
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.maxLength(16)]),

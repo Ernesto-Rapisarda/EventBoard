@@ -3,6 +3,8 @@ import {Review} from "../../models/review.model";
 import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RequestService} from "../../services/request.service";
+import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-review',
@@ -12,7 +14,7 @@ import {RequestService} from "../../services/request.service";
 export class ReviewComponent {
   @Input() review: Review
 
-  constructor(protected authService: AuthService, private route: ActivatedRoute, private requestService: RequestService, private router: Router) { }
+  constructor(protected authService: AuthService, private route: ActivatedRoute, private requestService: RequestService, private router: Router, private dialog: MatDialog) { }
 
   onEdit() {
 
@@ -33,7 +35,31 @@ export class ReviewComponent {
   }
 
   onReport() {
+    let dialogRef = this.dialog.open(ReportDialogComponent,{
+      data: {
+        type: '',
+        reason: '',
+        operationConfirmed: false
+      }, disableClose: true
+    })
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.operationConfirmed){
+        alert("Operazione annullata")
+      }
+      else{
+        const type = result.type
+        const reason = result.reason
+        this.requestService.doReportReview(this.review.event, this.review.person, type, reason).subscribe({
+          next: response => {
+            alert("La recensione è stata segnalata con successo")
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
+    })
   }
 
   private errorHandler(error: number) {

@@ -1,9 +1,9 @@
 <div>
-  <form [formGroup]="reportForm">
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
     <!-- report types  -->
     <mat-form-field appearance="fill">
       <mat-label>Tipologia evento</mat-label>
-      <select matNativeControl formControlName="eventType" required>
+      <select matNativeControl formControlName="type" required>
         <option *ngFor="let type of reportTypes" value="{{type}}">{{type}}</option>
       </select>
     </mat-form-field>
@@ -12,17 +12,17 @@
     <div class="field-container">
       <mat-form-field appearance="outline">
         <mat-label>Motivazione</mat-label>
-        <input matInput placeholder="" formControlName="report">
+        <input matInput placeholder="" formControlName="reason">
         <mat-icon matSuffix>chat</mat-icon>
       </mat-form-field>
     </div>
 
     <!-- confirm/cancel -->
     <div class="interaction-buttons-container">
-      <button class="btn" mat-fab color="warn" aria-label="Conferma" (click)="onConfirm()" [disabled]="reportForm.valid">
+      <button class="btn" mat-fab color="warn" aria-label="Conferma" (click)="onConfirm()" [disabled]="!reportForm.valid" type="submit">
         <mat-icon>send</mat-icon>
       </button>
-      <button class="btn" mat-fab color="primary" aria-label="Annulla" (click)="onCancel()">
+      <button class="btn" mat-fab color="primary" aria-label="Annulla" (click)="onCancel()" type="submit">
         <mat-icon>clear</mat-icon>
       </button>
     </div>

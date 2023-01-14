@@ -27,6 +27,7 @@ export class HomepageComponent implements OnInit {
           }
           this.eventsService.events.push(event)
         }
+
       },
       error: error => {
 

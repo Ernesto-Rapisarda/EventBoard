@@ -9,40 +9,44 @@ import {RequestService} from "../../services/request.service";
   styleUrls: ['./report-dialog.component.css']
 })
 
-export class ReportDialogComponent implements OnInit, OnDestroy{
+export class ReportDialogComponent implements OnInit{
 
   reportTypes: string[]
-  operationConfirmed = false
+  operationConfirmed: boolean
   reportForm!: FormGroup;
   constructor(@Inject(MAT_DIALOG_DATA) protected data:  {
     type: string
     reason: string
+    operationConfirmed: boolean
   }, private dialogRef: MatDialogRef<ReportDialogComponent>, private requestService: RequestService) { }
 
   ngOnInit(): void {
+    this.reportForm = new FormGroup<any>({
+      type: new FormControl('', Validators.required),
+      reason: new FormControl('', Validators.required)
+    })
     this.requestService.getReportTypes().subscribe({
       next: response => {
         this.reportTypes = response
-        this.reportForm = new FormGroup<any>({
-          type: new FormControl('', Validators.required),
-          reason: new FormControl('', Validators.required)
-        })
       },
       error: error => {}
     })
   }
 
-  ngOnDestroy(): void {
-    this.data.type = this.reportForm.value.type
-    this.data.reason = this.reportForm.value.reason
-  }
-
   onConfirm() {
+    console.log("onConfirm()")
     this.operationConfirmed = true
-    this.dialogRef.close()
   }
 
   onCancel() {
-    this.dialogRef.close()
+    console.log("onCancel()")
+    this.operationConfirmed = false
+  }
+
+  onSubmit() {
+    this.data.type = this.reportForm.value.type
+    this.data.reason = this.reportForm.value.reason
+    this.data.operationConfirmed = this.operationConfirmed
+    this.dialogRef.close(this.data)
   }
 }

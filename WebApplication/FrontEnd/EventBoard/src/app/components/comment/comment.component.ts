@@ -42,21 +42,27 @@ export class CommentComponent {
     let dialogRef = this.dialog.open(ReportDialogComponent,{
       data: {
         type: '',
-        reason: ''
+        reason: '',
+        operationConfirmed: false
       }, disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      const type = result.type
-      const reason = result.reason
-      this.requestService.doReportComment(this.comment.id, reason, type).subscribe({
-        next: response => {
-          alert("Il commento è stato segnalato con successo")
-        },
-        error: error => {
-          this.errorHandler(error)
-        }
-      })
+      if(!result.operationConfirmed){
+        alert("Operazione annullata")
+      }
+      else{
+        const type = result.type
+        const reason = result.reason
+        this.requestService.doReportComment(this.comment.id, reason, type).subscribe({
+          next: response => {
+            alert("Il commento è stato segnalato con successo")
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
     })
   }
 
