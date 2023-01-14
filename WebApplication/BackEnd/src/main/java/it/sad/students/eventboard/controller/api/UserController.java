@@ -27,15 +27,13 @@ public class UserController {
        return userService.getPersons(token);
     }
 
-    // TODO: 06/01/2023 Revisionare path scritti
-
-    @RequestMapping(value="/api/user/edit",method = RequestMethod.PUT)
+    @RequestMapping(value="/api/user/update",method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody EditRequest person, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account, campi sbagliati operazione non eseguibile codice 400`
         //utente nullo, errore elaborazione 404 not found`
         //utente modificato aggiunto codice 200 ok`
-       return userService.editUser(person,token);
+       return userService.updateUser(person,token);
     }
 
     // TODO: 08/01/2023 AGGIUNGERE SU TRELLO

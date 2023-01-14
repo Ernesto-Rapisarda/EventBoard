@@ -65,17 +65,16 @@ public class UserService { //utente loggato
             return statusCodes.notFound();
     }
 
-    //nome casomai da cambiare
-    // TODO: 09/01/2023  CONTROLLARE COME GESTIRE I VARI STATUS RISPETTO AD EMAIL GIA UTILIZATA ECC.
-    public ResponseEntity editUser(EditRequest person, String token){
+
+    public ResponseEntity updateUser(EditRequest person, String token){
         try {
-            if(person==null)
+            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(person.getId());
+
+            if(person==null || personDb==null )
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(person.getId(), token))
+            if(!authorizationControll.checkOwnerAuthorization(person.getId(), token))
                 return statusCodes.unauthorized();
-
-            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(person.getId());
 
             if(person.getPosition()!=null){
                 Position position=DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition());
@@ -83,38 +82,33 @@ public class UserService { //utente loggato
                     return statusCodes.commandError();      //se la posizione è stata inserita deve essere presente nel db
             }
 
+
+
             if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName())||nullOrEmpty(person.getEmail()))
                 return statusCodes.commandError();          //non possono essere campi nulli
 
-            if(DBManager.getInstance().getPersonDao().findByEmail(person.getEmail())!=null&&!personDb.getEmail().equals(person.getEmail()))
+            Long tempId = null;
+            Person temp = DBManager.getInstance().getPersonDao().findByEmail(person.getEmail());
+            if (temp != null)
+                tempId = temp.getId();
+            if(tempId!=null && tempId!= person.getId())
                 return statusCodes.commandError();          //se la email è gia esistente (non contato la sua vecchia nel db) ritorna errore
 
-            if(person.getPassword()==null)
-                person.setPassword(personDb.getPassword()); //se l'utente non ha cambiato password la riprendo dal db
-            else if (!checkPassword(person.getPassword()))   // se è inserita male rispondo con errore
+            if(person.getPassword()!=null && checkPassword(person.getPassword()))
+                personDb.setPassword(passwordEncoder.encode(person.getPassword())); //se l'utente ha cambiato password la setto
+            else if(person.getPassword()!=null)
                 return statusCodes.commandError();
-            else                                            // se è inserita bene la cripto e la setto
-                person.setPassword(passwordEncoder.encode(person.getPassword()));
 
-            Person newPerson=new Person(
-                    person.getId(),
-                    person.getName(),
-                    person.getLastName(),
-                    personDb.getUsername(),
-                    person.getPassword(),
-                    person.getEmail(),
-                    //personDb.getActiveStatus(),
-                    person.getPosition(),
-                    personDb.getRole()
-            );
 
-            if(DBManager.getInstance().getPersonDao().saveOrUpdate(newPerson))
+            personDb.setName(person.getName());
+            personDb.setLastName(person.getLastName());
+            personDb.setEmail(person.getEmail());
+            personDb.setPosition(person.getPosition());
+
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
                 return statusCodes.ok();
             else
                 return statusCodes.notFound();
-
-            // TODO: 08/01/2023 controllare campo ruolo modificabile??
-
 
         }catch (Exception e){
             return  statusCodes.notFound();
@@ -272,7 +266,7 @@ public class UserService { //utente loggato
 
     // FUNCTION EXTRA
     private boolean nullOrEmpty(String string){
-        return string==null||string.trim()=="";
+        return string==null||string.equals("");
     }
     private boolean nullOrNegative(Integer num){
         return num==null||num<0;

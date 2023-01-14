@@ -92,7 +92,7 @@ public class PersonDaoPostgress implements PersonDao {
     @Override
     public boolean saveOrUpdate(Person person) {
         String insertEvent = "INSERT INTO person VALUES (?,?,?,?,?,?,?,?,?,?)";
-        String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,enabled=?,position=?,role=?,password=?,locked=? where id = ?";
+        String updateStr = "UPDATE person set name=?,lastname=?,username=?,email=?,enabled=?,position=?,role=?,password=?,is_not_locked=? where id = ?";
 
         PreparedStatement st=null;
         try {
