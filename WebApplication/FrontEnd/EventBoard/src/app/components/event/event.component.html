@@ -120,7 +120,7 @@
       </button>
     </div>
     <div class="report-button-container">
-      <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role == 'ORGANIZER')">
+      <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role !== 'ADMIN')">
         <mat-icon class="icon-report">report</mat-icon>
       </button>
     </div>
