@@ -39,6 +39,7 @@ export class RequestService {
 
   // Remove event
   deleteEvent(id: number) {
+    // TODO: Spostare le prossime 3 righe da qui (non credo sia il caso lasciarle qui)
     let message = ''
     if(this.isAdmin())
       message = window.prompt("Qual è il motivo della rimozione?")
@@ -91,7 +92,7 @@ export class RequestService {
   }
 
   // COMMENT RELATED REQUESTS
-  addCommentToEvent(text: string, eventId: number, userId: number){
+  addComment(text: string, eventId: number, userId: number){
     const url = this.API_SERVER_URL + "/api/comment/add"
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.post(url, {
@@ -100,18 +101,6 @@ export class RequestService {
       message: text,
       person: userId,
       event: eventId
-    }, {headers: httpHeaders, responseType: 'text'})
-  }
-
-  addReviewToEvent(review: number, text: string, eventId: number, userId: number){
-    const url = this.API_SERVER_URL + "/api/review/add"
-    const httpHeaders = this.getAuthorizationHeader()
-    return this.http.post(url, {
-      person: userId,
-      event: eventId,
-      date:null,
-      message: text,
-      rating: review
     }, {headers: httpHeaders, responseType: 'text'})
   }
 
@@ -125,7 +114,63 @@ export class RequestService {
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
   }
 
-  //  GET AUTHORIZATION HEADER (SERVICE FUNCTION)
+  doReportComment(id: number, message: string, type: string) {
+    const url = this.API_SERVER_URL + `/api/report/comment/${id}`
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.post(url, {
+      id: null,
+      status: true,
+      message: message,
+      date: null,
+      type: type,
+      person: this.authService.user.id
+    }, {headers: httpHeaders, responseType: "text"})
+  }
+
+  // REVIEW RELATED REQUESTS
+  addReview(review: number, text: string, eventId: number, userId: number){
+    const url = this.API_SERVER_URL + "/api/review/add"
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.post(url, {
+      person: userId,
+      event: eventId,
+      date:null,
+      message: text,
+      rating: review
+    }, {headers: httpHeaders, responseType: 'text'})
+  }
+
+  deleteReview(eventId: number, userId: number) {
+    let message = ''
+    if(this.isAdmin())
+      message = window.prompt("Qual è il motivo della rimozione?")
+
+    const url = this.API_SERVER_URL + '/api/review/delete'
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.delete(url, {headers: httpHeaders, body: { object: {person: userId, event: eventId}, message:message}, responseType: 'text'})
+  }
+
+  doReportReview(eventId: number, personId: number, type: string, message: string) {
+    const url = this.API_SERVER_URL + `/api/report/review/${eventId}/${personId}`
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.post(url, {
+      id: null,
+      status: true,
+      message: message,
+      date: null,
+      type: type,
+      person: this.authService.user.id
+    }, {headers: httpHeaders, responseType: "text"})
+  }
+
+  getReportTypes() {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + '/api/report/types'
+
+    return this.http.get<string[]>(url, {headers: httpHeaders})
+  }
+
+  //  SERVICE FUNCTIONS
   private getAuthorizationHeader() {
     return new HttpHeaders({
       "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)

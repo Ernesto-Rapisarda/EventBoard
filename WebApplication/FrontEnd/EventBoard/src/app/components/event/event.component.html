@@ -107,20 +107,20 @@
     </div>
   </div>
 
-  <!-- Floating buttons - to fix -->
+  <!-- Floating buttons -->
   <div class="floating-buttons-left">
     <div class="edit-button-container">
-      <button class="edit-button" mat-fab aria-label="Edit" color="primary" *ngIf="authService.isAuthenticated && (authService.user.id === event.organizer)">
+      <button class="edit-button" mat-fab aria-label="Edit" color="primary" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer)">
         <mat-icon class="icon-edit">edit</mat-icon>
       </button>
     </div>
     <div class="delete-button-container">
-      <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+      <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
         <mat-icon class="icon-delete">delete</mat-icon>
       </button>
     </div>
     <div class="report-button-container">
-      <button class="report-button" mat-fab aria-label="Report" *ngIf="authService.isAuthenticated && (authService.user.id != event.organizer && authService.user.role == 'ORGANIZER')">
+      <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role == 'ORGANIZER')">
         <mat-icon class="icon-report">report</mat-icon>
       </button>
     </div>
