@@ -16,3 +16,14 @@ a {
   text-decoration: inherit;
 }
 
+.logo {
+  width: 200px;
+  height: 100px;
+  margin-top: 10px;
+  transition: transform .2s;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+

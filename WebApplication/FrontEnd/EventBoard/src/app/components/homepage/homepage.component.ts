@@ -10,7 +10,7 @@ import {EventsService} from "../../services/events.service";
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  constructor(protected authService: AuthService, private requestService: RequestService, private eventsService: EventsService) { }
+  constructor(protected authService: AuthService, private requestService: RequestService, protected eventsService: EventsService) { }
 
   ngOnInit(): void {
     this.eventsService.events = new Array<Event>()
@@ -27,7 +27,6 @@ export class HomepageComponent implements OnInit {
           }
           this.eventsService.events.push(event)
         }
-
       },
       error: error => {
 

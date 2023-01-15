@@ -2,7 +2,9 @@
   <!--<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>-->
-  <a routerLink=""><span>EventBoard</span></a>
+  <a routerLink="">
+    <img src="assets/LogoWeb.png" class="logo">
+  </a>
   <span class="spacer"></span>
   <div class="toolbar-buttons">
     <button mat-raised-button class="navbar-button" *ngIf="authService.isAuthenticated() && authService.user.role === 'ORGANIZER'" routerLink="/create-event">CREA EVENTO</button> <!-- Questo chiaramente va modificato perchè deve controllare che l'utente sia registrato come inserzionista -->

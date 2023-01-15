@@ -4,6 +4,8 @@ import {AuthService} from "../../auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {Router} from "@angular/router";
+import {Preference} from "../../models/preference.model";
+import {format} from "@cloudinary/url-gen/actions/delivery";
 
 @Component({
   selector: 'app-profile',
@@ -37,24 +39,44 @@ export class ProfileComponent {
         name: this.authService.user.name,
         lastName: this.authService.user.lastName,
         email: this.authService.user.email,
-        password: ''
+        password: '',
+        preferences: [],
+        operationConfirmed: false
       }, disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
-        if(
-          this.authService.user.name === result.name &&
-          this.authService.user.lastName === result.lastName &&
-          this.authService.user.email === result.email &&
-          (!result.password)
-        ){ alert("Nessun dato cambiato, richiesta annullata") }
-        else {
-            alert("Richiesta la modifica dei dati")
-            this.authService.editData(result.name, result.lastName, result.email, result.password).subscribe((result: any) => {
-              console.log(result)
-            })
+        if(result.operationConfirmed && this.authService.user &&
+          ((this.authService.user.username !== result.username) ||
+          (this.authService.user.name !== result.name) ||
+          (this.authService.user.lastName !== result.lastName) ||
+          result.preferences.length > 0 /* TODO: Migliorare questo controllo, deve verificare se le preferenze sono diverse */)
+        ){
+          console.log(`result.preferences: ${result.preferences}`)
+          const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
+          this.authService.editData(result.name, result.lastName, result.email, result.password, preferences).subscribe({
+            next: response => {
+              alert("Dati modificati con successo")
+            },
+            error: error => { /* TODO: Error handling */ }
+          })
         }
       }
     )
+  }
+
+  private buildPreferences(preferences: string[]): Preference[] {
+    const formattedPreferences = []
+    if(this.authService.user){
+      for(let item of preferences){
+        const preference: Preference = {
+          person: this.authService.user.id,
+          eventType: item
+        }
+        console.log(preference)
+        formattedPreferences.push(preference)
+      }
+    }
+    return formattedPreferences
   }
 }

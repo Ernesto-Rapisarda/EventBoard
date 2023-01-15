@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {EventsService} from "../../services/events.service";
+import {Event} from "../../models/event.model";
 
 @Component({
   selector: 'app-card',
@@ -7,6 +8,7 @@ import {EventsService} from "../../services/events.service";
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  /* info */
+  @Input() event: Event
+
   constructor(protected eventsService: EventsService) { }
 }

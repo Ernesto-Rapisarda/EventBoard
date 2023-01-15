@@ -34,12 +34,10 @@ export class ReportDialogComponent implements OnInit{
   }
 
   onConfirm() {
-    console.log("onConfirm()")
     this.operationConfirmed = true
   }
 
   onCancel() {
-    console.log("onCancel()")
     this.operationConfirmed = false
   }
 

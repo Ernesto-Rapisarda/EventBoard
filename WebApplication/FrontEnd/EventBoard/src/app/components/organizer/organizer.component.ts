@@ -14,7 +14,7 @@ export class OrganizerComponent implements OnInit {
   email: string
   events: Event[]
 
-  constructor(private eventsService: EventsService, private requestService: RequestService, private route: ActivatedRoute) { }
+  constructor(protected eventsService: EventsService, private requestService: RequestService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.eventsService.events = new Array<Event>()
     const id = this.route.snapshot.params['id']
@@ -36,6 +36,7 @@ export class OrganizerComponent implements OnInit {
             }
             this.eventsService.events.push(event)
           }
+          this.eventsService.sortByDateAsc()
         },
         error: error => {
 

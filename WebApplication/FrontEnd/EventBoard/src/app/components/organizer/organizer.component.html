@@ -15,9 +15,8 @@
     <div class="card-header">
       <h2 class="explore-cpy">Eventi</h2>
     </div>
-
     <div class="cards">
-      <app-card class="card"></app-card>
+      <app-card class="card" *ngFor="let event of this.eventsService.events" [event]="event"></app-card>
     </div>
   </div>
 

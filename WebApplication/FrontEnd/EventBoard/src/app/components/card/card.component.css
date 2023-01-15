@@ -17,10 +17,12 @@
   width: 15vw;
   display: inline-block;
   flex-wrap: wrap;
+  transition: transform .2s;
 }
 
 .card:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 @media screen and (max-width: 1500px) {

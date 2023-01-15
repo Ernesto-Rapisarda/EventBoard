@@ -33,6 +33,27 @@
         </mat-form-field>
       </div>
 
+      <div class="field-container">
+        <mat-form-field>
+          <mat-label>Tipi di evento preferiti</mat-label>
+          <mat-select formControlName="preferences" multiple>
+
+            <mat-select-trigger>
+              <mat-chip-list>
+                <mat-chip *ngFor="let type of editForm.value.preferences"
+                          [removable]="true" (removed)="onTypeRemoved(type)">
+                  {{ type }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-select-trigger>
+
+            <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <!-- password -->
       <div>
         <div class="field-container">
@@ -62,9 +83,13 @@
       </div>
 
       <mat-card-actions>
-        <button mat-raised-button color="primary" class="login-btn" [disabled]="!editForm.valid" type="submit">
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="!editForm.valid" type="submit" (click)="onConfirm()">
           <mat-icon>edit</mat-icon>
-          Salva modifiche
+          Salva
+        </button>
+        <button mat-raised-button color="accent" class="login-btn" type="submit" (click)="onCancel()">
+          <mat-icon>close</mat-icon>
+          Annulla
         </button>
       </mat-card-actions>
     </form>

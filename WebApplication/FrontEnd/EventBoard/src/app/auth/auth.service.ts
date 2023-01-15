@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user.model";
 import {Route, Router} from "@angular/router";
 import {UpperCasePipe} from "@angular/common";
+import {Preference} from "../models/preference.model";
 
 @Injectable({
   providedIn: 'root'
@@ -81,9 +82,9 @@ export class AuthService {
     return this.http.post(url, {}, {headers: httpHeaders})
   }
 
-  editData( name: string, lastName: string, email: string, password: string) {
+  editData(name: string, lastName: string, email: string, password: string, preferences: Preference[]) {
     const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + '/api/user/edit'
+    const url = this.API_SERVER_URL + '/api/user/update'
 
     if(password === '')
       password = null
@@ -93,20 +94,12 @@ export class AuthService {
       name: name,
       lastName: lastName,
       username: this.user.username,
-      password: password,
       email: email,
-      activeStatus: true,
-      likes: [],
-      comments: [],
-      reviews: [],
-      preferences: [],
+      password: password,
       position: 1,
       role: this.user.role,
-      enabled: true,
-      accountNonExpired: true,
-      credentialsNonExpired: true,
-      authorities: [],
-      accountNonLocked: true,
+      is_not_locked: true,
+      preferences: preferences
     }, {headers: httpHeaders})
   }
 

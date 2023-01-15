@@ -6,4 +6,9 @@
 <ng-template #isNotLoggedIn>
   <app-banner-join ></app-banner-join>
 </ng-template>
-<app-card></app-card>
+<h1>Eventi in arrivo</h1>
+<app-card *ngFor="let event of eventsService.getOnlyFutureEvents()" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+
+<h1>Eventi terminati</h1>
+<app-card *ngFor="let event of eventsService.getOnlyPastEvents()" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+
