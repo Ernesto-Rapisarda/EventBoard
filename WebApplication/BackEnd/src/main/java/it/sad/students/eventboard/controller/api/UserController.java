@@ -37,10 +37,9 @@ public class UserController {
     }
 
     // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
-    @RequestMapping("/api/noauth/activate/{username}")
-    public String activateUser(@PathVariable String username){
-
-       return userService.activateUser(username);
+    @RequestMapping("/api/noauth/activate/{token}")
+    public ResponseEntity activateUser(@PathVariable String token){
+       return userService.activateUser(token);
     }
 
     @RequestMapping("/api/noauth/retrieve/password/{username}")

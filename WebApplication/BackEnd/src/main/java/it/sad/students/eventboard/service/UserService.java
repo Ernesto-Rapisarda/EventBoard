@@ -242,12 +242,11 @@ public class UserService { //utente loggato
         }
     }
 
-    public String activateUser(String token) {
-        System.out.println(token);
+    public ResponseEntity activateUser(String token) {
         Person person = DBManager.getInstance().getPersonDao().findByUsername(authorizationControll.extractUsername(token));
         person.setEnabled(true);
         DBManager.getInstance().getPersonDao().saveOrUpdate(person);
-        return "FUNZIONA";
+        return statusCodes.ok();
     }
 
     public ResponseEntity retrievePassword(String username) {
