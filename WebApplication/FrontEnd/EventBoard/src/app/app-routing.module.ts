@@ -11,7 +11,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthGuard} from "./auth/auth.guard";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
-import {ActivateComponent} from "./activate/activate.component";
+import {ActivateComponent} from "./components/activate/activate.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},

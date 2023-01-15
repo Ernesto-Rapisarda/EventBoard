@@ -12,7 +12,6 @@ export class AuthService {
   isLoggedIn = false
   user!: User
 
-
   constructor(private http: HttpClient, private router: Router) { }
 
   createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string, preferences: string[]){
@@ -37,12 +36,30 @@ export class AuthService {
 
   signUp(name: string, lastName: string, email: string, username: string, password: string, role: string){
     const url = this.API_SERVER_URL + "/api/noauth/register"
-    return this.http.post(url, {id: null, email: email, name: name, lastName: lastName, username: username, password: password, role: role, activeStatus: true, position: null})
+    return this.http.post(url, {
+      id: null,
+      email: email,
+      name: name,
+      lastName: lastName,
+      username: username,
+      password: password,
+      role: role,
+      activeStatus: true,
+      position: null
+    })
+  }
+
+  activate(token: string) {
+    const url = this.API_SERVER_URL + `/api/noauth/activate/${token}`
+    return this.http.get(url, {responseType: "text"})
   }
 
   signIn(username: string, password: string) {
     const url = this.API_SERVER_URL + "/api/noauth/authenticate"
-    return this.http.post(url, {username: username, password: password})
+    return this.http.post(url, {
+      username: username,
+      password: password
+    })
   }
 
   isAuthenticated() {
