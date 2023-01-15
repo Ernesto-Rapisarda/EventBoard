@@ -49,7 +49,7 @@ export class RequestService {
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
   }
 
-
+  // Returns all event types
   getEventTypes(): Observable<string[]> {
     const url = this.API_SERVER_URL+'/api/noauth/type/events'
     return this.http.get<string[]>(url)
@@ -83,6 +83,19 @@ export class RequestService {
       person: personId,
       event: eventId
     }, {headers: httpHeaders, responseType: 'text'})
+  }
+
+  doReportEvent(eventId: number, message: string, type: string) {
+    const url = this.API_SERVER_URL + `/api/report/event/${eventId}`
+    const httpHeaders = this.getAuthorizationHeader()
+    return this.http.post(url, {
+      id: null,
+      status: true,
+      message: message,
+      date: null,
+      type: type,
+      person: this.authService.user.id
+    }, {headers: httpHeaders, responseType: "text"})
   }
 
   // ORGANIZER PROFILE RELATED REQUESTS

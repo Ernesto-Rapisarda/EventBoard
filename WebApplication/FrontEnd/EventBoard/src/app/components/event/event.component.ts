@@ -6,6 +6,7 @@ import {Event} from "../../models/event.model";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 
 @Component({
   selector: 'app-event',
@@ -112,10 +113,30 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   onReport() {
-    let dialogRef = this.dialog.open(ProfileEditDialogComponent,{
+    let dialogRef = this.dialog.open(ReportDialogComponent,{
       data: {
-
+        type: '',
+        reason: '',
+        operationConfirmed: false
       }, disableClose: true
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.operationConfirmed){
+        alert("Operazione annullata")
+      }
+      else{
+        const type = result.type
+        const reason = result.reason
+        this.requestService.doReportEvent(this.event.id, reason, type).subscribe({
+          next: response => {
+            alert("L'evento è stato segnalato con successo")
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
     })
   }
 
