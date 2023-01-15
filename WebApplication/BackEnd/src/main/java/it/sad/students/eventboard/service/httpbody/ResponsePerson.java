@@ -1,5 +1,6 @@
 package it.sad.students.eventboard.service.httpbody;
 
+import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Preference;
 import it.sad.students.eventboard.persistenza.model.Role;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,7 @@
 package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
 import it.sad.students.eventboard.persistenza.dao.PreferenceDao;
+import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Preference;
 
 import java.sql.Connection;
@@ -56,12 +57,12 @@ public class PreferenceDaoPostgress implements PreferenceDao {
     }
 
     @Override
-    public Preference findByPrimaryKey(Long person,Long event_type) {
+    public Preference findByPrimaryKey(Long person, EventType event_type) {
         String query = "select * from preferences where person = ? and event_type=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setLong(1, person);
-            stmt.setLong(2,event_type);
+            stmt.setString(2,event_type.toString());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
@@ -81,12 +82,11 @@ public class PreferenceDaoPostgress implements PreferenceDao {
 
         PreparedStatement st=null;
         try {
-            if (preference.getPerson() == null&&preference.getEvent_type() == null) {
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, preference.getPerson());
-                st.setLong(2, preference.getEvent_type());
+                st.setString(2, preference.getEvent_type().toString());
                 st.executeUpdate();
-            }
+
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, preference.getPerson());
-            st.setLong(2,preference.getEvent_type());
+            st.setString(2,preference.getEvent_type().toString());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
         try{
             Preference preference=new Preference();
             preference.setPerson(rs.getLong("person"));
-            preference.setEvent_type(rs.getLong("event_type"));
+            preference.setEvent_type(EventType.valueOf(rs.getString("event_type")));
             return preference;
         }catch (SQLException e){e.printStackTrace();}
 
