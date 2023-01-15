@@ -3,9 +3,7 @@ package it.sad.students.eventboard.service;
 import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
-import it.sad.students.eventboard.persistenza.model.Event;
-import it.sad.students.eventboard.persistenza.model.Person;
-import it.sad.students.eventboard.persistenza.model.Position;
+import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.service.httpbody.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -105,10 +103,16 @@ public class UserService { //utente loggato
             personDb.setEmail(person.getEmail());
             personDb.setPosition(person.getPosition());
 
+
+            for (Preference preference: person.getPreferences())
+                DBManager.getInstance().getPreferenceDao().saveOrUpdate(preference);
+
             if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
                 return statusCodes.ok();
             else
                 return statusCodes.notFound();
+
+
 
         }catch (Exception e){
             return  statusCodes.notFound();
@@ -298,6 +302,7 @@ public class UserService { //utente loggato
             responsePerson.setPosition(person.getPosition());
             responsePerson.setRole(person.getRole());
             responsePerson.setIs_not_locked(person.isAccountNonLocked());
+            responsePerson.setPreferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()));
             responsePeople.add(responsePerson);
 
         }
