@@ -34,7 +34,7 @@ public class DBManager {
         if (conn == null) {
             try {
                 // TODO: 30/12/2022 ricordarsi di inserire la propria password locale
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventBoard", "postgres", "0984");
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventBoard", "postgres", "123456");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
