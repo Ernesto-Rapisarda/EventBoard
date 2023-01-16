@@ -15,10 +15,7 @@ export class RegisterComponent implements OnInit {
   // TODO: Lasciare un po' di avvisi per password troppo corte, verifica password errata, ecc...
 
   registerForm!: FormGroup
-  eventTypes: string[]
   ngOnInit(): void {
-    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
-
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.maxLength(16)]),
       name: new FormControl('', [Validators.required]),
@@ -26,8 +23,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       passwordConfirm: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required]),
-      preferences: new FormControl([])
+      role: new FormControl('', [Validators.required])
     },{ validators: this.checkPasswords })
   }
 
@@ -39,7 +35,6 @@ export class RegisterComponent implements OnInit {
     const email = this.registerForm.value.email
     const role = this.registerForm.value.role
     const password = this.registerForm.value.password
-    const preferences = this.registerForm.value.preferences
 
 
     this.authService.signUp(name, lastName, email, username, password, role).subscribe({
@@ -52,7 +47,7 @@ export class RegisterComponent implements OnInit {
 
         if(localStorage.getItem('token')){
           this.authService.getData(username).subscribe((userData: any) => {
-            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, preferences)
+            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, [])
             console.log(this.authService.user)
           })
           this.router.navigate([''])
@@ -71,20 +66,5 @@ export class RegisterComponent implements OnInit {
     let pass = group.get('password').value;
     let confirmPass = group.get('passwordConfirm').value
     return pass === confirmPass ? null : { notSame: true }
-  }
-
-  // Called when a chip is removed
-  onTypeRemoved(type: string) {
-    const formPreferences = this.registerForm.value.preferences as string[]
-    this.remove(formPreferences, type)
-    this.registerForm.patchValue({
-      preferences: formPreferences
-    })
-  }
-
-  private remove(array: string[], toRemove: string) {
-    const index = array.indexOf(toRemove)
-    if (index !== -1)
-      array.splice(index, 1)
   }
 }

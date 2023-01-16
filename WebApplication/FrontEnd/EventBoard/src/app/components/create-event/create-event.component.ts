@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
-import {ImgApiService} from "../../services/img-api.service";
+import {ImgbbService} from "../../services/imgbb.service";
 
 @Component({
   selector: 'app-create-event',
@@ -14,7 +14,7 @@ export class CreateEventComponent implements OnInit{
   eventCreateForm: FormGroup
   urlPoster: string
 
-  constructor(private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgApiService) { }
+  constructor(private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService) { }
 
   eventTypes: string[]
 

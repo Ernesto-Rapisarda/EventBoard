@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
-import {ImgApiService} from "../../services/img-api.service";
+import {ImgbbService} from "../../services/imgbb.service";
 
 @Component({
   selector: 'app-event-edit-dialog',
@@ -15,7 +15,7 @@ export class EventEditDialogComponent {
   urlPoster: string;
   private eventCreateForm: FormGroup<{ date: FormControl<string>; ticketUrl: FormControl<string>; price: FormControl<string>; description: FormControl<string>; location: FormControl<string>; eventType: FormControl<string>; title: FormControl<string> }>;
 
-  constructor(private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgApiService) { }
+  constructor(private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService) { }
 
   eventTypes: string[]
 
