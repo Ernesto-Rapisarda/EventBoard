@@ -23,11 +23,15 @@ export class ProfileEditDialogComponent implements OnInit {
                                                         password: string
                                                         preferences: string[]
                                                         operationConfirmed: boolean
-                                                      }, private dialogRef: MatDialogRef<ProfileEditDialogComponent>, private requestService: RequestService) { }
+                                                      }, private dialogRef: MatDialogRef<ProfileEditDialogComponent>, private requestService: RequestService, private authService: AuthService) { }
 
   // TODO: Deve riempire preferenze con chip di preferenze già espresse
   ngOnInit(): void {
-    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
+    this.requestService.getEventTypes().subscribe({
+      next: response => {
+        this.eventTypes = response.sort()
+        this.typesInitialization()
+    }})
 
     this.editForm = new FormGroup<any>({
       name: new FormControl(`${this.data.name}`, [Validators.required]),
@@ -70,6 +74,19 @@ export class ProfileEditDialogComponent implements OnInit {
     this.editForm.patchValue({
       preferences: formPreferences
     })
+  }
+
+  typesInitialization() {
+    if(this.authService.user){
+      let formPreferences: string[] = []
+
+      for(let preference of this.authService.user.preferences)
+        formPreferences.push(preference.event_type)
+
+      this.editForm.patchValue({
+        preferences: formPreferences
+      })
+    }
   }
 
   private remove(array: string[], toRemove: string) {

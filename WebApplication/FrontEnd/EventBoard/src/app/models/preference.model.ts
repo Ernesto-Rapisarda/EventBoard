@@ -1,4 +1,4 @@
 export interface Preference {
   person: number      // User id
-  eventType: string   // Event type
+  event_type: string   // Event type
 }
