@@ -1,7 +1,9 @@
 <div>
 
   <!-- Segnalazioni attive -->
-  <div>
+  <div >
+    <h1>Reports:</h1>
 
+    <app-report *ngFor="let report of reportList" [report]="report"></app-report>
   </div>
 </div>
