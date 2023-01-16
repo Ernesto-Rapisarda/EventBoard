@@ -49,6 +49,7 @@ import { BannerWelcomebackComponent } from './components/banner-welcomeback/bann
 import {ReportDialogComponent} from "./components/report-dialog/report-dialog.component";
 import {EventEditDialogComponent} from "./components/event-edit-dialog/event-edit-dialog.component";
 import { ActivateComponent } from './components/activate/activate.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 
 registerLocaleData(localeIt, 'it');
@@ -78,7 +79,8 @@ registerLocaleData(localeIt, 'it');
         BannerWelcomebackComponent,
         ReportDialogComponent,
         EventEditDialogComponent,
-        ActivateComponent
+        ActivateComponent,
+        AdminDashboardComponent
     ],
     imports: [
         BrowserModule,

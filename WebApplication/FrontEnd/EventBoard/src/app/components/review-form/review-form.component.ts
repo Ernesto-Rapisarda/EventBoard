@@ -37,8 +37,4 @@ export class ReviewFormComponent {
     })
   }
 
-  TEST_EDITME() {
-    console.log("Current comment: " + this.comment);
-  }
-
 }

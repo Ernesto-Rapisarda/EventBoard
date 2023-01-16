@@ -176,11 +176,20 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
+
   getReportTypes() {
     const httpHeaders = this.getAuthorizationHeader()
     const url = this.API_SERVER_URL + '/api/report/types'
 
     return this.http.get<string[]>(url, {headers: httpHeaders})
+  }
+
+  getReports() {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + "/api/report/admin/all"
+
+    // TODO: observable
+    return this.http.get(url, {headers: httpHeaders})
   }
 
   //  SERVICE FUNCTIONS
