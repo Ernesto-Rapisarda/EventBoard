@@ -20,7 +20,7 @@ export class EventsService {
     const nowDate = new Date()
     return this.sortByDateAsc().filter((obj) => {
       const eventDate = new Date(obj.date)
-      return eventDate.getMinutes() > nowDate.getMinutes()
+      return eventDate.getTime() > nowDate.getTime()
     })
   }
 

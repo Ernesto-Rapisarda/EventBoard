@@ -183,8 +183,10 @@ public class InteractionService {
             return statusCodes.unauthorized();
         else
         {
+            comment.setDate(date());
             if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment)) {
                 if(authorizationControll.checkAdminAuthorization(token)){
+
                     Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
                     String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
                     emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));
@@ -212,6 +214,7 @@ public class InteractionService {
                 return statusCodes.commandError();
             // TODO: 09/01/2023 modificare la data??
             //review.setDate(LocalDate.from(date()));
+            review.setDate(date());
             if(DBManager.getInstance().getReviewDao().saveOrUpdate(review)) {
                 if(authorizationControll.checkAdminAuthorization(token)){
                     Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent());

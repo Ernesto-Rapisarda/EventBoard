@@ -29,6 +29,27 @@ export class AuthService {
     this.isLoggedIn = true
   }
 
+  editUser(name: string, lastName: string, email: string, password: string, preferences: Preference[]) {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + '/api/user/update'
+
+    if(password === '')
+      password = null
+
+    return this.http.put(url, {
+      id: this.user.id,
+      name: name,
+      lastName: lastName,
+      username: this.user.username,
+      email: email,
+      password: password,
+      position: 1,
+      role: this.user.role,
+      is_not_locked: true,
+      preferences: preferences
+    }, {headers: httpHeaders, responseType: "text"})
+  }
+
   deleteUser(id: number, password: string) {
     const httpHeaders = this.getAuthorizationHeader()
     const url = this.API_SERVER_URL + '/api/user/delete'
@@ -82,30 +103,13 @@ export class AuthService {
     return this.http.post(url, {}, {headers: httpHeaders})
   }
 
-  editData(name: string, lastName: string, email: string, password: string, preferences: Preference[]) {
-    const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + '/api/user/update'
-
-    if(password === '')
-      password = null
-
-    return this.http.put(url, {
-      id: this.user.id,
-      name: name,
-      lastName: lastName,
-      username: this.user.username,
-      email: email,
-      password: password,
-      position: 1,
-      role: this.user.role,
-      is_not_locked: true,
-      preferences: preferences
-    }, {headers: httpHeaders})
-  }
-
   private getAuthorizationHeader() {
     return new HttpHeaders({
       "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
     })
+  }
+
+  isAdmin() {
+    return this.user.role === "ADMIN"
   }
 }

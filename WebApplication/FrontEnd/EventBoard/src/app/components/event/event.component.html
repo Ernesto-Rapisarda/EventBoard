@@ -90,18 +90,14 @@
             <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
           </ng-template>
           <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
-          <div *ngFor="let comment of event.commentList">
-            <app-comment [comment]="comment"></app-comment>
-          </div>
+          <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
           </ng-template>
           <app-review-form *ngIf="authService.isAuthenticated()"></app-review-form>
-          <div *ngFor="let review of event.reviewList">
-            <app-review [review]="review"></app-review>
-          </div>
+          <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
         </mat-tab>
       </mat-tab-group>
     </div>

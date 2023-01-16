@@ -103,9 +103,13 @@ public class UserService { //utente loggato
             personDb.setEmail(person.getEmail());
             personDb.setPosition(person.getPosition());
 
+            List<Preference> tempList = DBManager.getInstance().getPreferenceDao().findPreferences(person.getId());
+            for(Preference preference: tempList)
+                DBManager.getInstance().getPreferenceDao().delete(preference);
 
             for (Preference preference: person.getPreferences())
                 DBManager.getInstance().getPreferenceDao().saveOrUpdate(preference);
+
 
             if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
                 return statusCodes.ok();
