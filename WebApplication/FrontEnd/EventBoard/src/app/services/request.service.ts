@@ -203,19 +203,17 @@ export class RequestService {
     return this.http.get<string[]>(url, {headers: httpHeaders})
   }
 
-  getReports() {
-    const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + "/api/report/admin/all"
-
-    // TODO: observable
-    return this.http.get(url, {headers: httpHeaders})
-  }
-
-  // USER REALATED REQUESTS
-
+  // USER RELATED REQUESTS
   getUsers() {
     const httpHeaders = this.getAuthorizationHeader()
     const url = this.API_SERVER_URL + '/api/user/admin/get/all'
+
+    return this.http.get(url, {headers: httpHeaders})
+  }
+
+  getReports() {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + "/api/report/admin/all"
 
     return this.http.get(url, {headers: httpHeaders})
   }
