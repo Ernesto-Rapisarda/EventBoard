@@ -1,3 +1,5 @@
+import {Preference} from "./preference.model";
+
 export interface User {
   id: number,
   name: string,
@@ -6,5 +8,5 @@ export interface User {
   email: string,
   role: string,
   token: string,
-  preferences: string[]
+  preferences: Preference[]
 }

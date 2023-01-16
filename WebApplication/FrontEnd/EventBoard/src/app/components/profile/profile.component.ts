@@ -71,7 +71,7 @@ export class ProfileComponent {
       for(let item of preferences){
         const preference: Preference = {
           person: this.authService.user.id,
-          eventType: item
+          event_type: item
         }
         console.log(preference)
         formattedPreferences.push(preference)
