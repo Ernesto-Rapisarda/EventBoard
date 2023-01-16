@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Report} from "../../models/report.model";
-import {RequestService} from "../../services/request.service";
-import {Comment} from "../../models/comment.model";
 
 @Component({
   selector: 'app-report',
@@ -9,12 +7,10 @@ import {Comment} from "../../models/comment.model";
   styleUrls: ['./report.component.css']
 })
 
-export class ReportComponent implements OnInit {
+export class ReportComponent {
 
   @Input() report: Report
 
   constructor() {}
-
-  ngOnInit(): void { }
 
 }

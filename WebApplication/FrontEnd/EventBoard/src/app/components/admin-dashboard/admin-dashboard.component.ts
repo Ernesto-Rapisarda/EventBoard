@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {RequestService} from "../../services/request.service";
-import {ReportComponent} from "../report/report.component";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -20,14 +19,28 @@ export class AdminDashboardComponent implements OnInit {
   report: any
   reportList: any;
 
+  user: any
+  userList: any
+
   onTest() {
+
+    /* Users */
+    this.requestService.getUsers().subscribe({
+      next: response => {
+        console.log(response)
+        this.userList = response
+      },
+      error: error => { console.log('ERRORE: users') }
+    })
+
+    /* Reports */
     this.requestService.getReports().subscribe({
         next: response => {
           console.log(response)
           this.reportList = response
         },
-        error: error => { console.log('error') }
-      });
+        error: error => { console.log('ERRORE: reports') }
+      })
   }
 
 }
