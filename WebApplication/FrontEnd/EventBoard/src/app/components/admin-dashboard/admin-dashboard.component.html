@@ -1,9 +1,15 @@
 <div>
 
-  <!-- Segnalazioni attive -->
-  <div >
-    <h1>Reports:</h1>
+  <!-- Utenti  -->
+  <div>
+    <h1>Utenti:</h1>
+    <app-user *ngFor="let user of userList" [user]="user"></app-user>
+  </div>
 
+  <!-- Segnalazioni -->
+  <div>
+    <h1>Segnalazioni:</h1>
     <app-report *ngFor="let report of reportList" [report]="report"></app-report>
   </div>
+
 </div>
