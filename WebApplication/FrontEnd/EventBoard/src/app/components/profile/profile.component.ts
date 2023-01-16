@@ -54,7 +54,7 @@ export class ProfileComponent {
         ){
           console.log(`result.preferences: ${result.preferences}`)
           const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
-          this.authService.editData(result.name, result.lastName, result.email, result.password, preferences).subscribe({
+          this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences).subscribe({
             next: response => {
               alert("Dati modificati con successo")
             },

@@ -5,6 +5,7 @@ import {Event} from "../models/event.model";
 import {DatePipe} from "@angular/common";
 import {User} from "../models/user.model";
 import {AuthService} from "../auth/auth.service";
+import {Comment} from "../models/comment.model";
 
 
 @Injectable({
@@ -39,7 +40,7 @@ export class RequestService {
 
   // Remove event
   deleteEvent(id: number) {
-    // TODO: Spostare le prossime 3 righe da qui (non credo sia il caso lasciarle qui)
+    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
     let message = ''
     if(this.isAdmin())
       message = window.prompt("Qual è il motivo della rimozione?")
@@ -89,10 +90,10 @@ export class RequestService {
     const url = this.API_SERVER_URL + `/api/report/event/${eventId}`
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.post(url, {
-      id: null,
+      id: null,             // Back-end will set it automatically
       status: true,
       message: message,
-      date: null,
+      date: null,           // Back-end will set current date
       type: type,
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
@@ -109,15 +110,32 @@ export class RequestService {
     const url = this.API_SERVER_URL + "/api/comment/add"
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.post(url, {
-      id: null,
-      date: null,
+      id: null,         // Back-end will set it automatically
+      date: null,       // Back-end will set current date
       message: text,
       person: userId,
       event: eventId
     }, {headers: httpHeaders, responseType: 'text'})
   }
 
+  editComment(comment: Comment, newMessage: string, adminMessage: string) {
+    const url = this.API_SERVER_URL + '/api/comment/update'
+    const httpHeaders = this.getAuthorizationHeader()
+
+    return this.http.put(url, {
+      object: {
+        id: comment.id,
+        date: null,            // Back-end will set current date
+        message: newMessage,
+        event: comment.event,
+        person: comment.person
+      },
+      message: adminMessage
+    }, {headers: httpHeaders, responseType: "text"})
+  }
+
   deleteComment(id: number) {
+    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
     let message = ''
     if(this.isAdmin())
       message = window.prompt("Qual è il motivo della rimozione?")
@@ -131,10 +149,10 @@ export class RequestService {
     const url = this.API_SERVER_URL + `/api/report/comment/${id}`
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.post(url, {
-      id: null,
+      id: null,           // Back-end will set it automatically
       status: true,
       message: message,
-      date: null,
+      date: null,         // Back-end will set current date
       type: type,
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
@@ -154,6 +172,7 @@ export class RequestService {
   }
 
   deleteReview(eventId: number, userId: number) {
+    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
     let message = ''
     if(this.isAdmin())
       message = window.prompt("Qual è il motivo della rimozione?")
@@ -167,10 +186,10 @@ export class RequestService {
     const url = this.API_SERVER_URL + `/api/report/review/${eventId}/${personId}`
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.post(url, {
-      id: null,
+      id: null,           // Back-end will set it automatically
       status: true,
       message: message,
-      date: null,
+      date: null,         // Back-end will set current date
       type: type,
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})

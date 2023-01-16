@@ -50,7 +50,8 @@ import {ReportDialogComponent} from "./components/report-dialog/report-dialog.co
 import {EventEditDialogComponent} from "./components/event-edit-dialog/event-edit-dialog.component";
 import { ActivateComponent } from './components/activate/activate.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-
+import { CommentEditDialogComponent } from './components/comment-edit-dialog/comment-edit-dialog.component';
+import { ReportComponent } from './components/report/report.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -80,7 +81,9 @@ registerLocaleData(localeIt, 'it');
         ReportDialogComponent,
         EventEditDialogComponent,
         ActivateComponent,
-        AdminDashboardComponent
+        AdminDashboardComponent,
+        CommentEditDialogComponent,
+        ReportComponent
     ],
     imports: [
         BrowserModule,

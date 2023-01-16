@@ -1,0 +1,23 @@
+<div class="card-container">
+  <div class="card-header">
+    <div class="header-text">Ripensamenti? Rimedia ai tuoi errori qui!</div>
+  </div>
+
+  <div class="field-container">
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Scrivi qui...</mat-label>
+      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
+    </mat-form-field>
+    <div class="send-btn-container">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    <div class="cancel-btn-container">
+      <button class="cancel-btn" mat-icon-button aria-label="Cancel button" (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -3,9 +3,9 @@ import {Comment} from "../../models/comment.model";
 import {AuthService} from "../../auth/auth.service";
 import {RequestService} from "../../services/request.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
+import {CommentEditDialogComponent} from "../comment-edit-dialog/comment-edit-dialog.component";
 
 @Component({
   selector: 'app-comment',
@@ -21,7 +21,32 @@ export class CommentComponent {
   }
 
   onEdit() {
+    let dialogRef = this.dialog.open(CommentEditDialogComponent,{
+      data: {
+        text: this.comment.message,
+        operationConfirmed: false
+      }, disableClose: true
+    })
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.operationConfirmed){
+        alert("Operazione annullata")
+      }
+      else{
+        const newText = result.text
+        let adminMessage = ''
+        if(this.authService.isAdmin())
+          adminMessage = window.prompt("Qual è il motivo della rimozione?")
+        this.requestService.editComment(this.comment, newText, adminMessage).subscribe({
+          next: response => {
+            alert("Il commento è stato modificato con successo")
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
+    })
   }
 
   onDelete() {

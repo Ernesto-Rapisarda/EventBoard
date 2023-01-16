@@ -13,10 +13,10 @@
     <button mat-icon-button aria-label="Edit review" *ngIf="this.authService.user && (this.authService.user.id === review.person)" (click)="onEdit()">
       <mat-icon class="icon-edit">edit</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Delete review" *ngIf="this.authService.user && ((this.authService.user.id === review.person) || this.authService.user.role == 'ADMIN')" (click)="onDelete()">
+    <button mat-icon-button aria-label="Delete review" *ngIf="this.authService.user && ((this.authService.user.id === review.person) || authService.isAdmin())" (click)="onDelete()">
       <mat-icon class="icon-delete">delete</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Report review" *ngIf="this.authService.user && (this.authService.user.id !== review.person) && this.authService.user.role != 'ADMIN'" (click)="onReport()">
+    <button mat-icon-button aria-label="Report review" *ngIf="this.authService.user && (this.authService.user.id !== review.person) && !authService.isAdmin()" (click)="onReport()">
       <mat-icon class="icon-report">report</mat-icon>
     </button>
   </div>
