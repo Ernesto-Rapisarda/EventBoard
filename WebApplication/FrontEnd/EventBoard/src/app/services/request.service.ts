@@ -211,6 +211,15 @@ export class RequestService {
     return this.http.get(url, {headers: httpHeaders})
   }
 
+  // USER REALATED REQUESTS
+
+  getUsers() {
+    const httpHeaders = this.getAuthorizationHeader()
+    const url = this.API_SERVER_URL + '/api/user/admin/get/all'
+
+    return this.http.get(url, {headers: httpHeaders})
+  }
+
   //  SERVICE FUNCTIONS
   private getAuthorizationHeader() {
     return new HttpHeaders({

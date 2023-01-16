@@ -52,6 +52,7 @@ import { ActivateComponent } from './components/activate/activate.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { CommentEditDialogComponent } from './components/comment-edit-dialog/comment-edit-dialog.component';
 import { ReportComponent } from './components/report/report.component';
+import { UserComponent } from './components/user/user.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -83,7 +84,8 @@ registerLocaleData(localeIt, 'it');
         ActivateComponent,
         AdminDashboardComponent,
         CommentEditDialogComponent,
-        ReportComponent
+        ReportComponent,
+        UserComponent
     ],
     imports: [
         BrowserModule,
