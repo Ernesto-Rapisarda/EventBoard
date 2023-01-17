@@ -7,14 +7,14 @@
 }
 
 footer{
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   background-color: #0096c7;
+  margin-top: 100px;
 }
 
 .container{
-  display: flex;
   padding: 3rem;
 }
 
@@ -51,6 +51,10 @@ footer{
   top: -10px;
 }
 
+.left .content {
+  padding-bottom: 30px;
+}
+
 .left .content .social{
   margin: 20px 0 0 0;
 }
@@ -74,6 +78,10 @@ footer{
 
 .left .content .social a span:hover{
   background: #dd5f24;
+}
+
+.center .content {
+  padding-bottom: 30px;
 }
 
 .center .content .fas{
@@ -135,6 +143,11 @@ footer{
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
+}
+
+.footer-section-title {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 
