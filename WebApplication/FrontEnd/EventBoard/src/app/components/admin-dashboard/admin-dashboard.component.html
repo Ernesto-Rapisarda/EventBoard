@@ -1,15 +1,35 @@
-<div>
+<div class="main-container">
 
-  <!-- Utenti  -->
-  <div>
-    <h1>Utenti:</h1>
-    <app-user *ngFor="let user of userList" [user]="user"></app-user>
-  </div>
+  <!-- Tab Utenti e Segnalazioni -->
+  <mat-tab-group>
 
-  <!-- Segnalazioni -->
-  <div>
-    <h1>Segnalazioni:</h1>
-    <app-report *ngFor="let report of reportList" [report]="report"></app-report>
-  </div>
+    <!-- Utenti -->
+    <mat-tab label="Utenti">
+      <h1>Utenti:</h1>
+      <div class="user-card" *ngFor="let user of userList">
+        <app-user [user]="user"></app-user>
+        <button mat-mini-fab color="warn" aria-label="Ban user">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-tab>
+
+    <!-- Segnalazioni -->
+    <mat-tab label="Segnalazioni">
+      <h1>Segnalazioni:</h1>
+      <div class="report-card" *ngFor="let report of reportList">
+        <app-report [report]="report"></app-report>
+        <div>
+          <button mat-mini-fab color="primary" aria-label="Ban user">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" aria-label="Ban user">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
 
 </div>

@@ -1,0 +1,8 @@
+.main-container {
+  text-align: center;
+}
+
+.user-card, .report-card {
+  margin-top: 64px;
+  margin-bottom: 64px;
+}
