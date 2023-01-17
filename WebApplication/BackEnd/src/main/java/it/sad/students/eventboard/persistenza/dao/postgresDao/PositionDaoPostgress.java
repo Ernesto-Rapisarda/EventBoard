@@ -52,66 +52,65 @@ public class PositionDaoPostgress implements PositionDao {
         return null;    }
 
     @Override
-    public void saveOrUpdate(Position position) {
-        String insertPosition = "INSERT INTO position VALUES (?)";
-        //String updatePosition = "UPDATE position set name=? where id = ?";
+    public boolean saveOrUpdate(Position position) {
+        String insertPosition = "INSERT INTO position VALUES (?,?,?,?,?,?)";
+        String updatePosition = "UPDATE position set region=?,city=?, address=?, longitude=?,latitude=? where id = ?";
 
         PreparedStatement st=null;
         try {
-            position.setId(IdBroker.getNewPositionID(conn));
-            st = conn.prepareStatement(insertPosition);
+            if (position.getId()==null){
+                st = conn.prepareStatement(insertPosition);
+                position.setId(IdBroker.getNewPositionID(conn));
+                st.setLong(1,position.getId());
+                st.setString(2,position.getRegion());
+                st.setString(3,position.getCity());
+                st.setString(4,position.getAddress());
+                st.setDouble(5,position.getLongitude());
+                st.setDouble(6,position.getLatitude());
+            }
+            else{
+                st = conn.prepareStatement(updatePosition);
+                st.setString(1,position.getRegion());
+                st.setString(2,position.getCity());
+                st.setString(3,position.getAddress());
+                st.setDouble(4,position.getLongitude());
+                st.setDouble(5,position.getLatitude());
+                st.setLong(6,position.getId());
 
-            st.setLong(1, position.getId());
 
-
+            }
             st.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        /*
-        try {
-
-            if (position.getId() == null) {
-
-                st = conn.prepareStatement(insertEvent);
-                Long newId = IdBroker.getNewPersonID(conn);
-                position.setId(newId);
-                st.setLong(1, position.getId());
-                st.setString(2, position.getName());
-                st.executeUpdate();
-
-            //}else {
-
-                st = conn.prepareStatement(updateStr);
-                st.setString(1, position.getName());
-                st.executeUpdate();
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
 
     }
 
     @Override
     public void delete(Position position) {
         String query = "DELETE FROM position WHERE id = ?";
-        /*
+
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, position.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     private Position readPosition(ResultSet rs){
         try{
             Position position=new Position();
             position.setId(rs.getLong("id"));
-            //position.setName(rs.getString("name"));
+            position.setRegion(rs.getString("region"));
+            position.setCity(rs.getString("city"));
+            position.setAddress(rs.getString("address"));
+            position.setLongitude(rs.getDouble("longitude"));
+            position.setLatitude(rs.getDouble("latitude"));
             return position;
         }catch (SQLException e){e.printStackTrace();}
 

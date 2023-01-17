@@ -13,6 +13,7 @@ import java.util.List;
 public class ResponseEventDetails {
     Event event;
     String organizerFullName;
+    Position position;
     List<ResponseComment> commentList;
     List<Like> likeList;
     List<Partecipation> partecipationList;

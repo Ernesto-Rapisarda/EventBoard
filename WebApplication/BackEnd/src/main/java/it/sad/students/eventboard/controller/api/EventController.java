@@ -23,12 +23,12 @@ public class EventController {
     private final JwtService jwtService;
 
     @RequestMapping(value="/api/create/event",method= RequestMethod.POST)
-    public ResponseEntity<ResponseEventCreation> createEvent(@RequestBody Event event, @RequestHeader (name="Authorization") String token){
+    public ResponseEntity<ResponseEventCreation> createEvent(@RequestBody RequestCreationEvent requestCreationEvent, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403
         //badrequest errore nel db nella creazione 400
         //evento nullo 404 not found
         //inserimento effettuato codice 200 ok
-        return eventService.createEvent(event,token);
+        return eventService.createEvent(requestCreationEvent,token);
 
     }
 
@@ -44,7 +44,7 @@ public class EventController {
     }
 
     @RequestMapping(value = "/api/update/event", method= RequestMethod.PUT)
-    public ResponseEntity updateEvent(@RequestBody RequestMotivationObject<Event> requestMotivationObject, @RequestHeader (name="Authorization") String token){
+    public ResponseEntity updateEvent(@RequestBody RequestMotivationObject<RequestCreationEvent> requestMotivationObject, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403
         //organizer non proprietario dell'evento o modifica non riuscita 400
         //evento non trovato 404 not found

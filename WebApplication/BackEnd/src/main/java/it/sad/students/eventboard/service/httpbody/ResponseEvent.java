@@ -20,7 +20,7 @@ public class ResponseEvent {
     private String title;
     private String urlPoster;
     private String eventType;
-    private Long position;
+    private Position position;
     private String organizer;
 
 }

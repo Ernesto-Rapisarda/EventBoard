@@ -36,10 +36,7 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.setEnabled(false);
-        if(request.getPosition()==null)
-            user.setPosition(1L);
-        else
-            user.setPosition(request.getPosition());
+        user.setPosition(1L);
         user.setRole(request.getRole());
         user.setIs_not_locked(true);
 

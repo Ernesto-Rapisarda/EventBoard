@@ -2,7 +2,7 @@ package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.UserService;
-import it.sad.students.eventboard.service.httpbody.EditRequest;
+import it.sad.students.eventboard.service.httpbody.RequestUserEdit;
 import it.sad.students.eventboard.service.httpbody.RequestCancellation;
 import it.sad.students.eventboard.service.httpbody.RequestMotivation;
 import it.sad.students.eventboard.service.httpbody.ResponsePerson;
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/api/user/update",method = RequestMethod.PUT)
-    public ResponseEntity editUser(@RequestBody EditRequest person, @RequestHeader (name="Authorization") String token){
+    public ResponseEntity editUser(@RequestBody RequestUserEdit person, @RequestHeader (name="Authorization") String token){
         //utente non autorizzato 403`
         //utente non proprietario di quel account, campi sbagliati operazione non eseguibile codice 400`
         //utente nullo, errore elaborazione 404 not found`

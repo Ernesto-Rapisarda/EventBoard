@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,10 @@ public class EventService {
         List<Event> tmp = DBManager.getInstance().getEventDao().findAll();
         if (tmp.isEmpty())
             return ResponseEntity.notFound().build();
-        else
+        else{
             return ResponseEntity.ok(createList(tmp));
+        }
+
     }
 
     public ResponseEntity<Iterable<ResponseEvent>> getPreferredEvents(List<EventType> eventTypes) {
@@ -59,7 +62,7 @@ public class EventService {
                             event.getTitle(),
                             event.getUrlPoster(),
                             event.getEventType().toString(),
-                            event.getId(),(
+                            DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition()),(
                             person.getName()+
                                     " "+
                                     person.getLastName()
@@ -70,17 +73,23 @@ public class EventService {
         return events;
     }
 
-    public ResponseEntity<ResponseEventCreation> createEvent(Event event, String token) {
-        if (event==null)
+    public ResponseEntity<ResponseEventCreation> createEvent(RequestCreationEvent requestCreationEvent, String token) {
+        if (requestCreationEvent.getEvent()==null)
             return ResponseEntity.notFound().build();
 
         //event.setDate(LocalDateTime.now());
 
 
-        if(authorizationControll.checkOwnerAuthorization(event.getOrganizer(),token) && DBManager.getInstance().getEventDao().saveOrUpdate(event))
-            return ResponseEntity.ok(ResponseEventCreation.builder().id(event.getId()).build()) ;
-        else
-            return ResponseEntity.badRequest().build();
+        if(authorizationControll.checkOwnerAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
+            if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
+                requestCreationEvent.getEvent().setPosition(requestCreationEvent.getPosition().getId());
+                if(DBManager.getInstance().getEventDao().saveOrUpdate(requestCreationEvent.getEvent()))
+                    return ResponseEntity.ok(ResponseEventCreation.builder().id(requestCreationEvent.getEvent().getId()).build()) ;
+                else
+                    DBManager.getInstance().getPositionDao().delete(requestCreationEvent.getPosition());
+            }
+        }
+        return ResponseEntity.badRequest().build();
 
     }
 
@@ -105,24 +114,27 @@ public class EventService {
             return ResponseEntity.badRequest().body("Non hai i permessi per rimuovere l'evento");
     }
 
-    public ResponseEntity updateEvent(Event event,String message, String token) {
-        if(event==null)
+    public ResponseEntity updateEvent(RequestCreationEvent requestCreationEvent,String message, String token) {
+        if(requestCreationEvent.getEvent()==null)
             return ResponseEntity.notFound().build();
-        if (authorizationControll.checkOwnerOrAdminAuthorization(event.getOrganizer(),token)){
-            if(DBManager.getInstance().getEventDao().saveOrUpdate(event)) {
-                if (authorizationControll.checkAdminAuthorization(token)) {
-                    String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer()).getEmail();
-                    emailSenderService.sendEmail(AdminActionEventNotification(email,
-                            "Notifica modifica evento " + event.getTitle(), message));
+        if (authorizationControll.checkOwnerOrAdminAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
+            if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
+                requestCreationEvent.getEvent().setPosition(requestCreationEvent.getPosition().getId());
+                if(DBManager.getInstance().getEventDao().saveOrUpdate(requestCreationEvent.getEvent())) {
+                    if (authorizationControll.checkAdminAuthorization(token)) {
+                        String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(requestCreationEvent.getEvent().getOrganizer()).getEmail();
+                        emailSenderService.sendEmail(AdminActionEventNotification(email,
+                                "Notifica modifica evento " + requestCreationEvent.getEvent().getTitle(), message));
+                    }
+                    return ResponseEntity.ok("Evento modificato");
                 }
-                return ResponseEntity.ok("Evento modificato");
+                else
+                    DBManager.getInstance().getPositionDao().delete(requestCreationEvent.getPosition());
             }
-            else
-                return ResponseEntity.badRequest().body("Impossibile modificare l'evento.");
+
 
         }
-        else
-            return ResponseEntity.badRequest().body("Non hai i permessi per modificare l'evento");
+        return ResponseEntity.badRequest().body("Non hai i permessi per modificare l'evento");
     }
 
 
@@ -166,8 +178,9 @@ public class EventService {
 
         Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
         String organizerFullName =person.getName() + " "+person.getLastName();
+        Position position = DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition());
 
-        return ResponseEntity.ok(new ResponseEventDetails(event,organizerFullName ,commentList,likeList,partecipationList,reviewList));
+        return ResponseEntity.ok(new ResponseEventDetails(event,organizerFullName,position ,commentList,likeList,partecipationList,reviewList));
 
     }
 

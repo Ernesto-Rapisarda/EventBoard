@@ -1,6 +1,7 @@
 package it.sad.students.eventboard.service.httpbody;
 
 import it.sad.students.eventboard.persistenza.model.EventType;
+import it.sad.students.eventboard.persistenza.model.Position;
 import it.sad.students.eventboard.persistenza.model.Preference;
 import it.sad.students.eventboard.persistenza.model.Role;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class ResponsePerson {
     private String lastName;
     private String username;
     private String email;
-    private Long position;
     private Role role;
     private Boolean is_not_locked;
     private List<Preference> preferences;
+    private Position position;
 }

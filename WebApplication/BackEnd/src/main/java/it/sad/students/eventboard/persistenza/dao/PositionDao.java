@@ -9,7 +9,7 @@ public interface PositionDao {
 
     Position findByPrimaryKey(Long id);
 
-    void saveOrUpdate(Position position);
+    boolean saveOrUpdate(Position position);
 
     void delete(Position position);
 }

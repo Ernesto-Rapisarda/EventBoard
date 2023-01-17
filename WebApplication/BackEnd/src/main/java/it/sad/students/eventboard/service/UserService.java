@@ -53,10 +53,10 @@ public class UserService { //utente loggato
                     .lastName(person.getLastName())
                     .username(username)
                     .email(person.getEmail())
-                    .position(person.getPosition())
                     .role(person.getRole())
                     .is_not_locked(person.isAccountNonLocked())
                             .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
+                            .position(DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition()))
                     .build()
             );
         else
@@ -64,7 +64,7 @@ public class UserService { //utente loggato
     }
 
 
-    public ResponseEntity updateUser(EditRequest person, String token){
+    public ResponseEntity updateUser(RequestUserEdit person, String token){
         try {
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(person.getId());
 
@@ -75,9 +75,7 @@ public class UserService { //utente loggato
                 return statusCodes.unauthorized();
 
             if(person.getPosition()!=null){
-                Position position=DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition());
-                if(position==null)
-                    return statusCodes.commandError();      //se la posizione è stata inserita deve essere presente nel db
+                DBManager.getInstance().getPositionDao().saveOrUpdate(person.getPosition());
             }
 
 
@@ -101,7 +99,7 @@ public class UserService { //utente loggato
             personDb.setName(person.getName());
             personDb.setLastName(person.getLastName());
             personDb.setEmail(person.getEmail());
-            personDb.setPosition(person.getPosition());
+            personDb.setPosition(person.getPosition().getId());
 
             List<Preference> tempList = DBManager.getInstance().getPreferenceDao().findPreferences(person.getId());
             for(Preference preference: tempList)
@@ -237,7 +235,13 @@ public class UserService { //utente loggato
 
             List<ResponseEvent> events=new ArrayList<>();
             for(Event event:fullEvent){
-                events.add(new ResponseEvent(event.getId(),event.getDate(),event.getTitle(), event.getUrlPoster(), event.getEventType().toString(), event.getPosition(),name ));
+                events.add(new ResponseEvent(event.getId(),
+                        event.getDate(),
+                        event.getTitle(),
+                        event.getUrlPoster(),
+                        event.getEventType().toString(),
+                        DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition()) ,
+                        name ));
             }
 
             return statusCodes.okGetElement(new ResponseOrganizer(name,person.getEmail(), events)) ;
@@ -302,10 +306,10 @@ public class UserService { //utente loggato
             responsePerson.setLastName(person.getLastName());
             responsePerson.setUsername(person.getUsername());
             responsePerson.setEmail(person.getEmail());
-            responsePerson.setPosition(person.getPosition());
             responsePerson.setRole(person.getRole());
             responsePerson.setIs_not_locked(person.isAccountNonLocked());
             responsePerson.setPreferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()));
+            responsePerson.setPosition(DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition()));
             responsePeople.add(responsePerson);
 
         }
