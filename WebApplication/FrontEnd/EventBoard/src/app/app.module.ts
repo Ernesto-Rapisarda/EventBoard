@@ -54,6 +54,7 @@ import { CommentEditDialogComponent } from './components/comment-edit-dialog/com
 import { ReportComponent } from './components/report/report.component';
 import { UserComponent } from './components/user/user.component';
 import { MapComponent } from './components/map/map.component';
+import { FooterComponent } from "./components/footer/footer.component";
 
 registerLocaleData(localeIt, 'it');
 
@@ -87,7 +88,8 @@ registerLocaleData(localeIt, 'it');
         CommentEditDialogComponent,
         ReportComponent,
         UserComponent,
-        MapComponent
+        MapComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

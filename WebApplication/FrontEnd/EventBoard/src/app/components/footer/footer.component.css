@@ -1,0 +1,44 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  padding-top: 12px;
+  background-color: #00b4d8;
+}
+
+.footer div {
+  flex: 1;
+  padding: 10px;
+}
+
+* {
+  --header-font-weight: 600;
+}
+
+.chi-siamo-section h3 {
+  font-weight: var(--header-font-weight);
+}
+.chi-siamo-section p {
+  text-align: initial;
+}
+
+.contattaci-section h3 {
+  font-weight: var(--header-font-weight);
+}
+.contattaci-section p {
+  text-align: center;
+}
+
+.link-section h3 {
+  font-weight: var(--header-font-weight);
+}
+.link-section ul {
+  text-align: initial;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+  }
+}

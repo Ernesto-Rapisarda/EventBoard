@@ -12,6 +12,7 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthGuard} from "./auth/auth.guard";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {ActivateComponent} from "./components/activate/activate.component";
+import {AboutComponent} from "./components/about/about.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   {path: 'search', component: SearchComponent},
+  {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent},
 ];
 
