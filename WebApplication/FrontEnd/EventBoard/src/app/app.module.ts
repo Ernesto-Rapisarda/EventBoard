@@ -53,6 +53,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { CommentEditDialogComponent } from './components/comment-edit-dialog/comment-edit-dialog.component';
 import { ReportComponent } from './components/report/report.component';
 import { UserComponent } from './components/user/user.component';
+import { MapComponent } from './components/map/map.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -85,7 +86,8 @@ registerLocaleData(localeIt, 'it');
         AdminDashboardComponent,
         CommentEditDialogComponent,
         ReportComponent,
-        UserComponent
+        UserComponent,
+        MapComponent
     ],
     imports: [
         BrowserModule,
