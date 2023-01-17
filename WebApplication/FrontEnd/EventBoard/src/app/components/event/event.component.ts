@@ -42,6 +42,7 @@ export class EventComponent implements OnInit, AfterViewInit {
         next: (response: any) => {
           console.log(response)
           this.event = response.event
+          this.event.position = response.position
           this.event.commentList = response.commentList.reverse()           // Reverse so that they'll appear from last to first
           this.event.likeList = response.likeList
           this.event.reviewList = response.reviewList.reverse()             // Reverse so that they'll appear from last to first

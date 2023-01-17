@@ -16,10 +16,13 @@ export class AppComponent implements OnInit {
     //TODO: Funziona, però va gestita la scadenza del token
     if(localStorage.getItem('token')){
       if(localStorage.getItem('username')){
-        this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe((userData: any) => {
-          this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, JSON.parse(localStorage.getItem('token')), userData.preferences)
-          this.authService.isLoggedIn = true;
-          console.log(this.authService.user)
+        this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe({
+          next: (userData: any) => {
+            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, JSON.parse(localStorage.getItem('token')), userData.preferences, userData.position)
+            this.authService.isLoggedIn = true;
+            console.log(this.authService.user)
+          },
+          error: error => { }
         })
       }
     }

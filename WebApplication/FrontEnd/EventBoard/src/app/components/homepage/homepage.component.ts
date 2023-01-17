@@ -22,6 +22,7 @@ export class HomepageComponent implements OnInit {
             id: response[element].id,
             title: response[element].title,
             date: response[element].date,
+            position: response[element].position,
             urlPoster: response[element].urlPoster,
             organizerFullName: response[element].organizer.toString(),
           }

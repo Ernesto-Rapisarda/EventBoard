@@ -1,20 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user.model";
 import {AuthService} from "../../auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {Router} from "@angular/router";
 import {Preference} from "../../models/preference.model";
-import {format} from "@cloudinary/url-gen/actions/delivery";
+import {Location} from "../../models/location.model";
+import {regionRelative} from "@cloudinary/url-gen/qualifiers/flag";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router) { }
+export class ProfileComponent implements OnInit {
+  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router) {
+    // Necessary to enable reloading
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
+  }
 
+  ngOnInit(): void {
+    this.getData()
+  }
   onProfileRemove() {
     if(this.authService.user){
       const id = this.authService.user.id
@@ -33,6 +40,7 @@ export class ProfileComponent {
         alert("Operazione annullata")
     }
   }
+
   onProfileEdit() {
     let dialogRef = this.dialog.open(ProfileEditDialogComponent,{
       data: {
@@ -41,6 +49,8 @@ export class ProfileComponent {
         email: this.authService.user.email,
         password: '',
         preferences: [],
+        region: this.authService.user.location.region,
+        city: this.authService.user.location.city,
         operationConfirmed: false
       }, disableClose: true
     })
@@ -52,11 +62,20 @@ export class ProfileComponent {
           (this.authService.user.lastName !== result.lastName) ||
           result.preferences.length > 0 /* TODO: Migliorare questo controllo, deve verificare se le preferenze sono diverse */)
         ){
-          console.log(`result.preferences: ${result.preferences}`)
+          console.log(result)
           const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
-          this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences).subscribe({
+          const location: Location = {
+            id: this.authService.user.location.id,
+            region: result.region,
+            city: result.city,
+            address: null,
+            latitude: 0.0,
+            longitude: 0.0
+          }
+          this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences, location).subscribe({
             next: response => {
               alert("Dati modificati con successo")
+              this.router.navigateByUrl('/profile')
             },
             error: error => { /* TODO: Error handling */ }
           })
@@ -73,10 +92,20 @@ export class ProfileComponent {
           person: this.authService.user.id,
           event_type: item
         }
-        console.log(preference)
         formattedPreferences.push(preference)
       }
     }
     return formattedPreferences
+  }
+
+  private getData() {
+    this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe({
+      next: (userData: any) => {
+        this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, JSON.parse(localStorage.getItem('token')), userData.preferences, userData.position)
+        this.authService.isLoggedIn = true;
+        console.log(this.authService.user)
+      },
+      error: error => { }
+    })
   }
 }

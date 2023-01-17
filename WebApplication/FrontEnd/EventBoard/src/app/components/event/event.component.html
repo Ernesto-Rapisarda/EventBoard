@@ -19,10 +19,7 @@
 
     <div class="participate-button-container">
       <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
-              [ngClass]="{
-              'participate-button-false': !participate,
-              'participate-button-true': participate
-              }">
+              [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'">
         <mat-icon>how_to_reg</mat-icon>
       </button>
       <br><br>
@@ -31,10 +28,7 @@
 
     <div class="like-button-container">
       <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
-              [ngClass]="{
-              'like-button-false': !liked,
-              'like-button-true': liked
-              }">
+              [ngClass]="liked ? 'like-button-true' : 'like-button-false'">
         <mat-icon>favorite</mat-icon>
       </button>
       <br><br>
@@ -73,10 +67,12 @@
           <mat-icon class="location-icon">location_on</mat-icon>
           <p class="location-cpy">Località</p>
         </div>
-        <p class="location">DA MODIFICARE</p>
+        <p class="location">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
       </div>
     </div>
   </div>
+
+  <app-map [coordinates]="[16.2260993, 39.363239]" [draggable]="true" class="map"></app-map>
 
   <!-- Comments / Reviews -->
   <div class="comments-reviews-container">

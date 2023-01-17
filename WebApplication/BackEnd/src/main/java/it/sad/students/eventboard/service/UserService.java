@@ -117,6 +117,7 @@ public class UserService { //utente loggato
 
 
         }catch (Exception e){
+            e.printStackTrace();
             return  statusCodes.notFound();
         }
     }
@@ -168,7 +169,7 @@ public class UserService { //utente loggato
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
             if(personDb==null)
                 return statusCodes.notFound();
-            
+
             if(!personDb.isEnabled())
                 return statusCodes.notFound();
 
@@ -185,7 +186,7 @@ public class UserService { //utente loggato
                 personDb.setIs_not_locked(true);
             }
 
-            
+
             if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
                 return statusCodes.ok();
             else

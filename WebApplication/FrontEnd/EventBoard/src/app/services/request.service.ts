@@ -10,6 +10,8 @@ import {API_SERVER_URL} from "../../constants";
 @Injectable({
   providedIn: 'root'
 })
+
+// ALL THE REQUESTS MADE TOWARDS OUR BACK-END SERVER ARE HANDLED BY THIS SERVICE
 export class RequestService {
   constructor(private http: HttpClient, private datePipe: DatePipe, private authService: AuthService) {}
 

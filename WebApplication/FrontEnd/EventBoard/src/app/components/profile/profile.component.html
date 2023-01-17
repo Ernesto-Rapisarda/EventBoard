@@ -32,6 +32,18 @@
         <p class="info-data">{{this.authService.user.email}}</p>
       </div>
       <div class="info-container">
+        <p class="info-cpy">REGIONE</p>
+        <p class="info-data">{{this.authService.user.location.region || "NON FORNITA"}}</p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">CITTÀ</p>
+        <p class="info-data">{{this.authService.user.location.city || "NON FORNITA"}} </p>
+      </div>
+      <div class="info-container">
+        <p class="info-cpy">TIPOLOGIE DI EVENTO PREFERITE</p>
+        <p class="info-data">{{this.authService.getPreferences() || "NON FORNITA"}} </p>
+      </div>
+      <div class="info-container">
         <p class="info-cpy">RUOLO</p>
         <p class="info-data">{{this.authService.user.role}}</p>
       </div>

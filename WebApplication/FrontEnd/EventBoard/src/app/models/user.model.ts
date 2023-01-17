@@ -1,4 +1,5 @@
 import {Preference} from "./preference.model";
+import {Location} from "./location.model";
 
 export interface User {
   id: number,
@@ -8,5 +9,6 @@ export interface User {
   email: string,
   role: string,
   token: string,
-  preferences: Preference[]
+  preferences: Preference[]   // See preference.model.ts for info about this field
+  location: Location          // See location.model.ts for info about this field
 }

@@ -223,6 +223,13 @@
   gap: 12px;
 }
 
+.floating-buttons-right {
+  display: inline-flex;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+}
+
 .report-button-container {
   float: top;
 }
@@ -239,6 +246,11 @@
   /* background-color: #0000FF; SI è OPTATO PER I COLORI DI MATERIAL */
 }
 
+.map {
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
 
 /* TODO: se serve */
 @media screen and (max-width: 550px) {

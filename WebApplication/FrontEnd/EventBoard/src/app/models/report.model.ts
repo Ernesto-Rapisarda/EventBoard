@@ -1,5 +1,4 @@
 export interface Report {
-
   date: Date
   id: number
   message: string

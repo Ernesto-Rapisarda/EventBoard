@@ -4,6 +4,7 @@ import {User} from "../models/user.model";
 import {Router} from "@angular/router";
 import {Preference} from "../models/preference.model";
 import {API_SERVER_URL} from "../../constants";
+import {Location} from "../models/location.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string, preferences: Preference[]){
+  createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string, preferences: Preference[], location: Location){
     this.user = {
       id: id,
       name: name,
@@ -23,12 +24,13 @@ export class AuthService {
       email: email,
       role: role,
       token: token,
-      preferences: preferences
+      preferences: preferences,
+      location: location
     }
     this.isLoggedIn = true
   }
 
-  editUser(name: string, lastName: string, email: string, password: string, preferences: Preference[]) {
+  editUser(name: string, lastName: string, email: string, password: string, preferences: Preference[], location: Location) {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + '/api/user/update'
 
@@ -42,7 +44,7 @@ export class AuthService {
       username: this.user.username,
       email: email,
       password: password,
-      position: 1,
+      position: location,
       role: this.user.role,
       is_not_locked: true,
       preferences: preferences
@@ -66,7 +68,6 @@ export class AuthService {
       password: password,
       role: role,
       activeStatus: true,
-      position: null
     })
   }
 
@@ -108,7 +109,16 @@ export class AuthService {
     })
   }
 
-  isAdmin() {
-    return this.user.role === "ADMIN"
+  isAdmin() { return this.user.role === "ADMIN" }
+
+  getPreferences(): string {
+    let preferences = ""
+
+    if(this.isLoggedIn)
+      for(let preference of this.user.preferences)
+        preferences += preference.event_type + ', '
+
+    preferences = preferences.substring(0, preferences.length-2)      // We will need to remove the last 2 chars (", ")
+    return preferences
   }
 }

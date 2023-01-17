@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AuthService} from "../../auth/auth.service";
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
+import {ComuniItaService} from "../../services/comuni-ita.service";
 
 @Component({
   selector: 'app-profile-edit-dialog',
@@ -15,29 +16,31 @@ export class ProfileEditDialogComponent implements OnInit {
   hidePasswordConfirm = true
   operationConfirmed = false
   eventTypes: string[];
+  regions: string[]
+  cities: string[]
 
   constructor(@Inject(MAT_DIALOG_DATA) protected data:  {
                                                         name: string,
                                                         lastName: string,
                                                         email: string,
-                                                        password: string
-                                                        preferences: string[]
-                                                        operationConfirmed: boolean
-                                                      }, private dialogRef: MatDialogRef<ProfileEditDialogComponent>, private requestService: RequestService, private authService: AuthService) { }
+                                                        region: string,
+                                                        city: string
+                                                        password: string,
+                                                        preferences: string[],
+                                                        operationConfirmed: boolean,
+                                                      }, private dialogRef: MatDialogRef<ProfileEditDialogComponent>, private requestService: RequestService, private authService: AuthService, private comuniItaService: ComuniItaService) { }
 
   // TODO: Deve riempire preferenze con chip di preferenze già espresse
   ngOnInit(): void {
-    this.requestService.getEventTypes().subscribe({
-      next: response => {
-        this.eventTypes = response.sort()
-        this.typesInitialization()
-    }})
-
+    this.setEventTypes()
+    this.setRegions()
     this.editForm = new FormGroup<any>({
       name: new FormControl(`${this.data.name}`, [Validators.required]),
       lastName: new FormControl(`${this.data.lastName}`, [Validators.required]),
       email: new FormControl(`${this.data.email}`, [Validators.required, Validators.email]),
       preferences: new FormControl([]),
+      region: new FormControl(''),
+      city: new FormControl(''),
       password: new FormControl('', [Validators.minLength(8)]),
       passwordConfirm: new FormControl('')
      }, { validators: this.checkPasswords }
@@ -51,6 +54,8 @@ export class ProfileEditDialogComponent implements OnInit {
     this.data.password = this.editForm.value.password
     this.data.operationConfirmed = this.operationConfirmed
     this.data.preferences = this.editForm.value.preferences
+    this.data.region = this.editForm.value.region
+    this.data.city = this.editForm.value.city
     this.dialogRef.close(this.data)
   }
 
@@ -76,6 +81,16 @@ export class ProfileEditDialogComponent implements OnInit {
     })
   }
 
+  private setEventTypes() {
+    this.requestService.getEventTypes().subscribe({
+      next: response => {
+        this.eventTypes = response.sort()
+        this.typesInitialization()
+      },
+      error: error => { }
+    })
+  }
+
   typesInitialization() {
     if(this.authService.user){
       let formPreferences: string[] = []
@@ -93,5 +108,32 @@ export class ProfileEditDialogComponent implements OnInit {
     const index = array.indexOf(toRemove)
     if (index !== -1)
       array.splice(index, 1)
+  }
+
+  private setRegions() {
+    this.comuniItaService.getRegions().subscribe({
+      next: response => {
+        this.regions = (response as string[])
+        if(this.data.region != ""){
+          this.editForm.patchValue({
+            region: this.data.region
+          })
+          this.setCities()
+        }
+      },
+      error: error => { }
+    })
+  }
+
+  setCities() {
+    this.comuniItaService.getCities(this.editForm.value.region).subscribe({
+      next: response => {
+        this.cities = (response as string[])
+        this.editForm.patchValue({
+          city: this.data.city
+        })
+      },
+      error: error => { }
+    })
   }
 }

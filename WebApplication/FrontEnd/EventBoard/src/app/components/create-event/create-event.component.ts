@@ -20,7 +20,7 @@ export class CreateEventComponent implements OnInit{
 
   ngOnInit(): void {
     this.urlPoster = ""
-    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response }})
+    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
 
     this.eventCreateForm = new FormGroup({
       title: new FormControl('', [Validators.required]),

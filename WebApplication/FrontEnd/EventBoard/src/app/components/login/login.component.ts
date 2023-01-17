@@ -43,10 +43,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', JSON.stringify(username))
 
         if(localStorage.getItem('token')){
-          this.authService.getData(username).subscribe((userData: any) => {
-            this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, userData.preferences)
-            console.log(this.authService.user)
+          this.authService.getData(username).subscribe({
+            next: (userData: any) => {
+              this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, userData.preferences, userData.position)
+              console.log(this.authService.user)
+            },
+            error: error => { }
           })
+
           this.router.navigate([''])
         }
       }

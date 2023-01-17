@@ -8,6 +8,7 @@
         {{this.event.title}}
       </h2>
       <h4 class="card-data">{{this.event.date | date: 'EEEE dd/MM/yyyy H:mm'}}</h4>
+      <h4 class="card-data">{{this.event.position.city}}, {{this.event.position.region}}</h4>
       <h5 class="card-organizer">
         {{this.event.organizerFullName}}
       </h5>
