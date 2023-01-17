@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user.model";
-import {Route, Router} from "@angular/router";
-import {UpperCasePipe} from "@angular/common";
+import {Router} from "@angular/router";
 import {Preference} from "../models/preference.model";
+import {API_SERVER_URL} from "../../constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  readonly API_SERVER_URL: string = "http://localhost:8080"
   isLoggedIn = false
   user!: User
 
@@ -31,7 +30,7 @@ export class AuthService {
 
   editUser(name: string, lastName: string, email: string, password: string, preferences: Preference[]) {
     const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + '/api/user/update'
+    const url = API_SERVER_URL + '/api/user/update'
 
     if(password === '')
       password = null
@@ -52,12 +51,12 @@ export class AuthService {
 
   deleteUser(id: number, password: string) {
     const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + '/api/user/delete'
+    const url = API_SERVER_URL + '/api/user/delete'
     return this.http.delete(url, {headers: httpHeaders, body: {password: password, id: id}, responseType: 'text'})
   }
 
   signUp(name: string, lastName: string, email: string, username: string, password: string, role: string){
-    const url = this.API_SERVER_URL + "/api/noauth/register"
+    const url = API_SERVER_URL + "/api/noauth/register"
     return this.http.post(url, {
       id: null,
       email: email,
@@ -72,12 +71,12 @@ export class AuthService {
   }
 
   activate(token: string) {
-    const url = this.API_SERVER_URL + `/api/noauth/activate/${token}`
+    const url = API_SERVER_URL + `/api/noauth/activate/${token}`
     return this.http.get(url, {responseType: "text"})
   }
 
   signIn(username: string, password: string) {
-    const url = this.API_SERVER_URL + "/api/noauth/authenticate"
+    const url = API_SERVER_URL + "/api/noauth/authenticate"
     return this.http.post(url, {
       username: username,
       password: password
@@ -98,7 +97,7 @@ export class AuthService {
 
   getData(username: string) {
     const httpHeaders = this.getAuthorizationHeader()
-    const url = this.API_SERVER_URL + `/api/user/${username}`
+    const url = API_SERVER_URL + `/api/user/${username}`
 
     return this.http.post(url, {}, {headers: httpHeaders})
   }
