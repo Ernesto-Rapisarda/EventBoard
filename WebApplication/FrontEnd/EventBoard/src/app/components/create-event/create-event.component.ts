@@ -40,9 +40,9 @@ export class CreateEventComponent implements OnInit{
       Number.parseFloat(this.eventCreateForm.value.price),
       false,
       this.urlPoster,
+      this.eventCreateForm.value.ticketUrl,
       this.eventCreateForm.value.description,
       this.eventCreateForm.value.eventType,
-      this.eventCreateForm.value.ticketUrl,
       1, //CAMBIARE APPENA POSSIBILE
       this.authService.user.id
     ).subscribe({
