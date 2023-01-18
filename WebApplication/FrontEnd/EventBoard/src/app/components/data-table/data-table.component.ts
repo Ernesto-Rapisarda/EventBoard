@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { DataTableDataSource, DataTableItem } from './data-table-datasource';
 import {RequestService} from "../../services/request.service";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-data-table',
@@ -17,7 +18,7 @@ export class DataTableComponent implements AfterViewInit {
   dataSource: DataTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'lastName', 'username', 'email', 'role', 'token'];
 
   constructor(private requestService: RequestService) {
     this.dataSource = new DataTableDataSource(requestService);
