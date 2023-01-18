@@ -14,7 +14,7 @@ export class MapComponent implements OnInit {
   @Input() draggable: boolean
   @Output() sendCoordinatesToParent = new EventEmitter<number[]>()
 
-  constructor(private mapboxService: MapboxService) {
+  constructor() {
   }
 
   ngOnInit(): void {

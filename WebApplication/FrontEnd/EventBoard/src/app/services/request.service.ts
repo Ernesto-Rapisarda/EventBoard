@@ -7,6 +7,7 @@ import {AuthService} from "../auth/auth.service";
 import {Comment} from "../models/comment.model";
 import {API_SERVER_URL} from "../../constants";
 import {Location} from "../models/location.model";
+import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -211,7 +212,7 @@ export class RequestService {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + '/api/user/admin/get/all'
 
-    return this.http.get(url, {headers: httpHeaders})
+    return this.http.get<User[]>(url, {headers: httpHeaders})
   }
 
   getReports() {
