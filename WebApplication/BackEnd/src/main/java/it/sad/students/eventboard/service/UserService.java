@@ -162,7 +162,10 @@ public class UserService { //utente loggato
             return statusCodes.notFound();
         }
     }
+    
+    //ban/sban
     public ResponseEntity setUserLock(RequestMotivation requestMotivation, Long id, String token) {
+        // TODO: 18/01/2023 solo il super admin può bannare altri admin 
         try {
             if(!authorizationControll.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
@@ -320,5 +323,10 @@ public class UserService { //utente loggato
 
         return statusCodes.okGetElements(responsePeople);
 
+    }
+
+    public ResponseEntity promoveToAdmin(){
+        // TODO: 18/01/2023 solo l'admin principale con la email del sito, può promuovere ad admin, e inviare email di notifica all'utente promosso
+        return null;
     }
 }
