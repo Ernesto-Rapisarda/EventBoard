@@ -59,6 +59,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { LocationChooserDialogComponent } from './components/location-chooser-dialog/location-chooser-dialog.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -94,7 +95,8 @@ registerLocaleData(localeIt, 'it');
         UserComponent,
         MapComponent,
         FooterComponent,
-        DataTableComponent
+        DataTableComponent,
+        LocationChooserDialogComponent
     ],
     imports: [
         BrowserModule,

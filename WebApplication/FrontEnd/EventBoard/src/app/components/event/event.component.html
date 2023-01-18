@@ -72,7 +72,7 @@
     </div>
   </div>
 
-  <app-map [coordinates]="[16.2260993, 39.363239]" [draggable]="true" class="map"></app-map>
+  <app-map [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false" class="map"></app-map>
 
   <!-- Comments / Reviews -->
   <div class="comments-reviews-container">
