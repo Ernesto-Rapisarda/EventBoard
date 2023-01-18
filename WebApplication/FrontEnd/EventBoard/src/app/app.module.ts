@@ -55,6 +55,10 @@ import { ReportComponent } from './components/report/report.component';
 import { UserComponent } from './components/user/user.component';
 import { MapComponent } from './components/map/map.component';
 import { FooterComponent } from "./components/footer/footer.component";
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 registerLocaleData(localeIt, 'it');
 
@@ -89,7 +93,8 @@ registerLocaleData(localeIt, 'it');
         ReportComponent,
         UserComponent,
         MapComponent,
-        FooterComponent
+        FooterComponent,
+        DataTableComponent
     ],
     imports: [
         BrowserModule,
@@ -119,6 +124,9 @@ registerLocaleData(localeIt, 'it');
         MatSelectModule,
         MatLegacyChipsModule,
         FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},
