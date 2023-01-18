@@ -206,7 +206,7 @@ public class UserService { //utente loggato
 
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -261,7 +261,7 @@ public class UserService { //utente loggato
             return statusCodes.okGetElement(new ResponseOrganizer(name,person.getEmail(), events)) ;
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -285,7 +285,7 @@ public class UserService { //utente loggato
             return statusCodes.ok();
         }catch (Exception exception){
             exception.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
 
     }
@@ -334,7 +334,7 @@ public class UserService { //utente loggato
                 return statusCodes.ok();
             }
             else
-                return statusCodes.notFound();
+                return statusCodes.commandError();
 
 
         }catch (Exception e){

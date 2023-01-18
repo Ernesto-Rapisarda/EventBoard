@@ -43,7 +43,7 @@ public class InteractionService {
 
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -66,7 +66,7 @@ public class InteractionService {
 
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -92,7 +92,7 @@ public class InteractionService {
              return statusCodes.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -125,7 +125,7 @@ public class InteractionService {
             */
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -148,7 +148,7 @@ public class InteractionService {
             return statusCodes.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return  statusCodes.notFound();
+            return  statusCodes.commandError();
         }
     }
 
@@ -173,7 +173,7 @@ public class InteractionService {
 
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
@@ -233,7 +233,7 @@ public class InteractionService {
                 return statusCodes.commandError();
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
 
     }
@@ -249,7 +249,7 @@ public class InteractionService {
                 return statusCodes.okGetElement(review);
         }catch (Exception e){
             e.printStackTrace();
-            return statusCodes.notFound();
+            return statusCodes.commandError();
         }
     }
 
