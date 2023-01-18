@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RequestService} from "../../services/request.service";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -20,7 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   reportList: any;
 
   user: any
-  userList: any
+  userList: User[]
 
   onTest() {
 
@@ -31,7 +32,7 @@ export class AdminDashboardComponent implements OnInit {
         this.userList = response
       },
       error: error => { console.log('ERRORE: users') }
-    })
+    });
 
     /* Reports */
     this.requestService.getReports().subscribe({
@@ -40,7 +41,11 @@ export class AdminDashboardComponent implements OnInit {
           this.reportList = response
         },
         error: error => { console.log('ERRORE: reports') }
-      })
+      });
+  }
+
+  public getUserList() {
+    return this.userList;
   }
 
 }
