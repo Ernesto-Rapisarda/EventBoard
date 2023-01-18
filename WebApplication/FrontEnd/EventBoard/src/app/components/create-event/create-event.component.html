@@ -15,19 +15,42 @@
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
-
+*
       <!-- date and time -->
       <div class="date-picker">
         <app-datepicker controlName="date"></app-datepicker>
       </div>
 
       <!-- location -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Luogo</mat-label>
-          <input matInput placeholder="" formControlName="location" required>
-          <mat-icon matSuffix>location_on</mat-icon>
+      <div class="position-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Regione</mat-label>
+          <select matNativeControl formControlName="region" (change)="setCities()" required>
+            <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
+          </select>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Città</mat-label>
+          <select matNativeControl formControlName="city" required>
+            <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+          </select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
+          <mat-icon>gps_fixed</mat-icon>
+          Fornisci posizione precisa
+        </button>
+
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Indirizzo</mat-label>
+            <input matInput placeholder="" formControlName="address" required>
+            <mat-icon matSuffix>location_on</mat-icon>
+          </mat-form-field>
+        </div>
+
+
       </div>
 
       <!-- price -->

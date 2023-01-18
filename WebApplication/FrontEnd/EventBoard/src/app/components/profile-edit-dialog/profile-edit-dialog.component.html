@@ -33,13 +33,14 @@
         </mat-form-field>
       </div>
 
-      <div>
+      <div class="position-container">
         <mat-form-field appearance="fill">
           <mat-label>Regione</mat-label>
           <select matNativeControl formControlName="region" (change)="setCities()" required>
             <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
           </select>
         </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Città</mat-label>
           <select matNativeControl formControlName="city" required>
