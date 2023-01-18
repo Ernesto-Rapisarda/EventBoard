@@ -23,9 +23,12 @@ export class CreateEventComponent implements OnInit{
   eventTypes: string[]
   regions: string[]
   cities: string[]
+  imageUploaded: boolean
+
   constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService, private comuniItaService: ComuniItaService) { }
   ngOnInit(): void {
     this.urlPoster = ""
+    this.imageUploaded = false
     this.setEventTypes()
     this.setRegions()
 
@@ -76,6 +79,7 @@ export class CreateEventComponent implements OnInit{
     this.imgService.upload(element.files[0]).subscribe({
       next: (response: any) => {
         this.urlPoster = response.data.url
+        this.imageUploaded = true
       },
       error: error => { }
     })

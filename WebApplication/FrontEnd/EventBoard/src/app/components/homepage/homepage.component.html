@@ -6,9 +6,14 @@
 <ng-template #isNotLoggedIn>
   <app-banner-join ></app-banner-join>
 </ng-template>
+
+<mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
+  <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
+</mat-chip-listbox>
+
 <h1>Eventi in arrivo</h1>
-<app-card *ngFor="let event of eventsService.getOnlyFutureEvents()" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+<app-card *ngFor="let event of eventsService.getOnlyFutureEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
 
 <h1>Eventi terminati</h1>
-<app-card *ngFor="let event of eventsService.getOnlyPastEvents()" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+<app-card *ngFor="let event of eventsService.getOnlyPastEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
 
