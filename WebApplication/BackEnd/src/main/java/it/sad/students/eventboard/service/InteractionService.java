@@ -179,29 +179,31 @@ public class InteractionService {
 
 
     public ResponseEntity updateComment(Comment comment, String token,String message) {
+        try{
+            if(comment==null)
+                return statusCodes.notFound();
 
-        if(comment==null)
-            return statusCodes.notFound();
-
-        if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
-            return statusCodes.unauthorized();
-        else
-        {
-            comment.setDate(date());
-            if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment)) {
-                if(authorizationControll.checkAdminAuthorization(token)){
-
-                    Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
-                    String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
-                    emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));
-                }
-                return statusCodes.ok();
-            }
+            if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
+                return statusCodes.unauthorized();
             else
-                return statusCodes.commandError();
+            {
+                comment.setDate(date());
+                if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment)) {
+                    if(authorizationControll.checkAdminAuthorization(token)){
+
+                        Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
+                        String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
+                        emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));
+                    }
+                    return statusCodes.ok();
+                }
+                else
+                    return statusCodes.commandError();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return statusCodes.commandError();
         }
-
-
     }
 
 
@@ -252,13 +254,19 @@ public class InteractionService {
     }
 
     public ResponseEntity<Comment> getComment(Long id) {
-        if (id==null )
+        try{
+            if (id==null )
+                return statusCodes.commandError();
+            Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
+            if (comment==null)
+                return  statusCodes.notFound();
+            else
+                return ResponseEntity.ok(comment);
+        }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.commandError();
-        Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
-        if (comment==null)
-            return  statusCodes.notFound();
-        else
-            return ResponseEntity.ok(comment);
+        }
+
     }
 
 
