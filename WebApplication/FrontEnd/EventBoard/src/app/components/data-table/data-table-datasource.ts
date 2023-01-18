@@ -59,8 +59,8 @@ export class DataTableDataSource extends DataSource<DataTableItem> {
   connect(): Observable<DataTableItem[]> {
 
     console.log("SONO LA TABELLA");
-    this.requestService.getUsers().subscribe((data: User[]) => {
-      this.data = data;
+    this.requestService.getUsers().subscribe((response: User[]) => {
+      this.data = response;
     });
 
     if (this.paginator && this.sort) {
