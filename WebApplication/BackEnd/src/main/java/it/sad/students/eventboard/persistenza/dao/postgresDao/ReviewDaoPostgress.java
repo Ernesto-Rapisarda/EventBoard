@@ -105,7 +105,7 @@ public class ReviewDaoPostgress implements ReviewDao {
 
             return true;
         }catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
     }

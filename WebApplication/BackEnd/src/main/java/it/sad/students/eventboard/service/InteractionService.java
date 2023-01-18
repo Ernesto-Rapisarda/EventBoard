@@ -42,6 +42,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -64,6 +65,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -89,6 +91,7 @@ public class InteractionService {
 
              return statusCodes.ok();
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -121,6 +124,7 @@ public class InteractionService {
             return true;
             */
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -168,7 +172,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -226,6 +230,7 @@ public class InteractionService {
             else
                 return statusCodes.commandError();
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
 
@@ -241,6 +246,7 @@ public class InteractionService {
             else
                 return statusCodes.okGetElement(review);
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }

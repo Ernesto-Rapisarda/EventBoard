@@ -158,6 +158,7 @@ public class UserService { //utente loggato
             DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
             return statusCodes.ok();
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -193,6 +194,7 @@ public class UserService { //utente loggato
                 return statusCodes.commandError();
 
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
@@ -247,6 +249,7 @@ public class UserService { //utente loggato
 
             return statusCodes.okGetElement(new ResponseOrganizer(name,person.getEmail(), events)) ;
         }catch (Exception e){
+            e.printStackTrace();
             return statusCodes.notFound();
         }
     }
