@@ -1,8 +1,10 @@
-import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { CollectionViewer, DataSource} from '@angular/cdk/collections';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {map} from 'rxjs/operators';
+import {Observable, of as observableOf, merge} from 'rxjs';
+import {RequestService} from "../../services/request.service";
+import {User} from "../../models/user.model";
 
 // TODO: Replace this with your own data model type
 export interface DataTableItem {
@@ -40,11 +42,12 @@ const EXAMPLE_DATA: DataTableItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class DataTableDataSource extends DataSource<DataTableItem> {
-  data: DataTableItem[] = EXAMPLE_DATA;
+
+  data: DataTableItem[];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private requestService: RequestService) {
     super();
   }
 
@@ -54,6 +57,12 @@ export class DataTableDataSource extends DataSource<DataTableItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<DataTableItem[]> {
+
+    console.log("SONO LA TABELLA");
+    this.requestService.getUsers().subscribe((data: User[]) => {
+      this.data = data;
+    });
+
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
