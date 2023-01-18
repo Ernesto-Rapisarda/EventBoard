@@ -71,6 +71,10 @@ public class UserController {
         return userService.getOrganizer(id);
     }
 
+    @RequestMapping(value="/api/user/admin/promove/{id}")
+    public ResponseEntity promoveToAdmin(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return userService.promoveToAdmin(id,token);
+    }
 
 
 

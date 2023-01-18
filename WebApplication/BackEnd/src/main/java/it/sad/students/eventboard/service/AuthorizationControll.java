@@ -48,5 +48,13 @@ public class AuthorizationControll {
         //String jwt = token.substring(7);
         return jwtService.extractUsername(token);
     }
+    public boolean checkSuperAdmin(String token){
+        Long idSuperAdmin=36L;
+        String usernameSuperAdmin="admin";
 
+        String jwt = token.substring(7);
+        Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
+        if(person==null || !(person.getUsername().equals(usernameSuperAdmin)&&person.getId()==idSuperAdmin) ) return false;
+        return person.getRole().toString().equals("ADMIN");
+    }
 }

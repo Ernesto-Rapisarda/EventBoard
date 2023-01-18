@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,21 +143,24 @@ public class UserService { //utente loggato
                 );
             }
             else{
-                if(personDb.isEnabled()){
-                    EmailMessage emailMessage = new EmailMessage();
-                    emailMessage.setTo(personDb.getEmail());
-                    emailMessage.setSubject("Eliminazione account");
-                    emailMessage.setMessage("Il tuo account è stato cancellato per ripetute violazioni al regolamento");
-                    emailSenderService.sendEmail(emailMessage);
-                }
+                if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
+                    return statusCodes.unauthorized();
+
+                if(personDb.isEnabled())
+                    sendEmail(personDb.getEmail(),
+                            "Eliminazione account",
+                            "Il tuo account è stato cancellato per ripetute violazioni al regolamento");
+
             }
             personDb.setEnabled(false);
             personDb.setIs_not_locked(false);
             personDb.setEmail(personDb.getId().toString());
             personDb.setName("Utente");
             personDb.setLastName("rimosso");
-            DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
-            return statusCodes.ok();
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
+                return statusCodes.ok();
+            else
+                return statusCodes.notFound();
         }catch (Exception e){
             e.printStackTrace();
             return statusCodes.notFound();
@@ -167,33 +171,37 @@ public class UserService { //utente loggato
     public ResponseEntity setUserLock(RequestMotivation requestMotivation, Long id, String token) {
         // TODO: 18/01/2023 solo il super admin può bannare altri admin 
         try {
-            if(!authorizationControll.checkAdminAuthorization(token))
-                return statusCodes.unauthorized();
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
             if(personDb==null)
                 return statusCodes.notFound();
 
+            if(!authorizationControll.checkAdminAuthorization(token))
+                return statusCodes.unauthorized();
+            if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
+                return statusCodes.unauthorized();
+
+
             if(!personDb.isEnabled())
                 return statusCodes.notFound();
 
-            if(personDb.isAccountNonLocked()){
-                EmailMessage emailMessage = new EmailMessage();
-                emailMessage.setTo(personDb.getEmail());
-                emailMessage.setSubject("Ban dell'account");
-                emailMessage.setMessage(requestMotivation.getMessage());
-                emailSenderService.sendEmail(emailMessage);
+            if(personDb.isAccountNonLocked())
                 personDb.setIs_not_locked(false);
-            }
-            else{
-                // TODO: 14/01/2023 mandare messaggio se l'account viene sbloccato?
-                personDb.setIs_not_locked(true);
-            }
-
-
-            if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb))
-                return statusCodes.ok();
             else
+                personDb.setIs_not_locked(true);
+            // TODO: 14/01/2023 mandare messaggio se l'account viene sbloccato?
+
+
+
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb)) {
+
+                if(!personDb.isAccountNonLocked())
+                    sendEmail(personDb.getEmail(),
+                            "Ban dell'account",
+                            requestMotivation.getMessage());
+
+                return statusCodes.ok();
+            }else
                 return statusCodes.commandError();
 
         }catch (Exception e){
@@ -269,11 +277,11 @@ public class UserService { //utente loggato
             Person person = DBManager.getInstance().getPersonDao().findByUsername(username);
             person.setPassword(passwordEncoder.encode("password"));
             DBManager.getInstance().getPersonDao().saveOrUpdate(person);
-            EmailMessage emailMessage = new EmailMessage();
-            emailMessage.setTo(person.getEmail());
-            emailMessage.setSubject("Reset Password");
-            emailMessage.setMessage("La tua nuova password è:\n\npassword\n\nSei pregato di cambiare la tua password una volta fatto login.");
-            emailSenderService.sendEmail(emailMessage);
+
+            sendEmail(person.getEmail()
+                    ,"Reset Password"
+                    ,"La tua nuova password è:\n\npassword\n\nSei pregato di cambiare la tua password una volta fatto login.");
+
             return statusCodes.ok();
         }catch (Exception exception){
             exception.printStackTrace();
@@ -281,25 +289,6 @@ public class UserService { //utente loggato
         }
 
     }
-
-    // FUNCTION EXTRA
-    private boolean nullOrEmpty(String string){
-        return string==null||string.equals("");
-    }
-    private boolean nullOrNegative(Integer num){
-        return num==null||num<0;
-    }
-    private boolean nullOrNegative(Double num){
-        return num==null||num<0;
-    }
-
-
-    private boolean checkPassword(String password){
-        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
-        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
-        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
-    }
-
 
     public ResponseEntity<Iterable<ResponsePerson>> getPersons(String token) {
         if(!authorizationControll.checkAdminAuthorization(token))
@@ -325,8 +314,61 @@ public class UserService { //utente loggato
 
     }
 
-    public ResponseEntity promoveToAdmin(){
+    public ResponseEntity promoveToAdmin(Long id,String token){
         // TODO: 18/01/2023 solo l'admin principale con la email del sito, può promuovere ad admin, e inviare email di notifica all'utente promosso
-        return null;
+        try {
+            if (!authorizationControll.checkSuperAdmin(token))  //controllo se è super admin
+                return statusCodes.unauthorized();
+
+            Person person= DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
+            if(person==null)
+                return statusCodes.notFound();
+
+            if(!person.isEnabled())
+                return statusCodes.notFound();
+
+            person.setRole(Role.ADMIN);
+
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(person)) {
+                sendEmail(person.getEmail(),"Promozione ad Admin","Utente "+person.getUsername()+" sei stato promosso ad admin");
+                return statusCodes.ok();
+            }
+            else
+                return statusCodes.notFound();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return statusCodes.notFound();
+        }
     }
+
+    // FUNCTION EXTRA
+    private boolean nullOrEmpty(String string){
+        return string==null||string.equals("");
+    }
+    private boolean nullOrNegative(Integer num){
+        return num==null||num<0;
+    }
+    private boolean nullOrNegative(Double num){
+        return num==null||num<0;
+    }
+
+    private void sendEmail(String email,String subject, String message) throws Exception{
+        EmailMessage emailMessage = new EmailMessage();
+        emailMessage.setTo(email);
+        emailMessage.setSubject(subject);
+        emailMessage.setMessage(message);
+        emailSenderService.sendEmail(emailMessage);
+    }
+
+
+    private boolean checkPassword(String password){
+        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
+        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
+        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
+    }
+
+
+
 }
