@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MAPBOX_KEY} from "../../../constants";
 import * as mapboxgl from 'mapbox-gl';
 import {MapboxService} from "../../services/mapbox.service";
@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
   map!: mapboxgl.Map
   @Input() coordinates: Array<number> = []
   @Input() draggable: boolean
+  @Output() sendCoordinatesToParent = new EventEmitter<number[]>()
 
   constructor(private mapboxService: MapboxService) {
   }
@@ -35,21 +36,11 @@ export class MapComponent implements OnInit {
       .setLngLat([longitude, latitude])
       .addTo(this.map);
 
+    let coordinatesToSend: number[]
     marker.on('dragend', () => {
-      console.log(marker.getLngLat())
-      //this.reverseGeocode(marker.getLngLat().lng, marker.getLngLat().lat)
-    })
-  }
-
-
-  // Unfortunately we cannot use this because we need to handle the addresses separately
-  // (it won't give us house numbers for neither reverse geocoding nor forward geocoding)
-  reverseGeocode(lng: number, lat: number) {
-    this.mapboxService.getReverseGeocode(lng, lat).subscribe({
-      next: response => {
-        console.log(response)
-      },
-      error: error => { }
+      console.log(marker.getLngLat()),
+      coordinatesToSend = [marker.getLngLat().lng, marker.getLngLat().lat],
+      this.sendCoordinatesToParent.emit(coordinatesToSend)
     })
   }
 }

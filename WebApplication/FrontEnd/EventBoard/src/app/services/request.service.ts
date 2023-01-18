@@ -6,6 +6,7 @@ import {DatePipe} from "@angular/common";
 import {AuthService} from "../auth/auth.service";
 import {Comment} from "../models/comment.model";
 import {API_SERVER_URL} from "../../constants";
+import {Location} from "../models/location.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,22 +19,25 @@ export class RequestService {
   // EVENT RELATED REQUESTS
 
   // Create event (needs token in the header of the request)
-  createEvent(date: Date, title: string, price: number, soldOut: boolean, urlPoster: string, urlTicket: string, description: string, eventType: string, position: number, organizer: number) {
+  createEvent(date: Date, title: string, price: number, soldOut: boolean, urlPoster: string, urlTicket: string, description: string, eventType: string, position: Location, organizer: number) {
     const dateToSend = this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss')
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL+"/api/create/event"
     return this.http.post(url, {
-      id: null,
-      date: dateToSend,
-      title: title,
-      price: price,
-      soldOut: soldOut,
-      urlPoster: urlPoster,
-      urlTicket: urlTicket,
-      description: description,
-      eventType: eventType,
+      event: {
+        id: null,
+        date: dateToSend,
+        title: title,
+        price: price,
+        soldOut: soldOut,
+        urlPoster: urlPoster,
+        urlTicket: urlTicket,
+        description: description,
+        eventType: eventType,
+        organizer: organizer
+      },
       position: position,
-      organizer: organizer
+
     }, {headers: httpHeaders})
   }
 
