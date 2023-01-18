@@ -17,12 +17,16 @@ import java.time.LocalDateTime;
 public class ReportService {
     private EmailSenderService emailSenderService;
     private StatusCodes statusCodes;
+    private final AuthorizationControll authorizationControll;
 
 
-    public ResponseEntity addReport(Long id,Long person, Report report, String type) {
+    public ResponseEntity addReport(Long id,Long person, Report report, String type,String token) {
         try{
             if(report==null)
                 return statusCodes.commandError();//400
+
+            if(!authorizationControll.checkOwnerAuthorization(person,token))
+                return statusCodes.unauthorized();
 
             report.setDate(LocalDateTime.now());
 
@@ -44,10 +48,13 @@ public class ReportService {
         }
     }
 
-    public ResponseEntity closeReport(Long id_report) {
+    public ResponseEntity closeReport(Long id_report,String token) {
         try{
             if(id_report==null)
                 return statusCodes.commandError();//400
+
+            if(!authorizationControll.checkAdminAuthorization(token))
+                return statusCodes.unauthorized();
 
             Report report=DBManager.getInstance().getReportDao().findByPrimaryKey(id_report);
             if(report==null)
@@ -64,15 +71,20 @@ public class ReportService {
     }
 
     // TODO: 18/01/2023 gestire errori
-    public ResponseEntity<Iterable<Report>> getReports() {
-
+    public ResponseEntity<Iterable<Report>> getReports(String token) {
+        if(!authorizationControll.checkAdminAuthorization(token))
+            return statusCodes.unauthorized();
         return statusCodes.okGetElements(DBManager.getInstance().getReportDao().findAll());
     }
 
-    public ResponseEntity<Report> getReport(Long id) {
+    public ResponseEntity<Report> getReport(Long id,String token) {
         try{
             if (id==null)
                 return statusCodes.commandError();//400
+
+            if(!authorizationControll.checkAdminAuthorization(token))
+                return statusCodes.unauthorized();
+
             Report report = DBManager.getInstance().getReportDao().findByPrimaryKey(id);
             if(report!=null)
                 return statusCodes.okGetElement(report);
