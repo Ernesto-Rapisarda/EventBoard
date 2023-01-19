@@ -4,6 +4,7 @@ import {User} from "../../models/user.model";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {Report} from "../../models/report.model";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,22 +13,28 @@ import {MatSort} from "@angular/material/sort";
 })
 export class AdminDashboardComponent implements OnInit {
 
-  report: any
-  reportList: any;
   displayedColumnsUser: string[] = ["id", "username", "name", "lastName", "email", "role", "action"]
   user: any
   userList: User[]
-
   userDataSource: any
+
+  displayedColumnsReport: string[] = ["id", "person", "type", "message", "date", "status", "action"]
+  report: any
+  reportList: Report[];
   reportDataSource: any
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
-  @ViewChild(MatSort) sort!: MatSort
+  @ViewChild('userPaginator' , {static: true}) userPaginator: MatPaginator;
+  @ViewChild('reportPaginator' , {static: true}) reportPaginator: MatPaginator;
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+
+
 
   constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
-    this.onTest()
+    this.onTest() // TODO: cambiare questo nome, per cortesia
   }
 
   onTest() {
@@ -38,7 +45,7 @@ export class AdminDashboardComponent implements OnInit {
         console.log(response)
         this.userList = response
         this.userDataSource = new MatTableDataSource<User>(this.userList)
-        this.userDataSource.paginator = this.paginator
+        this.userDataSource.paginator = this.userPaginator
         this.userDataSource.sort = this.sort
       },
       error: error => { console.log('ERRORE: users') }
@@ -49,20 +56,22 @@ export class AdminDashboardComponent implements OnInit {
         next: response => {
           console.log(response)
           this.reportList = response
+          this.reportDataSource = new MatTableDataSource<Report>(this.reportList)
+          this.reportDataSource.paginator = this.reportPaginator
+          this.reportDataSource.sort = this.sort
         },
         error: error => { console.log('ERRORE: reports') }
       });
   }
 
-  public getUserList() {
-    return this.userList;
-  }
-
+  /* TODO */
   onPromote(id: number) {
     console.log(id)
   }
-
   onBanUnban(id: number) {
     console.log(id)
+  }
+  onSolved(id: number) {
+    console.log(id);
   }
 }
