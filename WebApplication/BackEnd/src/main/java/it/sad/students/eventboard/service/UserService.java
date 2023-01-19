@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,10 +165,10 @@ public class UserService { //utente loggato
             return statusCodes.notFound();
         }
     }
-    
+
     //ban/sban
-    public ResponseEntity setUserLock(RequestMotivation requestMotivation, Long id, String token) {
-        // TODO: 18/01/2023 solo il super admin può bannare altri admin 
+    public ResponseEntity setUserBan(RequestMotivation requestMotivation, Long id, String token) {
+        // TODO: 18/01/2023 solo il super admin può bannare altri admin
         try {
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
@@ -314,7 +313,7 @@ public class UserService { //utente loggato
 
     }
 
-    public ResponseEntity promoveToAdmin(Long id,String token){
+    public ResponseEntity promoteToAdmin(Long id, String token){
         // TODO: 18/01/2023 solo l'admin principale con la email del sito, può promuovere ad admin, e inviare email di notifica all'utente promosso
         try {
             if (!authorizationControll.checkSuperAdmin(token))  //controllo se è super admin

@@ -48,12 +48,13 @@ export class LoginComponent implements OnInit {
               this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, userData.preferences, userData.position)
               console.log(this.authService.user)
             },
-            error: error => { this.errorHandler(error) },
+            error: error => { this.errorHandler(error.status) },
           })
 
           this.router.navigate([''])
         }
-      }
+      },
+      error: error => { this.errorHandler(error.status) }
     })
   }
 

@@ -56,9 +56,9 @@ public class UserController {
     }
 
     // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
-    @RequestMapping(value="/api/user/admin/block/{id}",method = RequestMethod.POST)
-    public ResponseEntity userLock(@RequestBody RequestMotivation requestMotivation, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
-        return userService.setUserLock(requestMotivation,id,token);
+    @RequestMapping(value="/api/user/admin/set/ban/{id}",method = RequestMethod.POST)
+    public ResponseEntity userBan(@RequestBody RequestMotivation requestMotivation, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return userService.setUserBan(requestMotivation,id,token);
     }
 
 
@@ -71,9 +71,9 @@ public class UserController {
         return userService.getOrganizer(id);
     }
 
-    @RequestMapping(value="/api/user/admin/promove/{id}")
-    public ResponseEntity promoveToAdmin(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
-        return userService.promoveToAdmin(id,token);
+    @RequestMapping(value="/api/user/admin/promote/{id}")
+    public ResponseEntity promoteToAdmin(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return userService.promoteToAdmin(id,token);
     }
 
 
