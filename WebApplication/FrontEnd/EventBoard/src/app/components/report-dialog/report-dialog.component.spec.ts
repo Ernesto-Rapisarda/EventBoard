@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ReportDialogComponent } from './report-dialog.component';
+import {ReportDialogComponent} from './report-dialog.component';
 
 describe('ReportDialogComponent', () => {
   let component: ReportDialogComponent;

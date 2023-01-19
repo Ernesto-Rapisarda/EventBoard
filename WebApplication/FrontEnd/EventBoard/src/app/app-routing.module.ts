@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 import {HomepageComponent} from "./components/homepage/homepage.component";
 import {CreateEventComponent} from "./components/create-event/create-event.component";

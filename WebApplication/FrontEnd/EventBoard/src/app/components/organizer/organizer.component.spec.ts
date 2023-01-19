@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrganizerComponent } from './organizer.component';
+import {OrganizerComponent} from './organizer.component';
 
 describe('OrganizerComponent', () => {
   let component: OrganizerComponent;

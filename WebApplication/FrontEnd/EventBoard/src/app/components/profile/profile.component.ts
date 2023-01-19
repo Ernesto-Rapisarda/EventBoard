@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/user.model";
 import {AuthService} from "../../auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {Router} from "@angular/router";
 import {Preference} from "../../models/preference.model";
 import {Location} from "../../models/location.model";
-import {regionRelative} from "@cloudinary/url-gen/qualifiers/flag";
 
 @Component({
   selector: 'app-profile',

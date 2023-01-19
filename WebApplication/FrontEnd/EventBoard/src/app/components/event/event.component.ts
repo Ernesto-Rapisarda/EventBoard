@@ -3,8 +3,6 @@ import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Event} from "../../models/event.model";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 

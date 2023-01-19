@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Event } from '../models/event.model'
+import {Injectable} from '@angular/core';
+import {Event} from '../models/event.model'
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BannerJoinComponent } from './banner-join.component';
+import {BannerJoinComponent} from './banner-join.component';
 
 describe('BannerJoinComponent', () => {
   let component: BannerJoinComponent;

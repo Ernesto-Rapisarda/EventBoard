@@ -8,8 +8,17 @@
       <mat-label>Scrivi qui...</mat-label>
       <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
     </mat-form-field>
+
+    <!-- Rating input -->
+    <div class="rating-button-container">
+      <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()">
+        <mat-icon>star</mat-icon>
+        {{rating}}
+      </button>
+    </div>
+
     <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="(text === '' || (text === originalText && rating === originalRating))" (click)="onConfirm()">
         <mat-icon>send</mat-icon>
       </button>
     </div>

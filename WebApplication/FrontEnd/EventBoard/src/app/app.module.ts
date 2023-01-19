@@ -1,20 +1,20 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AboutComponent } from './components/about/about.component';
-import { CardComponent } from './components/card/card.component';
-import { CreateEventComponent } from './components/create-event/create-event.component';
-import { EventComponent } from './components/event/event.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginComponent } from './components/login/login.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SearchComponent } from './components/search/search.component';
-import { TopBarComponent } from './components/top-bar/top-bar.component';
-import { RegisterComponent } from './components/register/register.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {AboutComponent} from './components/about/about.component';
+import {CardComponent} from './components/card/card.component';
+import {CreateEventComponent} from './components/create-event/create-event.component';
+import {EventComponent} from './components/event/event.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {LoginComponent} from './components/login/login.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
+import {SearchComponent} from './components/search/search.component';
+import {TopBarComponent} from './components/top-bar/top-bar.component';
+import {RegisterComponent} from './components/register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
@@ -24,20 +24,24 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
 import {HttpClientModule} from "@angular/common/http";
-import { BannerJoinComponent } from './components/banner-join/banner-join.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import {BannerJoinComponent} from './components/banner-join/banner-join.component';
+import {ProfileComponent} from './components/profile/profile.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
-import { ProfileEditDialogComponent } from './components/profile-edit-dialog/profile-edit-dialog.component';
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import {ProfileEditDialogComponent} from './components/profile-edit-dialog/profile-edit-dialog.component';
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
-import { NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from "@angular-material-components/datetime-picker";
 import {DatePipe, registerLocaleData} from "@angular/common";
-import { MatTabsModule } from "@angular/material/tabs";
+import {MatTabsModule} from "@angular/material/tabs";
 import localeIt from '@angular/common/locales/it';
-import { CommentComponent } from './components/comment/comment.component';
-import { ReviewComponent } from './components/review/review.component';
+import {CommentComponent} from './components/comment/comment.component';
+import {ReviewComponent} from './components/review/review.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSelectModule} from "@angular/material/select";
@@ -45,20 +49,21 @@ import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 import {CommentFormComponent} from "./components/comment-form/comment-form.component";
 import {ReviewFormComponent} from "./components/review-form/review-form.component";
-import { BannerWelcomebackComponent } from './components/banner-welcomeback/banner-welcomeback.component';
+import {BannerWelcomebackComponent} from './components/banner-welcomeback/banner-welcomeback.component';
 import {ReportDialogComponent} from "./components/report-dialog/report-dialog.component";
 import {EventEditDialogComponent} from "./components/event-edit-dialog/event-edit-dialog.component";
-import { ActivateComponent } from './components/activate/activate.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { CommentEditDialogComponent } from './components/comment-edit-dialog/comment-edit-dialog.component';
-import { ReportComponent } from './components/report/report.component';
-import { UserComponent } from './components/user/user.component';
-import { MapComponent } from './components/map/map.component';
-import { FooterComponent } from "./components/footer/footer.component";
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { LocationChooserDialogComponent } from './components/location-chooser-dialog/location-chooser-dialog.component';
+import {ActivateComponent} from './components/activate/activate.component';
+import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
+import {CommentEditDialogComponent} from './components/comment-edit-dialog/comment-edit-dialog.component';
+import {ReportComponent} from './components/report/report.component';
+import {UserComponent} from './components/user/user.component';
+import {MapComponent} from './components/map/map.component';
+import {FooterComponent} from "./components/footer/footer.component";
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {LocationChooserDialogComponent} from './components/location-chooser-dialog/location-chooser-dialog.component';
+import { ReviewEditDialogComponent } from './components/review-edit-dialog/review-edit-dialog.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -94,7 +99,8 @@ registerLocaleData(localeIt, 'it');
         UserComponent,
         MapComponent,
         FooterComponent,
-        LocationChooserDialogComponent
+        LocationChooserDialogComponent,
+        ReviewEditDialogComponent
     ],
     imports: [
         BrowserModule,

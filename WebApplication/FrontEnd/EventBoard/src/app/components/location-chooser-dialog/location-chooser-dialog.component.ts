@@ -1,8 +1,5 @@
-import {Component, Inject, OnDestroy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {RequestService} from "../../services/request.service";
-import {AuthService} from "../../auth/auth.service";
-import {ComuniItaService} from "../../services/comuni-ita.service";
 import {MapboxService} from "../../services/mapbox.service";
 
 @Component({

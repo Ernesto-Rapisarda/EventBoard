@@ -70,3 +70,13 @@
   font-weight: 600;
   color: #303f9f;
 }
+
+.send-btn-container {
+  float: right;
+  margin-top: 4px;
+}
+
+.set-rating-btn {
+  background-color: #ffb703;
+  color: black;
+}

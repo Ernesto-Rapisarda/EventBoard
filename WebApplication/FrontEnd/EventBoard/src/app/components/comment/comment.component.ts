@@ -39,7 +39,9 @@ export class CommentComponent {
           adminMessage = window.prompt("Qual è il motivo della rimozione?")
         this.requestService.editComment(this.comment, newText, adminMessage).subscribe({
           next: response => {
+            const eventId = this.route.snapshot.params['id']
             alert("Il commento è stato modificato con successo")
+            this.router.navigateByUrl(`/event/${eventId}`)
           },
           error: error => {
             this.errorHandler(error)
@@ -101,6 +103,9 @@ export class CommentComponent {
         break
       case 404:
         alert("ERRORE: Commento non trovato")
+        break
+      default:
+        alert("ERRORE: Errore sconosciuto")
         break
     }
   }

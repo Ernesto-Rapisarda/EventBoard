@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LocationChooserDialogComponent } from './location-chooser-dialog.component';
+import {LocationChooserDialogComponent} from './location-chooser-dialog.component';
 
 describe('LocationChooserDialogComponent', () => {
   let component: LocationChooserDialogComponent;

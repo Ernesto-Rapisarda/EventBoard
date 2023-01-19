@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Event} from "../models/event.model";
@@ -8,6 +8,7 @@ import {Comment} from "../models/comment.model";
 import {API_SERVER_URL} from "../../constants";
 import {Location} from "../models/location.model";
 import {User} from "../models/user.model";
+import {Review} from "../models/review.model";
 
 @Injectable({
   providedIn: 'root'
@@ -173,6 +174,22 @@ export class RequestService {
       message: text,
       rating: review
     }, {headers: httpHeaders, responseType: 'text'})
+  }
+
+  editReview(review: Review, newMessage: string, newRating: number, adminMessage: string){
+    const url = API_SERVER_URL + '/api/review/update'
+    const httpHeaders = this.getAuthorizationHeader()
+
+    return this.http.put(url, {
+      object: {
+        date: null,            // Back-end will set current date
+        event: review.event,
+        person: review.person,
+        rating: newRating,
+        message: newMessage,
+      },
+      message: adminMessage
+    }, {headers: httpHeaders, responseType: "text"})
   }
 
   deleteReview(eventId: number, userId: number) {

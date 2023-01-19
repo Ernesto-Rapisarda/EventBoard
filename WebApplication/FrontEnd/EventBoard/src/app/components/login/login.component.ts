@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 
@@ -48,12 +48,23 @@ export class LoginComponent implements OnInit {
               this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, token, userData.preferences, userData.position)
               console.log(this.authService.user)
             },
-            error: error => { }
+            error: error => { this.errorHandler(error) },
           })
 
           this.router.navigate([''])
         }
       }
     })
+  }
+
+  private errorHandler(error: number){
+    switch (error) {
+      case 403:
+        alert("ERRORE: Le credenziali inserite non sono valide! Controlla e riprova")
+        break
+      default:
+        alert("ERRORE: Errore sconosciuto")
+        break
+    }
   }
 }

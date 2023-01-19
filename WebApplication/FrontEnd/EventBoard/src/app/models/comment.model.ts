@@ -1,5 +1,3 @@
-import {AuthService} from "../auth/auth.service";
-
 export interface Comment {
   id: number
   date: Date

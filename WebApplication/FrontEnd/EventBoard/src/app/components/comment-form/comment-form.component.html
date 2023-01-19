@@ -6,7 +6,7 @@
   <div class="field-container">
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Scrivi qui...</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
+      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()">
     </mat-form-field>
     <div class="send-btn-container">
       <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === ''" (click)="onSend()">

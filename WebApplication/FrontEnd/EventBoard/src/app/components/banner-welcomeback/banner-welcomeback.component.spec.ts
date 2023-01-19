@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BannerWelcomebackComponent } from './banner-welcomeback.component';
+import {BannerWelcomebackComponent} from './banner-welcomeback.component';
 
 describe('BannerWelcomebackComponent', () => {
   let component: BannerWelcomebackComponent;

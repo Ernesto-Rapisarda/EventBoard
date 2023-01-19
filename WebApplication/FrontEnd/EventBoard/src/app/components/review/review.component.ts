@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RequestService} from "../../services/request.service";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ReviewEditDialogComponent} from "../review-edit-dialog/review-edit-dialog.component";
 
 @Component({
   selector: 'app-review',
@@ -17,7 +18,36 @@ export class ReviewComponent {
   constructor(protected authService: AuthService, private route: ActivatedRoute, private requestService: RequestService, private router: Router, private dialog: MatDialog) { }
 
   onEdit() {
+    let dialogRef = this.dialog.open(ReviewEditDialogComponent,{
+      data: {
+        text: this.review.message,
+        rating: this.review.rating,
+        operationConfirmed: false
+      }, disableClose: true
+    })
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.operationConfirmed){
+        alert("Operazione annullata")
+      }
+      else{
+        const newText = result.text
+        const newRating = result.rating
+        let adminMessage = ''
+        if(this.authService.isAdmin())
+          adminMessage = window.prompt("Qual è il motivo della rimozione?")
+        this.requestService.editReview(this.review, newText, newRating, adminMessage).subscribe({
+          next: response => {
+            const eventId = this.route.snapshot.params['id']
+            alert("La recensione è stata modificata con successo")
+            this.router.navigateByUrl(`/event/${eventId}`)
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
+    })
   }
 
   onDelete() {

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MAPBOX_KEY} from "../../../constants";
 import * as mapboxgl from 'mapbox-gl';
-import {MapboxService} from "../../services/mapbox.service";
 
 @Component({
   selector: 'app-map',
