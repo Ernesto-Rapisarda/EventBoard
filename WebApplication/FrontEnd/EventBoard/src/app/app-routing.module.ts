@@ -14,9 +14,11 @@ import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {ActivateComponent} from "./components/activate/activate.component";
 import {AboutComponent} from "./components/about/about.component";
 import {EventEditComponent} from "./components/event-edit/event-edit.component";
+import {AdminDashboardComponent} from "./components/admin-dashboard/admin-dashboard.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
+  {path: 'admin/dashboard', component: AdminDashboardComponent},
   {path: 'profile/activate/:token', component: ActivateComponent},
   {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {path: 'event/:id', component: EventComponent},

@@ -5,6 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {Report} from "../../models/report.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -30,14 +31,16 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-  constructor(private requestService: RequestService) { }
-
-  ngOnInit(): void {
-    this.onTest() // TODO: cambiare questo nome, per cortesia
+  constructor(private requestService: RequestService, private router: Router) {
+    // Necessary to enable reloading
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
 
-  onTest() {
+  ngOnInit(): void {
+    this.fillTables()
+  }
 
+  fillTables() {
     /* Users */
     this.requestService.getUsers().subscribe({
       next: response => {
@@ -69,10 +72,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onBanUnban(id: number, reason: string) {
-
-    this.requestService.banUser(id, reason).subscribe({
+    let message = window.prompt('Inserisci la motivazione')
+    this.requestService.banUser(id, message).subscribe({
       next: response => {
-        console.log("BAN/UNBAN: " + response )
+        alert("Operazione eseguita con successo. Ricarico la pagina")
+        this.router.navigate(['/admin/dashboard'])
       },
       error: error => { console.log('ERRORE: ban') }
     })

@@ -99,7 +99,18 @@ export class ProfileComponent implements OnInit {
   private getData() {
     this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe({
       next: (userData: any) => {
-        this.authService.createUser(userData.id, userData.name, userData.lastName, userData.username, userData.email, userData.role, JSON.parse(localStorage.getItem('token')), userData.preferences, userData.position)
+        this.authService.createUser(
+          userData.id,
+          userData.name,
+          userData.lastName,
+          userData.username,
+          userData.email,
+          userData.role,
+          JSON.parse(localStorage.getItem('token')),
+          userData.preferences,
+          userData.position,
+          userData.location
+        )
         this.authService.isLoggedIn = true;
         console.log(this.authService.user)
       },

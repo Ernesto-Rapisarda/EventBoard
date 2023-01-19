@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string, preferences: Preference[], location: Location){
+  createUser(id: number, name: string, lastName: string, username: string, email: string, role: string, token: string, preferences: Preference[], location: Location, isLocked: boolean) {
     this.user = {
       id: id,
       name: name,
@@ -25,7 +25,8 @@ export class AuthService {
       role: role,
       token: token,
       preferences: preferences,
-      location: location
+      location: location,
+      is_not_locked: isLocked
     }
     this.isLoggedIn = true
   }
