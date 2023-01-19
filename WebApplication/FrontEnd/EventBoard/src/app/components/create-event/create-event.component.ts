@@ -8,6 +8,7 @@ import {ComuniItaService} from "../../services/comuni-ita.service";
 import {Location} from "../../models/location.model";
 import {MatDialog} from "@angular/material/dialog";
 import {LocationChooserDialogComponent} from "../location-chooser-dialog/location-chooser-dialog.component";
+import {DEFAULT_COORDINATES} from "../../../constants";
 
 @Component({
   selector: 'app-create-event',
@@ -106,8 +107,8 @@ export class CreateEventComponent implements OnInit{
   onLocation() {
     let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
       data: {
-        latitude: 0.0,
-        longitude: 0.0,
+        longitude: DEFAULT_COORDINATES[0],
+        latitude: DEFAULT_COORDINATES[1],
         operationConfirmed: false
       }, disableClose: true
     })

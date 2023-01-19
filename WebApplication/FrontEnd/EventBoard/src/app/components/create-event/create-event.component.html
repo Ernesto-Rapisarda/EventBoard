@@ -95,7 +95,7 @@
 
       <!-- crea evento -->
       <mat-card-actions>
-        <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid && !imageUploaded" type="submit">
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid || !imageUploaded" type="submit">
           <mat-icon>keyboard_arrow_right</mat-icon>
           Crea l'evento
         </button>

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Event} from "../../models/event.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
+import {EventEditComponent} from "../event-edit/event-edit.component";
 
 @Component({
   selector: 'app-event',
@@ -50,7 +51,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       })
   }
 
-  // returns true if the user liked this event
+  // returns true if the user likes this event
   didILikeThis() {
     for(let like of this.event.likeList){
       if(like.person == this.authService.user.id)
@@ -59,7 +60,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     return false
   }
 
-  // returns true if the user liked this event
+  // returns true if the user "participates" this event
   willIParticipate() {
     for(let participation of this.event.participationList){
       if(participation.person == this.authService.user.id)
@@ -94,6 +95,10 @@ export class EventComponent implements OnInit, AfterViewInit {
         error: error => { this.errorHandler(error.status) }
       })
     }
+  }
+
+  onEdit() {
+    this.router.navigateByUrl(`/event/edit/${this.event.id}`)
   }
 
   onDelete() {
@@ -138,6 +143,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
 
   private errorHandler(error: number) {
     switch (error) {

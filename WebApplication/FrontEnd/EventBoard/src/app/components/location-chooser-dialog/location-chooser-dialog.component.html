@@ -1,7 +1,7 @@
 <p>Your address {{address}}</p>
 <p>Your coordinates {{longitude.toString()+", "+latitude.toString()}}</p>
 
-<app-map [coordinates]="[16.226159, 39.3630553]" (sendCoordinatesToParent)="onCoordinatesReceived($event)" [draggable]="true" class="map"></app-map>
+<app-map [coordinates]="[longitude, latitude]" (sendCoordinatesToParent)="onCoordinatesReceived($event)" [draggable]="true" class="map"></app-map>
 <button mat-raised-button color="primary" class="login-btn" (click)="onConfirm()">
   <mat-icon>check</mat-icon>
   Salva

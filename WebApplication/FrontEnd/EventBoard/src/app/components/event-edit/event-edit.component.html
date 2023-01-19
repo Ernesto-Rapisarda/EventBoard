@@ -1,0 +1,103 @@
+<div>
+  <mat-card class="card">
+    <mat-card-header class="card-header">
+      <mat-card-title>Modifica evento</mat-card-title>
+      <mat-card-subtitle>Aggiorna le informazioni sul tuo evento</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="this.eventEditForm" (ngSubmit)="onConfirm()">
+
+        <!-- title -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome dell'evento</mat-label>
+            <input matInput placeholder="" formControlName="title">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
+        *
+        <!-- date and time -->
+        <div class="date-picker">
+          <app-datepicker controlName="date"></app-datepicker>
+        </div>
+
+        <!-- location -->
+        <div class="position-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Regione</mat-label>
+            <select matNativeControl formControlName="region" (change)="setCities()" required>
+              <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
+            </select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Città</mat-label>
+            <select matNativeControl formControlName="city" required>
+              <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+            </select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
+            <mat-icon>gps_fixed</mat-icon>
+            Fornisci posizione precisa
+          </button>
+
+          <div class="field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Indirizzo</mat-label>
+              <input matInput placeholder="" formControlName="address" required>
+              <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+
+        <!-- price -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Prezzo di partenza</mat-label>
+            <input matInput placeholder="" formControlName="price" required>
+            <mat-icon matSuffix>euro_symbol</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- event type -->
+        <mat-form-field appearance="fill">
+          <mat-label>Tipologia evento</mat-label>
+          <select matNativeControl formControlName="eventType" required>
+            <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
+          </select>
+        </mat-form-field>
+
+        <!-- description -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrizione</mat-label>
+            <input matInput placeholder="" formControlName="description">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- tickets url -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Url vendita biglietti</mat-label>
+            <input matInput placeholder="" formControlName="ticketUrl">
+            <mat-icon matSuffix>local_activity</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- poster -->
+        <div>
+          <input type="file" (change)="onFileUpload($event)">
+        </div>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">Conferma</button>
+          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Annulla</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

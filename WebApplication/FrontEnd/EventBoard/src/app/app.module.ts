@@ -51,7 +51,7 @@ import {CommentFormComponent} from "./components/comment-form/comment-form.compo
 import {ReviewFormComponent} from "./components/review-form/review-form.component";
 import {BannerWelcomebackComponent} from './components/banner-welcomeback/banner-welcomeback.component';
 import {ReportDialogComponent} from "./components/report-dialog/report-dialog.component";
-import {EventEditDialogComponent} from "./components/event-edit-dialog/event-edit-dialog.component";
+import {EventEditComponent} from "./components/event-edit/event-edit.component";
 import {ActivateComponent} from './components/activate/activate.component';
 import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
 import {CommentEditDialogComponent} from './components/comment-edit-dialog/comment-edit-dialog.component';
@@ -91,7 +91,7 @@ registerLocaleData(localeIt, 'it');
         ReviewFormComponent,
         BannerWelcomebackComponent,
         ReportDialogComponent,
-        EventEditDialogComponent,
+        EventEditComponent,
         ActivateComponent,
         AdminDashboardComponent,
         CommentEditDialogComponent,

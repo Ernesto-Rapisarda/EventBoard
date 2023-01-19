@@ -102,7 +102,7 @@
   <!-- Floating buttons -->
   <div class="floating-buttons-left">
     <div class="edit-button-container">
-      <button class="edit-button" mat-fab aria-label="Edit" color="primary" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer)">
+      <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer)">
         <mat-icon class="icon-edit">edit</mat-icon>
       </button>
     </div>

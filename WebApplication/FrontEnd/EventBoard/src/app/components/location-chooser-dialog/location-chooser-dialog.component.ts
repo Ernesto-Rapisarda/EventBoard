@@ -19,8 +19,8 @@ export class LocationChooserDialogComponent {
     address: string,
     operationConfirmed: boolean
   }, private dialogRef: MatDialogRef<LocationChooserDialogComponent>, private mapboxService: MapboxService) {
-    this.latitude = 0.0
-    this.longitude = 0.0
+    this.latitude = data.latitude
+    this.longitude = data.longitude
   }
 
   onConfirm() {

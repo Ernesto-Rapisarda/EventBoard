@@ -9,6 +9,7 @@ import {API_SERVER_URL} from "../../constants";
 import {Location} from "../models/location.model";
 import {User} from "../models/user.model";
 import {Review} from "../models/review.model";
+import {Report} from "../models/report.model";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,31 @@ export class RequestService {
   }
 
   // Remove event
+  editEvent(date: Date, title: string, price: number, soldOut: boolean, urlPoster: string, urlTicket: string, description: string, eventType: string, position: Location, organizer: number, id: number, adminMessage: string) {
+    const dateToSend = this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss')
+    const httpHeaders = this.getAuthorizationHeader()
+
+    const url = API_SERVER_URL+"/api/update/event"
+    return this.http.put(url, {
+      object: {
+        event: {
+          id: id,
+          date: dateToSend,
+          title: title,
+          price: price,
+          soldOut: soldOut,
+          urlPoster: urlPoster,
+          urlTicket: urlTicket,
+          description: description,
+          eventType: eventType,
+          organizer: organizer
+        },
+        position: position
+      },
+      message: adminMessage
+    }, {headers: httpHeaders, responseType: "text"})
+  }
+
   deleteEvent(id: number) {
     // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
     let message = ''
@@ -54,8 +80,8 @@ export class RequestService {
     const url = API_SERVER_URL+`/api/delete/event/${id}`
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
   }
-
   // Returns all event types
+
   getEventTypes(): Observable<string[]> {
     const url = API_SERVER_URL+'/api/noauth/type/events'
     return this.http.get<string[]>(url)
@@ -103,14 +129,14 @@ export class RequestService {
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
   }
-
   // ORGANIZER PROFILE RELATED REQUESTS
+
   getOrganizer(id: number) {
     const url = API_SERVER_URL + `/api/noauth/organizer/${id}`
     return this.http.get(url)
   }
-
   // COMMENT RELATED REQUESTS
+
   addComment(text: string, eventId: number, userId: number){
     const url = API_SERVER_URL + "/api/comment/add"
     const httpHeaders = this.getAuthorizationHeader()
@@ -162,8 +188,8 @@ export class RequestService {
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
   }
-
   // REVIEW RELATED REQUESTS
+
   addReview(review: number, text: string, eventId: number, userId: number){
     const url = API_SERVER_URL + "/api/review/add"
     const httpHeaders = this.getAuthorizationHeader()
@@ -203,6 +229,7 @@ export class RequestService {
     return this.http.delete(url, {headers: httpHeaders, body: { object: {person: userId, event: eventId}, message:message}, responseType: 'text'})
   }
 
+
   doReportReview(eventId: number, personId: number, type: string, message: string) {
     const url = API_SERVER_URL + `/api/report/review/${eventId}/${personId}`
     const httpHeaders = this.getAuthorizationHeader()
@@ -216,15 +243,14 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
-
   getReportTypes() {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + '/api/report/types'
 
     return this.http.get<string[]>(url, {headers: httpHeaders})
   }
-
   // USER RELATED REQUESTS
+
   getUsers() {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + '/api/user/admin/get/all'
@@ -236,7 +262,17 @@ export class RequestService {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + "/api/report/admin/all"
 
-    return this.http.get(url, {headers: httpHeaders})
+    return this.http.get<Report[]>(url, {headers: httpHeaders})
+  }
+
+  // AZIONI DELL'ADMIN
+  banUser(id: number, message: string) {
+    const url = API_SERVER_URL + `/api/user/admin/set/ban/${id}`
+    const httpHeaders = this.getAuthorizationHeader()
+
+    return this.http.post(url, {
+      message: message
+    }, {headers: httpHeaders, responseType: "text"})
   }
 
   //  SERVICE FUNCTIONS

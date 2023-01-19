@@ -13,12 +13,14 @@ import {AuthGuard} from "./auth/auth.guard";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {ActivateComponent} from "./components/activate/activate.component";
 import {AboutComponent} from "./components/about/about.component";
+import {EventEditComponent} from "./components/event-edit/event-edit.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'profile/activate/:token', component: ActivateComponent},
   {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {path: 'event/:id', component: EventComponent},
+  {path: 'event/edit/:id', component: EventEditComponent},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'organizer/:id', component: OrganizerComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
