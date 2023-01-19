@@ -18,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.table.TableRowSorter;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -45,18 +47,10 @@ public class AuthenticationService {
             return statusCodes.commandError();
         var jwtToken = jwtService.generateToken(user);
 
-        EmailMessage emailMessage = new EmailMessage();
-        emailMessage.setTo(request.getEmail());
-        emailMessage.setSubject("Conferma avvenuta registrazione");
-        emailMessage.setMessage("Benvenuto "+
-                request.getName()+" "+
-                request.getLastName()+", \n"+
-                "la tua registrazione è andata a buon fine.\n"+
-                "Per poter accedere ai servizi, devi confermare il tuo indirizzo email, cliccando sul link seguente:\n"+
-                htmlActivation(jwtToken)
-
-        );
-        emailSenderService.sendEmail(emailMessage);
+        if(!sendEmail(request.getEmail(), request.getName(), request.getLastName(), jwtToken)) {
+            DBManager.getInstance().getPersonDao().delete(user);
+            return statusCodes.commandError();
+        }
 
 
         return statusCodes.okGetElement(AuthenticationResponse.builder()
@@ -77,6 +71,29 @@ public class AuthenticationService {
          return AuthenticationResponse.builder()
                  .token(jwtToken)
                  .build() ;
+    }
+
+    private boolean sendEmail(String email,String name, String lastname,String token){
+        try {
+            EmailMessage emailMessage = new EmailMessage();
+            emailMessage.setTo(email);
+            emailMessage.setSubject("Conferma avvenuta registrazione");
+            emailMessage.setMessage("Benvenuto "+
+                    name+" "+
+                    lastname+", \n"+
+                    "la tua registrazione è andata a buon fine.\n"+
+                    "Per poter accedere ai servizi, devi confermare il tuo indirizzo email, cliccando sul link seguente:\n"+
+                    htmlActivation(token)
+
+            );
+            if(emailSenderService.sendEmail(emailMessage))
+                return true;
+            return false;
+        }catch (Exception e){
+            System.out.println("CI SONO");
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private String htmlActivation(String token){
