@@ -79,7 +79,6 @@ public class UserService { //utente loggato
             }
 
 
-
             if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName())||nullOrEmpty(person.getEmail()))
                 return statusCodes.commandError();          //non possono essere campi nulli
 
@@ -89,6 +88,16 @@ public class UserService { //utente loggato
                 tempId = temp.getId();
             if(tempId!=null && tempId!= person.getId())
                 return statusCodes.commandError();          //se la email è gia esistente (non contato la sua vecchia nel db) ritorna errore
+
+
+
+            //verifica email esatta
+            //if(tempId!= personDb.getId())
+            //    if(!sendEmail(person.getEmail(),"Cambio email effettuato","Questa email è stata associata ad un accout utente del sito GoodVibes.\n\nBuona giornata.")
+            //        return statusCodes.commandError();
+
+
+
 
             if(person.getPassword()!=null && checkPassword(person.getPassword()))
                 personDb.setPassword(passwordEncoder.encode(person.getPassword())); //se l'utente ha cambiato password la setto
@@ -353,12 +362,12 @@ public class UserService { //utente loggato
         return num==null||num<0;
     }
 
-    private void sendEmail(String email,String subject, String message) throws Exception{
+    private boolean sendEmail(String email,String subject, String message) throws Exception{
         EmailMessage emailMessage = new EmailMessage();
         emailMessage.setTo(email);
         emailMessage.setSubject(subject);
         emailMessage.setMessage(message);
-        emailSenderService.sendEmail(emailMessage);
+        return emailSenderService.sendEmail(emailMessage);
     }
 
 
