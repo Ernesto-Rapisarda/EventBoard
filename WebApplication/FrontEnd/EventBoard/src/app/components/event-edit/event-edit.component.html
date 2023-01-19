@@ -11,11 +11,11 @@
         <div class="field-container">
           <mat-form-field appearance="outline">
             <mat-label>Nome dell'evento</mat-label>
-            <input matInput placeholder="" formControlName="title">
+            <input matInput placeholder="" formControlName="title" required>
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
         </div>
-        *
+
         <!-- date and time -->
         <div class="date-picker">
           <app-datepicker controlName="date"></app-datepicker>
@@ -93,8 +93,13 @@
           <input type="file" (change)="onFileUpload($event)">
         </div>
 
+        <!-- sold out -->
+        <div class="field-container">
+          <mat-checkbox formControlName="soldOut">Biglietti esauriti</mat-checkbox>
+        </div>
+
         <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit">Conferma</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!eventEditForm.valid">Conferma</button>
           <button mat-raised-button color="warn" type="button" (click)="onCancel()">Annulla</button>
         </mat-card-actions>
       </form>

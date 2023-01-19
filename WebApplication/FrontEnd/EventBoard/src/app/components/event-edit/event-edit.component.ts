@@ -15,6 +15,8 @@ import {Location} from "../../models/location.model";
   templateUrl: './event-edit.component.html',
   styleUrls: ['./event-edit.component.css']
 })
+
+// TODO: Sistemare validazione datepicker impossibile
 export class EventEditComponent {
   eventEditForm!: FormGroup
   urlPoster: string
@@ -39,11 +41,7 @@ export class EventEditComponent {
 
     this.initializeForm()
     this.getEvent(id)
-    this.setEventTypes()
     this.setRegions()
-
-    this.latitude = this.event.position.latitude
-    this.longitude = this.event.position.longitude
   }
 
   private initializeForm() {
@@ -124,8 +122,12 @@ export class EventEditComponent {
         next: (response: any) => {
           console.log(response)
           this.event = response.event
+          this.setEventTypes()                      // Once I have the event, I can set the event types (and the event type)
           this.event.position = response.position
-          this.patchValues()
+          this.latitude = this.event.position.latitude
+          this.longitude = this.event.position.longitude
+          this.urlPoster = this.event.urlPoster
+          this.patchValues()                        // Once I gathered all the data, I can patch the form with the missing values
         }
       })
   }
@@ -147,7 +149,7 @@ export class EventEditComponent {
       address: this.event.position.address,
       soldOut: this.event.soldOut,
       price: this.event.price,
-      urlTicket: this.event.urlTicket,
+      ticketUrl: this.event.urlTicket,
       description: this.event.description
     })
   }

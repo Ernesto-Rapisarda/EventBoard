@@ -23,8 +23,5 @@ export class DatepickerComponent implements OnInit {
 
     //Max date possible will be DEC 31 of next year (from current)
     this.maxDate = new Date(this.minDate.getFullYear()+1, 11, 31)
-
-    console.log(this.minDate)
-    console.log(this.maxDate)
   }
 }

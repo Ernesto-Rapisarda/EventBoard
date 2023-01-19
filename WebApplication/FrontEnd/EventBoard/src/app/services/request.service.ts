@@ -275,6 +275,13 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
+  promoteUser(id: number) {
+    const url = API_SERVER_URL + `/api/user/admin/promote/${id}`
+    const httpHeaders = this.getAuthorizationHeader()
+
+    return this.http.get(url, {headers: httpHeaders, responseType: "text"})
+  }
+
   //  SERVICE FUNCTIONS
   private getAuthorizationHeader() {
     return new HttpHeaders({

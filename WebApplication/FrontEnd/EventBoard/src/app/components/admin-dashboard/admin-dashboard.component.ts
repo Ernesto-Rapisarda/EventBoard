@@ -6,6 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {Report} from "../../models/report.model";
 import {Router} from "@angular/router";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -31,7 +32,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-  constructor(private requestService: RequestService, private router: Router) {
+  constructor(private requestService: RequestService, private router: Router, protected authService: AuthService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -68,7 +69,13 @@ export class AdminDashboardComponent implements OnInit {
 
   /* TODO */
   onPromote(id: number) {
-    console.log(id)
+    this.requestService.promoteUser(id).subscribe({
+      next: response => {
+        alert("Operazione eseguita con successo. Ricarico la pagina")
+        this.router.navigate(['/admin/dashboard'])
+      },
+      error: error => { }
+    })
   }
 
   onBanUnban(id: number, reason: string) {
