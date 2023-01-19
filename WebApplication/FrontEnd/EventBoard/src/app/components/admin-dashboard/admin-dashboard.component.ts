@@ -25,7 +25,6 @@ export class AdminDashboardComponent implements OnInit {
 
   @ViewChild('userPaginator' , {static: true}) userPaginator: MatPaginator;
   @ViewChild('reportPaginator' , {static: true}) reportPaginator: MatPaginator;
-
   @ViewChild(MatSort) sort!: MatSort;
 
 
@@ -68,8 +67,15 @@ export class AdminDashboardComponent implements OnInit {
   onPromote(id: number) {
     console.log(id)
   }
-  onBanUnban(id: number) {
-    console.log(id)
+
+  onBanUnban(id: number, reason: string) {
+
+    this.requestService.banUser(id, reason).subscribe({
+      next: response => {
+        console.log("BAN/UNBAN: " + response )
+      },
+      error: error => { console.log('ERRORE: ban') }
+    })
   }
   onSolved(id: number) {
     console.log(id);
