@@ -25,7 +25,7 @@ public class EmailSenderService implements EmailSender {
     }
 
     @Override
-    public void sendEmail(EmailMessage emailMessage) {
+    public boolean sendEmail(EmailMessage emailMessage) {
         try {
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -35,9 +35,11 @@ public class EmailSenderService implements EmailSender {
             simpleMailMessage.setText(emailMessage.getMessage());
 
             this.emailSender.send(simpleMailMessage);
+            return true;
 
         }catch (MailException e){
             e.printStackTrace();
+            return false;
         }
     }
 
