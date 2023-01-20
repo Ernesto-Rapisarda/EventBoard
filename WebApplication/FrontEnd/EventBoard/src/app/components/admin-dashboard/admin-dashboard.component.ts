@@ -51,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
         this.userDataSource.paginator = this.userPaginator
         this.userDataSource.sort = this.sort
       },
-      error: error => { console.log('ERRORE: users') }
+      error: error => { this.errorHandler(error) }
     });
 
     /* Reports */
@@ -63,7 +63,7 @@ export class AdminDashboardComponent implements OnInit {
           this.reportDataSource.paginator = this.reportPaginator
           this.reportDataSource.sort = this.sort
         },
-        error: error => { console.log('ERRORE: reports') }
+        error: error => { this.errorHandler(error) }
       });
   }
 
@@ -74,21 +74,44 @@ export class AdminDashboardComponent implements OnInit {
         alert("Operazione eseguita con successo. Ricarico la pagina")
         this.router.navigate(['/admin/dashboard'])
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
-  onBanUnban(id: number, reason: string) {
+  onBanUnban(id: number) {
     let message = window.prompt('Inserisci la motivazione')
     this.requestService.banUser(id, message).subscribe({
       next: response => {
         alert("Operazione eseguita con successo. Ricarico la pagina")
         this.router.navigate(['/admin/dashboard'])
       },
-      error: error => { console.log('ERRORE: ban') }
+      error: error => { this.errorHandler(error) }
     })
   }
-  onSolved(id: number) {
-    console.log(id);
+  onSolve(id: number) {
+    console.log("Solving report " + id)
+    this.requestService.solveReport(id).subscribe({
+      next: response => {
+        alert("Operazione eseguita con successo. Ricarico la pagina")
+        this.router.navigate(['/admin/dashboard'])
+      },
+      error: error => { this.errorHandler(error) }
+    })
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: Errore di elaborazione del server")
+        break
+      case 403:
+        alert("ERRORE: Operazione non autorizzata")
+        break;
+      case 404:
+        alert("ERRORE: Id non trovato")
+        break;
+      default:
+        alert("ERRORE: Errore sconosciuto")
+    }
   }
 }

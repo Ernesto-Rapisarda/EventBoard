@@ -1,9 +1,9 @@
 <div class="main-container">
 
-  <!-- Tab Utenti e Segnalazioni -->
+  <!-- Users and Report tab -->
   <mat-tab-group>
 
-    <!-- Utenti -->
+    <!-- Users -->
     <mat-tab label="Utenti">
       <h1>Utenti:</h1>
 
@@ -51,8 +51,8 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell mat-sort-header *matHeaderCellDef> Azione </th>
             <td mat-cell *matCellDef="let element">
-              <button mat-raised-button color="primary" (click)="onPromote(element.id)" [disabled]="element.username === 'admin'">{{element.role === "ADMIN" ? "Declassa" : "Promuovi"}}</button>
-              <button mat-raised-button color="warn" (click)="onBanUnban(element.id, 'edit me (HTML)')" [disabled]="element.username==='admin' || element.id === authService.user.id">{{element.is_not_locked ? "Blocca" : "Sblocca"}}</button>
+              <button mat-raised-button color="primary" (click)="onPromote(element.id)" [disabled]="element.username === 'admin' || (authService.user.role === 'ADMIN' && authService.user.username != 'admin') || element.role === 'ORGANIZER'"> {{element.role === "ADMIN" ? "Declassa" : "Promuovi"}}</button>
+              <button mat-raised-button color="warn" (click)="onBanUnban(element.id)" [disabled]="element.username==='admin' || element.id === authService.user.id">{{element.is_not_locked ? "Blocca" : "Sblocca"}}</button>
             </td>
           </ng-container>
 
@@ -60,12 +60,12 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumnsUser;"></tr>
         </table>
 
-        <mat-paginator #userPaginator [pageSizeOptions]="[5,20,50]" showFirstLastButtons>
+        <mat-paginator #userPaginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons>
         </mat-paginator>
       </div>
     </mat-tab>
 
-    <!-- Segnalazioni -->
+    <!-- Reports -->
     <mat-tab label="Segnalazioni">
       <h1>Segnalazioni:</h1>
 
@@ -101,7 +101,7 @@
           <!-- Status Column -->
           <ng-container matColumnDef="status">
             <th mat-header-cell mat-sort-header *matHeaderCellDef> Stato </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.status ? "In corso" : "Risolto"}} </td>
           </ng-container>
 
           <!-- Type Column -->
@@ -114,7 +114,7 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell mat-sort-header *matHeaderCellDef> Azione </th>
             <td mat-cell *matCellDef="let element">
-              <button mat-raised-button color="primary" (click)="onSolved(element.id)">Risolto</button>
+              <button mat-raised-button color="primary" (click)="onSolve(element.id)" [disabled]="!element.status">Risolvi</button>
             </td>
             <button></button>
           </ng-container>

@@ -99,10 +99,20 @@
     </div>
   </div>
 
+  <!-- Share - Unfortunately we cannot put here the real url because we're serving it on localhost, so we put a placeholder -->
+  <share-buttons theme="circles-dark"
+                 [include]="['facebook', 'twitter', 'email', 'whatsapp', 'telegram', 'copy']"
+                 [showIcon]="true"
+                 [showText]="true"
+                 url="http://localhost:4200/event/{{event.id}}"
+                 description="Sent from GoodVibes"
+                 class="pt-5">
+  </share-buttons>
+
   <!-- Floating buttons -->
   <div class="floating-buttons-left">
     <div class="edit-button-container">
-      <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer)">
+      <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
         <mat-icon class="icon-edit">edit</mat-icon>
       </button>
     </div>

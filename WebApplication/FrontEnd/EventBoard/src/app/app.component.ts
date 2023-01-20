@@ -7,7 +7,7 @@ import {AuthService} from "./auth/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'EventBoard';
+  title = 'GoodVibes';
 
   constructor(private authService: AuthService) {
   }
@@ -29,10 +29,12 @@ export class AppComponent implements OnInit {
               userData.preferences,
               userData.position,
               userData.is_not_locked)
+
             this.authService.isLoggedIn = true;
-            console.log(this.authService.user)
           },
-          error: error => { }
+          error: error => {
+            alert("ERRORE: Impossibile recuperare i dati dell'utente")
+          }
         })
       }
     }

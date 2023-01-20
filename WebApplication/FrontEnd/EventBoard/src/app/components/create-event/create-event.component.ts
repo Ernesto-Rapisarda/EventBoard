@@ -55,24 +55,27 @@ export class CreateEventComponent implements OnInit{
       longitude: this.longitude,
       latitude: this.latitude
     }
-
-    this.requestService.createEvent(
-      this.eventCreateForm.value.date,
-      this.eventCreateForm.value.title,
-      Number.parseFloat(this.eventCreateForm.value.price),
-      false,                                        // Event can't be sold out when created
-      this.urlPoster,
-      this.eventCreateForm.value.ticketUrl,
-      this.eventCreateForm.value.description,
-      this.eventCreateForm.value.eventType,
-      location,
-      this.authService.user.id
-    ).subscribe({
-      next: response => {
-        this.router.navigate([''])
-      },
-      error() { }
-    })
+    const confirmString = this.getConfirmString()
+    if(confirm("Vuoi creare un evento con i seguenti dati?\n" + confirmString)) {
+      this.requestService.createEvent(
+        this.eventCreateForm.value.date,
+        this.eventCreateForm.value.title,
+        Number.parseFloat(this.eventCreateForm.value.price),
+        false,                                        // Event can't be sold out when created
+        this.urlPoster,
+        this.eventCreateForm.value.ticketUrl,
+        this.eventCreateForm.value.description,
+        this.eventCreateForm.value.eventType,
+        location,
+        this.authService.user.id
+      ).subscribe({
+        next: response => {
+          alert("Evento creato con successo, ritorno alla homepage")
+          this.router.navigate([''])
+        },
+        error: error => { this.errorHandler(error) }
+      })
+    }
   }
 
   onFileUpload(event: Event) {
@@ -82,21 +85,21 @@ export class CreateEventComponent implements OnInit{
         this.urlPoster = response.data.url
         this.imageUploaded = true
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
   private setRegions() {
     this.comuniItaService.getRegions().subscribe({
       next: response => { this.regions = (response as string[]) },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
   protected setCities() {
     this.comuniItaService.getCities(this.eventCreateForm.value.region).subscribe({
       next: response => { this.cities = (response as string[]) },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
@@ -119,7 +122,35 @@ export class CreateEventComponent implements OnInit{
       })
       this.latitude = result.latitude
       this.longitude = result.longitude
-      console.log(result)
     })
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: Errore di elaborazione del server")
+        break
+      case 403:
+        alert("ERRORE: Operazione non autorizzata")
+        break;
+      case 404:
+        alert("ERRORE: Id non trovato")
+        break;
+      default:
+        alert("ERRORE: Errore generico")
+    }
+  }
+
+  private getConfirmString() {
+    const str = "Titolo: " + this.eventCreateForm.value.title + "\n" +
+      "Data: " + this.eventCreateForm.value.date + "\n" +
+      "Regione: " + this.eventCreateForm.value.region + "\n" +
+      "Città: " + this.eventCreateForm.value.city + "\n" +
+      "Indirizzo: " + this.eventCreateForm.value.address + "\n" +
+      "Prezzo: " + this.eventCreateForm.value.price + "\n" +
+      "Tipo di evento: " + this.eventCreateForm.value.eventType + "\n" +
+      "URL biglietti: " + this.eventCreateForm.value.ticketUrl + "\n" +
+      "Descrizione: " + this.eventCreateForm.value.description + "\n"
+    return str
   }
 }
