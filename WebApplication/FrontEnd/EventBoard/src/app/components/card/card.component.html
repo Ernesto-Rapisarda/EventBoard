@@ -1,16 +1,35 @@
 <div class="card">
     <div class="card-img">
       <!-- L'immagine deve essere in 16:9 -->
-      <img src="{{this.event.urlPoster || 'https://images.unsplash.com/photo-1604311795833-25e1d5c128c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8OSUzQTE2fGVufDB8fDB8fA%3D%3D&w=1000&q=80'}}" alt="sample">
+      <img class="img" src="{{this.event.urlPoster || 'https://images.unsplash.com/photo-1604311795833-25e1d5c128c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8OSUzQTE2fGVufDB8fDB8fA%3D%3D&w=1000&q=80'}}" alt="sample">
     </div>
     <div class="card-body">
-      <h2 class="card-title">
+
+      <!-- Titolo -->
+      <p class="card-title">
         {{this.event.title}}
-      </h2>
-      <h4 class="card-data">{{this.event.date | date: 'EEEE dd/MM/yyyy H:mm'}}</h4>
-      <h4 class="card-data">{{this.event.position.city}}, {{this.event.position.region}}</h4>
-      <h5 class="card-organizer">
-        {{this.event.organizerFullName}}
-      </h5>
+      </p>
+
+      <!-- Informazioni -->
+      <div class="card-info">
+        <div class="left-side">
+          <h4 class="card-calendar-mmm">{{this.event.date | date: 'MMM'|uppercase}}</h4>
+          <h4 class="card-calendar-dd">{{this.event.date | date: 'dd'}}</h4>
+        </div>
+        <div class="right-side">
+
+          <div class="upper-side">
+            <p class="card-location">{{this.event.position.city}}, {{this.event.position.region}}</p>
+          </div>
+          <div class="center-side">
+            <p class="card-organizer">{{this.event.organizer}}</p>
+          </div>
+          <div class="lower-side">
+          <p class="card-date">{{this.event.date | date: "dd/MM H:MM"}}</p>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 </div>

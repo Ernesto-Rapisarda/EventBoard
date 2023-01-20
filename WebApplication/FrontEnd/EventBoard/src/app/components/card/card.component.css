@@ -5,84 +5,153 @@
 }
 
 .card {
-  flex-direction: column;
-  flex-basis: 300px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  background-color: white;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 1rem;
-  width: 15vw;
   display: inline-block;
   flex-wrap: wrap;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden;
+
+  width: 350px;
+  height: 280px;
+
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  margin: 1rem;
   transition: transform .2s;
 }
-
 .card:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
-@media screen and (max-width: 1500px) {
-  .card{
-    width: 20vw;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .card{
-    width: 30vw;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .card{
-    width: 40vw;
-  }
-}
-
 .card-img {
-  padding-bottom: 175px;
+  /* l'immagine mi deve occupare il 45% dello spazio (verticale) */
+  margin-top: 6px;
+  padding-bottom: 46%;
   position: relative;
-  background-color: lightslategray;
+  background-color: white;
+  overflow: hidden;
 }
-
-.card-img img {
+.img {
   position: absolute;
-  max-height: 175px;
-  left: 50%;
-  transform: translateX(-50%);
-  object-position: top;
+  object-fit: cover;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(0); /* se volessi spostare l'immagine verticalmente */
 }
 
-.card-body {
-  padding: 1.5rem;
+.card-body {}
+.card-body .card-title {
+
+  /* centro il testo verticalmene e orizzontalmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin-top: 6px;
+  margin-left: 16px;
+  margin-right: 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+
 }
 
-.card-title {
-  font-size: 1.25rem;
-  line-height: 1.33;
-  font-weight: 700;
+.card-info {
+  background-color: white;
+  display: flex;
+
+  margin-left: 8px;
+  margin-right: 8px;
+
+  align-items: center;
+  justify-content: center;
+}
+.card-info .left-side {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  flex: 1;
+  width: 25%;
   height: 50px;
 }
+.left-side .card-calendar-mmm {
+  flex: 1;
+  margin-top: 10px;
 
-.card-organizer {
-  font-size: 0.800rem;
-  line-height: 1.43;
-  margin-bottom: 1rem;
-  color: #9b9b9b;
-  height: 2px;
+  color: red;
+  font-weight: 500;
+}
+.left-side .card-calendar-dd {
+  flex: 1;
+  margin-top: -20px;
+  font-weight: 500;
 }
 
-.card-data {
-  font-size: 0.875rem;
-  line-height: 1.43;
-  height: 20px;
+.right-side {
+
+  flex: 4;
+  width: 75%;
+  height: auto;
+  overflow: hidden;
+}
+.right-side .upper-side {
+
+  transform: translateX(-35px);
+  margin-left: 35px;
+  text-align: center;
+
+  height: auto;
+  overflow: hidden;
+}
+.right-side .upper-side .card-location {
+  transform: translateX(-17px);
+
+  margin-bottom: -3px;
+
+  font-size: 13px;
+  color: dimgrey;
+
 }
 
-/*.container {
-  width: 20%;
+.right-side .center-side {
 
-}*/
+  transform: translateX(-35px);
+  margin-left: 35px;
+  text-align: center;
+
+  height: auto;
+  overflow: hidden;
+}
+.right-side .center-side .card-organizer {
+  transform: translateX(-17px);
+
+  margin-top: -3px;
+
+  font-size: 13px;
+  color: dimgrey;
+
+}
+
+.right-side .lower-side {
+
+  transform: translateX(-35px);
+  margin-left: 35px;
+  text-align: center;
+
+  height: auto;
+  overflow: hidden;
+}
+.right-side .lower-side .card-date {
+  transform: translateX(-17px);
+
+  margin-top: -3px;
+
+  font-size: 13px;
+  color: dimgrey;
+
+}
