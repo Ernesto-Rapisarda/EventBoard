@@ -12,7 +12,7 @@
   overflow: hidden;
 
   width: 350px;
-  height: 280px;
+  height: 300px;
 
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
   border-radius: 5px;
@@ -26,7 +26,6 @@
 
 .card-img {
   /* l'immagine mi deve occupare il 45% dello spazio (verticale) */
-  margin-top: 6px;
   padding-bottom: 46%;
   position: relative;
   background-color: white;
@@ -49,7 +48,7 @@
   align-items: center;
   justify-content: center;
   height: auto;
-  margin-top: 6px;
+  margin-top: 16px;
   margin-left: 16px;
   margin-right: 16px;
 
@@ -97,7 +96,6 @@
   flex: 4;
   width: 75%;
   height: auto;
-  overflow: hidden;
 }
 .right-side .upper-side {
 
@@ -125,12 +123,12 @@
   text-align: center;
 
   height: auto;
-  overflow: hidden;
 }
 .right-side .center-side .card-organizer {
   transform: translateX(-17px);
 
-  margin-top: -3px;
+  margin-top: 0px; /* -3 */
+  margin-bottom: -3px;
 
   font-size: 13px;
   color: dimgrey;
@@ -144,7 +142,7 @@
   text-align: center;
 
   height: auto;
-  overflow: hidden;
+
 }
 .right-side .lower-side .card-date {
   transform: translateX(-17px);
