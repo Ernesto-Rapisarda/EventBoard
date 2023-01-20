@@ -19,7 +19,7 @@ export class ActivateComponent implements OnInit {
           alert("Attivazione avvenuta con successo, ritorno alla pagina principale")
           this.router.navigateByUrl('')
         },
-        error: error => { }
+        error: error => { alert("Errore durante l'attivazione, ritorno alla pagina principale"); this.router.navigateByUrl('') }
       })
     }
     else {

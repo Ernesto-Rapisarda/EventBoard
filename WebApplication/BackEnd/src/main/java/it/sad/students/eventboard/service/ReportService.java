@@ -25,7 +25,7 @@ public class ReportService {
             if(report==null)
                 return statusCodes.commandError();//400
 
-            if(!authorizationControll.checkOwnerAuthorization(person,token))
+            if(!authorizationControll.checkOwnerAuthorization(report.getPerson(),token))
                 return statusCodes.unauthorized();
 
             report.setDate(LocalDateTime.now());
@@ -37,6 +37,12 @@ public class ReportService {
             else if (type.equals("review") && DBManager.getInstance().getReviewDao().findByPrimaryKey(person,id)==null)
                 return statusCodes.notFound();//404
 
+            String message=report.getMessage();
+            if(type.equals("review"))
+                message=message+"\n\n|Oggetto segnalazione: "+type+"  -id evento: "+id+"  -id persona segnalata: "+person+"|";
+            else
+                message=message+"\n\n|Oggetto segnalazione: "+type+"  -id oggetto segnalato: "+id+"|";
+            report.setMessage(message);
 
             if(DBManager.getInstance().getReportDao().saveOrUpdate(report) && emailSenderService.sendReport(id,person, report,type))
                 return statusCodes.ok();//200

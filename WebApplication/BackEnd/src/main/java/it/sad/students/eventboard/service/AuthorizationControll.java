@@ -74,4 +74,8 @@ public class AuthorizationControll {
         if(person==null || !(person.getUsername().equals(usernameSuperAdmin)&&person.getId()==idSuperAdmin) ) return false;
         return person.getRole().toString().equals("ADMIN");
     }
+    public String returnUsername(String token){ //restituisce l'username che puoi confrontare
+        String jwt = token.substring(7);
+        return jwtService.extractUsername(jwt);
+    }
 }

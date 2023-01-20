@@ -1,15 +1,14 @@
-import {Component, Inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ImgbbService} from "../../services/imgbb.service";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {Event as MyEvent} from "../../models/event.model";
 import {ComuniItaService} from "../../services/comuni-ita.service";
 import {LocationChooserDialogComponent} from "../location-chooser-dialog/location-chooser-dialog.component";
 import {Location} from "../../models/location.model";
-
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
@@ -70,7 +69,7 @@ export class EventEditComponent {
           this.setCities()
         }
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
@@ -82,7 +81,7 @@ export class EventEditComponent {
           city: this.event.position.city
         })
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
@@ -112,7 +111,6 @@ export class EventEditComponent {
         this.latitude = result.latitude
         this.longitude = result.longitude
       }
-      console.log(result)
     })
   }
 
@@ -138,7 +136,7 @@ export class EventEditComponent {
       next: (response: any) => {
         this.urlPoster = response.data.url
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
@@ -187,7 +185,7 @@ export class EventEditComponent {
           alert('Evento modificato con successo')
           this.goToEventPage()
         },
-        error() { }
+        error: error => { this.errorHandler(error) }
       })
     }
   }
@@ -198,5 +196,21 @@ export class EventEditComponent {
 
   private goToEventPage() {
     this.router.navigateByUrl(`/event/${this.event.id}`)
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: Errore di elaborazione del server")
+        break
+      case 403:
+        alert("ERRORE: Operazione non autorizzata")
+        break;
+      case 404:
+        alert("ERRORE: Id non trovato")
+        break;
+      default:
+        alert("ERRORE: Errore generico")
+    }
   }
 }

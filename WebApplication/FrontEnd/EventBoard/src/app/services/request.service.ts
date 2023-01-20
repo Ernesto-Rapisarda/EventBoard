@@ -282,6 +282,13 @@ export class RequestService {
     return this.http.get(url, {headers: httpHeaders, responseType: "text"})
   }
 
+  solveReport(id: number) {
+    const url = API_SERVER_URL + `/api/report/admin/close/${id}`
+    const httpHeaders = this.getAuthorizationHeader()
+
+    return this.http.put(url, {}, {headers: httpHeaders, responseType: "text"})
+  }
+
   //  SERVICE FUNCTIONS
   private getAuthorizationHeader() {
     return new HttpHeaders({

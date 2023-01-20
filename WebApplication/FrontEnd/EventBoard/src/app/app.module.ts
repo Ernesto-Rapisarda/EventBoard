@@ -65,6 +65,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {LocationChooserDialogComponent} from './components/location-chooser-dialog/location-chooser-dialog.component';
 import { ReviewEditDialogComponent } from './components/review-edit-dialog/review-edit-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
+import {ShareIconsModule} from "ngx-sharebuttons/icons";
 
 registerLocaleData(localeIt, 'it');
 
@@ -135,6 +137,10 @@ registerLocaleData(localeIt, 'it');
         MatPaginatorModule,
         MatSortModule,
         MatCheckboxModule,
+        ShareButtonsModule.withConfig({
+          debug: true
+        }),
+        ShareIconsModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},

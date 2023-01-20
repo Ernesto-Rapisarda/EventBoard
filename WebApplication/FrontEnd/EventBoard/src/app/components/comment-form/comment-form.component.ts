@@ -20,10 +20,26 @@ export class CommentFormComponent {
       const userId = this.authService.user.id
       this.requestService.addComment(this.text, eventId, userId).subscribe({
         next: response => { this.router.navigateByUrl(`/event/${eventId}`) },
-        error: error => {}
+        error: error => { this.errorHandler(error) }
       })
     }
     else
       alert("ERRORE: Testo del commento vuoto!")
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: L'utente non è proprietario dell'account")
+        break
+      case 403:
+        alert("ERRORE: Operazione non autorizzata")
+        break;
+      case 404:
+        alert("ERRORE: Evento non trovato")
+        break;
+      default:
+        alert("ERRORE: Errore sconosciuto")
+    }
   }
 }
