@@ -153,3 +153,23 @@
   color: dimgrey;
 
 }
+
+@media (max-width: 600px) {
+  .card {
+    display: inline-block;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    overflow: hidden;
+
+    width: 260px;
+    height: 280px;
+
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform .2s;
+  }
+}
