@@ -5,6 +5,11 @@
   --events-container-margin-lateral: 10%;
 }
 
+.container {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .chip-listbox-container {
   margin-top: var(--margin-top);
   display: flex;
@@ -30,3 +35,8 @@
   font-weight: 500;
 }
 
+@media screen and (max-width: 600px) {
+  .chip-listbox-container {
+    margin-left: 4px;
+  }
+}
