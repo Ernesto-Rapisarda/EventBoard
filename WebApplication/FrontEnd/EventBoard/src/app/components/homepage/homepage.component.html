@@ -7,13 +7,22 @@
   <app-banner-join ></app-banner-join>
 </ng-template>
 
-<mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
-  <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
-</mat-chip-listbox>
+<div class="chip-listbox-container">
+  <mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
+    <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
+  </mat-chip-listbox>
+</div>
 
-<h1>Eventi in arrivo</h1>
-<app-card *ngFor="let event of eventsService.getOnlyFutureEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+<div class="events-container">
+  <div class="incoming-events-container">
+    <h1 class="event-type-copy">Eventi in arrivo</h1>
+    <app-card *ngFor="let event of eventsService.getOnlyFutureEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+  </div>
 
-<h1>Eventi terminati</h1>
-<app-card *ngFor="let event of eventsService.getOnlyPastEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+  <div class="outcoming-events-container">
+    <h1 class="event-type-copy">Eventi terminati</h1>
+    <app-card *ngFor="let event of eventsService.getOnlyPastEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+  </div>
+</div>
+
 
