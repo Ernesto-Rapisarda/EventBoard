@@ -25,7 +25,7 @@ public class ReportService {
             if(report==null)
                 return statusCodes.commandError();//400
 
-            if(!authorizationControll.checkOwnerAuthorization(person,token))
+            if(!authorizationControll.checkOwnerAuthorization(report.getPerson(),token))
                 return statusCodes.unauthorized();
 
             report.setDate(LocalDateTime.now());
