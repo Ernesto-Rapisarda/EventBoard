@@ -141,7 +141,6 @@ public class UserService { //utente loggato
             if(personDb==null)
                 return statusCodes.notFound();
 
-
             if(!authorizationControll.checkAdminAuthorization(token)){
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -153,6 +152,10 @@ public class UserService { //utente loggato
             else{
                 if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
                     return statusCodes.unauthorized();
+
+                //Il super admin non si puo eliminare da solo??
+                //if(authorizationControll.checkSuperAdmin(token)&&personDb.getUsername().equals(authorizationControll.returnUsername(token)))
+                //    return statusCodes.unauthorized();
 
                 if(personDb.isEnabled())
                     sendEmail(personDb.getEmail(),
@@ -186,8 +189,13 @@ public class UserService { //utente loggato
 
             if(!authorizationControll.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
+
+            if(personDb.getUsername().equals(authorizationControll.returnUsername(token))) //non posso bannarmi da solo
+                return statusCodes.unauthorized();
+
             if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
                 return statusCodes.unauthorized();
+
 
 
             if(!personDb.isEnabled())
