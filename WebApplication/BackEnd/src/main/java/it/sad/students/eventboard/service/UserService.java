@@ -343,10 +343,17 @@ public class UserService { //utente loggato
             if(!person.isEnabled())
                 return statusCodes.notFound();
 
-            person.setRole(Role.ADMIN);
+            if(person.getRole()==Role.ADMIN)
+                person.setRole(Role.USER);
+            else if(person.getRole()==Role.USER)
+                person.setRole(Role.ADMIN);
+            else
+                return statusCodes.commandError();
 
-            if(DBManager.getInstance().getPersonDao().saveOrUpdate(person)) {
-                sendEmail(person.getEmail(),"Promozione ad Admin","Utente "+person.getUsername()+" sei stato promosso ad admin");
+
+            if(DBManager.getInstance().getPersonDao().saveOrUpdate(person)){
+                if(person.getRole()==Role.ADMIN)
+                    sendEmail(person.getEmail(),"Promozione ad Admin","Utente "+person.getUsername()+" sei stato promosso ad admin");
                 return statusCodes.ok();
             }
             else
