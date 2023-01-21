@@ -2,3 +2,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*
+PER IMPORTARE QUESTO FOGLIO DI STILE USA
+  -> @import "src/styles.css";
+*/
+* {
+  --var-root: test;
+}
