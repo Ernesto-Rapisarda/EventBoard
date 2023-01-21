@@ -1,4 +1,4 @@
-<div>
+<div class="main-container">
 
   <div class="organizer-header">
     <h1 class="organizer-header-name">Il mio profilo</h1>
@@ -6,46 +6,51 @@
 
 
   <div class="card-container">
+
     <div class="card-header">
       <h2 class="explore-cpy">Dati personali</h2>
     </div>
-
     <mat-divider class="divider"></mat-divider>
 
-    <div class="cards">
 
-      <!-- !!! -->
-      <div class="info-container">
-        <p class="info-cpy">USERNAME</p>
-        <p class="info-data">{{this.authService.user.username}}</p>
+    <div class="data-container">
+      <div class="registry-container">
+        <h1 class="registry-copy">ANAGRAFICA</h1>
+        <div class="info-container">
+          <p class="info-cpy">NOME</p>
+          <p class="info-data">{{this.authService.user.name}}</p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">COGNOME</p>
+          <p class="info-data">{{this.authService.user.lastName}}</p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">REGIONE</p>
+          <p class="info-data">{{this.authService.user.location.region || "NON FORNITA"}}</p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">CITTÀ</p>
+          <p class="info-data">{{this.authService.user.location.city || "NON FORNITA"}} </p>
+        </div>
       </div>
-      <div class="info-container">
-        <p class="info-cpy">NOME</p>
-        <p class="info-data">{{this.authService.user.name}}</p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">COGNOME</p>
-        <p class="info-data">{{this.authService.user.lastName}}</p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">EMAIL</p>
-        <p class="info-data">{{this.authService.user.email}}</p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">REGIONE</p>
-        <p class="info-data">{{this.authService.user.location.region || "NON FORNITA"}}</p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">CITTÀ</p>
-        <p class="info-data">{{this.authService.user.location.city || "NON FORNITA"}} </p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">TIPOLOGIE DI EVENTO PREFERITE</p>
-        <p class="info-data">{{this.authService.getPreferences() || "NON FORNITE"}} </p>
-      </div>
-      <div class="info-container">
-        <p class="info-cpy">RUOLO</p>
-        <p class="info-data">{{this.authService.user.role}}</p>
+      <div class="account-container">
+        <h1 class="account-copy">ACCOUNT</h1>
+        <div class="info-container">
+          <p class="info-cpy">USERNAME</p>
+          <p class="info-data">{{this.authService.user.username}}</p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">EMAIL</p>
+          <p class="info-data">{{this.authService.user.email}}</p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">EVENTI PREFERITI</p>
+          <p class="info-data">{{this.authService.getPreferences() || "non forniti"}} </p>
+        </div>
+        <div class="info-container">
+          <p class="info-cpy">RUOLO</p>
+          <p class="info-data">{{this.authService.user.role | lowercase }}</p>
+        </div>
       </div>
     </div>
   </div>
