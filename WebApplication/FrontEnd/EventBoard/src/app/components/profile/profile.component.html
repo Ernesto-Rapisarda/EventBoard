@@ -10,6 +10,7 @@
     <div class="card-header">
       <h2 class="explore-cpy">Dati personali</h2>
     </div>
+
     <mat-divider class="divider"></mat-divider>
 
 
@@ -33,6 +34,7 @@
           <p class="info-data">{{this.authService.user.location.city || "NON FORNITA"}} </p>
         </div>
       </div>
+      <div class="separator"></div>
       <div class="account-container">
         <h1 class="account-copy">ACCOUNT</h1>
         <div class="info-container">
@@ -54,7 +56,6 @@
       </div>
     </div>
   </div>
-
   <div class="interaction-buttons-container">
     <button class="btn" mat-fab color="primary" aria-label="Edit profile" (click)="onProfileEdit()">
       <mat-icon>edit</mat-icon>
