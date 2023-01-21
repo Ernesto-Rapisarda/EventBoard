@@ -18,19 +18,19 @@
       <div class="registry-container">
         <h1 class="registry-copy">ANAGRAFICA</h1>
         <div class="info-container">
-          <p class="info-cpy">NOME</p>
+          <p class="info-cpy"><mat-icon class="info-icon">person</mat-icon>NOME</p>
           <p class="info-data">{{this.authService.user.name}}</p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">COGNOME</p>
+          <p class="info-cpy"><mat-icon class="info-icon">person</mat-icon>COGNOME</p>
           <p class="info-data">{{this.authService.user.lastName}}</p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">REGIONE</p>
+          <p class="info-cpy"><mat-icon class="info-icon"> place</mat-icon>REGIONE</p>
           <p class="info-data">{{this.authService.user.location.region || "NON FORNITA"}}</p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">CITTÀ</p>
+          <p class="info-cpy"><mat-icon class="info-icon"> place</mat-icon>CITTÀ</p>
           <p class="info-data">{{this.authService.user.location.city || "NON FORNITA"}} </p>
         </div>
       </div>
@@ -38,19 +38,21 @@
       <div class="account-container">
         <h1 class="account-copy">ACCOUNT</h1>
         <div class="info-container">
-          <p class="info-cpy">USERNAME</p>
+          <p class="info-cpy"><mat-icon matSuffix class="info-icon">account_circle</mat-icon>USERNAME</p>
           <p class="info-data">{{this.authService.user.username}}</p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">EMAIL</p>
+          <p class="info-cpy"><mat-icon class="info-icon">email</mat-icon>EMAIL</p>
           <p class="info-data">{{this.authService.user.email}}</p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">EVENTI PREFERITI</p>
+
+          <p class="info-cpy"><mat-icon class="info-icon">event_note</mat-icon>EVENTI PREFERITI</p>
           <p class="info-data">{{this.authService.getPreferences() || "non forniti"}} </p>
         </div>
         <div class="info-container">
-          <p class="info-cpy">RUOLO</p>
+
+          <p class="info-cpy"><mat-icon class="info-icon">star</mat-icon>RUOLO</p>
           <p class="info-data">{{this.authService.user.role | lowercase }}</p>
         </div>
       </div>
