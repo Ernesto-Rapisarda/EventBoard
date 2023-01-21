@@ -1,3 +1,7 @@
+* {
+  --header-font-weight: 600;
+}
+
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -6,14 +10,14 @@
   padding-top: 12px;
   background-color: #00b4d8;
 }
-
 .footer div {
   flex: 1;
   padding: 10px;
 }
 
-* {
-  --header-font-weight: 600;
+.header-icon {
+  margin-right: 6px;
+  margin-bottom: -6px;
 }
 
 .chi-siamo-section h3 {
@@ -34,11 +38,45 @@
   font-weight: var(--header-font-weight);
 }
 .link-section ul {
-  text-align: initial;
+  text-align: center;
+  list-style: none;
+  margin-left: -24px;
 }
+.link-section li {
+  margin: 0;
+  padding: 0;
+}
+
+/* PRIMA VANNO CHIARITI I COLORI DELLO SFONDO
+a:link, a:visited {
+  text-decoration: underline;
+  color: #F58529;
+  background-color: transparent;
+}
+a:hover, a:active {
+  text-decoration: underline overline;
+  color: #aaa;
+}
+*/
+
+a {
+  color: black;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 
 @media only screen and (max-width: 600px) {
   .footer {
     flex-direction: column;
   }
+  .chi-siamo-section p {
+    margin-left: 8px;
+  }
 }
+
+
