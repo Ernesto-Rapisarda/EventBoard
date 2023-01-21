@@ -1,9 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: var(--login-page-background-color);
+}
+
 /* Container principale */
 .card {
+  flex:1;
+  text-align: center;
   display:flex;
-  max-width: 350px;
-  padding: 40px 40px;
-  margin: 40px auto;
+  max-width: 800px;
+  padding: 18px 0;
+  margin: 12px 24px;
+  overflow: hidden;
 }
 
 /* Card header */
@@ -14,21 +24,81 @@
   margin-bottom: 40px;
 }
 
-/* Inserimento Email e Password */
+
+.username-and-email-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.username-and-email-container .username-field-container,
+.username-and-email-container .email-field-container {
+  height: auto;
+  width: auto;
+}
+.username-and-email-container .username-field-container {
+  margin-right: 08px;
+}
+.username-and-email-container .email-field-container {
+  margin-left: 8px;
+}
+
+
+.name-and-surname-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.name-and-surname-container .name-field-container,
+.name-and-surname-container .surname-field-container {
+  height: auto;
+  width: auto;
+}
+.name-and-surname-container .name-field-container {
+  margin-right: 8px;
+}
+.name-and-surname-container .surname-field-container {
+  margin-left: 8px;
+}
+
+.password-and-confirm-field-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.password-and-confirm-field-container .password-field-container,
+.password-and-confirm-field-container .confirm-field-container {
+  height: auto;
+  width: auto;
+}
+.password-and-confirm-field-container .password-field-container {
+  margin-right: 8px;
+}
+.password-and-confirm-field-container .confirm-field-container {
+  margin-left: 8px;
+}
+
+
+
 .field-container {
   margin-left: -6px;
   width: auto;
 }
 
+.radio-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /* Pulsante per effettuare il login */
 .login-btn {
-  margin-top: 5px;
-  margin-bottom: 20px;
-  width: 100%;
+  width: 200px;
+  margin: auto;
 }
 
 /* Redirect alla pagina di registrazione */
-.login-container {
+.register-container {
   color: slategray;
   text-align: center;
   margin-top: 20px;
@@ -36,13 +106,108 @@
   font-size: 12px;
 }
 
-.login-txt {
+.register-txt {
   color: slategray;
 }
-.radio-container {
-  text-align: center;
-}
 
-.radio-button {
-  margin-right: 20px;
+
+
+@media screen and (max-width: 600px) {
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Container principale */
+  .card {
+    flex:1;
+    text-align: center;
+    display:flex;
+    max-width: 350px;
+    padding: 18px 0;
+    margin: 12px 24px;
+    overflow: hidden;
+  }
+
+  .username-and-email-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .username-and-email-container .username-field-container,
+  .username-and-email-container .email-field-container {
+    height: auto;
+    width: auto;
+  }
+  .username-and-email-container .username-field-container {
+    margin-right: 0;
+  }
+  .username-and-email-container .email-field-container {
+    margin-left: 0;
+  }
+
+  .name-and-surname-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .name-and-surname-container .name-field-container,
+  .name-and-surname-container .surname-field-container {
+    height: auto;
+    width: auto;
+  }
+  .name-and-surname-container .name-field-container {
+    margin-right: 0;
+  }
+  .name-and-surname-container .surname-field-container {
+    margin-left: 0;
+  }
+
+  .password-and-confirm-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .password-and-confirm-field-container .password-field-container,
+  .password-and-confirm-field-container .confirm-field-container {
+    height: auto;
+    width: auto;
+  }
+  .password-and-confirm-field-container .password-field-container {
+    margin-right: 0;
+  }
+  .password-and-confirm-field-container .confirm-field-container {
+    margin-left: 0;
+  }
+
+  /* Card header */
+  .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+
+  /* Pulsante per effettuare il login */
+  .login-btn {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  /* Redirect alla pagina di registrazione */
+  .register-container {
+    color: slategray;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .register-txt {
+    color: slategray;
+  }
 }

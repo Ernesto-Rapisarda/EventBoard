@@ -1,100 +1,105 @@
-<mat-card class="card">
-  <mat-card-header class="card-header">
-    <mat-card-title>Registrati</mat-card-title>
-    <mat-card-subtitle>Benvenuto! Inserisci i tuoi dati</mat-card-subtitle>
-  </mat-card-header>
+<div class="container">
+  <mat-card class="card">
+    <mat-card-header class="card-header">
+      <mat-card-title>Registrati</mat-card-title>
+      <mat-card-subtitle>Benvenuto! Inserisci i tuoi dati</mat-card-subtitle>
+    </mat-card-header>
 
-  <mat-card-content>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- username -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput placeholder="" formControlName="username" required>
-          <mat-icon matSuffix>person</mat-icon>
-        </mat-form-field>
-      </div>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-      <!-- name -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput placeholder="" formControlName="name" required>
-          <mat-icon matSuffix>face icon</mat-icon>
-        </mat-form-field>
-      </div>
+        <div class="username-and-email-container">
+          <!-- username -->
+          <div class="username-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="" formControlName="username" required>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+          </div>
 
-      <!-- last name -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Cognome</mat-label>
-          <input matInput placeholder="" formControlName="lastName" required>
-          <mat-icon matSuffix>face icon</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <!-- email -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="" formControlName="email" required>
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <!-- password -->
-      <div>
-        <div class="field-container">
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
-            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePassword" type="button">
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
+          <!-- email -->
+          <div class="email-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="" formControlName="email" required>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
+        <div class="name-and-surname-container">
+          <!-- name -->
+          <div class="name-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput placeholder="" formControlName="name" required>
+              <mat-icon matSuffix>face icon</mat-icon>
+            </mat-form-field>
+          </div>
 
-      <!-- password verify -->
-      <div>
-        <div class="field-container">
-          <mat-form-field appearance="outline">
-            <mat-label>Conferma password</mat-label>
-            <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm" required>
-            <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePasswordConfirm" type="button">
-              <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
+          <!-- last name -->
+          <div class="surname-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Cognome</mat-label>
+              <input matInput placeholder="" formControlName="lastName" required>
+              <mat-icon matSuffix>face icon</mat-icon>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
+        <div class="password-and-confirm-field-container">
 
-      <!-- account type -->
-      <div class="radio-container">
-        <mat-radio-group aria-label="Select an account type" formControlName="role" required>
-          <mat-radio-button value="USER" class="radio-button">Utente</mat-radio-button>
-          <mat-radio-button value="ORGANIZER" class="radio-button">Organizzatore</mat-radio-button>
-        </mat-radio-group>
-      </div>
+          <!-- password -->
+          <div class="password-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hidePassword" type="button">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
 
-      <mat-card-actions>
-        <button mat-raised-button color="primary" class="login-btn" [disabled]="!registerForm.valid" type="submit">
-          <mat-icon>keyboard_arrow_right</mat-icon>
-          Registrati
-        </button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
+          <!-- password verify -->
+          <div class="confirm-field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Conferma password</mat-label>
+              <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm" required>
+              <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hidePasswordConfirm" type="button">
+                <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <!-- account type -->
+        <div class="radio-container">
+          <mat-radio-group aria-label="Select an account type" formControlName="role" required>
+            <mat-radio-button value="USER" class="radio-button">Utente</mat-radio-button>
+            <mat-radio-button value="ORGANIZER" class="radio-button">Organizzatore</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" class="login-btn" [disabled]="!registerForm.valid" type="submit">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+            Registrati
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
 
 
-  <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
 
-  <!-- Utente non registrato -->
-  <a class="login-container" routerLink="/login"><p class="login-txt">Hai già un account? Accedi</p></a>
+    <!-- Utente non registrato -->
+    <a class="login-container" routerLink="/login"><p class="login-txt">Hai già un account? Accedi</p></a>
 
-  <!-- Progress bar
-  <mat-card-footer>
-    <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
-  </mat-card-footer>-->
-</mat-card>
+    <!-- Progress bar
+    <mat-card-footer>
+      <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
+    </mat-card-footer>-->
+  </mat-card>
+</div>

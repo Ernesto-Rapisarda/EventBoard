@@ -10,4 +10,9 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
 */
 * {
   --var-root: test;
+
+  /* LOGIN PAGE */
+  --login-page-background-color: #e9f2f8;
+  --registration-page-background-color: #e9f2f8;
+
 }
