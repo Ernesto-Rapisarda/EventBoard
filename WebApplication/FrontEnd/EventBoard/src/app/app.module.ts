@@ -67,6 +67,7 @@ import { ReviewEditDialogComponent } from './components/review-edit-dialog/revie
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
 import {ShareIconsModule} from "ngx-sharebuttons/icons";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 registerLocaleData(localeIt, 'it');
 
@@ -138,9 +139,10 @@ registerLocaleData(localeIt, 'it');
         MatSortModule,
         MatCheckboxModule,
         ShareButtonsModule.withConfig({
-          debug: true
+            debug: true
         }),
-        ShareIconsModule
+        ShareIconsModule,
+        MatTooltipModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},
