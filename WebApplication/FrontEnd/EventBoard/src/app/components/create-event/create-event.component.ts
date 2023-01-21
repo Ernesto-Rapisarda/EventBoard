@@ -18,8 +18,8 @@ import {DEFAULT_COORDINATES} from "../../../constants";
 export class CreateEventComponent implements OnInit{
   eventCreateForm: FormGroup
   urlPoster: string
-  longitude: number
-  latitude: number
+  longitude: number = 0.0           // Default longitude
+  latitude: number = 0.0            // Default latitude
   address: string
   eventTypes: string[]
   regions: string[]

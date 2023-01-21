@@ -12,12 +12,13 @@ import {EventEditComponent} from "../event-edit/event-edit.component";
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnInit, AfterViewInit {
+export class EventComponent implements OnInit {
   event: Event
   liked: boolean
   participate: boolean
   likesNumber: number
   participantsNumber: number
+  interactionsNumber: number
   constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -28,18 +29,14 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.likesNumber = 0
     this.participantsNumber = 0
   }
-  ngAfterViewInit(): void {
-    this.liked = this.didILikeThis()
-    this.participate = this.willIParticipate()
-    this.likesNumber = this.event.likeList.length
-    this.participantsNumber = this.event.participationList.length
-  }
 
   getEvent(id: number) {
     this.requestService.getEventById(id).subscribe(
       {
         next: (response: any) => {
           console.log(response)
+
+          // Event setup
           this.event = response.event
           this.event.position = response.position
           this.event.commentList = response.commentList.reverse()           // Reverse so that they'll appear from last to first
@@ -47,6 +44,13 @@ export class EventComponent implements OnInit, AfterViewInit {
           this.event.reviewList = response.reviewList.reverse()             // Reverse so that they'll appear from last to first
           this.event.participationList = response.partecipationList
           this.event.organizerFullName = response.organizerFullName
+
+          // Page necessary data setup
+          this.liked = this.didILikeThis()
+          this.participate = this.willIParticipate()
+          this.likesNumber = this.event.likeList.length
+          this.participantsNumber = this.event.participationList.length
+          this.interactionsNumber = (this.event.commentList.length)+(this.event.reviewList.length)
         }
       })
   }

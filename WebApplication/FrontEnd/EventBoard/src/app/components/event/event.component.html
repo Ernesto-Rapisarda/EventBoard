@@ -9,7 +9,7 @@
   <div class="date-name-container">
     <p class="date-header">{{event.date | date: "dd MMM YYYY"}}</p>
     <h1 class="name-header">{{event.title}}</h1>
-    <p class="price-header">Ingressi a partire da: {{event.price | currency: "EUR"}}</p>
+    <p class="price-header">Ingressi a partire da: {{event.price === 0.0 ? "Evento gratuito!" : (event.price | currency: "EUR")}}</p>
   </div>
 
 
@@ -72,12 +72,12 @@
     </div>
   </div>
 
-  <app-map [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false" class="map"></app-map>
+  <app-map *ngIf="!(event.position.longitude === 0.0 && event.position.latitude === 0.0)" [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false" class="map"></app-map>
 
   <!-- Comments / Reviews -->
   <div class="comments-reviews-container">
     <div class="comments-header-cpy">
-      <h2>{{((this.event.commentList.length)+(this.event.reviewList.length)).toString()}} persone hanno interagito</h2>
+      <h2>{{interactionsNumber === 1 ? interactionsNumber.toString() + ' persona ha interagito' : interactionsNumber.toString() + ' persone hanno interagito'}}</h2>
     </div>
     <div>
       <mat-tab-group class="comments-tab">
@@ -92,7 +92,7 @@
           <ng-template mat-tab-label>
             <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
           </ng-template>
-          <app-review-form *ngIf="authService.isAuthenticated()"></app-review-form>
+          <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
           <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
         </mat-tab>
       </mat-tab-group>
