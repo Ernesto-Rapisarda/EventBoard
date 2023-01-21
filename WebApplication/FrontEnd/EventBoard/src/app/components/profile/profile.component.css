@@ -190,9 +190,13 @@
     font-weight: 600;
     font-size: 18px;
   }
+
   .info-data {
     margin-top: -8px;
     font-size: 16px;
+  }
+  .info-icon {
+    /* TODO: allineare le icone */
   }
 
   .interaction-buttons-container {
