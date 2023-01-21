@@ -1,25 +1,26 @@
-<mat-card class="card">
+<div class="container">
+  <mat-card class="card">
 
-  <!-- Card Header -->
-  <mat-card-header class="card-header">
-    <mat-card-title>Accedi</mat-card-title>
-    <mat-card-subtitle>Bentornato! Effettua l'accesso.</mat-card-subtitle>
-  </mat-card-header>
+    <!-- Card Header -->
+    <mat-card-header class="card-header">
+      <mat-card-title>Accedi</mat-card-title>
+      <mat-card-subtitle>Bentornato! Effettua l'accesso.</mat-card-subtitle>
+    </mat-card-header>
 
-  <!-- Card Body -->
-  <mat-card-content>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- Username -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput placeholder="" formControlName="username" required>
-          <mat-icon matSuffix>person</mat-icon>
-        </mat-form-field>
-      </div>
+    <!-- Card Body -->
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Username -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="" formControlName="username" required>
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
 
-      <!-- Password -->
-      <!-- TODO: Sistemare problema che quando si clicca su visualizza password sottomette il form-->
+        <!-- Password -->
+        <!-- TODO: Sistemare problema che quando si clicca su visualizza password sottomette il form-->
         <div class="field-container">
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
@@ -31,29 +32,26 @@
           </mat-form-field>
         </div>
 
-
-      <!-- Login button -->
-
-
-      <mat-card-actions>
-      <button [disabled]="!loginForm.valid" mat-raised-button color="primary" class="login-btn" type="submit">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-        Login
-      </button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
+        <!-- Login button -->
+        <mat-card-actions>
+          <button [disabled]="!loginForm.valid" mat-raised-button color="primary" class="login-btn" type="submit">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+            Login
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
 
 
-  <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
 
-  <!-- Utente non registrato -->
-  <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
+    <!-- Utente non registrato -->
+    <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
 
+    <!-- Progress bar (DA FIXARE - Se vogliamo tenerla) -->
+    <!--<mat-card-footer>
+      <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
+    </mat-card-footer>-->
 
-  <!-- Progress bar (DA FIXARE - Se vogliamo tenerla) -->
-  <!--<mat-card-footer>
-    <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
-  </mat-card-footer>-->
-
-</mat-card>
+  </mat-card>
+</div>
