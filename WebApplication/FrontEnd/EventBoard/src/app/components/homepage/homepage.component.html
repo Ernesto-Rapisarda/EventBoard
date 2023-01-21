@@ -1,4 +1,3 @@
-
 <div *ngIf="authService.isAuthenticated(); then isLoggedIn else isNotLoggedIn"></div>
 <ng-template #isLoggedIn>
   <app-banner-welcomeback></app-banner-welcomeback>
@@ -7,22 +6,23 @@
   <app-banner-join ></app-banner-join>
 </ng-template>
 
-<div class="chip-listbox-container">
-  <mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
-    <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
-  </mat-chip-listbox>
-</div>
-
-<div class="events-container">
-  <div class="incoming-events-container">
-    <h1 class="event-type-copy">Eventi in arrivo</h1>
-    <app-card *ngFor="let event of eventsService.getOnlyFutureEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+<div class="container">
+  <div class="chip-listbox-container">
+    <mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
+      <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
+    </mat-chip-listbox>
   </div>
 
-  <div class="outcoming-events-container">
-    <h1 class="event-type-copy">Eventi terminati</h1>
-    <app-card *ngFor="let event of eventsService.getOnlyPastEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+  <div class="events-container">
+    <div class="incoming-events-container">
+      <h1 class="event-type-copy">Eventi in arrivo</h1>
+      <app-card *ngFor="let event of eventsService.getOnlyFutureEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+    </div>
+
+    <div class="outcoming-events-container">
+      <h1 class="event-type-copy">Eventi terminati</h1>
+      <app-card *ngFor="let event of eventsService.getOnlyPastEvents(selectedEventTypes)" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+    </div>
   </div>
 </div>
-
 
