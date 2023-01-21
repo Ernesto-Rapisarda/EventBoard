@@ -13,8 +13,17 @@
           <div class="username-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Username</mat-label>
-              <input matInput placeholder="" formControlName="username" required>
+              <input matInput placeholder="" formControlName="username">
               <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="registerForm.get('username').hasError('required')">
+                Inserisci uno username
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('username').hasError('minlength')">
+                Inserisci almeno 4 caratteri
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('username').hasError('maxlength')">
+                Inserisci massimo 16 caratteri
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -22,8 +31,14 @@
           <div class="email-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput placeholder="" formControlName="email" required>
+              <input matInput placeholder="" formControlName="email">
               <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="registerForm.get('email').hasError('required')">
+                Inserisci un'email
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('email').hasError('email')">
+                Inserisci un'email valida
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -32,8 +47,11 @@
           <div class="name-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Nome</mat-label>
-              <input matInput placeholder="" formControlName="name" required>
+              <input matInput placeholder="" formControlName="name">
               <mat-icon matSuffix>face icon</mat-icon>
+              <mat-error *ngIf="registerForm.get('name').hasError('required')">
+                Inserisci un nome
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -41,8 +59,11 @@
           <div class="surname-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Cognome</mat-label>
-              <input matInput placeholder="" formControlName="lastName" required>
+              <input matInput placeholder="" formControlName="lastName">
               <mat-icon matSuffix>face icon</mat-icon>
+              <mat-error *ngIf="registerForm.get('lastName').hasError('required')">
+                Inserisci un cognome
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -52,11 +73,17 @@
           <div class="password-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hidePassword" type="button">
                 <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="registerForm.get('password').hasError('required')">
+                Inserisci una password
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('password').hasError('minlength')">
+                Inserisci almeno 8 caratteri
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -64,11 +91,14 @@
           <div class="confirm-field-container">
             <mat-form-field appearance="outline">
               <mat-label>Conferma password</mat-label>
-              <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm" required>
+              <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm">
               <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hidePasswordConfirm" type="button">
                 <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="registerForm.get('passwordConfirm').hasError('required')">
+                Devi verificare la password
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -76,7 +106,7 @@
 
         <!-- account type -->
         <div class="radio-container">
-          <mat-radio-group aria-label="Select an account type" formControlName="role" required>
+          <mat-radio-group aria-label="Select an account type" formControlName="role">
             <mat-radio-button value="USER" class="radio-button">Utente</mat-radio-button>
             <mat-radio-button value="ORGANIZER" class="radio-button">Organizzatore</mat-radio-button>
           </mat-radio-group>

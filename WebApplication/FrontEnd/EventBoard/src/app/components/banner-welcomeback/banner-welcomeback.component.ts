@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-banner-welcomeback',
@@ -6,5 +7,6 @@ import {Component} from '@angular/core';
   styleUrls: ['./banner-welcomeback.component.css']
 })
 export class BannerWelcomebackComponent {
+  constructor(protected authService: AuthService) { }
 
 }

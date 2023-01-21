@@ -12,12 +12,10 @@ import {RequestService} from "../../services/request.service";
 export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private requestService: RequestService) { }
 
-  // TODO: Lasciare un po' di avvisi per password troppo corte, verifica password errata, ecc...
-
   registerForm!: FormGroup
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.maxLength(16)]),
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]),
       name: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -36,21 +34,15 @@ export class RegisterComponent implements OnInit {
     const role = this.registerForm.value.role
     const password = this.registerForm.value.password
 
-
-    this.authService.signUp(name, lastName, email, username, password, role).subscribe({
-      next: (response: any) =>{
-        const token = response.token
-        alert("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email")
-
-        // sets local storage variable for automatic logins
-        localStorage.setItem('token', JSON.stringify(token))
-        localStorage.setItem('username', JSON.stringify(username))
-
-        this.router.navigate([''])
-
-      },
-      error: error => { }
-    })
+    if(confirm("Vuoi creare un account con i seguenti dati?\n" + this.getConfirmString())) {
+      this.authService.signUp(name, lastName, email, username, password, role).subscribe({
+        next: () => {
+          alert("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email")
+          this.router.navigate([''])
+        },
+        error: error => { alert("Errore: C'è stato un errore in fase di registrazione, ti consigliamo di riprovare") }
+      })
+    }
   }
 
   /** UI elements **/
@@ -63,5 +55,16 @@ export class RegisterComponent implements OnInit {
     let pass = group.get('password').value;
     let confirmPass = group.get('passwordConfirm').value
     return pass === confirmPass ? null : { notSame: true }
+  }
+
+  // SERVICE FUNCTIONS
+  private getConfirmString() {
+    const str = "Username: " + this.registerForm.value.username + "\n" +
+      "Email: " + this.registerForm.value.email + "\n" +
+      "Nome: " + this.registerForm.value.name + "\n" +
+      "Cognome: " + this.registerForm.value.lastName + "\n" +
+      "Indirizzo: " + this.registerForm.value.address + "\n" +
+      "Password: " + '*'.repeat(this.registerForm.value.password.length)
+    return str
   }
 }

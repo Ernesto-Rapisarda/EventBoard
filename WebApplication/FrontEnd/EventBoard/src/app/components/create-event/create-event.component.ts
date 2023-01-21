@@ -40,6 +40,7 @@ export class CreateEventComponent implements OnInit{
       city: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required, Validators.pattern('^((\\d+)|(\\d+\\.\\d+))$')]),
+      poster: new FormControl('', [Validators.required]),
       eventType: new FormControl('', Validators.required),
       ticketUrl: new FormControl(''),
       description: new FormControl('')
@@ -80,31 +81,18 @@ export class CreateEventComponent implements OnInit{
 
   onFileUpload(event: Event) {
     const element = event.currentTarget as HTMLInputElement
-    this.imgService.upload(element.files[0]).subscribe({
-      next: (response: any) => {
-        this.urlPoster = response.data.url
-        this.imageUploaded = true
-      },
-      error: error => { this.errorHandler(error) }
-    })
-  }
-
-  private setRegions() {
-    this.comuniItaService.getRegions().subscribe({
-      next: response => { this.regions = (response as string[]) },
-      error: error => { this.errorHandler(error) }
-    })
-  }
-
-  protected setCities() {
-    this.comuniItaService.getCities(this.eventCreateForm.value.region).subscribe({
-      next: response => { this.cities = (response as string[]) },
-      error: error => { this.errorHandler(error) }
-    })
-  }
-
-  private setEventTypes(){
-    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
+    // Check if file size exceeds 30MB
+    if(element.files[0].size < 30000000) {
+      this.imgService.upload(element.files[0]).subscribe({
+        next: (response: any) => {
+          this.urlPoster = response.data.url
+          this.imageUploaded = true
+        },
+        error: error => { this.errorHandler(error) }
+      })
+    }
+    else
+      alert("ERRORE: La dimensione del file supera i 30MB")
   }
 
   onLocation() {
@@ -123,6 +111,25 @@ export class CreateEventComponent implements OnInit{
       this.latitude = result.latitude
       this.longitude = result.longitude
     })
+  }
+
+  // SERVICE FUNCTIONS
+  private setRegions() {
+    this.comuniItaService.getRegions().subscribe({
+      next: response => { this.regions = (response as string[]) },
+      error: error => { this.errorHandler(error) }
+    })
+  }
+
+  protected setCities() {
+    this.comuniItaService.getCities(this.eventCreateForm.value.region).subscribe({
+      next: response => { this.cities = (response as string[]) },
+      error: error => { this.errorHandler(error) }
+    })
+  }
+
+  private setEventTypes(){
+    this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
   }
 
   private errorHandler(error: any) {

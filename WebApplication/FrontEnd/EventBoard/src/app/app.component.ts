@@ -13,9 +13,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //TODO: Funziona, però va gestita la scadenza del token
-    if(localStorage.getItem('token')){
-      if(localStorage.getItem('username')){
+    if(localStorage.getItem('token') && localStorage.getItem('username')){
         this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe({
           next: (userData: any) => {
             this.authService.createUser(
@@ -33,10 +31,11 @@ export class AppComponent implements OnInit {
             this.authService.isLoggedIn = true;
           },
           error: error => {
-            alert("ERRORE: Impossibile recuperare i dati dell'utente")
+            alert("ERRORE: Token scaduto, effettua nuovamente il login");
+            localStorage.removeItem('token')
+            localStorage.removeItem('username')
           }
         })
-      }
     }
   }
 }
