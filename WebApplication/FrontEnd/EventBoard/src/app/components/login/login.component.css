@@ -1,4 +1,12 @@
+@import "src/styles.css";
+
 /* Container principale */
+.container {
+  display: flex;
+  background-color: var(--login-page-background-color);
+}
+
+/* Card */
 .card {
   display:flex;
   max-width: 350px;
@@ -39,3 +47,57 @@
 .register-txt {
   color: slategray;
 }
+
+@media screen and (max-width: 400px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Container principale */
+  .card {
+    flex:1;
+    text-align: center;
+    display:flex;
+    max-width: 350px;
+    padding: 18px 0;
+    margin: 12px 24px;
+    overflow: hidden;
+  }
+
+  /* Card header */
+  .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  /* Inserimento Email e Password */
+  .field-container {
+    margin-left: -6px;
+    width: auto;
+  }
+
+  /* Pulsante per effettuare il login */
+  .login-btn {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  /* Redirect alla pagina di registrazione */
+  .register-container {
+    color: slategray;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .register-txt {
+    color: slategray;
+  }
+}
+
