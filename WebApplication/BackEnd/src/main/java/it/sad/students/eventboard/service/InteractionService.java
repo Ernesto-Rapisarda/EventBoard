@@ -298,8 +298,8 @@ public class InteractionService {
                 message);
     }
 
-    private EmailMessage newMessageDeleteOrUpdate(String to,Boolean type,Boolean deleteOrUpdate,String title,String message){ //type true(comment) false(review)
-        String object="";
+    private EmailMessage newMessageDeleteOrUpdate(String to,Boolean type,Boolean deleteOrUpdate,String title,String message){ //type: true(comment) false(review)
+        String object="";                                                                                                     //delete: true, update: false
         if(deleteOrUpdate){
             if(type)
                 object="L'admin ha eliminato il tuo commento all'evento '"+title+"'";

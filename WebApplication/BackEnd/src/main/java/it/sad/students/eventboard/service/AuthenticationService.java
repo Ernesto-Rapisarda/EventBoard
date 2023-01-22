@@ -85,20 +85,23 @@ public class AuthenticationService {
         try {
             EmailMessage emailMessage = new EmailMessage();
             emailMessage.setTo(email);
-            emailMessage.setSubject("Conferma avvenuta registrazione");
+            emailMessage.setSubject("Conferma registrazione");
             emailMessage.setMessage("Benvenuto "+
                     name+" "+
                     lastname+", \n"+
-                    "la tua registrazione è andata a buon fine.\n"+
+                    "ti confermiamo che la tua registrazione è stata completata con successo.\n"+
                     "Per poter accedere ai servizi, devi confermare il tuo indirizzo email, cliccando sul link seguente:\n"+
                     htmlActivation(token)
+                    +"\n\nGrazie per esserti registrato con noi. Siamo lieti di averti come nuovo utente e non vediamo l'ora di aiutarti a raggiungere i tuoi obiettivi.\n" +
+                    "\n" +
+                    "Saluti,\n" +
+                    "GoodVibes"
 
             );
             if(emailSenderService.sendEmail(emailMessage))
                 return true;
             return false;
         }catch (Exception e){
-            System.out.println("CI SONO");
             e.printStackTrace();
             return false;
         }

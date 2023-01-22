@@ -101,6 +101,6 @@ public class EmailSenderService implements EmailSender {
         return (
         "Grazie per averci inviato la segnalazione,\n\n"+
                 "la tua segnalazione è stata presa in carico da un amministratore.\n"+
-                "Buona giornata, lo staff di Event Board.");
+                "Buona giornata, lo staff di GoodVibes.");
     }
 }
