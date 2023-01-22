@@ -46,8 +46,13 @@ export class EventComponent implements OnInit {
           this.event.organizerFullName = response.organizerFullName
 
           // Page necessary data setup
-          this.liked = this.didILikeThis()
-          this.participate = this.willIParticipate()
+
+          // If the user is logged in, check if he likes/participate this event
+          if(this.authService.user){
+            this.liked = this.didILikeThis()
+            this.participate = this.willIParticipate()
+          }
+
           this.likesNumber = this.event.likeList.length
           this.participantsNumber = this.event.participationList.length
           this.interactionsNumber = (this.event.commentList.length)+(this.event.reviewList.length)
