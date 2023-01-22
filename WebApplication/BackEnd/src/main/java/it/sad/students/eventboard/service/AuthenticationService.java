@@ -30,7 +30,7 @@ public class AuthenticationService {
     private final StatusCodes statusCodes;
 
 
-    public ResponseEntity<AuthenticationResponse> register (RegisterRequest request) {
+    public ResponseEntity register (RegisterRequest request) {
         var user = new Person();
         user.setId(null);
         user.setName(request.getName());
@@ -52,10 +52,12 @@ public class AuthenticationService {
             return statusCodes.commandError();
         }
 
-
+        /*
         return statusCodes.okGetElement(AuthenticationResponse.builder()
                 .token(jwtToken)
-                .build()) ;
+                .build()) ;*/
+
+        return statusCodes.ok();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
