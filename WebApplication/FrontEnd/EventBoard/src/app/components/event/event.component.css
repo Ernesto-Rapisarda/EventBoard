@@ -1,45 +1,161 @@
+@import "src/styles.css";
+
 * {
-  text-align: center;
-  width: auto;
+
+  /* margin from container */
+  --space-from-container-vertical: 4vh;
+  --space-from-container-horizontal: 3vw;
+  --elements-margin-top: 3vw;
+
+  /* left side */
+  --date-font-size: 24px;
+
+  --title-font-size: 34px;
+  --title-font-weight: 600;
+
+  --description-font-size: 24px;
+
+  --organizer-font-size: 18px;
+
+
 }
 
-.poster {
+.center-and-space {
+  display: var(--display-center-space-display);
+  flex-direction: var(--display-center-space-flex-direction);
+  align-items: var(--display-center-space-align-items);
+  justify-content: var(--display-center-space-justify-content);
+  height: var(--display-center-space-height);
+  width: var(--display-center-space-width);
+}
+.event-main-container {
+  width: auto;
+  height: auto;
   max-width: 80%;
-  width: 800px;
-  max-height: 100%;
-  height: 300px;
+  margin: auto auto;
+}
+
+.poster-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.poster {
+  max-width: 90%;
+  max-height: 90%;
+  width: 1300px;
+  height: 450px;
   object-fit: cover;
   object-position: center;
   border-radius: 12px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-  margin-top: 30px;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 30px auto;
 }
 
-
-.event-main-container {
-  width: auto;
+/* colonna destra e sinistra */
+.event-container {
+  display: flex;
+  flex-direction: row;
+}
+.event-container .event-left-side {
+  /* deve occupare il 60% */
+  width: 60%;
+  height: auto;
+  padding: var(--space-from-container-vertical) var(--space-from-container-horizontal);
+}
+.event-container .event-right-side {
+  /* deve occupare il 60% */
+  width: 40%;
   height: auto;
 }
 
-.date-name-container { }
-.date-header {
-  text-align: left;
-  font-size: 26px;
-  font-weight: normal;
-  margin-left: 35%;
-  margin-right: 35%;
-  padding-top: 5px;
-  margin-top: 30px;
+/* LEFT SIDE */
+.left-side {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  margin-bottom: -8px;
 }
-.name-header {
-  font-size: 36px;
-  font-weight: bold;
-  margin-top: -5px;
-  margin-left: 18%;
-  margin-right: 18%;
+.left-side .card-calendar-mmm {
+  font-size: var(--date-font-size);
+  color: red;
+  font-weight: 500;
+  width: auto;
+  margin-right: 2px;
 }
+.left-side .card-calendar-dd {
+  font-size: var(--date-font-size);
+  color: black;
+  flex: 1;
+  font-weight: 400;
+  width: auto;
+  margin-left: 2px;
+}
+.title-header {
+  font-size: var(--title-font-size);
+  font-weight: var(--title-font-weight);
+  height: auto;
+}
+.description-header {
+  font-size: var(--description-font-size);
+  margin-top: var(--elements-margin-top);
+}
+.organizer-container {
+  height: auto;
+  font-style: italic;
+  display: inline-block;
+  font-size: var(--organizer-font-size);
+  margin-top: var(--elements-margin-top);
+}
+.organizer-container .organizer-cpy {
+  float: left;
+  width: auto;
+}
+.organizer-container .organizer-name {
+  float: right;
+  width: auto;
+  margin-left: 5px;
+  text-decoration: underline;
+}
+.card-when-where-container {
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: var(--elements-margin-top);
+}
+.card-when-where {
+  width: 30%;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  text-align: center;
+}
+.map {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  margin-top: var(--elements-margin-top);
+}
+
+.comments-reviews-container {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  margin-top: 36px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.comments-tab {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+.comments-header-cpy {
+  padding-top: 24px;
+  text-align: center;
+}
+
 .price-header {
   text-align: right;
   font-size: 12px;    /* va cambiato insieme al margin-top */
@@ -140,9 +256,6 @@
   font-weight: bold;
 }
 
-
-
-
 .like-participate-container {
   display: inline-block;
 }
@@ -216,7 +329,7 @@
 }
 
 .floating-buttons-left {
-  display: inline-flex;
+  display: table-column;
   position: fixed;
   left: 24px;
   bottom: 24px;
@@ -239,6 +352,7 @@
 }
 
 .delete-button {
+  margin-top: 12px;
   background-color: #DB4437;
 }
 
@@ -246,11 +360,27 @@
   /* background-color: #0000FF; SI è OPTATO PER I COLORI DI MATERIAL */
 }
 
-.map {
-  display: flex;
-  justify-content:center;
-  align-items:center;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* TODO: se serve */
 @media screen and (max-width: 550px) {

@@ -1,130 +1,151 @@
-<div class="event-main-container">
 
-  <!-- Poster -->
-  <div class="poster-container">
-    <img class="poster" src="{{event.urlPoster}}" alt="">
-  </div>
+<div class="center-and-space">
+  <div class="event-main-container">
 
-  <!-- Date and Time -->
-  <div class="date-name-container">
-    <p class="date-header">{{event.date | date: "dd MMM YYYY"}}</p>
-    <h1 class="name-header">{{event.title}}</h1>
-    <p class="price-header">Ingressi a partire da: {{event.price === 0.0 ? "Evento gratuito!" : (event.price | currency: "EUR")}}</p>
-  </div>
-
-
-  <!-- Like / Attendance -->
-  <div class="like-participate-container">
-
-
-    <div class="participate-button-container">
-      <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
-              [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'">
-        <mat-icon>how_to_reg</mat-icon>
-      </button>
-      <br><br>
-      {{participantsNumber.toString()}}
+    <!-- Poster -->
+    <div class="poster-container">
+      <img class="poster" src="{{event.urlPoster}}" alt=""> <!-- da rimettere event.urlPoster -->
     </div>
 
-    <div class="like-button-container">
-      <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
-              [ngClass]="liked ? 'like-button-true' : 'like-button-false'">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <br><br>
-      {{likesNumber.toString()}}
-    </div>
+    <div class="event-container">
 
-  </div>
-  <div class="line-break"></div>
+      <!-- LEFT SIDE -->
+      <div class="event-left-side">
 
-
-  <!-- Description -->
-  <div class="event-description">
-    <p>
-      {{event.description}}
-    </p>
-  </div>
-
-  <!-- Organizer -->
-  <div class="organizer-container">
-    <p class="organizer-cpy">organizzato da</p>
-    <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
-  </div>
-
-  <!-- When and where -->
-  <div style="display: grid">
-    <div class="date-location-container">
-      <div class="date-container">
-        <div class="card-date-header">
-          <mat-icon class="date-icon">date_range</mat-icon>
-          <p class="date-cpy">Data e ora</p>
+        <!-- data -->
+        <div class="left-side">
+          <h4 class="card-calendar-mmm">{{this.event.date | date: 'MMM'|uppercase}}</h4>
+          <h4 class="card-calendar-dd">{{this.event.date | date: 'dd'}}</h4>
         </div>
-        <p class="date">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
-      </div>
-      <div class="location-container">
-        <div class="card-location-header">
-          <mat-icon class="location-icon">location_on</mat-icon>
-          <p class="location-cpy">Località</p>
+
+        <!-- titolo -->
+        <h1 class="title-header">{{event.title}}</h1>
+
+        <!-- descrizione -->
+        <p class="description-header">{{event.description}}</p>
+
+        <!-- autore -->
+        <div class="organizer-container">
+          <p class="organizer-cpy">organizzato da</p>
+          <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
         </div>
-        <p class="location">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
+
+        <!-- dove e quando -->
+        <div class="card-when-where-container">
+          <div class="card-when-where">
+            <mat-icon class="calendar-icon">date_range</mat-icon>
+            <p>Data e ora</p>
+            <p class="date">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
+          </div>
+          <div class="card-when-where">
+            <mat-icon class="calendar-icon">date_range</mat-icon>
+            <p>Località</p>
+            <p class="date">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container">
+          <app-map class="map" *ngIf="!(event.position.longitude === 0.0 && event.position.latitude === 0.0)" [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false"></app-map>
+
+        </div>
+
+        <!-- Comments and Reviews -->
+        <div class="comments-reviews-container">
+          <div class="comments-header-cpy">
+            <h2>{{interactionsNumber === 1 ? interactionsNumber.toString() + ' persona ha interagito' : interactionsNumber.toString() + ' persone hanno interagito'}}</h2>
+          </div>
+          <div>
+            <mat-tab-group class="comments-tab">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
+                </ng-template>
+                <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
+                <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
+              </mat-tab>
+              <mat-tab class="review-tabs">
+                <ng-template mat-tab-label>
+                  <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
+                </ng-template>
+                <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
+                <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <!-- RIGHT SIDE -->
+      <div class="event-right-side">
+
+        <!-- Like / Attendance -->
+        <div class="like-participate-container">
+          <div class="participate-button-container">
+            <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
+                    [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'">
+              <mat-icon>how_to_reg</mat-icon>
+            </button>
+            <br><br>
+            <p class="partecipants-number">{{participantsNumber.toString()}}</p>
+
+          </div>
+          <div class="like-button-container">
+            <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
+                    [ngClass]="liked ? 'like-button-true' : 'like-button-false'">
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <br><br>
+            <p class="likes-number">{{likesNumber.toString()}}</p>
+          </div>
+        </div>
+
+
+        <div class="get-tickets-container">
+          <div class="get-tickets-content">
+            <p class="get-ticket-copy">{{event.price === 0.0 ? "Evento gratuito!" : "Biglietti a partire da " + (event.price | currency: "EUR")}}</p>
+            <button mat-raised-button class="get-ticket-button">Vai al sito</button>
+          </div>
+        </div>
+
+        <!-- Share - Unfortunately we cannot put here the real url because we're serving it on localhost, so we put a placeholder -->
+        <div class="social-buttons">
+          <share-buttons theme="circles-dark"
+                         [include]="['facebook', 'twitter', 'email', 'whatsapp', 'telegram', 'copy']"
+                         [showIcon]="true"
+                         [showText]="true"
+                         url="http://localhost:4200/event/{{event.id}}"
+                         description="Sent from GoodVibes"
+                         class="pt-5">
+          </share-buttons>
+        </div>
+
+
       </div>
     </div>
-  </div>
 
-  <app-map *ngIf="!(event.position.longitude === 0.0 && event.position.latitude === 0.0)" [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false" class="map"></app-map>
-
-  <!-- Comments / Reviews -->
-  <div class="comments-reviews-container">
-    <div class="comments-header-cpy">
-      <h2>{{interactionsNumber === 1 ? interactionsNumber.toString() + ' persona ha interagito' : interactionsNumber.toString() + ' persone hanno interagito'}}</h2>
-    </div>
-    <div>
-      <mat-tab-group class="comments-tab">
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
-          </ng-template>
-          <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
-          <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
-          </ng-template>
-          <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
-          <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </div>
-
-  <!-- Share - Unfortunately we cannot put here the real url because we're serving it on localhost, so we put a placeholder -->
-  <share-buttons theme="circles-dark"
-                 [include]="['facebook', 'twitter', 'email', 'whatsapp', 'telegram', 'copy']"
-                 [showIcon]="true"
-                 [showText]="true"
-                 url="http://localhost:4200/event/{{event.id}}"
-                 description="Sent from GoodVibes"
-                 class="pt-5">
-  </share-buttons>
-
-  <!-- Floating buttons -->
-  <div class="floating-buttons-left">
-    <div class="edit-button-container">
-      <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
-        <mat-icon class="icon-edit">edit</mat-icon>
-      </button>
-    </div>
-    <div class="delete-button-container">
-      <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
-        <mat-icon class="icon-delete">delete</mat-icon>
-      </button>
-    </div>
-    <div class="report-button-container">
-      <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role !== 'ADMIN')">
-        <mat-icon class="icon-report">report</mat-icon>
-      </button>
+    <!-- Floating buttons -->
+    <div class="floating-buttons-left">
+      <div class="edit-button-container">
+        <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+          <mat-icon class="icon-edit">edit</mat-icon>
+        </button>
+      </div>
+      <div class="delete-button-container">
+        <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+          <mat-icon class="icon-delete">delete</mat-icon>
+        </button>
+      </div>
+      <div class="report-button-container">
+        <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role !== 'ADMIN')">
+          <mat-icon class="icon-report">report</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 
