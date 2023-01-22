@@ -31,6 +31,7 @@ public class AuthenticationService {
 
 
     public ResponseEntity register (RegisterRequest request) {
+      try {
         var user = new Person();
         user.setId(null);
         user.setName(request.getName());
@@ -44,12 +45,12 @@ public class AuthenticationService {
         user.setIs_not_locked(true);
 
         if(!DBManager.getInstance().getPersonDao().saveOrUpdate(user))
-            return statusCodes.commandError();
+          return statusCodes.commandError();
         var jwtToken = jwtService.generateToken(user);
 
         if(!sendEmail(request.getEmail(), request.getName(), request.getLastName(), jwtToken)) {
-            DBManager.getInstance().getPersonDao().delete(user);
-            return statusCodes.commandError();
+          DBManager.getInstance().getPersonDao().delete(user);
+          return statusCodes.commandError();
         }
 
         /*
@@ -58,6 +59,11 @@ public class AuthenticationService {
                 .build()) ;*/
 
         return statusCodes.ok();
+      } catch(Exception e) {
+        e.printStackTrace();
+        return statusCodes.commandError();
+      }
+
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -79,20 +85,23 @@ public class AuthenticationService {
         try {
             EmailMessage emailMessage = new EmailMessage();
             emailMessage.setTo(email);
-            emailMessage.setSubject("Conferma avvenuta registrazione");
+            emailMessage.setSubject("Conferma registrazione");
             emailMessage.setMessage("Benvenuto "+
                     name+" "+
                     lastname+", \n"+
-                    "la tua registrazione è andata a buon fine.\n"+
+                    "ti confermiamo che la tua registrazione è stata completata con successo.\n"+
                     "Per poter accedere ai servizi, devi confermare il tuo indirizzo email, cliccando sul link seguente:\n"+
                     htmlActivation(token)
+                    +"\n\nGrazie per esserti registrato con noi. Siamo lieti di averti come nuovo utente e non vediamo l'ora di aiutarti a raggiungere i tuoi obiettivi.\n" +
+                    "\n" +
+                    "Saluti,\n" +
+                    "GoodVibes"
 
             );
             if(emailSenderService.sendEmail(emailMessage))
                 return true;
             return false;
         }catch (Exception e){
-            System.out.println("CI SONO");
             e.printStackTrace();
             return false;
         }

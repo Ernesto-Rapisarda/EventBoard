@@ -69,7 +69,7 @@ export class AuthService {
       password: password,
       role: role,
       activeStatus: true,
-    })
+    }, {responseType: "text"})
   }
 
   activate(token: string) {

@@ -36,11 +36,12 @@ export class RegisterComponent implements OnInit {
 
     if(confirm("Vuoi creare un account con i seguenti dati?\n" + this.getConfirmString())) {
       this.authService.signUp(name, lastName, email, username, password, role).subscribe({
-        next: () => {
+        next: response => {
           alert("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email")
           this.router.navigate([''])
         },
-        error: error => { alert("Errore: C'è stato un errore in fase di registrazione, ti consigliamo di riprovare") }
+        error: error => {
+          alert("Errore: C'è stato un errore in fase di registrazione, ti consigliamo di riprovare") }
       })
     }
   }
@@ -63,7 +64,6 @@ export class RegisterComponent implements OnInit {
       "Email: " + this.registerForm.value.email + "\n" +
       "Nome: " + this.registerForm.value.name + "\n" +
       "Cognome: " + this.registerForm.value.lastName + "\n" +
-      "Indirizzo: " + this.registerForm.value.address + "\n" +
       "Password: " + '*'.repeat(this.registerForm.value.password.length)
     return str
   }
