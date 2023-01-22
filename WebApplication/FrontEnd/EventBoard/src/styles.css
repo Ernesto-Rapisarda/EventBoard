@@ -11,8 +11,19 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
 * {
   --var-root: test;
 
-  /* LOGIN PAGE */
+  /* background material color */
+  --background-pastel-color: #e9f2f8;
   --login-page-background-color: #e9f2f8;
   --registration-page-background-color: #e9f2f8;
+
+  /* tutte le pagine */
+  --display-center-space-display: flex;
+  --display-center-space-flex-direction: row;
+  --display-center-space-align-items: center;
+  --display-center-space-justify-content: center;
+  --display-center-space-height: auto;
+  --display-center-space-width: auto;
+
+  /* *** */
 
 }
