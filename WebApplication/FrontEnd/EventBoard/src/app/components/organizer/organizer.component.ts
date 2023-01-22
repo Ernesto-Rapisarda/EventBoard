@@ -32,6 +32,7 @@ export class OrganizerComponent implements OnInit {
               title: response.events[element].title,
               date: response.events[element].date,
               urlPoster: response.events[element].urlPoster,
+              position: response.events[element].position,
               organizerFullName: response.events[element].organizer.toString(),
             }
             this.eventsService.events.push(event)
