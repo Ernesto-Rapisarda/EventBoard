@@ -16,6 +16,17 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
   --login-page-background-color: #e9f2f8;
   --registration-page-background-color: #e9f2f8;
 
+  /* UI Elements Colors */
+  /*
+  --button-primary-color:;
+  --button-secondary-color:;
+  --button-warning-color:;
+  */
+  /* comment and review container */
+  --comment-and-review-container-background-color-light: grey;
+  --comment-and-review-container-background-color-dark: lightgrey;
+  /* r. 630 */
+
   /* tutte le pagine */
   --display-center-space-display: flex;
   --display-center-space-flex-direction: row;
