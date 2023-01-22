@@ -81,8 +81,8 @@ export class CreateEventComponent implements OnInit{
 
   onFileUpload(event: Event) {
     const element = event.currentTarget as HTMLInputElement
-    // Check if file size exceeds 30MB
-    if(element.files[0].size < 30000000) {
+    // Check if file size exceeds 10MB
+    if(element.files[0].size < 10000000) {
       this.imgService.upload(element.files[0]).subscribe({
         next: (response: any) => {
           this.urlPoster = response.data.url
@@ -92,7 +92,7 @@ export class CreateEventComponent implements OnInit{
       })
     }
     else
-      alert("ERRORE: La dimensione del file supera i 30MB")
+      alert("ERRORE: La dimensione del file supera i 10MB")
   }
 
   onLocation() {

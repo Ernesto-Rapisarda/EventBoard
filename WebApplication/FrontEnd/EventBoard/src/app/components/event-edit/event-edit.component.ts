@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
@@ -16,7 +16,7 @@ import {Location} from "../../models/location.model";
 })
 
 // TODO: Sistemare validazione datepicker impossibile
-export class EventEditComponent {
+export class EventEditComponent implements OnInit {
   eventEditForm!: FormGroup
   urlPoster: string
   event: MyEvent
@@ -132,18 +132,28 @@ export class EventEditComponent {
 
   onFileUpload(event: Event) {
     const element = event.currentTarget as HTMLInputElement
-    this.imgService.upload(element.files[0]).subscribe({
-      next: (response: any) => {
-        this.urlPoster = response.data.url
-      },
-      error: error => { this.errorHandler(error) }
-    })
+
+    // Check if file size exceeds 10MB
+    if(element.files[0].size < 10000000) {
+      this.imgService.upload(element.files[0]).subscribe({
+        next: (response: any) => {
+          this.urlPoster = response.data.url
+        },
+        error: error => {
+          this.errorHandler(error)
+        }
+      })
+    }
+    else
+      alert("ERRORE: La dimensione del file supera i 10MB")
   }
 
   private patchValues(){
+    const date = new Date(this.event.date)
+
     this.eventEditForm.patchValue({
       title: this.event.title,
-      date: this.event.date,
+      date: date,
       address: this.event.position.address,
       soldOut: this.event.soldOut,
       price: this.event.price,

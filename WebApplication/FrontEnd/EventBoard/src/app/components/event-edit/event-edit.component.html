@@ -13,6 +13,9 @@
             <mat-label>Nome dell'evento</mat-label>
             <input matInput placeholder="" formControlName="title" required>
             <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="eventEditForm.get('title').hasError('required')">
+              Inserisci il nome dell'evento
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -28,6 +31,9 @@
             <select matNativeControl formControlName="region" (change)="setCities()" required>
               <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
             </select>
+            <mat-error *ngIf="eventEditForm.get('region').hasError('required')">
+              Seleziona una regione
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -35,6 +41,9 @@
             <select matNativeControl formControlName="city" required>
               <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
             </select>
+            <mat-error *ngIf="eventEditForm.get('city').hasError('required')">
+              Seleziona una città
+            </mat-error>
           </mat-form-field>
 
           <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
@@ -47,6 +56,9 @@
               <mat-label>Indirizzo</mat-label>
               <input matInput placeholder="" formControlName="address" required>
               <mat-icon matSuffix>location_on</mat-icon>
+              <mat-error *ngIf="eventEditForm.get('address').hasError('required')">
+                Inserisci un indirizzo
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -59,6 +71,9 @@
             <mat-label>Prezzo di partenza</mat-label>
             <input matInput placeholder="" formControlName="price" required>
             <mat-icon matSuffix>euro_symbol</mat-icon>
+            <mat-error *ngIf="eventEditForm.get('price').hasError('pattern')">
+              Inserisci un prezzo valido (es. 10.50)
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -68,6 +83,9 @@
           <select matNativeControl formControlName="eventType" required>
             <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
           </select>
+          <mat-error *ngIf="eventEditForm.get('eventType').hasError('required')">
+            Seleziona una tipologia
+          </mat-error>
         </mat-form-field>
 
         <!-- description -->
@@ -90,6 +108,7 @@
 
         <!-- poster -->
         <div>
+          <mat-label>Carica locandina (max 10MB)</mat-label>
           <input type="file" (change)="onFileUpload($event)">
         </div>
 

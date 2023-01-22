@@ -68,6 +68,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
 import {ShareIconsModule} from "ngx-sharebuttons/icons";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -104,7 +105,8 @@ registerLocaleData(localeIt, 'it');
         MapComponent,
         FooterComponent,
         LocationChooserDialogComponent,
-        ReviewEditDialogComponent
+        ReviewEditDialogComponent,
+        ScrollToTopComponent
     ],
     imports: [
         BrowserModule,

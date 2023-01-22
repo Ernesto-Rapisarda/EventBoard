@@ -31,6 +31,7 @@ public class AuthenticationService {
 
 
     public ResponseEntity register (RegisterRequest request) {
+      try {
         var user = new Person();
         user.setId(null);
         user.setName(request.getName());
@@ -44,12 +45,12 @@ public class AuthenticationService {
         user.setIs_not_locked(true);
 
         if(!DBManager.getInstance().getPersonDao().saveOrUpdate(user))
-            return statusCodes.commandError();
+          return statusCodes.commandError();
         var jwtToken = jwtService.generateToken(user);
 
         if(!sendEmail(request.getEmail(), request.getName(), request.getLastName(), jwtToken)) {
-            DBManager.getInstance().getPersonDao().delete(user);
-            return statusCodes.commandError();
+          DBManager.getInstance().getPersonDao().delete(user);
+          return statusCodes.commandError();
         }
 
         /*
@@ -58,6 +59,11 @@ public class AuthenticationService {
                 .build()) ;*/
 
         return statusCodes.ok();
+      } catch(Exception e) {
+        e.printStackTrace();
+        return statusCodes.commandError();
+      }
+
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
