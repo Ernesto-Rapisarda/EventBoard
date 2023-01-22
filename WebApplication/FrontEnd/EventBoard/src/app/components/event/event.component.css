@@ -141,7 +141,7 @@
 }
 
 .comments-reviews-container {
-  background-color: #f5f5f5;
+  background-color: var(--comment-and-review-container-background-color-dark);
   border-radius: 10px;
   margin-top: 36px;
   max-width: 450px;
@@ -149,7 +149,7 @@
   margin-right: auto;
 }
 .comments-tab {
-  background-color: #f5f5f5;
+  background-color: var(--comment-and-review-container-background-color-light);
   border-radius: 10px;
 }
 .comments-header-cpy {
