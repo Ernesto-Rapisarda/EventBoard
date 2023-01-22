@@ -23,8 +23,9 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
   --button-warning-color:;
   */
   /* comment and review container */
-  --comment-and-review-container-background-color-light: grey;
-  --comment-and-review-container-background-color-dark: lightgrey;
+  --comment-and-review-container-background-color-dark: grey;
+  --comment-and-review-container-background-color-light: lightgrey;
+
   /* r. 630 */
 
   /* tutte le pagine */
