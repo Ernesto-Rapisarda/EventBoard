@@ -92,6 +92,12 @@ export class RequestService {
     return this.http.get<Event[]>(url)
   }
 
+  getFilteredEvents(type: string) {
+    const url = API_SERVER_URL+'/api/noauth/events/filtered'
+    const eventTypes: string[] = [type]
+    return this.http.post(url, eventTypes)
+  }
+
   getEventById(id: number): Observable<Event>{
     const url = API_SERVER_URL+`/api/noauth/event/details/${id}`
     return this.http.get<Event>(url)
