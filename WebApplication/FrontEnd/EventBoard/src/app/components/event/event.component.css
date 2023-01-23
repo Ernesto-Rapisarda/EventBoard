@@ -378,7 +378,7 @@
 
 
 /* TODO: sotto max-width di larghezza vanno disposti gli elementi su più righe */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1124px) {
   .center-and-space {
     display: var(--display-center-space-display);
     flex-direction: var(--display-center-space-flex-direction);

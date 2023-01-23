@@ -47,16 +47,10 @@
         <!-- Map -->
         <div class="map-container">
           <app-map class="map" *ngIf="!(event.position.longitude === 0.0 && event.position.latitude === 0.0)" [coordinates]="[event.position.longitude, event.position.latitude]" [draggable]="false"></app-map>
-
         </div>
-
-
 
         <app-similar-events-box [parentEvent]="event"></app-similar-events-box>
       </div>
-
-
-
 
 
 
