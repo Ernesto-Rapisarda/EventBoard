@@ -17,6 +17,8 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
   --elements-background-color-dark: #ebebeb;
   --elements-background-color-light: #f5f5f5;
 
+  --text-content-color: #fbfbfb;
+
   /* UI Elements Colors */
   --button-primary-color: #3700be;
   /*
@@ -37,6 +39,6 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
 
   /* *** */
 
-  --footer-background-color: #00b4d8;
+  --footer-background-color: #3700be;
 
 }
