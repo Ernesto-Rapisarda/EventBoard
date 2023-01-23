@@ -7,112 +7,124 @@
   <mat-card-content>
     <form [formGroup]="eventCreateForm" (ngSubmit)="onSubmit()">
 
-      <!-- title -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome dell'evento</mat-label>
-          <input matInput placeholder="" formControlName="title">
-          <mat-icon matSuffix>person</mat-icon>
-          <mat-error *ngIf="eventCreateForm.get('title').hasError('required')">
-            Inserisci il nome dell'evento
+      <div> <!-- todo -->
+
+        <!-- title -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome dell'evento</mat-label>
+            <input matInput placeholder="" formControlName="title">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="eventCreateForm.get('title').hasError('required')">
+              Inserisci il nome dell'evento
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- description -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrizione</mat-label>
+            <input matInput placeholder="" formControlName="description">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- event type -->
+        <mat-form-field appearance="fill">
+          <mat-label>Tipologia evento</mat-label>
+          <select matNativeControl formControlName="eventType">
+            <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
+          </select>
+          <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
+            Seleziona una tipologia
           </mat-error>
         </mat-form-field>
       </div>
 
-      <!-- date and time -->
-      <div class="date-picker">
-        <app-datepicker controlName="date"></app-datepicker>
-      </div>
 
-      <!-- location -->
-      <div class="position-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Regione</mat-label>
-          <select matNativeControl formControlName="region" (change)="setCities()">
-            <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
-          </select>
-          <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
-            Seleziona una regione
-          </mat-error>
-        </mat-form-field>
+      <div> <!-- todo -->
 
-        <mat-form-field appearance="fill">
-          <mat-label>Città</mat-label>
-          <select matNativeControl formControlName="city">
-            <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
-          </select>
-          <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
-            Seleziona una città
-          </mat-error>
-        </mat-form-field>
+        <!-- date and time -->
+        <div class="date-picker">
+          <app-datepicker controlName="date"></app-datepicker>
+        </div>
+
+        <!-- location -->
+        <div class="position-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Regione</mat-label>
+            <select matNativeControl formControlName="region" (change)="setCities()">
+              <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
+            </select>
+            <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
+              Seleziona una regione
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Città</mat-label>
+            <select matNativeControl formControlName="city">
+              <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+            </select>
+            <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
+              Seleziona una città
+            </mat-error>
+          </mat-form-field>
 
           <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
             <mat-icon>gps_fixed</mat-icon>
             Fornisci posizione precisa
           </button>
 
+          <div class="field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Indirizzo</mat-label>
+              <input matInput placeholder="" formControlName="address">
+              <mat-icon matSuffix>location_on</mat-icon>
+              <mat-error *ngIf="eventCreateForm.get('address').hasError('required')">
+                Inserisci un indirizzo
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <!-- price -->
         <div class="field-container">
           <mat-form-field appearance="outline">
-            <mat-label>Indirizzo</mat-label>
-            <input matInput placeholder="" formControlName="address">
-            <mat-icon matSuffix>location_on</mat-icon>
-            <mat-error *ngIf="eventCreateForm.get('address').hasError('required')">
-              Inserisci un indirizzo
+            <mat-label>Prezzo di partenza</mat-label>
+            <input matInput placeholder="" formControlName="price">
+            <mat-icon matSuffix>euro_symbol</mat-icon>
+            <mat-error *ngIf="eventCreateForm.get('price').hasError('required')">
+              Inserisci il prezzo di partenza
+            </mat-error>
+            <mat-error *ngIf="eventCreateForm.get('price').hasError('pattern')">
+              Inserisci un prezzo valido (es. 10.50)
             </mat-error>
           </mat-form-field>
         </div>
 
-
+        <!-- tickets url -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Url vendita biglietti</mat-label>
+            <input matInput placeholder="" formControlName="ticketUrl">
+            <mat-icon matSuffix>local_activity</mat-icon>
+          </mat-form-field>
+        </div>
       </div>
 
-      <!-- price -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Prezzo di partenza</mat-label>
-          <input matInput placeholder="" formControlName="price">
-          <mat-icon matSuffix>euro_symbol</mat-icon>
-          <mat-error *ngIf="eventCreateForm.get('price').hasError('required')">
-            Inserisci il prezzo di partenza
-          </mat-error>
-          <mat-error *ngIf="eventCreateForm.get('price').hasError('pattern')">
-            Inserisci un prezzo valido (es. 10.50)
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <!-- event type -->
-      <mat-form-field appearance="fill">
-        <mat-label>Tipologia evento</mat-label>
-        <select matNativeControl formControlName="eventType">
-          <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
-        </select>
-        <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
-          Seleziona una tipologia
-        </mat-error>
-      </mat-form-field>
-
-      <!-- description -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Descrizione</mat-label>
-          <input matInput placeholder="" formControlName="description">
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <!-- tickets url -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Url vendita biglietti</mat-label>
-          <input matInput placeholder="" formControlName="ticketUrl">
-          <mat-icon matSuffix>local_activity</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <!-- poster -->
       <div>
+
+        <!-- poster -->
+        <div>
           <mat-label>Carica locandina (max 10MB)</mat-label>
           <input type="file" (change)="onFileUpload($event)" name="image" accept="image/png, image/jpg, image/jpeg, image/webp, image/bmp">
+        </div>
       </div>
 
       <!-- crea evento -->

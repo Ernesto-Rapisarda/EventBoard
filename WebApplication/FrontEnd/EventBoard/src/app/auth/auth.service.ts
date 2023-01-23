@@ -110,7 +110,7 @@ export class AuthService {
     })
   }
 
-  isAdmin() { return this.user.role === "ADMIN" }
+  isAdmin() {return this.isAuthenticated() && this.user.role === "ADMIN" }
 
   getPreferences(): string {
     let preferences = ""
