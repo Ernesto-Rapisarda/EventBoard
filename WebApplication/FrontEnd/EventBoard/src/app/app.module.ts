@@ -69,6 +69,7 @@ import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
 import {ShareIconsModule} from "ngx-sharebuttons/icons";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
+import { SimilarEventsBoxComponent } from './components/similar-events-box/similar-events-box.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -106,7 +107,8 @@ registerLocaleData(localeIt, 'it');
         FooterComponent,
         LocationChooserDialogComponent,
         ReviewEditDialogComponent,
-        ScrollToTopComponent
+        ScrollToTopComponent,
+        SimilarEventsBoxComponent
     ],
     imports: [
         BrowserModule,
