@@ -26,6 +26,13 @@
 p, a {
   color: var(--text-content-color);
 }
+
+.chi-siamo-section p, .contattaci-section p, .link-section ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: initial;
+}
 .chi-siamo-section h3 {
   font-weight: var(--header-font-weight);
 }
