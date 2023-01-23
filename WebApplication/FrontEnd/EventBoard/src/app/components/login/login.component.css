@@ -4,6 +4,7 @@
 .container {
   display: flex;
   background-color: var(--login-page-background-color);
+  height: 100vh;
 }
 
 /* Card */
@@ -11,7 +12,7 @@
   display:flex;
   max-width: 350px;
   padding: 40px 40px;
-  margin: 40px auto;
+  margin: auto auto;
 }
 
 /* Card header */
@@ -61,7 +62,7 @@
     text-align: center;
     display:flex;
     max-width: 350px;
-    padding: 18px 0;
+    padding: 2px 0;
     margin: 12px 24px;
     overflow: hidden;
   }
