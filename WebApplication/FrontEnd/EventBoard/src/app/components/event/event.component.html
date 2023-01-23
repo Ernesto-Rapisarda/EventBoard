@@ -50,30 +50,7 @@
 
         </div>
 
-        <!-- Comments and Reviews -->
-        <div class="comments-reviews-container">
-          <div class="comments-header-cpy">
-            <h2>{{interactionsNumber === 1 ? interactionsNumber.toString() + ' persona ha interagito' : interactionsNumber.toString() + ' persone hanno interagito'}}</h2>
-          </div>
-          <div>
-            <mat-tab-group class="comments-tab">
-              <mat-tab>
-                <ng-template mat-tab-label>
-                  <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
-                </ng-template>
-                <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
-                <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
-              </mat-tab>
-              <mat-tab class="review-tabs">
-                <ng-template mat-tab-label>
-                  <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
-                </ng-template>
-                <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
-                <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
-              </mat-tab>
-            </mat-tab-group>
-          </div>
-        </div>
+
 
         <app-similar-events-box [parentEvent]="event"></app-similar-events-box>
       </div>
@@ -127,6 +104,30 @@
           </share-buttons>
         </div>
 
+        <!-- Comments and Reviews -->
+        <div class="comments-reviews-container">
+          <div class="comments-header-cpy">
+            <h2>{{interactionsNumber === 1 ? interactionsNumber.toString() + ' persona ha interagito' : interactionsNumber.toString() + ' persone hanno interagito'}}</h2>
+          </div>
+          <div>
+            <mat-tab-group class="comments-tab">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
+                </ng-template>
+                <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
+                <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
+              </mat-tab>
+              <mat-tab class="review-tabs">
+                <ng-template mat-tab-label>
+                  <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
+                </ng-template>
+                <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
+                <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
 
       </div>
     </div>
