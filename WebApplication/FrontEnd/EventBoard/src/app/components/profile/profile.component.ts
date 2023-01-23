@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
         region: this.authService.user.location.region,
         city: this.authService.user.location.city,
         operationConfirmed: false
-      }, disableClose: true
+      }, disableClose: true, maxHeight: '90vh'
     })
 
     dialogRef.afterClosed().subscribe(result => {

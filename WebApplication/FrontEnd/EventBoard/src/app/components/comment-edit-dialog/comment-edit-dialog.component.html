@@ -8,16 +8,18 @@
       <mat-label>Scrivi qui...</mat-label>
       <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
     </mat-form-field>
-    <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()">
-        <mat-icon>send</mat-icon>
-      </button>
-    </div>
-    <div class="cancel-btn-container">
-      <button class="cancel-btn" mat-icon-button aria-label="Cancel button" (click)="onCancel()">
-        <mat-icon>close</mat-icon>
-      </button>
+
+    <div class="btn-container">
+      <div class="cancel-btn-container">
+        <button mat-mini-fab color="warn" aria-label="Cancel button" (click)="onCancel()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+      <div class="send-btn-container">
+        <button mat-mini-fab color="primary" aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-
 </div>

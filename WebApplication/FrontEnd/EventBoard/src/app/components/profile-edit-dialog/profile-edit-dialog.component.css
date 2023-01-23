@@ -1,4 +1,3 @@
-/* Container principale */
 .card {
   display:flex;
   max-width: 350px;
@@ -23,7 +22,9 @@
 .login-btn {
   margin-top: 5px;
   margin-bottom: 20px;
-  width: 100%;
+  width: auto;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* Redirect alla pagina di registrazione */

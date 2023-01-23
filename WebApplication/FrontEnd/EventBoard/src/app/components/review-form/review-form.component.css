@@ -26,16 +26,22 @@
 }
 
 .field-container {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input-field {
   float: left;
   margin-right: 12px;
 }
+
 .send-btn-container {
   float: right;
   margin-top: 4px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .set-rating-btn {

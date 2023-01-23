@@ -11,17 +11,13 @@
       <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()">
     </mat-form-field>
     <div class="send-btn-container">
+      <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()">
+        <mat-icon>star</mat-icon>
+        {{rating}}
+      </button>
       <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text===''" (click)="onSend()">
         <mat-icon>send</mat-icon>
       </button>
     </div>
-  </div>
-
-  <!-- Rating input -->
-  <div class="rating-button-container">
-    <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()">
-      <mat-icon>star</mat-icon>
-      {{rating}}
-    </button>
   </div>
 </div>

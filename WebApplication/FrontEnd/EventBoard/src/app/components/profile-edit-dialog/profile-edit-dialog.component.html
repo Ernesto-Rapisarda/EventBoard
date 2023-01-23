@@ -6,96 +6,103 @@
 
   <mat-card-content>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-      <!-- name -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput placeholder="" formControlName="name" required>
-          <mat-icon matSuffix>face icon</mat-icon>
-        </mat-form-field>
-      </div>
 
-      <!-- last name -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Cognome</mat-label>
-          <input matInput placeholder="" formControlName="lastName" required>
-          <mat-icon matSuffix>face icon</mat-icon>
-        </mat-form-field>
-      </div>
+      <div class="registry-container">
 
-      <!-- email -->
-      <div class="field-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="" formControlName="email" required>
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <!-- location -->
-      <div class="position-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Regione</mat-label>
-          <select matNativeControl formControlName="region" (change)="setCities()" required>
-            <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
-          </select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Città</mat-label>
-          <select matNativeControl formControlName="city" required>
-            <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
-          </select>
-        </mat-form-field>
-      </div>
-
-      <!-- event type -->
-      <div class="field-container">
-        <mat-form-field>
-          <mat-label>Tipi di evento preferiti</mat-label>
-          <mat-select formControlName="preferences" multiple>
-
-            <mat-select-trigger>
-              <mat-chip-list>
-                <mat-chip *ngFor="let type of editForm.value.preferences"
-                          [removable]="true" (removed)="onTypeRemoved(type)">
-                  {{ type }}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-            </mat-select-trigger>
-
-            <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
-
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <!-- password -->
-      <div>
+        <!-- name -->
         <div class="field-container">
           <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
-            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePassword" type="button">
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="" formControlName="name" required>
+            <mat-icon matSuffix>face icon</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- last name -->
+        <div class="field-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Cognome</mat-label>
+            <input matInput placeholder="" formControlName="lastName" required>
+            <mat-icon matSuffix>face icon</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- event type -->
+        <div class="field-container">
+          <mat-form-field>
+            <mat-label>Tipi di evento preferiti</mat-label>
+            <mat-select formControlName="preferences" multiple>
+
+              <mat-select-trigger>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let type of editForm.value.preferences"
+                            [removable]="true" (removed)="onTypeRemoved(type)">
+                    {{ type }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-select-trigger>
+
+              <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
+
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
-
-      <!-- verifica password -->
-      <div>
+      <div class="account-container">
+        <!-- email -->
         <div class="field-container">
           <mat-form-field appearance="outline">
-            <mat-label>Conferma password</mat-label>
-            <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm">
-            <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePasswordConfirm" type="button">
-              <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="" formControlName="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- password -->
+        <div>
+          <div class="field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hidePassword" type="button">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- verifica password -->
+        <div>
+          <div class="field-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Conferma password</mat-label>
+              <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm">
+              <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hidePasswordConfirm" type="button">
+                <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="position-container">
+
+        <!-- location -->
+        <div class="position-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Regione</mat-label>
+            <select matNativeControl formControlName="region" (change)="setCities()" required>
+              <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
+            </select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Città</mat-label>
+            <select matNativeControl formControlName="city" required>
+              <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+            </select>
           </mat-form-field>
         </div>
       </div>

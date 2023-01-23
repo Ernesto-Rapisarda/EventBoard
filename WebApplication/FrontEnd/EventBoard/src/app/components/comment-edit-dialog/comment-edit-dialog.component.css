@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70%;
+  width: 80%;
   margin: 16px auto;
   padding: 16px;
   border-radius: 15px;
@@ -19,6 +19,14 @@
   margin-top: 5px;
   margin-bottom: 24px;
 }
+
+.header-text {
+  padding-right: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #303f9f;
+}
+
 .username {
   padding-right: 6px;
   font-size: 18px;
@@ -37,36 +45,11 @@
   color: #333;
 }
 
-.card-footer {
+.btn-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
 }
-.button-primary {
-  padding: 8px 16px;
-  border-radius: 2px;
-  background-color: #4caf50;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 600;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-.button-secondary {
-  padding: 8px 16px;
-  border-radius: 2px;
-  background-color: #f44336;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 600;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.header-text {
-  padding-right: 6px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #303f9f;
+.send-btn-container, .cancel-btn-container {
+  margin: auto auto;
 }
