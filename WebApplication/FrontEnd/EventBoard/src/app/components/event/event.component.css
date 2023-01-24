@@ -103,7 +103,7 @@
 }
 .organizer-container {
   height: auto;
-  font-style: italic;
+  /* font-style: italic; */
   display: inline-block;
   font-size: var(--organizer-font-size);
   margin-top: var(--elements-margin-top);
@@ -135,6 +135,10 @@
 }
 .card-when-where .when-where-cpy {
   font-weight: 600;
+  font-size: 18px;
+}
+.date-string, .position-string {
+  font-size: 16px;
 }
 
 .map {
