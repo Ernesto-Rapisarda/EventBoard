@@ -35,12 +35,12 @@
           <div class="card-when-where">
             <mat-icon class="calendar-icon">date_range</mat-icon>
             <p class="when-where-cpy">Data e ora</p>
-            <p class="date">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
+            <p class="date-string">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
           </div>
           <div class="card-when-where">
             <mat-icon class="calendar-icon">place</mat-icon>
             <p class="when-where-cpy">Località</p>
-            <p class="date">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
+            <p class="position-string">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
           </div>
         </div>
 
