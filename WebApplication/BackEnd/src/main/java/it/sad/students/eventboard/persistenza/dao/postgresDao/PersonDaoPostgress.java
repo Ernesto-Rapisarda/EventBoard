@@ -108,7 +108,7 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(4, person.getUsername());
                 st.setString(5, person.getEmail());
                 st.setBoolean(6, person.isEnabled());
-                st.setLong(7, person.getPosition());
+                st.setObject(7, person.getPosition());          // long o null
                 st.setString(8, person.getRole().toString());
                 st.setString(9, person.getPassword());
                 st.setBoolean(10,person.isAccountNonLocked());
@@ -122,7 +122,7 @@ public class PersonDaoPostgress implements PersonDao {
                 st.setString(3, person.getUsername());
                 st.setString(4, person.getEmail());
                 st.setBoolean(5, person.isEnabled());
-                st.setLong(6, person.getPosition());
+                st.setObject(6, person.getPosition());          // long o null
                 st.setString(7, person.getRole().toString());
                 st.setString(8, person.getPassword());
                 st.setBoolean(9,person.isAccountNonLocked());
