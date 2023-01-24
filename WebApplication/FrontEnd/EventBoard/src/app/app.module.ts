@@ -70,6 +70,7 @@ import {ShareIconsModule} from "ngx-sharebuttons/icons";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { SimilarEventsBoxComponent } from './components/similar-events-box/similar-events-box.component';
+import { EventImageDialogComponent } from './components/event-image-dialog/event-image-dialog.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -108,7 +109,8 @@ registerLocaleData(localeIt, 'it');
         LocationChooserDialogComponent,
         ReviewEditDialogComponent,
         ScrollToTopComponent,
-        SimilarEventsBoxComponent
+        SimilarEventsBoxComponent,
+        EventImageDialogComponent
     ],
     imports: [
         BrowserModule,

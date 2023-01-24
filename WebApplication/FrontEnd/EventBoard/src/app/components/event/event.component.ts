@@ -6,6 +6,7 @@ import {Event} from "../../models/event.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 import {EventEditComponent} from "../event-edit/event-edit.component";
+import {EventImageDialogComponent} from "../event-image-dialog/event-image-dialog.component";
 
 @Component({
   selector: 'app-event',
@@ -126,6 +127,23 @@ export class EventComponent implements OnInit {
     }
   }
 
+  onTicketPage() {
+    // Check whether the ticket url has http or https at the beginning
+    if(!this.event.urlTicket.startsWith("http://") && !this.event.urlTicket.startsWith("https://"))
+      this.event.urlTicket = "http://" + this.event.urlTicket
+
+    window.open(this.event.urlTicket, "_blank")
+  }
+
+  onImgClick() {
+    let dialogRef = this.dialog.open(EventImageDialogComponent, {
+      data: {
+        image: this.event.urlPoster
+      }, maxHeight: '90vh', maxWidth: '90vw'
+    })
+  }
+
+
   onReport() {
     let dialogRef = this.dialog.open(ReportDialogComponent,{
       data: {
@@ -153,7 +171,6 @@ export class EventComponent implements OnInit {
       }
     })
   }
-
 
   private errorHandler(error: number) {
     switch (error) {
