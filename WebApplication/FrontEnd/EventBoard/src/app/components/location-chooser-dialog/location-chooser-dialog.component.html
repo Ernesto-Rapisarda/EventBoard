@@ -1,12 +1,20 @@
-<p>Your address {{address}}</p>
-<p>Your coordinates {{longitude.toString()+", "+latitude.toString()}}</p>
+<div class="container">
+  <div class="locations-copy">
+    <p class="address">indirizzo: {{address}}</p>
+    <p class="coordinates">coordinate: {{longitude.toString()+", "+latitude.toString()}}</p>
+  </div>
 
-<app-map [coordinates]="[longitude, latitude]" (sendCoordinatesToParent)="onCoordinatesReceived($event)" [draggable]="true" class="map"></app-map>
-<button mat-raised-button color="primary" class="login-btn" (click)="onConfirm()">
-  <mat-icon>check</mat-icon>
-  Salva
-</button>
-<button mat-raised-button color="accent" class="login-btn" (click)="onCancel()">
-  <mat-icon>close</mat-icon>
-  Annulla
-</button>
+
+  <app-map [coordinates]="[longitude, latitude]" (sendCoordinatesToParent)="onCoordinatesReceived($event)" [draggable]="true" class="map"></app-map>
+  <div class="actions">
+    <button mat-raised-button color="primary" class="btn" (click)="onConfirm()">
+      <mat-icon>check</mat-icon>
+      Salva
+    </button>
+    <button mat-raised-button color="accent" class="btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+      Annulla
+    </button>
+  </div>
+</div>
+
