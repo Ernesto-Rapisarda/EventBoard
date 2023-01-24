@@ -110,13 +110,13 @@ public class EventDaoPostgres implements EventDao {
                 st.setLong(2,event.getPosition());
                 st.setTimestamp(3, Timestamp.valueOf(event.getDate()));
                 st.setString(4,event.getEventType().toString());
-                st.setDouble(5,event.getPrice());
+                st.setObject(5,event.getPrice());           // double o null
                 st.setString(6,event.getUrlPoster());
-                st.setBoolean(7,event.getSoldOut());
+                st.setObject(7,event.getSoldOut());         // boolean o null
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
                 st.setString(10,event.getTitle());
-                st.setString(11,event.getUrlTicket());
+                st.setObject(11,event.getUrlTicket());      // string o null
 
             }else {
                 st = conn.prepareStatement(updateEvent);
@@ -124,12 +124,12 @@ public class EventDaoPostgres implements EventDao {
                 st.setTimestamp(2, Timestamp.valueOf(event.getDate()));
                 st.setString(3,event.getTitle());
                 st.setString(4,event.getEventType().toString());
-                st.setDouble(5,event.getPrice());
+                st.setObject(5,event.getPrice());           // double o null
                 st.setString(6,event.getUrlPoster());
-                st.setBoolean(7,event.getSoldOut());
+                st.setObject(7,event.getSoldOut());         // boolean o null
                 st.setString(8,event.getDescription());
                 st.setLong(9,event.getOrganizer());
-                st.setString(10,event.getUrlTicket());
+                st.setObject(10,event.getUrlTicket());      // string o null
                 st.setLong(11,event.getId());
             }
 

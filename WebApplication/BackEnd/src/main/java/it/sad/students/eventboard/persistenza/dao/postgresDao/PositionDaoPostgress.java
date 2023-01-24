@@ -64,17 +64,17 @@ public class PositionDaoPostgress implements PositionDao {
                 st.setLong(1,position.getId());
                 st.setString(2,position.getRegion());
                 st.setString(3,position.getCity());
-                st.setString(4,position.getAddress());
-                st.setDouble(5,position.getLongitude());
-                st.setDouble(6,position.getLatitude());
+                st.setObject(4,position.getAddress());      //string o null
+                st.setObject(5,position.getLongitude());    //double o null
+                st.setObject(6,position.getLatitude());     //double o null
             }
             else{
                 st = conn.prepareStatement(updatePosition);
                 st.setString(1,position.getRegion());
                 st.setString(2,position.getCity());
-                st.setString(3,position.getAddress());
-                st.setDouble(4,position.getLongitude());
-                st.setDouble(5,position.getLatitude());
+                st.setObject(3,position.getAddress());      //string o null
+                st.setObject(4,position.getLongitude());    //double o null
+                st.setObject(5,position.getLatitude());     //double o null
                 st.setLong(6,position.getId());
 
 
