@@ -1,4 +1,4 @@
 <div class="similar-events-container">
-  <p class="header-text">Altri eventi simili</p>
+  <p class="header-text" *ngIf="similarEvents.length > 0">Altri eventi simili</p>
   <app-card *ngFor="let event of similarEvents" [event]="event" routerLink="/event/{{event.id}}"></app-card>
 </div>

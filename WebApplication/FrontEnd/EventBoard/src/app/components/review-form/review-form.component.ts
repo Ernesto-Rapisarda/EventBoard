@@ -11,9 +11,9 @@ import {AuthService} from "../../auth/auth.service";
 export class ReviewFormComponent {
 
   private readonly MIN = 1;
-  private readonly MAX = 10;
+  private readonly MAX = 5;
 
-  rating: number = 8
+  rating: number = 4
   text: string = ''
 
   constructor(private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {

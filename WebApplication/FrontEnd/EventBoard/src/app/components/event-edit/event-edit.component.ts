@@ -187,7 +187,7 @@ export class EventEditComponent implements OnInit {
         this.eventEditForm.value.description,
         this.eventEditForm.value.eventType,
         location,
-        this.authService.user.id,
+        this.event.organizer,
         this.event.id,
         message
       ).subscribe({

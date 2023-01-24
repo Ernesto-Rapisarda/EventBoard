@@ -38,6 +38,7 @@ export class EventComponent implements OnInit {
 
           // Event setup
           this.event = response.event
+          this.event.description = this.event.description.replace(/\n/g, '<br>')
           this.event.position = response.position
           this.event.commentList = response.commentList.reverse()           // Reverse so that they'll appear from last to first
           this.event.likeList = response.likeList

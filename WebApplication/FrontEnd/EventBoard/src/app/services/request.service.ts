@@ -62,7 +62,8 @@ export class RequestService {
           urlTicket: urlTicket,
           description: description,
           eventType: eventType,
-          organizer: organizer
+          organizer: organizer,
+          position: position.id
         },
         position: position
       },
