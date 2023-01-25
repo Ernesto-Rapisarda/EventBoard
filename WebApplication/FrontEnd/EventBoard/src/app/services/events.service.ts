@@ -32,8 +32,6 @@ export class EventsService {
     return this.sortByDateDesc().filter((obj) => {
       const eventDate = new Date(obj.date)
       if(selectedEventTypes.length > 0){
-        console.log(selectedEventTypes)
-        console.log(obj.eventType)
         return (selectedEventTypes.indexOf(obj.eventType) !== -1) && (eventDate.getTime() < nowDate.getTime())
       }
       return eventDate.getTime() < nowDate.getTime()

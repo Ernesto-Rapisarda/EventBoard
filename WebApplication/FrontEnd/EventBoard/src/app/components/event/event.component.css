@@ -40,6 +40,11 @@
   flex-direction: row;
   align-items: center;
 }
+
+.poster:hover {
+  cursor: pointer !important;
+}
+
 .poster {
   max-width: 90%;
   max-height: 90%;

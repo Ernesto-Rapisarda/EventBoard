@@ -17,7 +17,6 @@ import {DEFAULT_COORDINATES} from "../../../constants";
 })
 export class CreateEventComponent implements OnInit{
   eventCreateForm: FormGroup
-  urlPoster: string
   longitude: number = 0.0           // Default longitude
   latitude: number = 0.0            // Default latitude
   address: string
@@ -28,7 +27,6 @@ export class CreateEventComponent implements OnInit{
 
   constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService, private comuniItaService: ComuniItaService) { }
   ngOnInit(): void {
-    this.urlPoster = ""
     this.imageUploaded = false
     this.setEventTypes()
     this.setRegions()
@@ -63,7 +61,7 @@ export class CreateEventComponent implements OnInit{
         this.eventCreateForm.value.title,
         Number.parseFloat(this.eventCreateForm.value.price),
         false,                                        // Event can't be sold out when created
-        this.urlPoster,
+        this.eventCreateForm.value.poster,
         this.eventCreateForm.value.ticketUrl,
         this.eventCreateForm.value.description,
         this.eventCreateForm.value.eventType,
@@ -85,8 +83,11 @@ export class CreateEventComponent implements OnInit{
     if(element.files[0].size < 10000000) {
       this.imgService.upload(element.files[0]).subscribe({
         next: (response: any) => {
-          this.urlPoster = response.data.url
+          this.eventCreateForm.patchValue({
+            poster: response.data.url
+          })
           this.imageUploaded = true
+          console.log(this.eventCreateForm)
         },
         error: error => { this.errorHandler(error) }
       })

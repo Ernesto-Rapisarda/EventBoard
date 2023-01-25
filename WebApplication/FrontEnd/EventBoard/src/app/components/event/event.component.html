@@ -4,7 +4,7 @@
 
     <!-- Poster -->
     <div class="poster-container">
-      <img class="poster" src="{{event.urlPoster}}" alt=""> <!-- da rimettere event.urlPoster -->
+      <img class="poster" src="{{event.urlPoster}}" alt="Image containing the event flyer" (click)="onImgClick()">
     </div>
 
     <div class="event-container">
@@ -12,30 +12,30 @@
       <!-- LEFT SIDE -->
       <div class="event-left-side">
 
-        <!-- data -->
+        <!-- Date -->
         <div class="left-side">
           <h4 class="card-calendar-mmm">{{this.event.date | date: 'MMM'|uppercase}}</h4>
           <h4 class="card-calendar-dd">{{this.event.date | date: 'dd'}}</h4>
         </div>
 
-        <!-- titolo -->
+        <!-- Title -->
         <h1 class="title-header">{{event.title}}</h1>
 
-        <!-- descrizione -->
-        <p class="description-header">{{event.description}}</p>
+        <!-- Description -->
+        <p class="description-header" [innerHTML]="event.description"></p>
 
-        <!-- autore -->
+        <!-- Organizer -->
         <div class="organizer-container">
           <p class="organizer-cpy">organizzato da</p>
           <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
         </div>
 
-        <!-- dove e quando -->
+        <!-- When and where -->
         <div class="card-when-where-container">
           <div class="card-when-where">
             <mat-icon class="calendar-icon">date_range</mat-icon>
             <p class="when-where-cpy">Data e ora</p>
-            <p class="date-string">{{event.date | date: "dd/MM/YYYY H:MM"}}</p>
+            <p class="date-string">{{event.date | date: "dd/MM/YYYY H:mm"}}</p>
           </div>
           <div class="card-when-where">
             <mat-icon class="calendar-icon">place</mat-icon>
@@ -78,15 +78,15 @@
           </div>
         </div>
 
-
+        <!-- Tickets -->
         <div class="get-tickets-container">
           <div class="get-tickets-content">
             <p class="get-ticket-copy">{{event.price === 0.0 ? "Evento gratuito!" : "Biglietti a partire da " + (event.price | currency: "EUR")}}</p>
-            <button mat-raised-button class="get-ticket-button">Vai al sito</button>
+            <button mat-raised-button class="get-ticket-button" (click)="onTicketPage()" [disabled]="event.urlTicket === ''">Vai al sito</button>
           </div>
         </div>
 
-        <!-- Share - Unfortunately we cannot put here the real url because we're serving it on localhost, so we put a placeholder -->
+        <!-- Share -->
         <div class="social-buttons">
           <share-buttons theme="circles-dark"
                          [include]="['facebook', 'twitter', 'email', 'whatsapp', 'telegram', 'copy']"

@@ -22,8 +22,8 @@ export class SimilarEventsBoxComponent implements OnInit {
       const type = this.parentEvent.eventType
       this.requestService.getFilteredEvents(type).subscribe({
         next: (response: any) => {
-          // Take the first 4 events
-          this.similarEvents = response.splice(0, 4)
+          // Take the first 4 events (where the id is different from the parent event)
+          this.similarEvents = response.filter((event: Event) => event.id !== this.parentEvent.id).splice(0, 4)
         },
         error: (error: any) => {
         }
