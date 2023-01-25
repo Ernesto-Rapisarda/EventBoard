@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
@@ -9,6 +9,8 @@ import {Event as MyEvent} from "../../models/event.model";
 import {ComuniItaService} from "../../services/comuni-ita.service";
 import {LocationChooserDialogComponent} from "../location-chooser-dialog/location-chooser-dialog.component";
 import {Location} from "../../models/location.model";
+import {take} from "rxjs/operators";
+import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
@@ -26,6 +28,8 @@ export class EventEditComponent implements OnInit {
   latitude: number
   longitude: number
 
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+
   constructor(
     private comuniItaService: ComuniItaService,
     private requestService: RequestService,
@@ -33,7 +37,8 @@ export class EventEditComponent implements OnInit {
     private imgService: ImgbbService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private _ngZone: NgZone) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
@@ -202,6 +207,11 @@ export class EventEditComponent implements OnInit {
 
   onCancel() {
     this.goToEventPage()
+  }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
   private goToEventPage() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
@@ -9,6 +9,8 @@ import {Location} from "../../models/location.model";
 import {MatDialog} from "@angular/material/dialog";
 import {LocationChooserDialogComponent} from "../location-chooser-dialog/location-chooser-dialog.component";
 import {DEFAULT_COORDINATES} from "../../../constants";
+import {take} from "rxjs/operators";
+import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 
 @Component({
   selector: 'app-create-event',
@@ -24,8 +26,9 @@ export class CreateEventComponent implements OnInit{
   regions: string[]
   cities: string[]
   imageUploaded: boolean
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService, private comuniItaService: ComuniItaService) { }
+  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService, private comuniItaService: ComuniItaService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
     this.setEventTypes()
@@ -112,6 +115,11 @@ export class CreateEventComponent implements OnInit{
       this.latitude = result.latitude
       this.longitude = result.longitude
     })
+  }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
   // SERVICE FUNCTIONS

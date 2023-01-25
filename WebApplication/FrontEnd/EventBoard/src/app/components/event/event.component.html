@@ -21,15 +21,6 @@
         <!-- Title -->
         <h1 class="title-header">{{event.title}}</h1>
 
-        <!-- Description -->
-        <p class="description-header" [innerHTML]="event.description"></p>
-
-        <!-- Organizer -->
-        <div class="organizer-container">
-          <p class="organizer-cpy">organizzato da</p>
-          <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
-        </div>
-
         <!-- When and where -->
         <div class="card-when-where-container">
           <div class="card-when-where">
@@ -43,6 +34,18 @@
             <p class="position-string">{{event.position.address || "NON DEFINITO"}}, {{event.position.city}}, {{event.position.region}}</p>
           </div>
         </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Description -->
+        <p class="description-header" [innerHTML]="event.description"></p>
+
+        <!-- Organizer -->
+        <div class="organizer-container">
+          <p class="organizer-cpy">organizzato da</p>
+          <p class="organizer-name" routerLink="/organizer/{{event.organizer}}">{{event.organizerFullName}}</p>
+        </div>
+
 
         <!-- Map -->
         <div class="map-container">
@@ -116,7 +119,7 @@
                 <ng-template mat-tab-label>
                   <span matBadge="{{event.reviewList.length}}" matBadgeOverlap="false">Recensioni</span>
                 </ng-template>
-                <app-review-form *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
+                <app-review-form [eventDate]="event.date" *ngIf="authService.isAuthenticated() && event.organizer != authService.user.id"></app-review-form>
                 <app-review *ngFor="let review of event.reviewList" [review]="review"></app-review>
               </mat-tab>
             </mat-tab-group>

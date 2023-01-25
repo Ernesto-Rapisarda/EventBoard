@@ -7,8 +7,14 @@
 
     <!-- Text input -->
     <mat-form-field class="input-field" appearance="outline">
-      <mat-label>Scrivi qui</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()">
+      <mat-label matTooltip="{{isBeforeEventDate() ? 'Recensioni possibili solo dopo la data dell\'evento' : ''}}">{{isBeforeEventDate() ? "Recensioni possibili solo dopo l'evento" : 'Scrivi qui'}}</mat-label>
+      <textarea class="input-field"
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()" (keyup.shift.enter)="(0)" [disabled]="isBeforeEventDate()"></textarea>
     </mat-form-field>
     <div class="send-btn-container">
       <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()">

@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, NgZone, ViewChild} from '@angular/core';
 import {RequestService} from "../../services/request.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
+import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-comment-form',
@@ -10,7 +12,8 @@ import {AuthService} from "../../auth/auth.service";
 })
 export class CommentFormComponent {
   text: string = ''
-  constructor(private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  constructor(private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router, private _ngZone: NgZone) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -25,6 +28,11 @@ export class CommentFormComponent {
     }
     else
       alert("ERRORE: Testo del commento vuoto!")
+  }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
   private errorHandler(error: any) {

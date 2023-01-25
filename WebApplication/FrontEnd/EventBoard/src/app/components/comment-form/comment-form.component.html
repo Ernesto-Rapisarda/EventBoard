@@ -6,7 +6,13 @@
   <div class="field-container">
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Scrivi qui...</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()">
+      <textarea class="input-field"
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()" (keyup.shift.enter)="(0)"></textarea>
     </mat-form-field>
     <div class="send-btn-container">
       <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === ''" (click)="onSend()">

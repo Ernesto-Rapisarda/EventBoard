@@ -6,7 +6,12 @@
   <div class="field-container">
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Scrivi qui...</mat-label>
-      <input class="input-field" matInput placeholder="Non vedo l'ora!" [(ngModel)]="text">
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+             class="input-field"  placeholder="Non vedo l'ora!" (keyup.enter)="onConfirm()" (keyup.shift.enter)="(0)" [(ngModel)]="text"></textarea>
     </mat-form-field>
 
     <div class="btn-container">

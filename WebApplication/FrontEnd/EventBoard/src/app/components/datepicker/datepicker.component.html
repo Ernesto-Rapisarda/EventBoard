@@ -1,6 +1,6 @@
 <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>Scegli una data</mat-label>
-  <input matInput [min]="" [max]="maxDate" [formControlName]="controlName" readonly="readonly"[ngxMatDatetimePicker]="picker">
+  <input matInput [min]="minDate" [max]="maxDate" [formControlName]="controlName" readonly="readonly"[ngxMatDatetimePicker]="picker">
   <mat-error *ngIf="picker.valid">
     Inserisci una data e un ora validi
   </mat-error>

@@ -33,7 +33,8 @@
 
 .input-field {
   float: left;
-  margin-right: 12px;
+  margin-left: 12px !important;
+  margin-right: 12px !important;
 }
 
 .send-btn-container {
