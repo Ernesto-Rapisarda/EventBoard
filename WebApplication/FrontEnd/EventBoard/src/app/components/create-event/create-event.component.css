@@ -1,4 +1,10 @@
 /* Container principale */
+.container {
+  display: flex;
+  background-color: var(--login-page-background-color);
+  height: auto;
+}
+
 .card {
   display:flex;
   max-width: 350px;
