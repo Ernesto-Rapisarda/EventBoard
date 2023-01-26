@@ -136,7 +136,6 @@ public class CommentDaoPostgres implements CommentDao {
     public void delete(Comment comment) {
         String query = "DELETE FROM comment WHERE id = ?";
         try {
-            // TODO: 30/12/2022 rimozione a cascata
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, comment.getId());
             st.executeUpdate();
@@ -147,7 +146,6 @@ public class CommentDaoPostgres implements CommentDao {
     }
 
     public boolean deleteByEvent(Long idEvent) throws SQLException{
-        //delega gestione errori
 
         String query = "DELETE FROM comment WHERE event = ?";
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class RequestAuthentication {
 
     private String username;// TODO: 04/01/2023 email???
     String password;
