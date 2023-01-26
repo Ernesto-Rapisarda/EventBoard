@@ -20,6 +20,7 @@ export class EventComponent implements OnInit {
   likesNumber: number
   participantsNumber: number
   interactionsNumber: number
+  averageRating: number;
   constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -54,6 +55,13 @@ export class EventComponent implements OnInit {
             this.liked = this.didILikeThis()
             this.participate = this.willIParticipate()
           }
+
+          let ratingsSum = 0
+          for(let review of this.event.reviewList)
+            ratingsSum += review.rating
+
+          if(this.event.reviewList.length > 0)
+            this.averageRating = ratingsSum / this.event.reviewList.length
 
           this.likesNumber = this.event.likeList.length
           this.participantsNumber = this.event.participationList.length

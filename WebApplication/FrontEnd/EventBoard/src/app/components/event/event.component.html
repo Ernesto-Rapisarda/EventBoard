@@ -21,6 +21,10 @@
         <!-- Title -->
         <h1 class="title-header">{{event.title}}</h1>
 
+        <div class="card-rating" *ngIf="averageRating">
+          <div class="rating"><span class="star">★</span>{{averageRating.toFixed(2).replace(".00", "")}}/5</div>
+        </div>
+
         <!-- When and where -->
         <div class="card-when-where-container">
           <div class="card-when-where">
