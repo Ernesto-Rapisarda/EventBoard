@@ -3,6 +3,7 @@ import {AuthService} from "../../auth/auth.service";
 import {RequestService} from "../../services/request.service";
 import {Event} from "../../models/event.model"
 import {EventsService} from "../../services/events.service";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-homepage',
@@ -12,6 +13,7 @@ import {EventsService} from "../../services/events.service";
 export class HomepageComponent implements OnInit {
   eventTypes: string[]
   selectedEventTypes: string[] = []
+  recommendedForYouChecked: boolean = false
 
   constructor(protected authService: AuthService, private requestService: RequestService, protected eventsService: EventsService) { }
 
@@ -35,6 +37,17 @@ export class HomepageComponent implements OnInit {
     const index = this.selectedEventTypes.indexOf(eventType)
     if (index !== -1)
       this.selectedEventTypes.splice(index, 1)
+  }
+
+  toggleChanges($event: MatSlideToggleChange) {
+    this.recommendedForYouChecked = $event.checked;
+    if(this.recommendedForYouChecked){
+      for(let preference of this.authService.user.preferences)
+        this.handleSelectedType(preference.event_type)
+    }
+    else{
+      this.selectedEventTypes = []
+    }
   }
 
   private setEvents() {

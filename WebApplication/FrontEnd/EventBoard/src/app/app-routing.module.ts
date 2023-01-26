@@ -18,7 +18,7 @@ import {AdminDashboardComponent} from "./components/admin-dashboard/admin-dashbo
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
-  {path: 'admin/dashboard', component: AdminDashboardComponent},
+  {path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard]},
   {path: 'profile/activate/:token', component: ActivateComponent},
   {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {path: 'event/:id', component: EventComponent},

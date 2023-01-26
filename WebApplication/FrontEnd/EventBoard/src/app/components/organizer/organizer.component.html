@@ -5,9 +5,6 @@
 
     <!-- Nome e cognome -->
     <h1 class="organizer-header-name">{{fullName}}</h1>
-
-    <!-- Email -->
-    <p class="organizer-header-mail">{{email}}</p>
   </div>
 
   <!-- Vetrina eventi pubblicati dall'organizzatore -->
@@ -16,15 +13,15 @@
       <h2 class="explore-cpy">Eventi</h2>
     </div>
     <div class="cards">
-      <app-card class="card" *ngFor="let event of this.eventsService.events" [event]="event"></app-card>
+      <app-card class="card" *ngFor="let event of this.eventsService.events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
     </div>
   </div>
-
-  <div class="contact-btn">
-    <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+</div>
+<div class="contact-btn">
+  <a href="mailto:{{email}}">
+    <button mat-fab color="primary" matTooltip="Contatta l'organizzatore" aria-label="Contact the organizer">
       <mat-icon>contacts</mat-icon>
     </button>
-  </div>
-
+  </a>
 </div>
 <div class="main-footer"></div>

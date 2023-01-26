@@ -4,19 +4,19 @@
   </div>
   <div class="card-header">
     <div class="username">{{review.namePerson}}</div>
-    <div class="date">{{review.date | date: "dd/MM/YYYY H:mm"}}</div>
+    <div class="date">{{review.date | date: "dd/MM/YYYY"}}</div>
   </div>
   <div class="card-content">
     <p>{{review.message}}</p>
   </div>
   <div class="card-footer">
-    <button mat-icon-button aria-label="Edit review" *ngIf="this.authService.user && (this.authService.user.id === review.person)" (click)="onEdit()">
+    <button mat-icon-button aria-label="Edit review" *ngIf="this.authService.user && (this.authService.user.id === review.person)" (click)="onEdit()" matTooltip="Modifica">
       <mat-icon class="icon-edit">edit</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Delete review" *ngIf="this.authService.user && ((this.authService.user.id === review.person) || authService.isAdmin())" (click)="onDelete()">
+    <button mat-icon-button aria-label="Delete review" *ngIf="this.authService.user && ((this.authService.user.id === review.person) || authService.isAdmin())" (click)="onDelete()" matTooltip="Rimuovi">
       <mat-icon class="icon-delete">delete</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Report review" *ngIf="this.authService.user && (this.authService.user.id !== review.person) && !authService.isAdmin()" (click)="onReport()">
+    <button mat-icon-button aria-label="Report review" *ngIf="this.authService.user && (this.authService.user.id !== review.person) && !authService.isAdmin()" (click)="onReport()" matTooltip="Segnala">
       <mat-icon class="icon-report">report</mat-icon>
     </button>
   </div>

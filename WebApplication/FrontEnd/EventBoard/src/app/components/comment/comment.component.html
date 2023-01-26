@@ -9,17 +9,17 @@
   <div class="card-footer">
 
     <!-- Modifica -->
-    <button mat-icon-button aria-label="Edit button" *ngIf="this.authService.user && (this.authService.user.id === comment.person || authService.isAdmin())" (click)="onEdit()">
+    <button mat-icon-button aria-label="Edit button" *ngIf="this.authService.user && (this.authService.user.id === comment.person || authService.isAdmin())" (click)="onEdit()" matTooltip="Modifica">
       <mat-icon class="icon-edit">edit</mat-icon>
     </button>
 
     <!-- Rimuovi -->
-    <button mat-icon-button aria-label="Delete button" *ngIf="this.authService.user && ((this.authService.user.id === comment.person || authService.isAdmin()))" (click)="onDelete()">
+    <button mat-icon-button aria-label="Delete button" *ngIf="this.authService.user && ((this.authService.user.id === comment.person || authService.isAdmin()))" (click)="onDelete()" matTooltip="Rimuovi">
       <mat-icon class="icon-delete">delete</mat-icon>
     </button>
 
     <!-- Segnala -->
-    <button mat-icon-button aria-label="Report button" *ngIf="this.authService.user && (this.authService.user.id !== comment.person) && !authService.isAdmin()" (click)="onReport()">
+    <button mat-icon-button aria-label="Report button" *ngIf="this.authService.user && (this.authService.user.id !== comment.person) && !authService.isAdmin()" (click)="onReport()" matTooltip="Segnala">
       <mat-icon class="icon-report">report</mat-icon>
     </button>
   </div>

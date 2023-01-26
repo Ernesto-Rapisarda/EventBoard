@@ -17,11 +17,11 @@
                 placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()" (keyup.shift.enter)="(0)" [disabled]="isBeforeEventDate()"></textarea>
     </mat-form-field>
     <div class="send-btn-container">
-      <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()">
+      <button class="set-rating-btn" mat-mini-fab aria-label="Review button" (click)="updateRating()" matTooltip="Cambia rating">
         <mat-icon>star</mat-icon>
         {{rating}}
       </button>
-      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text===''" (click)="onSend()">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text===''" (click)="onSend()" matTooltip="Invia recensione">
         <mat-icon>send</mat-icon>
       </button>
     </div>

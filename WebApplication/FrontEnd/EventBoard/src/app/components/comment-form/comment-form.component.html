@@ -15,7 +15,7 @@
                 placeholder="Non vedo l'ora!" [(ngModel)]="text" (keyup.enter)="onSend()" (keyup.shift.enter)="(0)"></textarea>
     </mat-form-field>
     <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === ''" (click)="onSend()">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="text === ''" (click)="onSend()" matTooltip="Invia commento">
         <mat-icon>send</mat-icon>
       </button>
     </div>

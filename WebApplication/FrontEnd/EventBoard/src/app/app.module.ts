@@ -71,6 +71,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { SimilarEventsBoxComponent } from './components/similar-events-box/similar-events-box.component';
 import { EventImageDialogComponent } from './components/event-image-dialog/event-image-dialog.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 registerLocaleData(localeIt, 'it');
 
@@ -148,7 +149,8 @@ registerLocaleData(localeIt, 'it');
             debug: true
         }),
         ShareIconsModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSlideToggleModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},

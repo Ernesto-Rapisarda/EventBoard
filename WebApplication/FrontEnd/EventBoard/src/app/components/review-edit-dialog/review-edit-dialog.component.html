@@ -23,12 +23,12 @@
     </div>
 
     <div class="send-btn-container">
-      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="(text === '' || (text === originalText && rating === originalRating))" (click)="onConfirm()">
+      <button class="send-btn" mat-icon-button aria-label="Send button" [disabled]="(text === '' || (text === originalText && rating === originalRating))" (click)="onConfirm()" matTooltip="Modifica recensione">
         <mat-icon>send</mat-icon>
       </button>
     </div>
     <div class="cancel-btn-container">
-      <button class="cancel-btn" mat-icon-button aria-label="Cancel button" (click)="onCancel()">
+      <button class="cancel-btn" mat-icon-button aria-label="Cancel button" (click)="onCancel()" matTooltip="Annulla operazione">
         <mat-icon>close</mat-icon>
       </button>
     </div>

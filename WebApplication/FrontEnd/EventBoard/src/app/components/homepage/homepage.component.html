@@ -7,10 +7,18 @@
 </ng-template>
 
 <div class="container">
-  <div class="chip-listbox-container">
+  <div class="chip-listbox-container" *ngIf="!recommendedForYouChecked">
     <mat-chip-listbox [multiple]="true" aria-label="Filtri per tipologia">
       <mat-chip-option *ngFor="let event of eventTypes" (selectionChange)="handleSelectedType(event)">{{event}}</mat-chip-option>
     </mat-chip-listbox>
+  </div>
+
+  <p class="event-type-label" *ngIf="recommendedForYouChecked"><strong>In base alle tue preferenze: </strong>{{selectedEventTypes.toString().replaceAll(",", ", ")}}<br/></p>
+
+  <div class="slide-toggle-container">
+    <mat-slide-toggle *ngIf="authService.isAuthenticated() && authService.user.preferences.length > 0"
+                      (change)="toggleChanges($event)"
+                      [disabled]="authService.user.preferences.length === 0">Consigliati per te!</mat-slide-toggle>
   </div>
 
   <div class="events-container">

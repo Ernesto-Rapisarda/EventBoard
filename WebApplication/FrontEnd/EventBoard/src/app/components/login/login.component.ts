@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
                 userData.position,
                 userData.is_not_locked
               )
-              console.log(this.authService.user)
+              this.authService.isLoggedIn = true
             },
             error: error => { this.errorHandler(error.status) },
           })

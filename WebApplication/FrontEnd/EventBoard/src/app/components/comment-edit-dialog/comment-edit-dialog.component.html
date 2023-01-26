@@ -16,12 +16,12 @@
 
     <div class="btn-container">
       <div class="cancel-btn-container">
-        <button mat-mini-fab color="warn" aria-label="Cancel button" (click)="onCancel()">
+        <button mat-mini-fab color="warn" aria-label="Cancel button" (click)="onCancel()" matTooltip="Annulla operazione">
           <mat-icon>cancel</mat-icon>
         </button>
       </div>
       <div class="send-btn-container">
-        <button mat-mini-fab color="primary" aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()">
+        <button mat-mini-fab color="primary" aria-label="Send button" [disabled]="text === '' || text === originalText" (click)="onConfirm()" matTooltip="Modifica commento">
           <mat-icon>send</mat-icon>
         </button>
       </div>

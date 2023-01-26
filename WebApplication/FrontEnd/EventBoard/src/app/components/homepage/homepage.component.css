@@ -34,6 +34,15 @@
   font-weight: 500;
 }
 
+mat-slide-toggle {
+  margin-top: var(--margin-top);
+}
+
+.event-type-label {
+  font-size: 20px;
+  padding-top: var(--margin-top);
+}
+
 @media screen and (max-width: 600px) {
   .chip-listbox-container {
     margin-left: 4px;

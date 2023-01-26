@@ -68,7 +68,7 @@
         <div class="like-participate-container">
           <div class="participate-button-container">
             <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
-                    [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'">
+                    [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
               <mat-icon>how_to_reg</mat-icon>
             </button>
             <br><br>
@@ -77,7 +77,7 @@
           </div>
           <div class="like-button-container">
             <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
-                    [ngClass]="liked ? 'like-button-true' : 'like-button-false'">
+                    [ngClass]="liked ? 'like-button-true' : 'like-button-false'" matTooltip="Mi piace" matTooltipPosition="above">
               <mat-icon>favorite</mat-icon>
             </button>
             <br><br>
@@ -136,17 +136,17 @@
     <!-- Floating buttons -->
     <div class="floating-buttons-left">
       <div class="edit-button-container">
-        <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+        <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')" matTooltip="Modifica" matTooltipPosition="after">
           <mat-icon class="icon-edit">edit</mat-icon>
         </button>
       </div>
       <div class="delete-button-container">
-        <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')">
+        <button class="delete-button" mat-fab aria-label="Delete" color="warn" (click)="onDelete()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')" matTooltip="Rimuovi" matTooltipPosition="after">
           <mat-icon class="icon-delete">delete</mat-icon>
         </button>
       </div>
       <div class="report-button-container">
-        <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role !== 'ADMIN')">
+        <button class="report-button" mat-fab aria-label="Report" (click)="onReport()" *ngIf="authService.isAuthenticated() && (authService.user.id !== event.organizer && authService.user.role !== 'ADMIN')" matTooltip="Segnala" matTooltipPosition="after">
           <mat-icon class="icon-report">report</mat-icon>
         </button>
       </div>
