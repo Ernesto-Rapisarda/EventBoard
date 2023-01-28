@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
-//@ServletComponentScan
+@ServletComponentScan
 public class EventBoardApplication {
 
 	public static void main(String[] args) {

@@ -31,8 +31,9 @@ public class SecurityConfiguration  {
 
                 .csrf().disable()
                 .authorizeHttpRequests()
-
-                .requestMatchers("/api/noauth/**","/views/**") //per pagine ospite
+                .anyRequest().permitAll()
+                /*
+                .requestMatchers("/api/noauth/**") //per pagine ospite
                 .permitAll()
                 .requestMatchers("/api/create/event")
                 .hasAnyAuthority("ORGANIZER","ADMIN")
@@ -45,7 +46,7 @@ public class SecurityConfiguration  {
                 .requestMatchers("/api/user/admin/**")
                 .hasAuthority("ADMIN")
                 .anyRequest()
-                .authenticated()
+                .authenticated()*/
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
