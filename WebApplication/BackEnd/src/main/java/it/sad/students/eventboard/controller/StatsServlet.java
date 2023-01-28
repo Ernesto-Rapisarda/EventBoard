@@ -1,6 +1,7 @@
 package it.sad.students.eventboard.controller;
 
 import it.sad.students.eventboard.persistenza.DBManager;
+import it.sad.students.eventboard.persistenza.model.EventsStats;
 import it.sad.students.eventboard.persistenza.model.GlobalStats;
 import it.sad.students.eventboard.service.EventService;
 import jakarta.servlet.RequestDispatcher;
@@ -12,12 +13,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @WebServlet("/getstats")
 public class StatsServlet extends HttpServlet {
 
-    private EventService eventService;
+    private final EventService eventService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,8 +33,10 @@ public class StatsServlet extends HttpServlet {
 
         // TODO: 28/01/2023 lista top 5
 
+        List<EventsStats> eventsStatsList = eventService.getTopFiveEvent();
 
-        req.setAttribute("topFive",eventService.getTopFiveEvent());
+
+        req.setAttribute("topFive",eventsStatsList);
         RequestDispatcher dispacher = req.getRequestDispatcher("views/stats.html");
         dispacher.forward(req, resp);
     }

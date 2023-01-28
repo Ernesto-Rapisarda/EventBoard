@@ -13,24 +13,45 @@
     <title>Statistiche</title>
 </head>
 <body>
-<h1>STATISTICHE GLOBALI</h1>
-<table border="1">
-    <tr>
-        <th>Numero Eventi</th>
-        <th>N° Commenti</th>
-        <th>N° Recensioni</th>
-        <th>N° Like</th>
-        <th>N° Partecipazioni</th>
-    </tr>
-    <tr>
-        <td th:text="${global.nEvents}"></td>
-        <td th:text="${global.nComments}"></td>
-        <td th:text="${global.nReviews}"></td>
-        <td th:text="${global.nLike}"></td>
-        <td th:text="${global.nPartecipation}"></td>
+<h1 align="center">REPLICARE QUI TOP BAR PRESENTE SU ANGULAR</h1>
+<br/>
+    <div class="container-md">
+        <h1>STATISTICHE GLOBALI</h1>
+        <table border="1">
+            <tr>
+                <th>Numero Eventi</th>
+                <th>N° Commenti</th>
+                <th>N° Recensioni</th>
+                <th>N° Like</th>
+                <th>N° Partecipazioni</th>
+            </tr>
+            <tr>
+                <td th:text="${global.nEvents}"></td>
+                <td th:text="${global.nComments}"></td>
+                <td th:text="${global.nReviews}"></td>
+                <td th:text="${global.nLike}"></td>
+                <td th:text="${global.nPartecipation}"></td>
 
-    </tr>
-</table>
+            </tr>
+        </table>
+        <br/>
+        <h1>TOP 5 EVENTI</h1>
+        <br/>
+        <div class="row" >
+            <div class="col" th:each="ev :${topFive}" style="width: 30%; " >
+                <div class="card" >
+                    <img th:src="${ev.urlImage}" class="card-img-top" alt="..." style="max-height: 18rem;width: auto ">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${ev.title}"></h5>
+                        <p class="card-text" th:text="${ev.rating}"></p>
+                        <a th:href="@{http:localhost:4200/api/noauth/event/details/${ev.id}}" class="btn btn-primary">Visualizza</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<br/>
 
+<h1 align="center">REPLICARE QUI FOOTER PRESENTE SU ANGULAR</h1>
 </body>
 </html>
