@@ -5,6 +5,7 @@ import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
+import it.sad.students.eventboard.persistenza.model.EventsStats;
 import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
 
 import java.sql.*;
@@ -233,6 +234,33 @@ public class EventDaoPostgres implements EventDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+        return events;
+    }
+
+    @Override
+    public List<EventsStats> topFiveRating() {
+        ArrayList<EventsStats> events = new ArrayList<>();
+        String query ="SELECT e.id ,e.title ,e.poster , AVG(r.rating) as media_rating " +
+                        "FROM event as e LEFT JOIN review as r ON e.id = r.event " +
+                        "GROUP BY e.id, e.title,e.poster " +
+                        "HAVING AVG(r.rating) IS NOT NULL " +
+                        "ORDER BY media_rating DESC " +
+                        "LIMIT 5 ";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                EventsStats event=new EventsStats();
+                event.setId(rs.getLong("id"));
+                event.setTitle(rs.getString("title"));
+                event.setUrlImage(rs.getString("poster"));
+                event.setRating(rs.getDouble("media_rating"));
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return events;
     }
