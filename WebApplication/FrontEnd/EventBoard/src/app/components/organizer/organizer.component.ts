@@ -37,7 +37,6 @@ export class OrganizerComponent implements OnInit {
             }
             this.eventsService.events.push(event)
           }
-          this.eventsService.sortByDateAsc()
         },
         error: error => {
 
