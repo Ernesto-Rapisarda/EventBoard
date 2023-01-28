@@ -32,7 +32,7 @@ public class SecurityConfiguration  {
                 .csrf().disable()
                 .authorizeHttpRequests()
 
-                .requestMatchers("/api/noauth/**") //per pagine ospite
+                .requestMatchers("/api/noauth/**","/views/**") //per pagine ospite
                 .permitAll()
                 .requestMatchers("/api/create/event")
                 .hasAnyAuthority("ORGANIZER","ADMIN")

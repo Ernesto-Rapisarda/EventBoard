@@ -22,7 +22,7 @@ public class EventDaoPostgres implements EventDao {
     @Override
     public List<Event> findAll() {
         ArrayList<Event> events = new ArrayList<>();
-        String query ="select * from event";
+        String query ="select * from event order by event.date";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -58,7 +58,7 @@ public class EventDaoPostgres implements EventDao {
     @Override
     public List<Event> findByType(EventType type) {
         ArrayList<Event> events = new ArrayList<>();
-        String query ="select * from event where event_type=?";
+        String query ="select * from event where event_type=? order by event.date";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,type.toString());
@@ -77,7 +77,7 @@ public class EventDaoPostgres implements EventDao {
     @Override
     public List<Event> findByOrganizer(Long id) {
         ArrayList<Event> events = new ArrayList<>();
-        String query ="select * from event where organizer=?";
+        String query ="select * from event where organizer=? order by event.date";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setLong(1,id);
@@ -97,7 +97,7 @@ public class EventDaoPostgres implements EventDao {
     @Override
     public List<Event> findByKeywords(String keywords) {
         ArrayList<Event> events = new ArrayList<>();
-        String query ="select * from event where title ilike ?";
+        String query ="select * from event where title ilike ? order by event.date";
         try {
             keywords= "%"+keywords+"%";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -220,7 +220,7 @@ public class EventDaoPostgres implements EventDao {
             }
 
         }
-        String query=queryF+queryB;
+        String query=queryF+queryB+" order by e.date";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             //stmt.setString(1,keywords);
