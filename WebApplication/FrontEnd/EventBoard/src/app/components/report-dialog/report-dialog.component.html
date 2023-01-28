@@ -1,9 +1,15 @@
-<div>
-  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+<div class="card-container">
+
+  <div class="card-header">
+    <div class="header-text">Dicci di più.</div>
+  </div>
+
+  <form class="form-container" [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+
     <!-- report types  -->
     <mat-form-field appearance="fill">
-      <mat-label>Tipologia evento</mat-label>
-      <mat-select matNativeControl formControlName="type" required>
+      <mat-label>Tipologia</mat-label>
+      <mat-select formControlName="type" required>
         <mat-option *ngFor="let type of reportTypes" value="{{type}}">{{type}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -18,13 +24,17 @@
     </div>
 
     <!-- confirm/cancel -->
-    <div class="interaction-buttons-container">
-      <button class="btn" mat-fab color="warn" aria-label="Conferma" (click)="onConfirm()" [disabled]="!reportForm.valid" type="submit">
-        <mat-icon>send</mat-icon>
-      </button>
-      <button class="btn" mat-fab color="primary" aria-label="Annulla" (click)="onCancel()" type="submit">
-        <mat-icon>clear</mat-icon>
-      </button>
+    <div class="btn-container">
+      <div class="cancel-btn-container">
+        <button class="btn" mat-mini-fab color="warn" aria-label="Annulla" (click)="onCancel()" matTooltip="Annulla operazione" type="submit">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <div class="send-btn-container">
+        <button class="btn" mat-mini-fab color="primary" aria-label="Conferma" (click)="onConfirm()" [disabled]="!reportForm.valid" matTooltip="Invia segnalazione" type="submit">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
     </div>
   </form>
 </div>
