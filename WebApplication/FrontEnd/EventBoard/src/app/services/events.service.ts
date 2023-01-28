@@ -5,6 +5,7 @@ import {Event} from '../models/event.model'
   providedIn: 'root'
 })
 export class EventsService {
+  // TODO: DIVIDERE EVENTS IN futureEvents e pastEvents, altrimenti abbiamo problemi con il sorting nel menu
   events: Array<Event>
   constructor() { }
 

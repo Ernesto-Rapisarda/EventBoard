@@ -30,7 +30,7 @@
 
 <!-- do search -->
 <div class="search-container">
-  <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="doSearch()">Cerca</button>
+  <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="onSearch()">Cerca</button>
 </div>
 
 <div class="card-container" *ngIf="searchDone">

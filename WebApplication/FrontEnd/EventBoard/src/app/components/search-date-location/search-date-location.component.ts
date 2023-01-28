@@ -59,7 +59,7 @@ export class SearchDateLocationComponent implements OnInit {
     else { this.cities = ['Qualsiasi'] }
   }
 
-  doSearch() {
+  onSearch() {
     this.events = []
     this.searchDone = true
     const searchType = "dateAndOrLocation"
