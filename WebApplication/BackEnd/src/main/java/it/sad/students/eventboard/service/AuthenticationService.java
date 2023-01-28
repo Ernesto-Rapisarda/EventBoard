@@ -3,8 +3,8 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
-import it.sad.students.eventboard.service.httpbody.AuthenticationRequest;
-import it.sad.students.eventboard.service.httpbody.AuthenticationResponse;
+import it.sad.students.eventboard.service.httpbody.RequestAuthentication;
+import it.sad.students.eventboard.service.httpbody.ResponseAuthentication;
 import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
@@ -14,11 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.swing.table.TableRowSorter;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +51,7 @@ public class AuthenticationService {
         }
 
         /*
-        return statusCodes.okGetElement(AuthenticationResponse.builder()
+        return statusCodes.okGetElement(ResponseAuthentication.builder()
                 .token(jwtToken)
                 .build()) ;*/
 
@@ -66,7 +63,7 @@ public class AuthenticationService {
 
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public ResponseAuthentication authenticate(RequestAuthentication request) {
          authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -76,7 +73,7 @@ public class AuthenticationService {
          var user = DBManager.getInstance().getPersonDao().findByUsername(request.getUsername());
 
          var jwtToken = jwtService.generateToken(user);
-         return AuthenticationResponse.builder()
+         return ResponseAuthentication.builder()
                  .token(jwtToken)
                  .build() ;
     }

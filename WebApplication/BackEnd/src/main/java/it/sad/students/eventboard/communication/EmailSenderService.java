@@ -18,8 +18,6 @@ public class EmailSenderService implements EmailSender {
 
     JavaMailSender emailSender;
 
-    //@Value("${spring.mail.username}") private String sender;
-
     public EmailSenderService(JavaMailSender emailSender){
         this.emailSender = emailSender;
     }

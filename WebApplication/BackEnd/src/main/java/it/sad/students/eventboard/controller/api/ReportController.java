@@ -17,7 +17,6 @@ public class ReportController {
 
     private ReportService reportService;
 
-    // TODO: 18/01/2023
     @PostMapping("/comment/{id_comment}")
     public ResponseEntity reportComment(@PathVariable Long id_comment, @RequestBody Report report,@RequestHeader (name="Authorization") String token){
         //codice 403 se non si è loggati

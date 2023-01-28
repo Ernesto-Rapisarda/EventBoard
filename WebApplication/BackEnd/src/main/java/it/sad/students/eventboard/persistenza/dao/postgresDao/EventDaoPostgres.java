@@ -5,6 +5,7 @@ import it.sad.students.eventboard.persistenza.IdBroker;
 import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
+import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
 
 import java.sql.*;
 import java.time.temporal.ChronoUnit;
@@ -93,6 +94,26 @@ public class EventDaoPostgres implements EventDao {
         return events;
     }
 
+    @Override
+    public List<Event> findByKeywords(String keywords) {
+        ArrayList<Event> events = new ArrayList<>();
+        String query ="select * from event where title ilike ?";
+        try {
+            keywords= "%"+keywords+"%";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,keywords);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Event event = readEvent(rs);
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return events;
+    }
 
 
     @Override
@@ -172,6 +193,48 @@ public class EventDaoPostgres implements EventDao {
             }
         }
 
+    }
+
+    @Override
+    public List<Event> findBySomeData(RequestSearchEvent requestSearchEvent) {
+        ArrayList<Event> events = new ArrayList<>();
+        String queryF ="select * from event as e";
+        String queryB =" where ";
+        if (requestSearchEvent.getInitialRangeDate()!=null && requestSearchEvent.getFinalRangeDate()!=null){
+            /*query= query+"date >= "+requestSearchEvent.getInitialRangeDate()+
+            " date <= "+requestSearchEvent.getFinalRangeDate();*/
+            queryB= queryB + "(DATE(e.date) between '"+requestSearchEvent.getInitialRangeDate().toString()+"' and '"+requestSearchEvent.getFinalRangeDate().toString()+"')";
+
+        }
+        if (requestSearchEvent.getRegion()!=null || requestSearchEvent.getCity()!=null){
+            queryF = queryF+",position as p";
+
+            if (requestSearchEvent.getInitialRangeDate()!=null && requestSearchEvent.getFinalRangeDate()!=null)
+                queryB =queryB +" and ";
+
+            queryB=queryB+"e.position=p.id and ";
+            if (requestSearchEvent.getRegion()!=null)
+                queryB=queryB+"p.region ='"+requestSearchEvent.getRegion()+"'";
+            if (requestSearchEvent.getRegion()!=null && requestSearchEvent.getCity()!=null ) {
+                queryB = queryB + " and "+"p.city='"+requestSearchEvent.getCity()+"'";
+            }
+
+        }
+        String query=queryF+queryB;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            //stmt.setString(1,keywords);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Event event = readEvent(rs);
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return events;
     }
 
 

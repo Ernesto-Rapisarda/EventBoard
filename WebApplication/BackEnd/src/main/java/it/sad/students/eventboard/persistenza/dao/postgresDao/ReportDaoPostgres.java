@@ -100,7 +100,6 @@ public class ReportDaoPostgres implements ReportDao {
     public void delete(Report report) {
         String query = "DELETE FROM report WHERE id = ?";
         try {
-            // TODO: 30/12/2022 rimozione a cascata
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, report.getId());
             st.executeUpdate();

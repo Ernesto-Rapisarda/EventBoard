@@ -36,7 +36,6 @@ public class UserController {
        return userService.updateUser(person,token);
     }
 
-    // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
     @RequestMapping("/api/noauth/activate/{token}")
     public ResponseEntity activateUser(@PathVariable String token){
        return userService.activateUser(token);
@@ -48,14 +47,12 @@ public class UserController {
        return userService.retrievePassword(username);
     }
 
-    // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
     @RequestMapping(value="/api/user/delete",method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@RequestBody RequestCancellation requestCancellation, @RequestHeader (name="Authorization") String token){
         return userService.deleteUser(requestCancellation,token);
 
     }
 
-    // TODO: 08/01/2023 AGGIUNGERE SU TRELLO
     @RequestMapping(value="/api/user/admin/set/ban/{id}",method = RequestMethod.POST)
     public ResponseEntity userBan(@RequestBody RequestMotivation requestMotivation, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
         return userService.setUserBan(requestMotivation,id,token);

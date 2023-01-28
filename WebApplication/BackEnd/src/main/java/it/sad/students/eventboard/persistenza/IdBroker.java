@@ -6,12 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class IdBroker {
-	//Standard SQL (queste stringhe andrebbero scritte in un file di configurazione
-	//private static final String query="SELECT NEXT VALUE FOR SEQUENZA_ID AS id";
-	//private String sequence="";
-	
-	//private static final String query = "SELECT nextval('event_id') AS id";//postgresql
-
 	public static Long getNewPersonID(Connection connection){
 		String query = "SELECT nextval('person_id') AS id";
 		return getId(connection,query);

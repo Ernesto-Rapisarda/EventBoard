@@ -1,7 +1,7 @@
 package it.sad.students.eventboard.controller.api;
 
-import it.sad.students.eventboard.service.httpbody.AuthenticationRequest;
-import it.sad.students.eventboard.service.httpbody.AuthenticationResponse;
+import it.sad.students.eventboard.service.httpbody.RequestAuthentication;
+import it.sad.students.eventboard.service.httpbody.ResponseAuthentication;
 import it.sad.students.eventboard.service.AuthenticationService;
 import it.sad.students.eventboard.service.httpbody.RegisterRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +25,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public AuthenticationResponse authenticateRequest(
-            @RequestBody AuthenticationRequest request
+    public ResponseAuthentication authenticateRequest(
+            @RequestBody RequestAuthentication request
     ){
         return service.authenticate(request);
 
