@@ -99,6 +99,20 @@ export class RequestService {
     return this.http.post(url, eventTypes)
   }
 
+  searchEvents(searchType: string, initialRangeDate: Date, finalRangeDate: Date, region: string, city: string, title: string): Observable<Event[]> {
+    const url = API_SERVER_URL+'/api/noauth/event/search'
+    const initialDate = this.datePipe.transform(initialRangeDate, 'yyyy-MM-dd')
+    const finalDate = this.datePipe.transform(finalRangeDate, 'yyyy-MM-dd')
+    return this.http.post<Event[]>(url, {
+      searchType: searchType,
+      initialRangeDate: initialDate,
+      finalRangeDate: finalDate,
+      region: region,
+      city: city,
+      title: title
+    })
+  }
+
   getEventById(id: number): Observable<Event>{
     const url = API_SERVER_URL+`/api/noauth/event/details/${id}`
     return this.http.get<Event>(url)
@@ -123,7 +137,6 @@ export class RequestService {
       event: eventId
     }, {headers: httpHeaders, responseType: 'text'})
   }
-
   doReportEvent(eventId: number, message: string, type: string) {
     const url = API_SERVER_URL + `/api/report/event/${eventId}`
     const httpHeaders = this.getAuthorizationHeader()
@@ -136,12 +149,13 @@ export class RequestService {
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
   }
-  // ORGANIZER PROFILE RELATED REQUESTS
 
+  // ORGANIZER PROFILE RELATED REQUESTS
   getOrganizer(id: number) {
     const url = API_SERVER_URL + `/api/noauth/organizer/${id}`
     return this.http.get(url)
   }
+
   // COMMENT RELATED REQUESTS
 
   addComment(text: string, eventId: number, userId: number){
@@ -182,7 +196,6 @@ export class RequestService {
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
   }
-
   doReportComment(id: number, message: string, type: string) {
     const url = API_SERVER_URL + `/api/report/comment/${id}`
     const httpHeaders = this.getAuthorizationHeader()
@@ -195,6 +208,7 @@ export class RequestService {
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
   }
+
   // REVIEW RELATED REQUESTS
 
   addReview(review: number, text: string, eventId: number, userId: number){
@@ -225,6 +239,7 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
+
   deleteReview(eventId: number, userId: number) {
     // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
     let message = ''
@@ -235,7 +250,6 @@ export class RequestService {
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.delete(url, {headers: httpHeaders, body: { object: {person: userId, event: eventId}, message:message}, responseType: 'text'})
   }
-
 
   doReportReview(eventId: number, personId: number, type: string, message: string) {
     const url = API_SERVER_URL + `/api/report/review/${eventId}/${personId}`
@@ -249,13 +263,13 @@ export class RequestService {
       person: this.authService.user.id
     }, {headers: httpHeaders, responseType: "text"})
   }
-
   getReportTypes() {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + '/api/report/types'
 
     return this.http.get<string[]>(url, {headers: httpHeaders})
   }
+
   // USER RELATED REQUESTS
 
   getUsers() {
@@ -271,8 +285,8 @@ export class RequestService {
 
     return this.http.get<Report[]>(url, {headers: httpHeaders})
   }
-
   // AZIONI DELL'ADMIN
+
   banUser(id: number, message: string) {
     const url = API_SERVER_URL + `/api/user/admin/set/ban/${id}`
     const httpHeaders = this.getAuthorizationHeader()
@@ -295,8 +309,8 @@ export class RequestService {
 
     return this.http.put(url, {}, {headers: httpHeaders, responseType: "text"})
   }
-
   //  SERVICE FUNCTIONS
+
   private getAuthorizationHeader() {
     return new HttpHeaders({
       "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)

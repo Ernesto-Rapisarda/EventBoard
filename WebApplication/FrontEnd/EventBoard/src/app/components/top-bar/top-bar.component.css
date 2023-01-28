@@ -27,3 +27,8 @@ a {
   transform: scale(1.1);
 }
 
+.search-button {
+  width: 150px;
+}
+
+

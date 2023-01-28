@@ -39,9 +39,9 @@
           <!-- event type -->
           <mat-form-field appearance="fill">
             <mat-label>Tipologia evento</mat-label>
-            <select matNativeControl formControlName="eventType">
-              <option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</option>
-            </select>
+            <mat-select matNativeControl formControlName="eventType">
+              <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
+            </mat-select>
             <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
               Seleziona una tipologia
             </mat-error>
@@ -60,9 +60,9 @@
           <div class="position-container">
             <mat-form-field appearance="fill">
               <mat-label>Regione</mat-label>
-              <select matNativeControl formControlName="region" (change)="setCities()">
-                <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
-              </select>
+              <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()">
+                <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
+              </mat-select>
               <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
                 Seleziona una regione
               </mat-error>
@@ -70,9 +70,9 @@
 
             <mat-form-field appearance="fill">
               <mat-label>Città</mat-label>
-              <select matNativeControl formControlName="city">
-                <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
-              </select>
+              <mat-select matNativeControl formControlName="city">
+                <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
+              </mat-select>
               <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
                 Seleziona una città
               </mat-error>

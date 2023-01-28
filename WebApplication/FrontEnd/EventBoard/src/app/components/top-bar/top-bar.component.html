@@ -5,6 +5,12 @@
   <a routerLink="">
     <img src="assets/LogoWeb.png" class="logo" matTooltip="Vai alla pagina principale">
   </a>
+  <div class="search-button-container">
+    <button mat-raised-button class="search-button" routerLink="/search">
+      Ricerca
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
   <span class="spacer"></span>
   <div class="toolbar-buttons">
     <button mat-raised-button class="navbar-button" *ngIf="authService.isAuthenticated() && authService.user.role === 'ORGANIZER'" routerLink="/create-event">Crea evento</button>

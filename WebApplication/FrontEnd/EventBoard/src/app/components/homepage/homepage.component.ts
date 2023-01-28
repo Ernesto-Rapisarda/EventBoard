@@ -54,7 +54,6 @@ export class HomepageComponent implements OnInit {
     this.eventsService.events = new Array<Event>()
     this.requestService.getAllEvents().subscribe({
       next: response => {
-        console.log(response)
         for (let element in response) {
           let event = {
             id: response[element].id,

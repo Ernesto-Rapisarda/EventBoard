@@ -93,9 +93,9 @@
         <div class="position-container">
           <mat-form-field appearance="fill">
             <mat-label>Regione</mat-label>
-            <select matNativeControl formControlName="region" (change)="setCities()" required>
-              <option *ngFor="let region of regions" value="{{region}}">{{region}}</option>
-            </select>
+            <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()" required>
+              <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
