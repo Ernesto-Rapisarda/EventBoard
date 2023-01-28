@@ -30,11 +30,18 @@
 
 <!-- do search -->
 <div class="search-container">
-  <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="doSearch()">Cerca</button>
+  <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="onSearch()">Cerca</button>
 </div>
 
-<div class="card-container">
-  <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+<div class="card-container" *ngIf="searchDone">
+  <div *ngIf="events.length > 0; then thereAreEvents else noEvents"></div>
+  <ng-template #noEvents>
+    Non ci sono eventi corrispondenti alla tua ricerca. Ti preghiamo di riprovare
+  </ng-template>
+  <ng-template #thereAreEvents>
+    <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+  </ng-template>
+
 </div>
 
 

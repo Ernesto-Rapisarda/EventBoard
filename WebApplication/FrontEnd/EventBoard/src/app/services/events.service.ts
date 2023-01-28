@@ -5,6 +5,7 @@ import {Event} from '../models/event.model'
   providedIn: 'root'
 })
 export class EventsService {
+  // TODO: DIVIDERE EVENTS IN futureEvents e pastEvents, altrimenti abbiamo problemi con il sorting nel menu
   events: Array<Event>
   constructor() { }
 
@@ -18,7 +19,7 @@ export class EventsService {
 
   getOnlyFutureEvents(selectedEventTypes: string[]): Array<Event> {
     const nowDate = new Date()
-    return this.sortByDateAsc().filter((obj) => {
+    return this.events.filter((obj) => {
       const eventDate = new Date(obj.date)
       if(selectedEventTypes.length > 0){
         return (selectedEventTypes.indexOf(obj.eventType) !== -1) && (eventDate.getTime() > nowDate.getTime())

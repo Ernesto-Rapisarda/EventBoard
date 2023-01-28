@@ -15,6 +15,7 @@ export class SearchDateLocationComponent implements OnInit {
   locationGroup!: FormGroup
   regions: String[]
   cities: String[]
+  searchDone: boolean
 
   events: Array<Event>
 
@@ -23,6 +24,7 @@ export class SearchDateLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.events = []
     this.regions = []
     this.cities = []
     this.setRegions()
@@ -57,7 +59,9 @@ export class SearchDateLocationComponent implements OnInit {
     else { this.cities = ['Qualsiasi'] }
   }
 
-  doSearch() {
+  onSearch() {
+    this.events = []
+    this.searchDone = true
     const searchType = "dateAndOrLocation"
     const initialRangeDate = this.dateGroup.value.startDate
     const finalRangeDate = this.dateGroup.value.endDate
