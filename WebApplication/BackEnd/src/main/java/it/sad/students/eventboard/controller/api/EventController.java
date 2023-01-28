@@ -83,6 +83,15 @@ public class EventController {
         return eventService.getEventType();
     }
 
+    //post
+    @RequestMapping("/api/noauth/event/search")
+    public ResponseEntity<Iterable<ResponseEvent>> searchEvents(@RequestBody RequestSearchEvent requestSearchEvent){
+        //errore 403 dati inviati in modo errato
+        //stato 200 ok, query eseguita correttamente, se array vuoto, non ha trovato nulla
+        //errore 400, errore di sistema
+        return  eventService.searchEvents(requestSearchEvent);
+    }
+
 
 
 

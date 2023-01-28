@@ -64,32 +64,7 @@ public class EventService {
         }
     }
 
-    private List<ResponseEvent> createList(List<Event> tmp){
-        ArrayList<ResponseEvent> events = new ArrayList<>();
-        try{
-            for (Event event: tmp){
-                Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
-                events.add(new ResponseEvent
-                        (event.getId(),
-                                event.getDate(),
-                                event.getTitle(),
-                                event.getUrlPoster(),
-                                event.getEventType().toString(),
-                                DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition()),(
-                                person.getName()+
-                                        " "+
-                                        person.getLastName()
-                        )
-                        ));
 
-            }
-            return events;
-        }catch(Exception e){
-            e.printStackTrace();
-            return events;
-        }
-
-    }
 
     public ResponseEntity<ResponseEventCreation> createEvent(RequestCreationEvent requestCreationEvent, String token) {
         try{
@@ -239,4 +214,54 @@ public class EventService {
 
         return new EmailMessage(email,subject,message);
     }
+
+    public ResponseEntity<Iterable<ResponseEvent>> searchEvents(RequestSearchEvent requestSearchEvent) {
+        try{
+            List<ResponseEvent> eventList = new ArrayList<>();
+            List<Event> tmp;
+            if(requestSearchEvent.getSearchType().equals("title")){
+                tmp = DBManager.getInstance().getEventDao().findByKeywords(requestSearchEvent.getTitle());
+            }
+            else{
+                tmp =DBManager.getInstance().getEventDao().findBySomeData(requestSearchEvent);
+
+            }
+            eventList = createList(tmp);
+
+
+            return statusCodes.okGetElements(eventList);
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return statusCodes.commandError();
+        }
+    }
+
+
+    private List<ResponseEvent> createList(List<Event> tmp){
+        ArrayList<ResponseEvent> events = new ArrayList<>();
+        try{
+            for (Event event: tmp){
+                Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
+                events.add(new ResponseEvent
+                        (event.getId(),
+                                event.getDate(),
+                                event.getTitle(),
+                                event.getUrlPoster(),
+                                event.getEventType().toString(),
+                                DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition()),(
+                                person.getName()+
+                                        " "+
+                                        person.getLastName()
+                        )
+                        ));
+
+            }
+            return events;
+        }catch(Exception e){
+            e.printStackTrace();
+            return events;
+        }
+
+    }
+
 }
