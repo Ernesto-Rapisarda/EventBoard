@@ -3,9 +3,9 @@
     <!-- report types  -->
     <mat-form-field appearance="fill">
       <mat-label>Tipologia evento</mat-label>
-      <select matNativeControl formControlName="type" required>
-        <option *ngFor="let type of reportTypes" value="{{type}}">{{type}}</option>
-      </select>
+      <mat-select matNativeControl formControlName="type" required>
+        <mat-option *ngFor="let type of reportTypes" value="{{type}}">{{type}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <!-- reason -->

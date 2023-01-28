@@ -72,6 +72,8 @@ import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.c
 import { SimilarEventsBoxComponent } from './components/similar-events-box/similar-events-box.component';
 import { EventImageDialogComponent } from './components/event-image-dialog/event-image-dialog.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { SearchDateLocationComponent } from './components/search-date-location/search-date-location.component';
+import { SearchTitleComponent } from './components/search-title/search-title.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -111,7 +113,9 @@ registerLocaleData(localeIt, 'it');
         ReviewEditDialogComponent,
         ScrollToTopComponent,
         SimilarEventsBoxComponent,
-        EventImageDialogComponent
+        EventImageDialogComponent,
+        SearchDateLocationComponent,
+        SearchTitleComponent
     ],
     imports: [
         BrowserModule,
