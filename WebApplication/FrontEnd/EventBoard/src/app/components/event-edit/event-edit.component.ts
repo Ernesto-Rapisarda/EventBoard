@@ -17,7 +17,6 @@ import {CdkTextareaAutosize} from "@angular/cdk/text-field";
   styleUrls: ['./event-edit.component.css']
 })
 
-// TODO: Sistemare validazione datepicker impossibile
 export class EventEditComponent implements OnInit {
   eventEditForm!: FormGroup
   urlPoster: string

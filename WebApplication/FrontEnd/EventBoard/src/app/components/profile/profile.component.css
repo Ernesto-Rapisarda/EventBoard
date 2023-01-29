@@ -107,6 +107,30 @@
 .main-footer {
   height: 100px;
 }
+.card-container {
+  margin: 0 12%;
+  background-color: var(--container-bg-color);
+  display: inline-block;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: var(--container-border-radius);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+}
+.card-header {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.explore-cpy {
+  font-size: 28px;
+  font-weight: 500;
+}
+.cards {
+  margin-bottom: 6%;
+}
+.card {
+  border-radius: 4px;
+}
+
 
 @media screen and (max-width: 768px) {
 

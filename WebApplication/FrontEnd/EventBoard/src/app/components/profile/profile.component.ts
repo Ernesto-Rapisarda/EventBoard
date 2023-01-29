@@ -5,6 +5,8 @@ import {ProfileEditDialogComponent} from "../profile-edit-dialog/profile-edit-di
 import {Router} from "@angular/router";
 import {Preference} from "../../models/preference.model";
 import {Location} from "../../models/location.model";
+import {Event} from "../../models/event.model";
+import {RequestService} from "../../services/request.service";
 
 @Component({
   selector: 'app-profile',
@@ -12,13 +14,17 @@ import {Location} from "../../models/location.model";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router) {
+  organizerEvents: Array<Event>
+  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router, private requestService: RequestService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
 
   ngOnInit(): void {
     this.getData()
+    if(this.authService.isOrganizer()){
+      this.getOrganizerEvents()
+    }
   }
   onProfileRemove() {
     if(this.authService.user){
@@ -115,6 +121,29 @@ export class ProfileComponent implements OnInit {
         console.log(this.authService.user)
       },
       error: error => { }
+    })
+  }
+
+  private getOrganizerEvents() {
+    this.organizerEvents = new Array<Event>()
+
+    this.requestService.getOrganizer(this.authService.user.id).subscribe({
+      next: (response: any) => {
+        for (let element in response.events) {
+          let event = {
+            id: response.events[element].id,
+            title: response.events[element].title,
+            date: response.events[element].date,
+            urlPoster: response.events[element].urlPoster,
+            position: response.events[element].position,
+            organizerFullName: response.events[element].organizer.toString(),
+          }
+          this.organizerEvents.push(event)
+        }
+      },
+      error: error => {
+
+      }
     })
   }
 }

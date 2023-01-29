@@ -1,3 +1,13 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  height: 64px;
+  padding: 0 24px;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
