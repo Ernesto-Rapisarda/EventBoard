@@ -255,7 +255,33 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(rs.getLong("id"));
                 event.setTitle(rs.getString("title"));
                 event.setUrlImage(rs.getString("poster"));
-                event.setRating(rs.getDouble("media_rating"));
+                event.setValue(rs.getDouble("media_rating"));
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    @Override
+    public List<EventsStats> topFiveLikes() {
+        ArrayList<EventsStats> events = new ArrayList<>();
+        String query ="SELECT e.id ,e.title ,e.poster , count(p.date)  as num_likes " +
+                "FROM event as e JOIN mipiace as p ON e.id = p.event " +
+                "GROUP BY e.id, e.title,e.poster " +
+                "ORDER BY num_likes DESC " +
+                "LIMIT 5 ";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                EventsStats event=new EventsStats();
+                event.setId(rs.getLong("id"));
+                event.setTitle(rs.getString("title"));
+                event.setUrlImage(rs.getString("poster"));
+                event.setValue(Double.valueOf(rs.getInt("num_likes")));
                 if(event!=null)
                     events.add(event);
             }

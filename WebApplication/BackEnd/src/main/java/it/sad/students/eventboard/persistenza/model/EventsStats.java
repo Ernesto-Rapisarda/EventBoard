@@ -13,5 +13,5 @@ public class EventsStats {
     private Long id;
     private String title;
     private String urlImage;
-    private Double rating;
+    private Double value;
 }

@@ -206,7 +206,17 @@ public class EventService {
     }
 
 
-    public List<EventsStats> getTopFiveEvent(){
+    public List<EventsStats> getTopFiveRating(){
+        try {
+            List<EventsStats> events=DBManager.getInstance().getEventDao().topFiveRating();
+            return events;
+
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<EventsStats> getTopFiveLikes(){
         try {
             List<EventsStats> events=DBManager.getInstance().getEventDao().topFiveRating();
             return events;

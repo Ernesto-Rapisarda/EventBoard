@@ -24,6 +24,7 @@ public interface EventDao {
 
 
     List<EventsStats> topFiveRating();
+    List<EventsStats> topFiveLikes();
 
 
 }

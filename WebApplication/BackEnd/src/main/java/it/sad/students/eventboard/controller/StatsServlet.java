@@ -33,11 +33,11 @@ public class StatsServlet extends HttpServlet {
 
         // TODO: 28/01/2023 lista top 5
 
-        List<EventsStats> eventsStatsList = eventService.getTopFiveEvent();
+        List<EventsStats> eventsStatsRating = eventService.getTopFiveRating();
+        List<EventsStats> eventsStatsLikes=eventService.getTopFiveLikes();
 
-
-        req.setAttribute("topFive",eventsStatsList);
-        req.setAttribute("topLiked",eventsStatsListLiked);
+        req.setAttribute("topFive",eventsStatsRating);
+        req.setAttribute("topLiked",eventsStatsLikes);
         RequestDispatcher dispacher = req.getRequestDispatcher("views/stats.html");
         dispacher.forward(req, resp);
     }
