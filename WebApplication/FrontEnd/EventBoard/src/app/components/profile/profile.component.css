@@ -20,6 +20,13 @@
   background-color: var(--login-page-background-color);
 }
 
+.section-separator {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+  height: 1px;
+}
+
 .organizer-header {
   margin-bottom: 2.5%;
 }
@@ -109,7 +116,7 @@
 }
 .card-container {
   margin: 0 12%;
-  background-color: var(--container-bg-color);
+  background-color: white;
   display: inline-block;
   flex-wrap: wrap;
   justify-content: center;
@@ -129,6 +136,20 @@
 }
 .card {
   border-radius: 4px;
+}
+
+.floating-buttons-left {
+  display: table-column;
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+}
+.edit-button {
+  /* background-color: #0000FF; SI è OPTATO PER I COLORI DI MATERIAL */
+}
+.delete-button {
+  margin-top: 12px;
+  background-color: #DB4437;
 }
 
 

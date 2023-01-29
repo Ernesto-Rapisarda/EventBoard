@@ -57,14 +57,20 @@
       </div>
     </div>
   </div>
-  <div class="interaction-buttons-container">
-    <button class="btn" mat-fab color="primary" aria-label="Edit profile" (click)="onProfileEdit()">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button class="btn" mat-fab color="warn" aria-label="Delete profile" (click)="onProfileRemove()">
-      <mat-icon>delete</mat-icon>
-    </button>
+  <div class="floating-buttons-left">
+    <div>
+      <button class="edit-button" mat-fab color="primary" aria-label="Edit profile" (click)="onProfileEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button class="delete-button" mat-fab color="warn" aria-label="Delete profile" (click)="onProfileRemove()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
+
+  <div class="section-separator"></div>
 
   <!-- If you are an organizer, here your events will be shown -->
   <div class="card-container" *ngIf="authService.isOrganizer()">
