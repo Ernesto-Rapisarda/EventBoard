@@ -1,4 +1,12 @@
 /* Container principale */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-pastel-color);
+}
 .card {
   display:flex;
   max-width: 350px;

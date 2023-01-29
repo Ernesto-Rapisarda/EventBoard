@@ -52,13 +52,13 @@ a {
 }
 
 .search-button-container {
-  width: 100%;
+  width: 80%;
   text-align: center;
-  margin: 0 auto;
+  margin-left: -28px;
 }
 
 .search-button {
-  width: 35%;
+  width: 30%;
   margin: 0 auto;
 }
 
