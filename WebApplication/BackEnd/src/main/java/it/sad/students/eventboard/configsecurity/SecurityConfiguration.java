@@ -30,11 +30,12 @@ public class SecurityConfiguration  {
         http
 
                 .csrf().disable()
+
                 .authorizeHttpRequests()
-                .anyRequest().permitAll()
-                /*
-                .requestMatchers("/api/noauth/**") //per pagine ospite
+                .requestMatchers("/api/noauth/**","/getstats","/views/**","/js/**","/images/**") //per pagine ospite
                 .permitAll()
+
+
                 .requestMatchers("/api/create/event")
                 .hasAnyAuthority("ORGANIZER","ADMIN")
                 .requestMatchers("/api/delete/event/**")
@@ -46,7 +47,9 @@ public class SecurityConfiguration  {
                 .requestMatchers("/api/user/admin/**")
                 .hasAuthority("ADMIN")
                 .anyRequest()
-                .authenticated()*/
+                .authenticated()
+
+
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
