@@ -37,6 +37,7 @@ public class StatsServlet extends HttpServlet {
 
 
         req.setAttribute("topFive",eventsStatsList);
+        req.setAttribute("topLiked",eventsStatsListLiked);
         RequestDispatcher dispacher = req.getRequestDispatcher("views/stats.html");
         dispacher.forward(req, resp);
     }
