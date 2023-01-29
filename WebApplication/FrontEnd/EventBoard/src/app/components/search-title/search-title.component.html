@@ -1,23 +1,37 @@
-<div class="title-container">
-  <mat-form-field class="input-field" appearance="outline">
-    <mat-label>Scrivi qui...</mat-label>
-    <input class="input-field"
-           matInput
-           placeholder="Formula 1" [(ngModel)]="searchPrompt" (keyup.enter)="onSearch()">
-  </mat-form-field>
+<!--
+<div>
+  <div class="title-container">
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Scrivi qui...</mat-label>
+      <input class="input-field"
+             matInput
+             placeholder="Formula 1" [(ngModel)]="searchPrompt" (keyup.enter)="onSearch()">
+    </mat-form-field>
+  </div>
+
+  <div class="search-container">
+    <button mat-raised-button color="primary" [disabled]="searchPrompt === ''" (click)="onSearch()">Cerca</button>
+  </div>
 </div>
+-->
 
-<div class="search-container">
-  <button mat-raised-button color="primary" [disabled]="searchPrompt === ''" (click)="onSearch()">Cerca</button>
-</div>
+<div class="container">
+  <div class="search-container">
+    <form>
+      <div class="search-box">
+        <input type="text" placeholder="Cerca..." [(ngModel)]="searchPrompt" (keyup.enter)="onSearch()">
+        <button mat-fab color="primary" [disabled]="searchPrompt === ''" (click)="onSearch()" aria-label="Cerca"><mat-icon>search</mat-icon></button>
+      </div>
+    </form>
+  </div>
 
-<div class="card-container" *ngIf="searchDone">
-  <div *ngIf="events.length > 0; then thereAreEvents else noEvents"></div>
-  <ng-template #noEvents>
-    Non ci sono eventi corrispondenti alla tua ricerca. Ti preghiamo di riprovare
-  </ng-template>
-  <ng-template #thereAreEvents>
-    <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
-  </ng-template>
-
+  <div class="card-container" *ngIf="searchDone">
+    <div *ngIf="events.length > 0; then thereAreEvents else noEvents"></div>
+    <ng-template #noEvents>
+      Non ci sono eventi corrispondenti alla tua ricerca. Ti preghiamo di riprovare
+    </ng-template>
+    <ng-template #thereAreEvents>
+      <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+    </ng-template>
+  </div>
 </div>
