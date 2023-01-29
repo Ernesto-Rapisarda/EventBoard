@@ -16,6 +16,21 @@
     <script src="js/redirect.js"></script>
 
 
+    <div class="toolbar">
+        <div class="left-section">
+            <a href="http://localhost:4200">
+                <img class="logo" src="/images/LogoWeb.png" alt="">
+            </a>
+            <button class="left-button"><span>Ricerca</span></button>
+        </div>
+        <div class="right-section">
+            <!--<script>checkButton("organizer")</script>-->
+            <button class="right-button"><span>Crea evento</span></button>
+            <button class="right-button"><span>Accedi</span></button>
+            <button class="right-button"><span>Registrati</span></button>
+        </div>
+    </div>
+
     <title>Statistiche</title>
 </head>
 <body style="align-content: center">
@@ -25,27 +40,8 @@
     </a>
 </nav>-->
 
-
-
-    <div class="toolbar">
-        <a href="http://localhost:4200">
-            <img class="logo" src="/images/LogoWeb.png" alt="">
-        </a>
-
-        <button class="mdc-button" style="alignment: right">
-            <span>Button1</span>
-        </button>
-        <button class="mdc-button">
-            <span>Button2</span>
-        </button>
-        <button class="mdc-button">
-            <span>Button3</span>
-        </button>
-
-    </div>
-
     <br/>
-    <div class="container-md" style="background-color: #3700be">
+    <div class="container-md" >
         <div class="overflow-scroll">
             <h1>STATISTICHE GLOBALI</h1>
             <table border="1">
@@ -71,7 +67,9 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
                 <div class="col mb-5" th:each="ev :${topFive}"  >
                     <div class="card"  >
-                        <img th:src="${ev.urlImage}" class="card-img-top" alt="..." style="object-fit: cover; ">
+                        <div class="card-img">
+                            <img class="img" th:src="${ev.urlImage}" alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${ev.title}"></h5>
                             <p class="card-text" th:text="'Rating: '+${ev.value}"></p>
@@ -85,11 +83,13 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
                 <div class="col mb-5" th:each="evl :${topLiked}"  >
                     <div class="card"  >
-                        <img th:src="${evl.urlImage}" class="card-img-top" alt="..." style="object-fit: cover; ">
+                        <div class="card-img">
+                            <img class="img" th:src="${evl.urlImage}"  alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${evl.title}"></h5>
                             <p class="card-text" th:text="'N° di Like: '+${evl.value}"></p>
-                            <button class="btn btn-primary" type="button" th:value="${evl.id}" onclick="redirect(this.value)">Visualizza</button>
+                            <button  class="btn btn-primary" type="button" th:value="${evl.id}" onclick="redirect(this.value)">Visualizza</button>
                         </div>
                     </div>
                 </div>
