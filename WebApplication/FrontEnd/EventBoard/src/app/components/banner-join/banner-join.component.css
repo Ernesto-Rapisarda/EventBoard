@@ -2,7 +2,7 @@
   background-image: url('https://wallpapercave.com/wp/wp6438678.jpg');
   background-size: cover;
   vertical-align: center;
-  height: 40%;
+  height: 35vh;
   width: 100%;
   position: relative;
 }
@@ -12,6 +12,7 @@
   position: absolute;
   top: 50%;
   left: 70%;
+  height: 40%;
   transform: translate(-50%, -50%);
   text-align: center;
   text-transform: uppercase;
