@@ -3,24 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="css/stats.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@material/button@latest/dist/mdc.button.min.css" />
 
     <script src="js/redirect.js"></script>
 
 
     <title>Statistiche</title>
 </head>
-<body>
-<nav class="navbar navbar-light bg-light" style="height: 64px;">
+<body style="align-content: center">
+<!--<nav class="navbar navbar-light bg-light" style="height: 64px;">
     <a class="navbar-brand" href="#">
         <img src="/images/LogoWeb.png"  height="64" class="d-inline-block align-top" alt="">
     </a>
-</nav>
-<br/>
-    <div class="container-md">
+</nav>-->
+
+
+
+    <div class="toolbar">
+        <a href="http://localhost:4200">
+            <img class="logo" src="/images/LogoWeb.png" alt="">
+        </a>
+
+        <button class="mdc-button" style="alignment: right">
+            <span>Button1</span>
+        </button>
+        <button class="mdc-button">
+            <span>Button2</span>
+        </button>
+        <button class="mdc-button">
+            <span>Button3</span>
+        </button>
+
+    </div>
+
+    <br/>
+    <div class="container-md" style="background-color: #3700be">
         <div class="overflow-scroll">
             <h1>STATISTICHE GLOBALI</h1>
             <table border="1">
@@ -72,8 +97,29 @@
 
         </div>
     </div>
-<br/>
+    <br/>
+<div class="footer" style="display: flex; flex-wrap: wrap;">
 
-<h1 align="center">REPLICARE QUI FOOTER PRESENTE SU ANGULAR</h1>
+    <div class="chi-siamo-section">
+        <h3><mat-icon matSuffix class="header-icon">people</mat-icon>Chi Siamo</h3>
+        <p>“GoodVibes” è una Web Application che si pone come obiettivo quello di aiutare le persone a trovare l’evento ideale a cui partecipare per trascorrere una piacevole serata in compagnia.</p>
+    </div>
+
+    <div class="contattaci-section">
+        <h3><mat-icon matSuffix class="header-icon">forum</mat-icon>Contattaci</h3>
+        <p><a href="mailto:progetto.webapp.2023@gmail.com">progetto.webapp.2023@gmail.com</a></p>
+    </div>
+
+    <div class="link-section">
+
+        <h3><mat-icon matSuffix class="header-icon">link</mat-icon>Link</h3>
+        <ul>
+            <li><a href="http://localhost:8080/getstats">Home</a></li>
+            <li><a href="http://localhost:8080/getstats">Accedi</a></li>
+            <li><a href="http://localhost:8080/getstats">Registrati</a></li>
+            <li><a href="http://localhost:8080/getstats">Altro</a></li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
