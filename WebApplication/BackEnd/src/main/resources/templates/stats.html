@@ -8,46 +8,68 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script src="js/redirect.js"></script>
 
 
     <title>Statistiche</title>
 </head>
 <body>
-<h1 align="center">REPLICARE QUI TOP BAR PRESENTE SU ANGULAR</h1>
+<nav class="navbar navbar-light bg-light" style="height: 64px;">
+    <a class="navbar-brand" href="#">
+        <img src="/images/LogoWeb.png"  height="64" class="d-inline-block align-top" alt="">
+    </a>
+</nav>
 <br/>
     <div class="container-md">
-        <h1>STATISTICHE GLOBALI</h1>
-        <table border="1">
-            <tr>
-                <th>Numero Eventi</th>
-                <th>N° Commenti</th>
-                <th>N° Recensioni</th>
-                <th>N° Like</th>
-                <th>N° Partecipazioni</th>
-            </tr>
-            <tr>
-                <td th:text="${global.nEvents}"></td>
-                <td th:text="${global.nComments}"></td>
-                <td th:text="${global.nReviews}"></td>
-                <td th:text="${global.nLike}"></td>
-                <td th:text="${global.nPartecipation}"></td>
+        <div class="overflow-scroll">
+            <h1>STATISTICHE GLOBALI</h1>
+            <table border="1">
+                <tr>
+                    <th>Numero Eventi</th>
+                    <th>N° Commenti</th>
+                    <th>N° Recensioni</th>
+                    <th>N° Like</th>
+                    <th>N° Partecipazioni</th>
+                </tr>
+                <tr>
+                    <td th:text="${global.nEvents}"></td>
+                    <td th:text="${global.nComments}"></td>
+                    <td th:text="${global.nReviews}"></td>
+                    <td th:text="${global.nLike}"></td>
+                    <td th:text="${global.nPartecipation}"></td>
 
-            </tr>
-        </table>
-        <br/>
-        <h1>TOP 5 EVENTI</h1>
-        <br/>
-        <div class="row" >
-            <div class="col" th:each="ev :${topFive}" style="width: 30%; " >
-                <div class="card" >
-                    <img th:src="${ev.urlImage}" class="card-img-top" alt="..." style="max-height: 18rem;width: auto ">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${ev.title}"></h5>
-                        <p class="card-text" th:text="${ev.rating}"></p>
-                        <a th:href="@{http:localhost:4200/api/noauth/event/details/${ev.id}}" class="btn btn-primary">Visualizza</a>
+                </tr>
+            </table>
+            <br/>
+            <h1>TOP 5 EVENTI PER RATING</h1>
+            <br/>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
+                <div class="col mb-5" th:each="ev :${topFive}"  >
+                    <div class="card"  >
+                        <img th:src="${ev.urlImage}" class="card-img-top" alt="..." style="object-fit: cover; ">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${ev.title}"></h5>
+                            <p class="card-text" th:text="'Rating: '+${ev.value}"></p>
+                            <button class="btn btn-primary" type="button" th:value="${ev.id}" onclick="redirect(this.value)">Visualizza</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <h1>TOP 5 EVENTI PER LIKE</h1>
+            <br/>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
+                <div class="col mb-5" th:each="evl :${topLiked}"  >
+                    <div class="card"  >
+                        <img th:src="${evl.urlImage}" class="card-img-top" alt="..." style="object-fit: cover; ">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${evl.title}"></h5>
+                            <p class="card-text" th:text="'N° di Like: '+${evl.value}"></p>
+                            <button class="btn btn-primary" type="button" th:value="${evl.id}" onclick="redirect(this.value)">Visualizza</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 <br/>

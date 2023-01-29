@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventsStats {
+public class EventsStats<T> {
     private Long id;
     private String title;
     private String urlImage;
-    private Double rating;
+    private T value;
 }

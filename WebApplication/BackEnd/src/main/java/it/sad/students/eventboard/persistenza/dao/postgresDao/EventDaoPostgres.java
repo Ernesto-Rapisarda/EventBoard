@@ -9,6 +9,7 @@ import it.sad.students.eventboard.persistenza.model.EventsStats;
 import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -255,7 +256,34 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(rs.getLong("id"));
                 event.setTitle(rs.getString("title"));
                 event.setUrlImage(rs.getString("poster"));
-                event.setRating(rs.getDouble("media_rating"));
+                Double n = rs.getDouble("media_rating");
+                event.setValue(String.format("%.2f", n));
+                if(event!=null)
+                    events.add(event);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    @Override
+    public List<EventsStats> topFiveLikes() {
+        ArrayList<EventsStats> events = new ArrayList<>();
+        String query ="SELECT e.id ,e.title ,e.poster , count(p.date)  as num_likes " +
+                "FROM event as e JOIN mipiace as p ON e.id = p.event " +
+                "GROUP BY e.id, e.title,e.poster " +
+                "ORDER BY num_likes DESC " +
+                "LIMIT 5 ";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                EventsStats event=new EventsStats();
+                event.setId(rs.getLong("id"));
+                event.setTitle(rs.getString("title"));
+                event.setUrlImage(rs.getString("poster"));
+                event.setValue(rs.getInt("num_likes"));
                 if(event!=null)
                     events.add(event);
             }
