@@ -32,7 +32,7 @@ public class SecurityConfiguration  {
                 .csrf().disable()
 
                 .authorizeHttpRequests()
-                .requestMatchers("/api/noauth/**","/getstats","/views/**","/js/**","/images/**") //per pagine ospite
+                .requestMatchers("/api/noauth/**","/getstats","/views/**","/js/**","/images/**","/css/**") //per pagine ospite
                 .permitAll()
 
 
