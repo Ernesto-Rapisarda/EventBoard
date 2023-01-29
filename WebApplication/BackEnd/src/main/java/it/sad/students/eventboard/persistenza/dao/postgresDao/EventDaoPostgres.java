@@ -9,6 +9,7 @@ import it.sad.students.eventboard.persistenza.model.EventsStats;
 import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -255,11 +256,12 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(rs.getLong("id"));
                 event.setTitle(rs.getString("title"));
                 event.setUrlImage(rs.getString("poster"));
-                event.setValue(rs.getDouble("media_rating"));
+                Double n = rs.getDouble("media_rating");
+                event.setValue(String.format("%.2f", n));
                 if(event!=null)
                     events.add(event);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return events;
@@ -281,7 +283,7 @@ public class EventDaoPostgres implements EventDao {
                 event.setId(rs.getLong("id"));
                 event.setTitle(rs.getString("title"));
                 event.setUrlImage(rs.getString("poster"));
-                event.setValue(Double.valueOf(rs.getInt("num_likes")));
+                event.setValue(rs.getInt("num_likes"));
                 if(event!=null)
                     events.add(event);
             }

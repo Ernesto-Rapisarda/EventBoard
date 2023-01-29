@@ -218,7 +218,7 @@ public class EventService {
 
     public List<EventsStats> getTopFiveLikes(){
         try {
-            List<EventsStats> events=DBManager.getInstance().getEventDao().topFiveRating();
+            List<EventsStats> events=DBManager.getInstance().getEventDao().topFiveLikes();
             return events;
 
         }catch (Exception e) {
