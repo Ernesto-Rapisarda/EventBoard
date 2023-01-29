@@ -13,7 +13,7 @@
       <h2 class="explore-cpy">Eventi</h2>
     </div>
     <div class="cards">
-      <app-card class="card" *ngFor="let event of this.eventsService.events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+      <app-card class="card" *ngFor="let event of this.events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
     </div>
   </div>
 </div>

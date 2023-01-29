@@ -1,44 +1,59 @@
-<div class="date-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Inserisci un range di date</mat-label>
-    <mat-date-range-input [formGroup]="dateGroup" [rangePicker]="picker">
-      <input matStartDate formControlName="startDate" placeholder="Data inizio" readonly>
-      <input matEndDate formControlName="endDate" placeholder="Data fine" readonly>
-    </mat-date-range-input>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker touchUi="true"></mat-date-range-picker>
-  </mat-form-field>
-</div>
+<div class="container">
+
+  <div class="card">
+    <div class="date-position-container">
+
+      <!-- datepicker -->
+      <div class="date-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Inserisci un range di date</mat-label>
+          <mat-date-range-input [formGroup]="dateGroup" [rangePicker]="picker">
+            <input matStartDate formControlName="startDate" placeholder="Data inizio" readonly>
+            <input matEndDate formControlName="endDate" placeholder="Data fine" readonly>
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker touchUi="true"></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <!-- location -->
+      <div class="position-container" [formGroup]="locationGroup">
+        <div class="region">
+          <mat-form-field class="custom" appearance="fill">
+            <mat-label>Regione</mat-label>
+            <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()">
+              <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="city">
+          <mat-form-field appearance="fill">
+            <mat-label>Città</mat-label>
+            <mat-select matNativeControl formControlName="city">
+              <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- search button -->
+      <div class="search-container">
+        <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="onSearch()">Cerca</button>
+      </div>
+
+    </div>
 
 
-<!-- location -->
-<div class="position-container" [formGroup]="locationGroup">
-  <mat-form-field appearance="fill">
-    <mat-label>Regione</mat-label>
-    <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()">
-      <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <div class="card-container" *ngIf="searchDone">
+      <div *ngIf="events.length > 0; then thereAreEvents else noEvents"></div>
+      <ng-template #noEvents>
+        Non ci sono eventi corrispondenti alla tua ricerca. Ti preghiamo di riprovare
+      </ng-template>
+      <ng-template #thereAreEvents>
+        <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
+      </ng-template>
+    </div>
+  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Città</mat-label>
-    <mat-select matNativeControl formControlName="city">
-      <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<!-- do search -->
-<div class="search-container">
-  <button mat-raised-button color="primary" [disabled]="(!locationGroup.valid && !dateGroup.valid) || locationGroup.value.region === 'Qualsiasi' && !dateGroup.valid" (click)="onSearch()">Cerca</button>
-</div>
-
-<div class="card-container" *ngIf="searchDone">
-  <div *ngIf="events.length > 0; then thereAreEvents else noEvents"></div>
-  <ng-template #noEvents>
-    Non ci sono eventi corrispondenti alla tua ricerca. Ti preghiamo di riprovare
-  </ng-template>
-  <ng-template #thereAreEvents>
-    <app-card *ngFor="let event of events" [event]="event" routerLink="/event/{{event.id}}"></app-card>
-  </ng-template>
 </div>

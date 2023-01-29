@@ -51,10 +51,15 @@ export class ReviewComponent {
   }
 
   onDelete() {
+    let message = ''
+    if(this.authService.isAdmin())
+      message = window.prompt("Qual è il motivo della rimozione?")
+
     let choice = confirm("Sei sicuro di voler rimuovere la recensione? Questa operazione è irreversibile.")
+
     if(choice && this.review) {
       const eventId = this.route.snapshot.params['id']
-      this.requestService.deleteReview(this.review.event, this.review.person).subscribe({
+      this.requestService.deleteReview(this.review.event, this.review.person, message).subscribe({
         next: response => {
           alert("La recensione è stata rimosso con successo! Ricarico la pagina.")
           this.router.navigateByUrl(`/event/${eventId}`)

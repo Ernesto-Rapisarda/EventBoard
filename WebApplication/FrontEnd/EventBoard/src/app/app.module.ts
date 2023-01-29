@@ -154,7 +154,8 @@ registerLocaleData(localeIt, 'it');
         }),
         ShareIconsModule,
         MatTooltipModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        FormsModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},

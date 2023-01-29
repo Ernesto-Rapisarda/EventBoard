@@ -19,7 +19,7 @@
   <div class="search-container">
     <form>
       <div class="search-box">
-        <input type="text" placeholder="Cerca..." [(ngModel)]="searchPrompt" (keyup.enter)="onSearch()">
+        <input type=text name="searchPrompt" placeholder="Cerca..." [(ngModel)]="searchPrompt" (keyup.enter)="onSearch()">
         <button mat-fab color="primary" [disabled]="searchPrompt === ''" (click)="onSearch()" aria-label="Cerca"><mat-icon>search</mat-icon></button>
       </div>
     </form>

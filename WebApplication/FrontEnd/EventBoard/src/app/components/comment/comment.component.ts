@@ -52,10 +52,15 @@ export class CommentComponent {
   }
 
   onDelete() {
+    let message = ''
+    if(this.authService.isAdmin())
+      message = window.prompt("Qual è il motivo della rimozione?")
+
     let choice = confirm("Sei sicuro di voler rimuovere il commento? Questa operazione è irreversibile.")
+
     if(choice && this.comment) {
       const eventId = this.route.snapshot.params['id']
-      this.requestService.deleteComment(this.comment.id).subscribe({
+      this.requestService.deleteComment(this.comment.id, message).subscribe({
         next: response => {
           alert("Il commento è stato rimosso con successo! Ricarico la pagina.")
           this.router.navigateByUrl(`/event/${eventId}`)

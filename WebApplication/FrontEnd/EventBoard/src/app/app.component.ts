@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   private autoLogin(){
-    if(localStorage.getItem('token') && localStorage.getItem('username')){
+    if(!this.authService.isAuthenticated() && localStorage.getItem('token') && localStorage.getItem('username')){
       this.authService.getData(JSON.parse(localStorage.getItem('username'))).subscribe({
         next: (userData: any) => {
           this.authService.createUser(

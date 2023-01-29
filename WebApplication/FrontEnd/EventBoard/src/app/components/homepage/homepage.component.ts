@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
 import {RequestService} from "../../services/request.service";
-import {Event} from "../../models/event.model"
 import {EventsService} from "../../services/events.service";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
@@ -41,6 +40,8 @@ export class HomepageComponent implements OnInit {
 
   toggleChanges($event: MatSlideToggleChange) {
     this.recommendedForYouChecked = $event.checked;
+
+    // If the user selected the recommended for you toggle, add the user preferences to the selected event types
     if(this.recommendedForYouChecked){
       for(let preference of this.authService.user.preferences)
         this.handleSelectedType(preference.event_type)
@@ -51,9 +52,10 @@ export class HomepageComponent implements OnInit {
   }
 
   private setEvents() {
-    this.eventsService.events = new Array<Event>()
+    this.eventsService.initializeLists()
     this.requestService.getAllEvents().subscribe({
       next: response => {
+        const nowDate = new Date()
         for (let element in response) {
           let event = {
             id: response[element].id,
@@ -64,14 +66,20 @@ export class HomepageComponent implements OnInit {
             urlPoster: response[element].urlPoster,
             organizerFullName: response[element].organizer.toString(),
           }
-          this.eventsService.events.push(event)
+
+          const eventDate = new Date(event.date)
+
+          // If the event is in the future, add it to the future events array, otherwise add it to the past events array
+          if(eventDate > nowDate)
+            this.eventsService.futureEvents.push(event)
+          else
+            this.eventsService.pastEvents.push(event)
         }
       },
       error: error => {
 
       }
     })
-    console.log(this.eventsService.events)
   }
 
   private setEventTypes() {

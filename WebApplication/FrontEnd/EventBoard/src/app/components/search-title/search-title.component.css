@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 50px 16px;
+  padding: 50px 16px;
+  background-color: var(--background-pastel-color);
 }
 
 .search-container {

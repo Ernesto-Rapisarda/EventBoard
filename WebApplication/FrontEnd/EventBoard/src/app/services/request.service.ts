@@ -71,12 +71,7 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
-  deleteEvent(id: number) {
-    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
-    let message = ''
-    if(this.isAdmin())
-      message = window.prompt("Qual è il motivo della rimozione?")
-
+  deleteEvent(id: number, message: string) {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL+`/api/delete/event/${id}`
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
@@ -89,6 +84,7 @@ export class RequestService {
   }
 
   getAllEvents(): Observable<Event[]> {
+    console.log("Entro in get all events")
     const url = API_SERVER_URL+"/api/noauth/get/events"
     return this.http.get<Event[]>(url)
   }
@@ -186,12 +182,7 @@ export class RequestService {
     }, {headers: httpHeaders, responseType: "text"})
   }
 
-  deleteComment(id: number) {
-    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
-    let message = ''
-    if(this.isAdmin())
-      message = window.prompt("Qual è il motivo della rimozione?")
-
+  deleteComment(id: number, message: string) {
     const url = API_SERVER_URL + `/api/comment/delete/${id}`
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.delete(url, {headers: httpHeaders, body: {message:message}, responseType: 'text'})
@@ -240,12 +231,7 @@ export class RequestService {
   }
 
 
-  deleteReview(eventId: number, userId: number) {
-    // TODO: Spostare le prossime 3 righe (non credo sia il caso di lasciarle qui)
-    let message = ''
-    if(this.isAdmin())
-      message = window.prompt("Qual è il motivo della rimozione?")
-
+  deleteReview(eventId: number, userId: number, message: string) {
     const url = API_SERVER_URL + '/api/review/delete'
     const httpHeaders = this.getAuthorizationHeader()
     return this.http.delete(url, {headers: httpHeaders, body: { object: {person: userId, event: eventId}, message:message}, responseType: 'text'})

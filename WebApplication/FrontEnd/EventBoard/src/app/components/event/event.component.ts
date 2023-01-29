@@ -120,10 +120,16 @@ export class EventComponent implements OnInit {
     this.router.navigateByUrl(`/event/edit/${this.event.id}`)
   }
 
+
   onDelete() {
+    let message = ''
+    if(this.authService.isAdmin())
+      message = window.prompt("Qual è il motivo della rimozione?")
+
     let choice = confirm("Sei sicuro di voler rimuovere l'evento? Questa operazione è irreversibile.")
+
     if(choice && this.event){
-      this.requestService.deleteEvent(this.event.id).subscribe({
+      this.requestService.deleteEvent(this.event.id, message).subscribe({
         next: response => {
           alert("L'evento è stato rimosso con successo, ritorno alla pagina principale.")
           this.router.navigateByUrl('')

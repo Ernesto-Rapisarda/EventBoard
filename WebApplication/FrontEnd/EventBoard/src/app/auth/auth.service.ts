@@ -111,7 +111,8 @@ export class AuthService {
   }
 
   isAdmin() {return this.isAuthenticated() && this.user.role === "ADMIN" }
-
+  isOrganizer() {return this.isAuthenticated() && this.user.role === "ORGANIZER" }
+  isUser() {return this.isAuthenticated() && this.user.role === "USER" }
   getPreferences(): string {
     let preferences = ""
 
