@@ -21,7 +21,7 @@
         <div class="region">
           <mat-form-field class="custom" appearance="fill">
             <mat-label>Regione</mat-label>
-            <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()">
+            <mat-select formControlName="region" (selectionChange)="setCities()">
               <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -30,7 +30,7 @@
         <div class="city">
           <mat-form-field appearance="fill">
             <mat-label>Città</mat-label>
-            <mat-select matNativeControl formControlName="city">
+            <mat-select formControlName="city">
               <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
             </mat-select>
           </mat-form-field>

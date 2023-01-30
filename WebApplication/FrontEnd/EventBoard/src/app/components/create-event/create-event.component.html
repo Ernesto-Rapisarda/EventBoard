@@ -39,7 +39,7 @@
           <!-- event type -->
           <mat-form-field appearance="fill">
             <mat-label>Tipologia evento</mat-label>
-            <mat-select matNativeControl formControlName="eventType">
+            <mat-select formControlName="eventType">
               <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
             </mat-select>
             <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
@@ -60,7 +60,7 @@
           <div class="position-container">
             <mat-form-field appearance="fill">
               <mat-label>Regione</mat-label>
-              <mat-select matNativeControl formControlName="region" (selectionChange)="setCities()">
+              <mat-select formControlName="region" (selectionChange)="setCities()">
                 <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
               </mat-select>
               <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
@@ -70,7 +70,7 @@
 
             <mat-form-field appearance="fill">
               <mat-label>Città</mat-label>
-              <mat-select matNativeControl formControlName="city">
+              <mat-select formControlName="city">
                 <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
               </mat-select>
               <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
