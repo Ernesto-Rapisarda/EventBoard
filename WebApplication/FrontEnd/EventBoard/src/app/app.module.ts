@@ -74,6 +74,7 @@ import { EventImageDialogComponent } from './components/event-image-dialog/event
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { SearchDateLocationComponent } from './components/search-date-location/search-date-location.component';
 import { SearchTitleComponent } from './components/search-title/search-title.component';
+import { ResetPasswordDialogComponent } from './components/reset-password-dialog/reset-password-dialog.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -115,7 +116,8 @@ registerLocaleData(localeIt, 'it');
         SimilarEventsBoxComponent,
         EventImageDialogComponent,
         SearchDateLocationComponent,
-        SearchTitleComponent
+        SearchTitleComponent,
+        ResetPasswordDialogComponent
     ],
     imports: [
         BrowserModule,

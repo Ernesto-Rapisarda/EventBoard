@@ -49,6 +49,23 @@
   color: slategray;
 }
 
+.forgot-password-container {
+  color: slategray;
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 12px;
+}
+
+.forgot-password-txt {
+  color: slategray;
+  text-decoration: underline;
+}
+
+.forgot-password-txt:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 400px) {
 
   .container {
@@ -99,6 +116,23 @@
 
   .register-txt {
     color: slategray;
+  }
+
+  .forgot-password-txt {
+    color: slategray;
+  }
+
+  .forgot-password-container {
+    color: slategray;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 12px;
+    text-underline: slategray;
+  }
+
+  .forgot-password-container:hover {
+    cursor: pointer;
   }
 }
 

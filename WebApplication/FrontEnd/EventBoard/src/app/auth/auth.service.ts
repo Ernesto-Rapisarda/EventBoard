@@ -97,6 +97,11 @@ export class AuthService {
     this.router.navigateByUrl('/login')
   }
 
+  resetPassword(username: string) {
+    const url = API_SERVER_URL + `/api/noauth/retrieve/password/${username}`
+    return this.http.get(url, {responseType: "text"})
+  }
+
   getData(username: string) {
     const httpHeaders = this.getAuthorizationHeader()
     const url = API_SERVER_URL + `/api/user/${username}`
@@ -109,10 +114,10 @@ export class AuthService {
       "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')!)
     })
   }
-
   isAdmin() {return this.isAuthenticated() && this.user.role === "ADMIN" }
   isOrganizer() {return this.isAuthenticated() && this.user.role === "ORGANIZER" }
   isUser() {return this.isAuthenticated() && this.user.role === "USER" }
+
   getPreferences(): string {
     let preferences = ""
 

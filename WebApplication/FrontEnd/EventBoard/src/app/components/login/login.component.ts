@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ResetPasswordDialogComponent} from "../reset-password-dialog/reset-password-dialog.component";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) { }
 
 
 
@@ -66,6 +68,30 @@ export class LoginComponent implements OnInit {
         }
       },
       error: error => { this.errorHandler(error.status) }
+    })
+  }
+
+  onForgotPassword() {
+    let dialogRef = this.dialog.open(ResetPasswordDialogComponent, {
+      data: {
+        username: this.loginForm.value.username,
+        operationConfirmed: false
+      }, disableClose: true
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.operationConfirmed){
+        this.sendPasswordResetRequest(result.username)
+      }
+    })
+  }
+
+  private sendPasswordResetRequest(username: string){
+    this.authService.resetPassword(username).subscribe({
+      next: () => {
+        alert("La tua password è stata resettata con successo! Controlla la tua email per maggiori informazioni")
+      },
+      error: () => { alert("ERRORE: Qualcosa è andato storto, riprova") }
     })
   }
 

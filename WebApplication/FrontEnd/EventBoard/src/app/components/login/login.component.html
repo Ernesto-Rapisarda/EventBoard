@@ -14,8 +14,11 @@
         <div class="field-container">
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
-            <input matInput placeholder="" formControlName="username" required>
+            <input matInput placeholder="" formControlName="username">
             <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+              Inserisci lo username
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -23,11 +26,14 @@
         <div class="field-container">
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required (keyup.enter)="onSubmit()">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" (keyup.enter)="onSubmit()">
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hidePassword" type="button">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+              Inserisci la password
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -44,13 +50,12 @@
 
     <mat-divider></mat-divider>
 
-    <!-- Utente non registrato -->
+    <!-- Redirect to register -->
     <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
 
-    <!-- Progress bar (DA FIXARE - Se vogliamo tenerla) -->
-    <!--<mat-card-footer>
-      <mat-progress-bar mode="determinate" value="{{ this.progressBarStatus }}"></mat-progress-bar>
-    </mat-card-footer>-->
+    <!-- Redirect to forgot password -->
+    <span class="forgot-password-container" (click)="onForgotPassword()"><p class="forgot-password-txt">Hai dimenticato la password?</p></span>
+
 
   </mat-card>
 </div>
