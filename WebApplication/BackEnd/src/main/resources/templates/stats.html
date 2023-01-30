@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/@material/button@latest/dist/mdc.button.min.css" />
 
-    <script src="js/redirect.js"></script>
+    <script src="js/stats.js"></script>
 
 
     <div class="toolbar">
@@ -71,7 +71,7 @@
             <br/>
             <div class="row">
                 <div class="col" th:each="ev :${topFive}">
-                    <div class="card" th:value="${ev.id}" onclick="redirect(this.getAttribute('value'))">
+                    <div class="card" th:value="${ev.id}" onclick="stats(this.getAttribute('value'))">
                         <div class="card-img">
                             <img class="img" th:src="${ev.urlImage}" alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
                         </div>
@@ -87,7 +87,7 @@
             <br/>
             <div class="row" >
                 <div class="col" th:each="evl :${topLiked}"  >
-                    <div class="card" th:value="${evl.id}" onclick="redirect(this.getAttribute('value'))">
+                    <div class="card" th:value="${evl.id}" onclick="stats(this.getAttribute('value'))">
                         <div class="card-img">
                             <img class="img" th:src="${evl.urlImage}"  alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
                         </div>
@@ -124,5 +124,10 @@
         </ul>
     </div>
 </div>
+
+<!-- Scroll to Top Button-->
+<button id="scrollBtn" onclick="scrollToTop()">
+    <i class="material-icons">arrow_upward</i>
+</button>
 </body>
 </html>
