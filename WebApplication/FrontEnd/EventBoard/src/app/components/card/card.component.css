@@ -1,43 +1,42 @@
 *,
 *:after,
 *before {
-  box-sizing: border-box;
+  box-sizing: var(--card-before-after-box-sizing);
 }
 
 .card {
-  display: inline-block;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: white;
-  overflow: hidden;
-
-  width: 350px;
-  height: 300px;
-
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-  margin: 1rem;
-  transition: transform .2s;
+  display: var(--card-display);
+  flex-wrap: var(--card-flex-wrap);
+  flex-direction: var(--card-flex-direction);
+  background-color: var(--card-background-color);
+  overflow: var(--card-overflow);
+  width: var(--card-width);
+  height: var(--card-height);
+  box-shadow: var(--card-box-shadow);
+  border-radius: var(--card-border-radius);
+  margin: var(--card-margin);
+  transition: var(--card-transition);
 }
 .card:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+  cursor: var(--card-hover-cursor);
+  transform: var(--card-hover-transform);
 }
 
 .card-img {
   /* l'immagine mi deve occupare il 45% dello spazio (verticale) */
-  padding-bottom: 46%;
-  position: relative;
-  background-color: white;
-  overflow: hidden;
+  padding-bottom: var(--card-image-container-padding-bottom);
+  position: var(--card-image-container-position);
+  background-color: var(--card-image-container-background-color);
+  overflow: var(--card-image-container-overflow);
 }
 .img {
-  position: absolute;
-  object-fit: cover;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateY(0); /* se volessi spostare l'immagine verticalmente */
+  position: var(--card-image-position);
+  object-fit: var(--card-image-object-fit);
+  top: var(--card-image-top);
+  left: var(--card-image-left);
+  width: var(--card-image-width);
+  height: var(--card-image-height);
+  transform: var(--card-image-transform); /* se volessi spostare l'immagine verticalmente */
 }
 
 .card-body {}

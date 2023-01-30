@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   background-color: var(--background-pastel-color);
 }
 
@@ -54,4 +55,19 @@
 
 .radio-button {
   margin-right: 20px;
+}
+
+.action-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: -10px;
+}
+
+.cancel-btn {
+  margin-right: 3px;
+}
+
+.submit-btn {
+  margin-left: 3px;
 }

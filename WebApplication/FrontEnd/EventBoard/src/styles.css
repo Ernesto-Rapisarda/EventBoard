@@ -6,16 +6,90 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 PER IMPORTARE QUESTO FOGLIO DI STILE USA
   -> @import "src/styles.css";
 */
+
 * {
-  --var-root: test;
 
   /* background material color */
   --background-pastel-color: #e9f2f8;
-  --login-page-background-color: #e9f2f8;
-  --registration-page-background-color: #e9f2f8;
+  --login-page-background-color: var(--background-pastel-color);
+  --registration-page-background-color: var(--background-pastel-color);
 
   --elements-background-color-dark: #ebebeb;
   --elements-background-color-light: #f5f5f5;
+
+  --footer-background-color: #3700be;
+  --text-content-color: #cecece;
+
+
+
+  /** BANNER BENVENUTO E BENTORNATO **/
+  --banner-image-background-size: cover;
+  --banner-image-vertical-align: center;
+  --banner-image-height: 35vh;
+  --banner-image-width: 100%;
+  --banner-image-position: relative;
+  /**/
+  --banner-container-position: absolute;
+  --banner-container-top: 50%;
+  --banner-container-left: 70%;
+  --banner-container-height: 40%;
+  --banner-container-transform: translate(-50%, -50%);
+  --banner-container-text-align: center;
+  --banner-container-text-transform: uppercase;
+  --banner-container-letter-spacing: 0.1em;
+  --banner-container-text-color: white;
+  --banner-container-text-shadow: 2px 2px 4px #000000;
+  /**/
+  --banner-text-font-size: 32px;
+  /**/
+  --banner-button-border: none;
+  --banner-button-outline: none;
+  --banner-button-padding: 10px 20px;
+  --banner-button-color: white;
+  --banner-button-background-color: black;
+  --banner-button-cursor: pointer;
+  --banner-button-font-size: 1.2em;
+  --banner-button-transition: transform 0.2s;
+  /**/
+  --banner-button-hover-transform: scale(1.1);
+
+
+
+
+
+  /** CARDS **/
+  --card-before-after-box-sizing: border-box;
+  /**/
+  --card-display: inline-block;
+  --card-flex-wrap: wrap;
+  --card-flex-direction: column;
+  --card-background-color: white;
+  --card-overflow: hidden;
+  --card-width: 350px;
+  --card-height: 300px;
+  --card-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  --card-border-radius: 5px;
+  --card-margin: 1rem;
+  --card-transition: transform .2s;
+  /**/
+  --card-hover-cursor: pointer;
+  --card-hover-transform: scale(1.1);
+  /**/
+  --card-image-container-padding-bottom:46%;
+  --card-image-container-position: relative;
+  --card-image-container-background-color: white;
+  --card-image-container-overflow: hidden;
+  /**/
+  --card-image-position: absolute;
+  --card-image-object-fit: cover;
+  --card-image-top: 0;
+  --card-image-left: 0;
+  --card-image-width: 100%;
+  --card-image-height: 100%;
+  --card-image-transform: translateY(0);
+  /**/
+
+
 
 
 
@@ -23,7 +97,7 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
   --button-primary-color: #3700be;
   /*
   --button-secondary-color:;
-  --button-warning-color:;
+  --button-warning-color: ;
   */
   /* comment and review container */
   --comment-and-review-container-background-color-dark: grey;
@@ -37,8 +111,4 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
   --display-center-space-height: auto;
   --display-center-space-width: auto;
 
-  /* *** */
-
-  --footer-background-color: #3700be;
-  --text-content-color: #cecece;
 }

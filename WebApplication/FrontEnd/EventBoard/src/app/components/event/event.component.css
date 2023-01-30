@@ -136,7 +136,7 @@
   width: 30%;
   margin: 20px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: var(--elements-background-color-light);
   border-radius: 10px;
   text-align: center;
 }
@@ -679,7 +679,7 @@
   .get-tickets-container {
     margin-top: var(--elements-margin-top);
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: var(--elements-background-color-light);
     border-radius: 10px;
     text-align: center;
   }
