@@ -1,7 +1,7 @@
 /* Container principale */
 .container {
   display: flex;
-  background-color: var(--login-page-background-color);
+  background-color: var(--dialog-pages-background-color);
   height: auto;
 }
 

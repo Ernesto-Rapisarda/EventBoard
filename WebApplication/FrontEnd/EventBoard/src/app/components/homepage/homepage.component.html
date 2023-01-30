@@ -1,4 +1,5 @@
 <div *ngIf="authService.isAuthenticated(); then isLoggedIn else isNotLoggedIn"></div>
+
 <ng-template #isLoggedIn>
   <app-banner-welcomeback></app-banner-welcomeback>
 </ng-template>

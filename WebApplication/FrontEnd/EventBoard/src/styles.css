@@ -10,9 +10,8 @@ PER IMPORTARE QUESTO FOGLIO DI STILE USA
 * {
 
   /* background material color */
-  --background-pastel-color: #e9f2f8;
-  --login-page-background-color: var(--background-pastel-color);
-  --registration-page-background-color: var(--background-pastel-color);
+  --background-pastel-color: #fbfaf8; /* #e9f2f8; */
+  --dialog-pages-background-color: #faf7f0;
 
   --elements-background-color-dark: #ebebeb;
   --elements-background-color-light: #f5f5f5;

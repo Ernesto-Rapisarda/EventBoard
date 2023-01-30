@@ -18,15 +18,16 @@
   --organizer-font-size: 18px;
 
 
-}.center-and-space {
+}
+
+.container {
    display: var(--display-center-space-display);
    flex-direction: var(--display-center-space-flex-direction);
    align-items: var(--display-center-space-align-items);
    justify-content: var(--display-center-space-justify-content);
    height: var(--display-center-space-height);
    width: var(--display-center-space-width);
-
-
+   background-color: var(--background-pastel-color);
 }
 .event-main-container {
   width: auto;
