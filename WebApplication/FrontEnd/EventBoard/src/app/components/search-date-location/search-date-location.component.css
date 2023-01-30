@@ -1,11 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   /* TODO vedere se è possibile riempire tutto lo schermo con sta roba, height 100% non funziona mai nella vita */
   align-items: center;
   padding: 50px 16px;
   background-color: var(--background-pastel-color);
+  justify-content: center;
+  height: 60vh;
+  margin-top: -9vh;
 }
 
 .card {
