@@ -1,5 +1,6 @@
 let scrollBtn;
 
+// Called when the page is loaded
 window.onload = function() {
   scrollBtn = document.querySelector("#scrollBtn");
 
@@ -13,12 +14,12 @@ function scrollCheck() {
   }
 }
 
-// When the user clicks on the button, scroll to the top of the document
+// When called, scrolls to the top of the page
 function scrollToTop() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-function stats(id){
+function redirectTo(id){
   location.href = `http://localhost:4200/event/${id}`;
 }
 

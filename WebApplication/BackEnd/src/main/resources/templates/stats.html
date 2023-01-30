@@ -12,26 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/@material/button@latest/dist/mdc.button.min.css" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 
     <script src="js/stats.js"></script>
-
-
-    <div class="toolbar">
-        <div class="left-section">
-            <a href="http://localhost:4200">
-                <img class="logo" src="/images/LogoWeb.png" alt="">
-            </a>
-            <button class="left-button"><span>Ricerca</span></button>
-        </div>
-        <div class="right-section">
-            <!--<script>checkButton("organizer")</script>-->
-            <!-- PULSANTI ACCEDI, REGISTRATI E CREA EVENTO
-            <button class="right-button"><span>Crea evento</span></button>
-            <button class="right-button"><span>Accedi</span></button>
-            <button class="right-button"><span>Registrati</span></button>
-            -->
-        </div>
-    </div>
 
     <title>Statistiche</title>
 </head>
@@ -41,6 +24,14 @@
         <img src="/images/LogoWeb.png"  height="64" class="d-inline-block align-top" alt="">
     </a>
 </nav>-->
+  <div class="toolbar">
+    <div class="left-section">
+      <a href="http://localhost:4200">
+        <img class="logo" src="/images/LogoWeb.png" alt="">
+      </a>
+      <button class="left-button"><span>Ricerca</span></button>
+    </div>
+  </div>
 
     <br/>
     <div class="container-xl">
@@ -71,7 +62,7 @@
             <br/>
             <div class="row">
                 <div class="col" th:each="ev :${topFive}">
-                    <div class="card" th:value="${ev.id}" onclick="stats(this.getAttribute('value'))">
+                    <div class="card" th:value="${ev.id}" onclick="redirectTo(this.getAttribute('value'))">
                         <div class="card-img">
                             <img class="img" th:src="${ev.urlImage}" alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
                         </div>
@@ -87,7 +78,7 @@
             <br/>
             <div class="row" >
                 <div class="col" th:each="evl :${topLiked}"  >
-                    <div class="card" th:value="${evl.id}" onclick="stats(this.getAttribute('value'))">
+                    <div class="card" th:value="${evl.id}" onclick="redirectTo(this.getAttribute('value'))">
                         <div class="card-img">
                             <img class="img" th:src="${evl.urlImage}"  alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
                         </div>
