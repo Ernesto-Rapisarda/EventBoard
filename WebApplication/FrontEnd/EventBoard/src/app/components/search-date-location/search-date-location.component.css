@@ -4,7 +4,7 @@
   /* TODO vedere se è possibile riempire tutto lo schermo con sta roba, height 100% non funziona mai nella vita */
   align-items: center;
   padding: 50px 16px;
-  background-color: var(--background-pastel-color);
+  background-color: var(--dialog-pages-background-color);
   justify-content: center;
   min-height: calc(100vh - 64px - 48px - 100px);
   text-align: center;

@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 50px 16px;
-  background-color: var(--background-pastel-color);
+  background-color: var(--dialog-pages-background-color);
   min-height: calc(100vh - 64px - 48px - 100px);
   text-align: center;
 }

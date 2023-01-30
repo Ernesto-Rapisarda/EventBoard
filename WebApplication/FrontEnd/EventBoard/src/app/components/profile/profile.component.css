@@ -17,7 +17,7 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 120px;
-  background-color: var(--login-page-background-color);
+  background-color: var(--dialog-pages-background-color);
 }
 
 .section-separator {
@@ -161,7 +161,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 120px;
-    background-color: var(--login-page-background-color);
+    background-color: var(--dialog-pages-background-color);
   }
 
   .organizer-header {
@@ -274,7 +274,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 120px;
-    background-color: var(--login-page-background-color);
+    background-color: var(--dialog-pages-background-color);
   }
 
   .organizer-header {

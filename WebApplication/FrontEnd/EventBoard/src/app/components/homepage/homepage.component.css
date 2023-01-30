@@ -6,11 +6,11 @@
 }
 
 .container {
-
+  background-color: var(--background-pastel-color);
 }
 
 .chip-listbox-container {
-  margin-top: var(--margin-top);
+  padding-top: var(--margin-top);
   display: flex;
   justify-content: center;
 }

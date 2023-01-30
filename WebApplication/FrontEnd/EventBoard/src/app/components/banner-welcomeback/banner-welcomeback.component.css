@@ -1,28 +1,38 @@
 .bg-image {
-  background-image: url('https://live.staticflickr.com/831/27935662728_5e9a9c2cb1_b.jpg');
-  background-size: cover;
-  vertical-align: center;
-  height: 35vh;
-  width: 100%;
-  position: relative;
+  background-image: url('https://wallpapercave.com/wp/wp6438678.jpg');
+  background-size: var(--banner-image-background-size);
+  vertical-align: var(--banner-image-vertical-align);
+  height: var(--banner-image-height);
+  width: var(--banner-image-width);
+  position: var(--banner-image-position);
 }
 
 .bg-container {
-  position: absolute;
-  top: 50%;
-  left: 70%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
+  position: var(--banner-container-position);
+  top: var(--banner-container-top);
+  left: var(--banner-container-left);
+  height: var(--banner-container-height);
+  transform: var(--banner-container-transform);
+  text-align: var(--banner-container-text-align);
+  text-transform: var(--banner-container-text-transform);
+  letter-spacing: var(--banner-container-letter-spacing);
+  color: var(--banner-container-text-color);
+  text-shadow: var(--banner-container-text-shadow);
 }
 
 .bg-text {
-  font-size: 32px;
+  font-size: var(--banner-text-font-size);
 }
-
-.bg-paragraph {
-  text-shadow: 2px 2px 4px #000000;
+.bg-button {
+  border: var(--banner-button-border);
+  outline: var(--banner-button-outline);
+  padding: var(--banner-button-padding);
+  color: var(--banner-container-text-color);
+  background-color: var(--banner-button-background-color);
+  cursor: var(--banner-button-cursor);
+  font-size: var(--banner-button-font-size);
+  transition: var(--banner-button-transition);
+}
+.bg-button:hover {
+  transform: var(--banner-button-hover-transform);
 }

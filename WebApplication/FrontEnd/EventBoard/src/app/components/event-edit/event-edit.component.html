@@ -25,6 +25,17 @@
           <app-datepicker controlName="date"></app-datepicker>
         </div>
 
+        <!-- event type -->
+        <mat-form-field appearance="fill">
+          <mat-label>Tipologia evento</mat-label>
+          <mat-select formControlName="eventType" required>
+            <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="eventEditForm.get('eventType').hasError('required')">
+            Seleziona una tipologia
+          </mat-error>
+        </mat-form-field>
+
         <!-- location -->
         <div class="position-container">
           <mat-form-field appearance="fill">
@@ -78,17 +89,6 @@
           </mat-form-field>
         </div>
 
-        <!-- event type -->
-        <mat-form-field appearance="fill">
-          <mat-label>Tipologia evento</mat-label>
-          <mat-select formControlName="eventType" required>
-            <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="eventEditForm.get('eventType').hasError('required')">
-            Seleziona una tipologia
-          </mat-error>
-        </mat-form-field>
-
         <!-- description -->
         <div class="field-container">
           <mat-form-field appearance="outline">
@@ -124,8 +124,10 @@
         </div>
 
         <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit" [disabled]="!eventEditForm.valid">Conferma</button>
-          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Annulla</button>
+          <div class="action-button-container">
+            <button class="cancel-btn" mat-raised-button color="warn" type="button" (click)="onCancel()"><mat-icon>close</mat-icon>Annulla</button>
+            <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!eventEditForm.valid"><mat-icon>check</mat-icon>Conferma</button>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card-content>
