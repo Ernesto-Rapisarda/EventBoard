@@ -41,7 +41,7 @@
 </nav>-->
 
     <br/>
-    <div class="container-md" >
+    <div class="container-xl" >
         <div class="overflow-scroll">
             <h1>STATISTICHE GLOBALI</h1>
             <table border="1">
@@ -64,8 +64,8 @@
             <br/>
             <h1>TOP 5 EVENTI PER RATING</h1>
             <br/>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
-                <div class="col mb-5" th:each="ev :${topFive}"  >
+            <div class="row " >
+                <div class="col " th:each="ev :${topFive}"   >
                     <div class="card"  >
                         <div class="card-img">
                             <img class="img" th:src="${ev.urlImage}" alt="..." style="object-fit: cover; "><!--class="card-img-top"-->
@@ -80,8 +80,8 @@
             </div>
             <h1>TOP 5 EVENTI PER LIKE</h1>
             <br/>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 " >
-                <div class="col mb-5" th:each="evl :${topLiked}"  >
+            <div class="row" >
+                <div class="col" th:each="evl :${topLiked}"  >
                     <div class="card"  >
                         <div class="card-img">
                             <img class="img" th:src="${evl.urlImage}"  alt="..." style="object-fit: cover; "><!--class="card-img-top"-->

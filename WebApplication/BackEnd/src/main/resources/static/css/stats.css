@@ -146,7 +146,7 @@
         background-color: white;
         overflow: hidden;
 
-        width: 260px;
+        width: 260px; /*260px*/
         height: 280px;
 
         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
@@ -159,7 +159,10 @@
 }
 /* FINE CARD */
 
+.row{
+    background-color: #3700be;
 
+}
 
 
 
