@@ -6,7 +6,7 @@
   padding: 50px 16px;
   background-color: var(--background-pastel-color);
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 64px - 48px - 100px);
 }
 
 .card {
