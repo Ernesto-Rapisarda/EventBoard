@@ -84,7 +84,6 @@ export class RequestService {
   }
 
   getAllEvents(): Observable<Event[]> {
-    console.log("Entro in get all events")
     const url = API_SERVER_URL+"/api/noauth/get/events"
     return this.http.get<Event[]>(url)
   }

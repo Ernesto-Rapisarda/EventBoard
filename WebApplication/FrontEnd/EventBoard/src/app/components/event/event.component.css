@@ -103,6 +103,13 @@
   font-weight: var(--title-font-weight);
   height: auto;
 }
+.sold-out-container{
+  max-width: 80px;
+}
+.sold-out {
+  max-width: 80px;
+}
+
 .description-header {
   margin-top: 20px;
   font-size: var(--description-font-size);
@@ -319,7 +326,6 @@
   margin-bottom: 10px;
 }
 .get-ticket-button {
-  background-color: var(--button-primary-color);
   color: white;
   width: 90%;
   transition: transform 0.2s;

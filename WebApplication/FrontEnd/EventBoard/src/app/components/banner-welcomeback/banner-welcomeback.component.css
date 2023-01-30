@@ -1,5 +1,5 @@
 .bg-image {
-  background-image: url('https://wallpapercave.com/wp/wp6438678.jpg');
+  background-image: url('https://live.staticflickr.com/831/27935662728_5e9a9c2cb1_b.jpg');
   background-size: var(--banner-image-background-size);
   vertical-align: var(--banner-image-vertical-align);
   height: var(--banner-image-height);
@@ -10,9 +10,9 @@
 .bg-container {
   position: var(--banner-container-position);
   top: var(--banner-container-top);
-  left: var(--banner-container-left);
+  right: var(--banner-container-left);
   height: var(--banner-container-height);
-  transform: var(--banner-container-transform);
+  transform: translate(50%, -50%);
   text-align: var(--banner-container-text-align);
   text-transform: var(--banner-container-text-transform);
   letter-spacing: var(--banner-container-letter-spacing);

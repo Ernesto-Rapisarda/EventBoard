@@ -21,9 +21,17 @@
         <!-- Title -->
         <h1 class="title-header">{{event.title}}</h1>
 
+
+        <!-- Average rating -->
         <div class="card-rating" *ngIf="averageRating">
           <div class="rating"><span class="star">★</span>{{averageRating.toFixed(2).replace(".00", "")}}/5</div>
         </div>
+
+        <!-- Sold out -->
+        <div class="sold-out-container" *ngIf="event.soldOut">
+          <img class="sold-out animate__animated animate__shakeX" src="assets/sold-out.png" alt="Sold out">
+        </div>
+
 
         <!-- When and where -->
         <div class="card-when-where-container">
@@ -68,7 +76,7 @@
         <div class="like-participate-container">
           <div class="participate-button-container">
             <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
-                    [ngClass]="participate ? 'participate-button-true' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
+                    [ngClass]="participate ? 'participate-button-true animate__animated animate__rubberBand' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
               <mat-icon>how_to_reg</mat-icon>
             </button>
             <br><br>
@@ -77,7 +85,7 @@
           </div>
           <div class="like-button-container">
             <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
-                    [ngClass]="liked ? 'like-button-true' : 'like-button-false'" matTooltip="Mi piace" matTooltipPosition="above">
+                    [ngClass]="liked ? 'like-button-true animate__animated animate__heartBeat' : 'like-button-false'" matTooltip="Mi piace" matTooltipPosition="above">
               <mat-icon>favorite</mat-icon>
             </button>
             <br><br>
@@ -89,7 +97,7 @@
         <div class="get-tickets-container">
           <div class="get-tickets-content">
             <p class="get-ticket-copy">{{event.price === 0.0 ? "Evento gratuito!" : "Biglietti a partire da " + (event.price | currency: "EUR")}}</p>
-            <button mat-raised-button class="get-ticket-button" (click)="onTicketPage()" [disabled]="event.urlTicket === ''">Vai al sito</button>
+            <button mat-raised-button color="primary" class="get-ticket-button" (click)="onTicketPage()" [disabled]="event.urlTicket === ''">Vai al sito</button>
           </div>
         </div>
 

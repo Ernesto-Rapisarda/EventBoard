@@ -8,7 +8,7 @@ import {DOCUMENT} from "@angular/common";
 })
 export class ScrollToTopComponent {
   windowScrolled: boolean;
-  maximumBeforeShow = 400;
+  maximumBeforeShow = 200;
 
   @HostListener('window:scroll')
   checkScroll() {
