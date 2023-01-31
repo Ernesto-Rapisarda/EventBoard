@@ -30,6 +30,7 @@ export class EventComponent implements OnInit {
     this.participate = false
     this.likesNumber = 0
     this.participantsNumber = 0
+    window.scroll({top: 0})   // Scroll to top of the page when the component is loaded
   }
 
   getEvent(id: number) {

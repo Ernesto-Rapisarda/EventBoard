@@ -5,7 +5,7 @@
   align-items: center;
   padding: 50px 16px;
   background-color: var(--dialog-pages-background-color);
-  min-height: calc(100vh - 64px - 48px - 100px);
+  min-height: calc(100vh - 64px - 48px - 295px);
   text-align: center;
 }
 
@@ -82,5 +82,4 @@
   .search-box button i {
     color: #9e9e9e;
   }
-
 }

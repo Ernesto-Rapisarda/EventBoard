@@ -19,16 +19,16 @@
   margin: 0 var(--events-container-margin-lateral);
 }
 
-.events-container .incoming-events-container { }
-.events-container .incoming-events-container .event-type-copy {
+.events-container .upcoming-events-container { }
+.events-container .upcoming-events-container .event-type-copy {
   margin-top: var(--margin-top);
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 
-.events-container .outcoming-events-container { }
-.events-container .outcoming-events-container .event-type-copy {
+.events-container .past-events-container { }
+.events-container .past-events-container .event-type-copy {
   margin-top: var(--margin-top);
   font-size: 1.5rem;
   font-weight: 500;

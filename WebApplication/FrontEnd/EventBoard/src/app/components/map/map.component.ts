@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
       container: 'mapbox',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [this.coordinates[0], this.coordinates[1]], // Starting [Longitude, Latitude]
-      zoom: 17
+      zoom: 16 // Starting zoom level
     });
 
     this.createMarker(this.coordinates[0], this.coordinates[1], this.draggable)

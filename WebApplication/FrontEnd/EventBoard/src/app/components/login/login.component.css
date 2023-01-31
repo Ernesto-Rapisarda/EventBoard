@@ -4,7 +4,7 @@
 .container {
   display: flex;
   background-color: var(--dialog-pages-background-color);
-  height: 100vh;
+  height: calc(100vh - 64px - 194px);
 }
 
 /* Card */
