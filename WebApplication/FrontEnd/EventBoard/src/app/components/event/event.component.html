@@ -76,7 +76,7 @@
         <div class="like-participate-container">
           <div class="participate-button-container">
             <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
-                    [ngClass]="participate ? 'participate-button-true animate__animated animate__rubberBand' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
+                    [ngClass]="participate ? 'participate-button-true animate__animated animate__shakeY' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
               <mat-icon>how_to_reg</mat-icon>
             </button>
             <br><br>
