@@ -56,7 +56,6 @@ import {ActivateComponent} from './components/activate/activate.component';
 import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
 import {CommentEditDialogComponent} from './components/comment-edit-dialog/comment-edit-dialog.component';
 import {ReportComponent} from './components/report/report.component';
-import {UserComponent} from './components/user/user.component';
 import {MapComponent} from './components/map/map.component';
 import {FooterComponent} from "./components/footer/footer.component";
 import {MatTableModule} from '@angular/material/table';
@@ -107,7 +106,6 @@ registerLocaleData(localeIt, 'it');
         AdminDashboardComponent,
         CommentEditDialogComponent,
         ReportComponent,
-        UserComponent,
         MapComponent,
         FooterComponent,
         LocationChooserDialogComponent,

@@ -36,7 +36,7 @@ export class CommentComponent {
         const newText = result.text
         let adminMessage = ''
         if(this.authService.isAdmin())
-          adminMessage = window.prompt("Qual è il motivo della modifica?") // TODO: ha senso che un admin possa modificare il commento di qualcuno
+          adminMessage = window.prompt("Qual è il motivo della modifica?")
         this.requestService.editComment(this.comment, newText, adminMessage).subscribe({
           next: response => {
             const eventId = this.route.snapshot.params['id']

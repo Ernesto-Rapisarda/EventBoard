@@ -30,7 +30,6 @@ export class ProfileEditDialogComponent implements OnInit {
                                                         operationConfirmed: boolean,
                                                       }, private dialogRef: MatDialogRef<ProfileEditDialogComponent>, private requestService: RequestService, private authService: AuthService, private comuniItaService: ComuniItaService) { }
 
-  // TODO: Deve riempire preferenze con chip di preferenze già espresse
   ngOnInit(): void {
     this.setEventTypes()
     this.setRegions()

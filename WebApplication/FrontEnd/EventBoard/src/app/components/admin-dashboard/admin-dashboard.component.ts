@@ -67,7 +67,6 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
-  /* TODO */
   onPromote(id: number) {
     this.requestService.promoteUser(id).subscribe({
       next: response => {
