@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
             userData.position,
             userData.is_not_locked)
 
-          this.authService.isLoggedIn = true;
+          this.authService.isLoggedIn = true
         },
         error: error => {
           alert("ERRORE: Token scaduto, effettua nuovamente il login");

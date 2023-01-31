@@ -9,7 +9,6 @@ import {SearchComponent} from "./components/search/search.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
-import {AuthGuard} from "./auth/auth.guard";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {ActivateComponent} from "./components/activate/activate.component";
 import {AboutComponent} from "./components/about/about.component";
@@ -18,15 +17,15 @@ import {AdminDashboardComponent} from "./components/admin-dashboard/admin-dashbo
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
-  {path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard]},
+  {path: 'admin/dashboard', component: AdminDashboardComponent},
   {path: 'profile/activate/:token', component: ActivateComponent},
-  {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
+  {path: 'create-event', component: CreateEventComponent},
   {path: 'event/:id', component: EventComponent},
   {path: 'event/edit/:id', component: EventEditComponent},
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
   {path: 'organizer/:id', component: OrganizerComponent},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'search', component: SearchComponent},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent},

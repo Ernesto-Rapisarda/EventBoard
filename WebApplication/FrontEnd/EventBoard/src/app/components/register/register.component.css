@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: calc(100vh - 64px - 194px);
+  min-height: calc(100vh - 64px - 294px);
   background-color: var(--dialog-pages-background-color);
+  padding: 50px 16px;
 }
 
 /* Container principale */
@@ -119,7 +120,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 50px 16px;
   }
 
   /* Container principale */

@@ -5,12 +5,13 @@ import {Router} from "@angular/router";
 import {Preference} from "../models/preference.model";
 import {API_SERVER_URL} from "../../constants";
 import {Location} from "../models/location.model";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = false
+  isLoggedIn: boolean = false
   user!: User
 
   constructor(private http: HttpClient, private router: Router) { }
