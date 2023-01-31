@@ -57,3 +57,111 @@
 .card-container {
   margin-top: 26px;
 }
+
+
+@media screen and (max-width: 572px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 16px;
+    background-color: var(--dialog-pages-background-color);
+    justify-content: center;
+    min-height: calc(100vh - 64px - 48px - 295px);
+    text-align: center;
+  }
+
+  .card {
+    border-radius: 25px;
+    background-color: #c4dcec;
+    box-shadow: 0px 0px 5px 0px #9e9e9e;
+    height: auto;
+    text-align: center;
+  }
+
+  .date-position-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 24px;
+
+  }
+
+  .date-position-container .date-container {
+    padding: 0 18px;
+  }
+  .date-position-container .position-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .date-position-container .position-container .region {
+    margin: 0 18px;
+  }
+  .date-position-container .position-container .city {
+    margin: 0 18px;
+  }
+
+  .date-position-container .search-container {
+    padding-bottom: 24px;
+  }
+
+  .search-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .filtered-events {
+    height: auto;
+  }
+
+  .card-container {
+    margin-top: 26px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
