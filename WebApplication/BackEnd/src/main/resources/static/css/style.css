@@ -1,5 +1,5 @@
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #FAFAFA}
 
 
 * {
@@ -16,7 +16,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
     /* UI Elements Colors */
-    --button-primary-color: #3700be;
+    --button-primary-color: #3f51b5;
     /*
     --button-secondary-color:;
     --button-warning-color:;
@@ -32,6 +32,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     /* *** */
 
-    --footer-background-color: #3700be;
+    --footer-background-color: #3f51b5;
     --text-content-color: #cecece;
 }
