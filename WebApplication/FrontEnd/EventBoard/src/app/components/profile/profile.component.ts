@@ -60,13 +60,13 @@ export class ProfileComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
+        console.log(result)
+        console.log(this.authService.user)
         if(result.operationConfirmed && this.authService.user &&
-          ((this.authService.user.username !== result.username) ||
-          (this.authService.user.name !== result.name) ||
+          ((this.authService.user.name !== result.name) ||
           (this.authService.user.lastName !== result.lastName) ||
-          result.preferences.length > 0 /* TODO: Migliorare questo controllo, deve verificare se le preferenze sono diverse */)
+          this.differentPreferences(result.preferences))
         ){
-          console.log(result)
           const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
           const location: Location = {
             id: this.authService.user.location.id,
@@ -81,9 +81,11 @@ export class ProfileComponent implements OnInit {
               alert("Dati modificati con successo")
               this.router.navigateByUrl('/profile')
             },
-            error: error => { /* TODO: Error handling */ }
+            error: error => { this.errorHandler(error) }
           })
         }
+        else
+          alert("Operazione annullata, nessun dato modificato")
       }
     )
   }
@@ -120,7 +122,7 @@ export class ProfileComponent implements OnInit {
         this.authService.isLoggedIn = true;
         console.log(this.authService.user)
       },
-      error: error => { }
+      error: error => { this.errorHandler(error) }
     })
   }
 
@@ -141,9 +143,40 @@ export class ProfileComponent implements OnInit {
           this.organizerEvents.push(event)
         }
       },
-      error: error => {
-
-      }
+      error: error => { this.errorHandler(error) }
     })
+  }
+
+  private differentPreferences(preferences: string[]): boolean {
+    let equalPreferences = 0
+    if(this.authService.user){
+      // If the number of preferences is different, then the preferences are different
+      if(preferences.length !== this.authService.user.preferences.length)
+        return true
+
+      // Count the number of equal preferences
+      for(let preference of this.authService.user.preferences)
+        if(preferences.includes(preference.event_type))
+          ++equalPreferences
+
+      // If the number of equal preferences is equal to the number of preferences, then the preferences are the same
+      if(equalPreferences === this.authService.user.preferences.length)
+        return false
+      return true
+    }
+    return false
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: Operazione non valida")
+        break;
+      case 403:
+        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        break;
+      case 404:
+        alert("ERRORE: Errore di elaborazione")
+    }
   }
 }

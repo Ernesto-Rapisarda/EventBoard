@@ -4,7 +4,8 @@
 .container {
   display: flex;
   background-color: var(--dialog-pages-background-color);
-  height: calc(100vh - 64px - 194px);
+  min-height: calc(100vh - 64px - 294px);
+  padding: 50px 16px;
 }
 
 /* Card */
