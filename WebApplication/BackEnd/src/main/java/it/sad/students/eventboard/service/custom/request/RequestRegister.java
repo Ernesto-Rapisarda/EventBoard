@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom.request;
 
 
 import it.sad.students.eventboard.persistenza.model.Role;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RequestRegister {
     private Long id;
     private String name;
     private String lastName;

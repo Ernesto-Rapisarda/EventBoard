@@ -4,12 +4,11 @@ import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
-import it.sad.students.eventboard.service.httpbody.StatusCodes;
+import it.sad.students.eventboard.service.custom.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.StyledEditorKit;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class InteractionService {
 
-    private final AuthorizationControll authorizationControll;
+    private final AuthorizationService authorizationService;
     private final StatusCodes statusCodes;
     private final EmailSenderService emailSenderService;
 
@@ -26,7 +25,7 @@ public class InteractionService {
 
     public ResponseEntity setLike(Long person,Long event,String token){
         try {
-            if(!authorizationControll.checkOwnerAuthorization(person,token))
+            if(!authorizationService.checkOwnerAuthorization(person,token))
                 return statusCodes.unauthorized();
 
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
@@ -49,7 +48,7 @@ public class InteractionService {
 
     public ResponseEntity setPartecipation(Long person,Long event,String token){
         try {
-            if(!authorizationControll.checkOwnerAuthorization(person,token))
+            if(!authorizationService.checkOwnerAuthorization(person,token))
                 return statusCodes.unauthorized();
 
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
@@ -73,7 +72,7 @@ public class InteractionService {
     public ResponseEntity addComment(Comment comment, String token){
         try{
 
-            if(!authorizationControll.checkOwnerAuthorization(comment.getPerson(),token))
+            if(!authorizationService.checkOwnerAuthorization(comment.getPerson(),token))
                 return statusCodes.unauthorized();
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent())==null)
                 return statusCodes.notFound();
@@ -99,7 +98,7 @@ public class InteractionService {
     public ResponseEntity addReview(Review review,String token){
         try {
             //      PRIMO METODO
-            if(!authorizationControll.checkOwnerAuthorization(review.getPerson(),token))
+            if(!authorizationService.checkOwnerAuthorization(review.getPerson(),token))
                 return statusCodes.unauthorized();
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent())==null)
                 return statusCodes.notFound();
@@ -135,11 +134,11 @@ public class InteractionService {
             if(comment==null)
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
+            if(!authorizationService.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
                 return statusCodes.unauthorized();
 
             DBManager.getInstance().getCommentDao().delete(comment);
-            if(authorizationControll.checkAdminAuthorization(token)){
+            if(authorizationService.checkAdminAuthorization(token)){
                 Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
                 String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
                 emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,true,event.getTitle(), message));
@@ -154,7 +153,7 @@ public class InteractionService {
 
     public ResponseEntity deleteReview(Long person,Long event,String token,String message){
         try {
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(person, token))
+            if(!authorizationService.checkOwnerOrAdminAuthorization(person, token))
                 return statusCodes.unauthorized();
 
             //si potrebbe gestire come scritto sopra nel secondo metodo addReview
@@ -163,7 +162,7 @@ public class InteractionService {
             if(review==null)
                 return statusCodes.notFound();
             DBManager.getInstance().getReviewDao().delete(review);
-            if(authorizationControll.checkAdminAuthorization(token)){
+            if(authorizationService.checkAdminAuthorization(token)){
                 Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(event);
                 String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(person).getEmail();
                 emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,false,true,e.getTitle(), message));
@@ -183,13 +182,13 @@ public class InteractionService {
             if(comment==null)
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
+            if(!authorizationService.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
                 return statusCodes.unauthorized();
             else
             {
                 comment.setDate(date());
                 if(DBManager.getInstance().getCommentDao().saveOrUpdate(comment)) {
-                    if(authorizationControll.checkAdminAuthorization(token)){
+                    if(authorizationService.checkAdminAuthorization(token)){
 
                         Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
                         String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
@@ -212,7 +211,7 @@ public class InteractionService {
             if(review==null)
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(review.getPerson(), token))
+            if(!authorizationService.checkOwnerOrAdminAuthorization(review.getPerson(), token))
                 return statusCodes.unauthorized();
 
             if(review.getRating()==null || review.getRating()<=0||review.getRating()>10||
@@ -222,7 +221,7 @@ public class InteractionService {
             //review.setDate(LocalDate.from(date()));
             review.setDate(date());
             if(DBManager.getInstance().getReviewDao().saveOrUpdate(review)) {
-                if(authorizationControll.checkAdminAuthorization(token)){
+                if(authorizationService.checkAdminAuthorization(token)){
                     Event e=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent());
                     String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(review.getPerson()).getEmail();
                     emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,false,e.getTitle(), message));

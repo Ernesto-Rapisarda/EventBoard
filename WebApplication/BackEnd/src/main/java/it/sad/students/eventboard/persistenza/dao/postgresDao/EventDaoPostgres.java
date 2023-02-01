@@ -6,11 +6,9 @@ import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.EventsStats;
-import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
+import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
 
 import java.sql.*;
-import java.text.DecimalFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 

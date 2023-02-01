@@ -1,5 +1,4 @@
-package it.sad.students.eventboard.service.httpbody;
-
+package it.sad.students.eventboard.service.custom.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseAuthentication {
+public class RequestCancellation {
 
-    private String token;
+    private String password;
+    private Long id;
 }
