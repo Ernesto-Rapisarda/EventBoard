@@ -4,7 +4,7 @@
   --primary-text-size: 48px;
   --primary-font-weight: 600;
 
-  --container-bg-color: #e5e5e5;
+  --container-bg-color: var(--elements-background-color-light);
   --container-border-radius: 15px;
 
 }
