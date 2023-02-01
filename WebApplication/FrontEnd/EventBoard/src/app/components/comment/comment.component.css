@@ -19,12 +19,21 @@
   margin-top: 5px;
   margin-bottom: 24px;
 }
+
 .username {
   padding-right: 6px;
   font-size: 18px;
   font-weight: 600;
-  color: #303f9f;
+  color: var(--footer-background-color);
 }
+
+.username-organizer {
+  padding-right: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FF4081;
+}
+
 .date {
   font-size: 14px;
   color: gray;

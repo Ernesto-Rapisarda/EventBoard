@@ -125,7 +125,7 @@
                   <span matBadge="{{event.commentList.length}}" matBadgeOverlap="false">Commenti</span>
                 </ng-template>
                 <app-comment-form *ngIf="authService.isAuthenticated()"></app-comment-form>
-                <app-comment *ngFor="let comment of event.commentList" [comment]="comment"></app-comment>
+                <app-comment *ngFor="let comment of event.commentList" [comment]="comment" [isOrganizer]="event.organizer === comment.person"></app-comment>
               </mat-tab>
               <mat-tab class="review-tabs">
                 <ng-template mat-tab-label>

@@ -14,6 +14,7 @@ import {CommentEditDialogComponent} from "../comment-edit-dialog/comment-edit-di
 })
 export class CommentComponent {
   @Input() comment: Comment
+  @Input() isOrganizer: boolean
 
   constructor(protected authService: AuthService, private requestService: RequestService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
     // Necessary to enable reloading
