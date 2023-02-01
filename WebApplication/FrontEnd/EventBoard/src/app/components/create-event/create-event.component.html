@@ -8,138 +8,143 @@
     <mat-card-content>
       <form [formGroup]="eventCreateForm" (ngSubmit)="onSubmit()">
 
-        <div> <!-- todo -->
+        <div class="columns">
+          <div class="column-1"> <!-- todo -->
 
-          <!-- title -->
-          <div class="field-container">
-            <mat-form-field appearance="outline">
-              <mat-label>Nome dell'evento</mat-label>
-              <input matInput placeholder="" formControlName="title">
-              <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="eventCreateForm.get('title').hasError('required')">
-                Inserisci il nome dell'evento
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <!-- description -->
-          <div class="field-container">
-            <mat-form-field appearance="outline">
-              <mat-label>Descrizione</mat-label>
-              <textarea matInput
-                        cdkTextareaAutosize
-                        #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="1"
-                        cdkAutosizeMaxRows="5"
-                        placeholder="" formControlName="description"></textarea>
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-          </div>
-
-          <!-- event type -->
-          <mat-form-field appearance="fill">
-            <mat-label>Tipologia evento</mat-label>
-            <mat-select formControlName="eventType">
-              <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
-              Seleziona una tipologia
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-
-        <div> <!-- todo -->
-
-          <!-- date and time -->
-          <div class="date-picker">
-            <app-datepicker controlName="date"></app-datepicker>
-          </div>
-
-          <!-- location -->
-          <div class="position-container">
-            <mat-form-field appearance="fill">
-              <mat-label>Regione</mat-label>
-              <mat-select formControlName="region" (selectionChange)="setCities()">
-                <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
-                Seleziona una regione
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <mat-label>Città</mat-label>
-              <mat-select formControlName="city">
-                <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
-                Seleziona una città
-              </mat-error>
-            </mat-form-field>
-
-            <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
-              <mat-icon>gps_fixed</mat-icon>
-              Fornisci posizione precisa
-            </button>
-
+            <!-- title -->
             <div class="field-container">
               <mat-form-field appearance="outline">
-                <mat-label>Indirizzo</mat-label>
-                <input matInput placeholder="" formControlName="address">
-                <mat-icon matSuffix>location_on</mat-icon>
-                <mat-error *ngIf="eventCreateForm.get('address').hasError('required')">
-                  Inserisci un indirizzo
+                <mat-label>Nome dell'evento</mat-label>
+                <input matInput placeholder="" formControlName="title">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="eventCreateForm.get('title').hasError('required')">
+                  Inserisci il nome dell'evento
                 </mat-error>
               </mat-form-field>
             </div>
-          </div>
 
-        </div>
+            <!-- description -->
+            <div class="field-container">
+              <mat-form-field appearance="outline">
+                <mat-label>Descrizione</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"
+                          placeholder="" formControlName="description"></textarea>
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+            </div>
 
-        <div>
-
-          <!-- price -->
-          <div class="field-container">
-            <mat-form-field appearance="outline">
-              <mat-label>Prezzo di partenza</mat-label>
-              <input matInput placeholder="" formControlName="price">
-              <mat-icon matSuffix>euro_symbol</mat-icon>
-              <mat-error *ngIf="eventCreateForm.get('price').hasError('required')">
-                Inserisci il prezzo di partenza
-              </mat-error>
-              <mat-error *ngIf="eventCreateForm.get('price').hasError('pattern')">
-                Inserisci un prezzo valido (es. 10.50)
+            <!-- event type -->
+            <mat-form-field appearance="fill">
+              <mat-label>Tipologia evento</mat-label>
+              <mat-select formControlName="eventType">
+                <mat-option *ngFor="let type of eventTypes" value="{{type}}">{{type}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="eventCreateForm.get('eventType').hasError('required')">
+                Seleziona una tipologia
               </mat-error>
             </mat-form-field>
           </div>
 
-          <!-- tickets url -->
-          <div class="field-container">
-            <mat-form-field appearance="outline">
-              <mat-label>Url vendita biglietti</mat-label>
-              <input matInput placeholder="" formControlName="ticketUrl">
-              <mat-icon matSuffix>local_activity</mat-icon>
-            </mat-form-field>
+
+
+          <div class="column-2">
+
+            <!-- date and time -->
+            <div class="date-picker">
+              <app-datepicker class="datepicker" controlName="date"></app-datepicker>
+            </div>
+
+            <!-- location -->
+            <div class="position-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Regione</mat-label>
+                <mat-select formControlName="region" (selectionChange)="setCities()">
+                  <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="eventCreateForm.get('region').hasError('required')">
+                  Seleziona una regione
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Città</mat-label>
+                <mat-select formControlName="city">
+                  <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="eventCreateForm.get('city').hasError('required')">
+                  Seleziona una città
+                </mat-error>
+              </mat-form-field>
+
+              <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
+                <mat-icon>gps_fixed</mat-icon>
+                Seleziona sulla mappa
+              </button>
+
+              <div class="field-container">
+                <mat-form-field appearance="outline">
+                  <mat-label>Indirizzo</mat-label>
+                  <input matInput placeholder="" formControlName="address">
+                  <mat-icon matSuffix>location_on</mat-icon>
+                  <mat-error *ngIf="eventCreateForm.get('address').hasError('required')">
+                    Inserisci un indirizzo
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="column-3">
+
+            <!-- price -->
+            <div class="field-container">
+              <mat-form-field appearance="outline">
+                <mat-label>Prezzo di partenza</mat-label>
+                <input matInput placeholder="" formControlName="price">
+                <mat-icon matSuffix>euro_symbol</mat-icon>
+                <mat-error *ngIf="eventCreateForm.get('price').hasError('required')">
+                  Inserisci il prezzo di partenza
+                </mat-error>
+                <mat-error *ngIf="eventCreateForm.get('price').hasError('pattern')">
+                  Inserisci un prezzo valido (es. 10.50)
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- tickets url -->
+            <div class="field-container">
+              <mat-form-field appearance="outline">
+                <mat-label>Url vendita biglietti</mat-label>
+                <input matInput placeholder="" formControlName="ticketUrl">
+                <mat-icon matSuffix>local_activity</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- poster -->
+            <div class="field-container">
+              <mat-label>Carica locandina (max 10MB)</mat-label>
+              <input type="file" (change)="onFileUpload($event)" name="image" accept="image/png, image/jpg, image/jpeg, image/webp, image/bmp">
+            </div>
           </div>
         </div>
 
-        <div>
+        <div class="row">
 
-          <!-- poster -->
-          <div>
-            <mat-label>Carica locandina (max 10MB)</mat-label>
-            <input type="file" (change)="onFileUpload($event)" name="image" accept="image/png, image/jpg, image/jpeg, image/webp, image/bmp">
-          </div>
+          <!-- crea evento -->
+          <mat-card-actions>
+            <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid || !imageUploaded" type="submit">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+              Crea l'evento
+            </button>
+          </mat-card-actions>
         </div>
 
-        <!-- crea evento -->
-        <mat-card-actions>
-          <button mat-raised-button color="primary" class="login-btn" [disabled]="!eventCreateForm.valid || !imageUploaded" type="submit">
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            Crea l'evento
-          </button>
-        </mat-card-actions>
+
 
       </form>
     </mat-card-content>
