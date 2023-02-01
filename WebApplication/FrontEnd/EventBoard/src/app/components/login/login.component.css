@@ -3,9 +3,44 @@
 /* Container principale */
 .container {
   display: flex;
-  background-color: var(--dialog-pages-background-color);
   min-height: calc(100vh - 64px - 294px);
   padding: 50px 16px;
+
+  /* pattern */
+  background-color: var(--background-pastel-color);
+  opacity: 1;
+  background-image:  linear-gradient(30deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(150deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(30deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(150deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(60deg, #f6f6f677 25%, transparent 25.5%, transparent 75%, #f6f6f677 75%, #f6f6f677), linear-gradient(60deg, #f6f6f677 25%, transparent 25.5%, transparent 75%, #f6f6f677 75%, #f6f6f677);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+
+}
+
+.image-card-container {
+  display: flex;
+  flex-direction: row;
+  margin: auto auto;
+  justify-content: center;
+  align-items: center;
+}
+.image-card-container .left-side {
+  /* image */
+  max-height: 528px;
+  max-width: 360px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 1px 1px 2px #000000;
+;
+}
+.image-card-container .right-side {
+  /* card */
+  height: auto;
+  width: auto;
+}
+.login-image {
+  vertical-align: var(--banner-image-vertical-align);
+  width: var(--banner-image-width);
+  position: var(--banner-image-position);
 }
 
 /* Card */
@@ -67,11 +102,15 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
 
   .container {
     display: flex;
     flex-direction: column;
+  }
+
+  .left-side {
+    display: none;
   }
 
   /* Container principale */
@@ -135,5 +174,6 @@
   .forgot-password-container:hover {
     cursor: pointer;
   }
+
 }
 
