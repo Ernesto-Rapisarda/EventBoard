@@ -1,9 +1,16 @@
 /* Container principale */
 .container {
   display: flex;
-  background-color: var(--dialog-pages-background-color);
   height: auto;
   text-align: center;
+
+  /* pattern */
+  background-color: var(--background-pastel-color);
+  opacity: 1;
+  background-image:  linear-gradient(30deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(150deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(30deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(150deg, #f6f6f6 12%, transparent 12.5%, transparent 87%, #f6f6f6 87.5%, #f6f6f6), linear-gradient(60deg, #f6f6f677 25%, transparent 25.5%, transparent 75%, #f6f6f677 75%, #f6f6f677), linear-gradient(60deg, #f6f6f677 25%, transparent 25.5%, transparent 75%, #f6f6f677 75%, #f6f6f677);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+
 }
 
 .card {
