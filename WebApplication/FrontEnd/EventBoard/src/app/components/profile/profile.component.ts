@@ -33,11 +33,13 @@ export class ProfileComponent implements OnInit {
       if(id && password){
         this.authService.deleteUser(id, password).subscribe({
           next: response => {
-            alert("Rimozione avvenuta con successo, ritorno alla pagina principale")
+            alert("Rimozione avvenuta con successo")
             this.router.navigateByUrl('')
             this.authService.logout()
           },
-          error: error => {  }
+          error: error => {
+            this.errorHandler(error)
+          }
         })
       }
       else
@@ -63,9 +65,13 @@ export class ProfileComponent implements OnInit {
         console.log(result)
         console.log(this.authService.user)
         if(result.operationConfirmed && this.authService.user &&
-          ((this.authService.user.name !== result.name) ||
-          (this.authService.user.lastName !== result.lastName) ||
-          this.differentPreferences(result.preferences))
+          (
+            (this.authService.user.name !== result.name) ||
+            (this.authService.user.lastName !== result.lastName) ||
+            (this.differentPreferences(result.preferences)) ||
+            (this.differentPosition(result.region, result.city)) ||
+            (result.password !== '')
+          )
         ){
           const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
           const location: Location = {
@@ -165,6 +171,10 @@ export class ProfileComponent implements OnInit {
       return true
     }
     return false
+  }
+
+  private differentPosition(region: string, city: string): boolean {
+    return (region !== this.authService.user.location.region) || (city !== this.authService.user.location.city)
   }
 
   private errorHandler(error: any) {

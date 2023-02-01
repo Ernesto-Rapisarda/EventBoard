@@ -15,6 +15,9 @@
             <mat-label>Nome</mat-label>
             <input matInput placeholder="" formControlName="name" required>
             <mat-icon matSuffix>face icon</mat-icon>
+            <mat-error *ngIf="editForm.get('name').hasError('required')">
+              Inserisci un nome
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -24,6 +27,9 @@
             <mat-label>Cognome</mat-label>
             <input matInput placeholder="" formControlName="lastName" required>
             <mat-icon matSuffix>face icon</mat-icon>
+            <mat-error *ngIf="editForm.get('lastName').hasError('required')">
+              Inserisci un cognome
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -32,7 +38,6 @@
           <mat-form-field>
             <mat-label>Tipi di evento preferiti</mat-label>
             <mat-select formControlName="preferences" multiple>
-
               <mat-select-trigger>
                 <mat-chip-list>
                   <mat-chip *ngFor="let type of editForm.value.preferences"
@@ -42,9 +47,7 @@
                   </mat-chip>
                 </mat-chip-list>
               </mat-select-trigger>
-
               <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
-
             </mat-select>
           </mat-form-field>
         </div>
@@ -56,6 +59,12 @@
             <mat-label>Email</mat-label>
             <input matInput placeholder="" formControlName="email" required>
             <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="editForm.get('email').hasError('required')">
+              Inserisci un'email
+            </mat-error>
+            <mat-error *ngIf="editForm.get('email').hasError('email')">
+              Inserisci un'email valida
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -63,12 +72,15 @@
         <div>
           <div class="field-container">
             <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
+              <mat-label>Modifica Password (invariata se vuota)</mat-label>
               <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hidePassword" type="button">
                 <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="editForm.get('password').hasError('minlength')">
+                Inserisci almeno 8 caratteri o lascia vuoto per non modificare la password
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -77,7 +89,7 @@
         <div>
           <div class="field-container">
             <mat-form-field appearance="outline">
-              <mat-label>Conferma password</mat-label>
+              <mat-label>Conferma modifica password</mat-label>
               <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" formControlName="passwordConfirm">
               <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hidePasswordConfirm" type="button">
