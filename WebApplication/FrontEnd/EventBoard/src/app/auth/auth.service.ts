@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {Preference} from "../models/preference.model";
 import {API_SERVER_URL} from "../../constants";
 import {Location} from "../models/location.model";
-import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 @import "/src/styles.css";
 
 .not-found-container {
-  height: 100vh;
+  min-height: calc(100vh - 64px - 194px);
   width: 100vw;
   background-color: var(--background-pastel-color);
 
@@ -14,8 +14,7 @@
 .items {
   width: auto;
   height: auto;
-  margin-top: -30vh;
-
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +23,7 @@
 
 .title {
   font-size: 64px;
+  padding-top: 20px;
 }
 .action {
   margin-top: 20px;
