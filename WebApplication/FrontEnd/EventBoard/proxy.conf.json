@@ -1,6 +1,24 @@
 {
-  "/upload": {
+  "/upload/imgbb": {
     "target": "https://api.imgbb.com/1/upload",
+    "secure": true,
+    "pathRewrite": {
+      "^/upload": ""
+    },
+    "changeOrigin": true
+  },
+
+  "/upload/imgur": {
+    "target": "https://api.imgur.com/3",
+    "secure": true,
+    "pathRewrite": {
+      "^/upload": ""
+    },
+    "changeOrigin": true
+  },
+
+  "/upload/thumbsnap": {
+    "target": "https://thumbsnap.com/api/upload",
     "secure": true,
     "pathRewrite": {
       "^/upload": ""

@@ -11,6 +11,8 @@ import {LocationChooserDialogComponent} from "../location-chooser-dialog/locatio
 import {DEFAULT_COORDINATES} from "../../../constants";
 import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {ImgurService} from "../../services/imgur.service";
+import {ThumbsnapService} from "../../services/thumbsnap.service";
 
 @Component({
   selector: 'app-create-event',
@@ -28,7 +30,7 @@ export class CreateEventComponent implements OnInit{
   imageUploaded: boolean
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgService: ImgbbService, private comuniItaService: ComuniItaService, private _ngZone: NgZone) { }
+  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
     this.setEventTypes()
@@ -84,16 +86,7 @@ export class CreateEventComponent implements OnInit{
     const element = event.currentTarget as HTMLInputElement
     // Check if file size exceeds 10MB
     if(element.files[0].size < 10000000) {
-      this.imgService.upload(element.files[0]).subscribe({
-        next: (response: any) => {
-          this.eventCreateForm.patchValue({
-            poster: response.data.url
-          })
-          this.imageUploaded = true
-          console.log(this.eventCreateForm)
-        },
-        error: error => { this.errorHandler(error) }
-      })
+      this.imgbbUpload(element.files[0])
     }
     else
       alert("ERRORE: La dimensione del file supera i 10MB")
@@ -117,6 +110,7 @@ export class CreateEventComponent implements OnInit{
     })
   }
 
+  /** DO NOT ABSOLUTELY REMOVE, IT SEEMS UNUSED BUT IT IS USED BY TEXTAREAs FOR RESIZING*/
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
@@ -168,5 +162,50 @@ export class CreateEventComponent implements OnInit{
       "URL biglietti: " + this.eventCreateForm.value.ticketUrl + "\n" +
       "Descrizione: " + this.eventCreateForm.value.description + "\n"
     return str
+  }
+
+  private imgbbUpload(b64Image: any){
+    this.imgbbService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventCreateForm.patchValue({
+          poster: response.data.url
+        })
+        this.imageUploaded = true
+      },
+      error: error => {
+        alert(error.error.error.message)
+      }
+    })
+  }
+
+
+  /** Called only if IMGBB is down */
+  private imgurUpload(b64Image: any) {
+    this.imgurService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventCreateForm.patchValue({
+          poster: response.data.link
+        })
+        this.imageUploaded = true
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
+  /** Called only if IMGUR is down */
+  private thumbsnapUpload(b64Image: any) {
+    this.thumbsnapService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventCreateForm.patchValue({
+          poster: response.data.media
+        })
+        this.imageUploaded = true
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
   }
 }
