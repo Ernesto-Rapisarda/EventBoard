@@ -1,5 +1,5 @@
 .bg-image {
-  background-image: url('https://live.staticflickr.com/831/27935662728_5e9a9c2cb1_b.jpg');
+  background-image: url('/assets/images/banner-auth.jpeg');
   background-size: var(--banner-image-background-size);
   vertical-align: var(--banner-image-vertical-align);
   height: var(--banner-image-height);
@@ -10,9 +10,9 @@
 .bg-container {
   position: var(--banner-container-position);
   top: var(--banner-container-top);
-  right: var(--banner-container-left);
+  left: var(--banner-container-left);
   height: var(--banner-container-height);
-  transform: translate(50%, -50%);
+  transform: translate(-50%, -50%);
   text-align: var(--banner-container-text-align);
   text-transform: var(--banner-container-text-transform);
   letter-spacing: var(--banner-container-letter-spacing);
