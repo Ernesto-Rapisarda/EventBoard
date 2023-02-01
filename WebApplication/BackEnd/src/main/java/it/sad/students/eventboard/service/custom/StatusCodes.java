@@ -1,13 +1,9 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom;
 
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.awt.*;
 
 
 @Service

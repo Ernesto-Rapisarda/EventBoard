@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

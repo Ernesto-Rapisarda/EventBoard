@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthorizationControll {
+public class AuthorizationService {
     private final JwtService jwtService;
 
     //id della persona associata all'evento,commento,ecc

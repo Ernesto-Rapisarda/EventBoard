@@ -1,4 +1,4 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom.response;
 
 import it.sad.students.eventboard.persistenza.model.*;
 import lombok.AllArgsConstructor;

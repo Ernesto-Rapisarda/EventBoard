@@ -1,14 +1,11 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom.response;
 
 import it.sad.students.eventboard.persistenza.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 @Data
 @Builder

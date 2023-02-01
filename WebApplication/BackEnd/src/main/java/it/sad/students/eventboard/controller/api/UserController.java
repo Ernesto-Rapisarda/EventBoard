@@ -2,10 +2,10 @@ package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.UserService;
-import it.sad.students.eventboard.service.httpbody.RequestUserEdit;
-import it.sad.students.eventboard.service.httpbody.RequestCancellation;
-import it.sad.students.eventboard.service.httpbody.RequestMotivation;
-import it.sad.students.eventboard.service.httpbody.ResponsePerson;
+import it.sad.students.eventboard.service.custom.request.RequestUserEdit;
+import it.sad.students.eventboard.service.custom.request.RequestCancellation;
+import it.sad.students.eventboard.service.custom.request.RequestMotivation;
+import it.sad.students.eventboard.service.custom.response.ResponsePerson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

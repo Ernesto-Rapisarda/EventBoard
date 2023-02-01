@@ -1,7 +1,7 @@
 package it.sad.students.eventboard.controller.api;
 
 import it.sad.students.eventboard.service.InteractionService;
-import it.sad.students.eventboard.service.httpbody.RequestPersonEvent;
+import it.sad.students.eventboard.service.custom.request.RequestPersonEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

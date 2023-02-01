@@ -4,7 +4,13 @@ import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
-import it.sad.students.eventboard.service.httpbody.*;
+import it.sad.students.eventboard.service.custom.*;
+import it.sad.students.eventboard.service.custom.request.RequestCancellation;
+import it.sad.students.eventboard.service.custom.request.RequestMotivation;
+import it.sad.students.eventboard.service.custom.request.RequestUserEdit;
+import it.sad.students.eventboard.service.custom.response.ResponseEvent;
+import it.sad.students.eventboard.service.custom.response.ResponseOrganizer;
+import it.sad.students.eventboard.service.custom.response.ResponsePerson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService { //utente loggato
 
-    private final AuthorizationControll authorizationControll;
+    private final AuthorizationService authorizationService;
     private final StatusCodes statusCodes;
     private final EmailSenderService emailSenderService;
     private final AuthenticationManager authenticationManager;
@@ -71,7 +77,7 @@ public class UserService { //utente loggato
             if(person==null || personDb==null )
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkOwnerAuthorization(person.getId(), token))
+            if(!authorizationService.checkOwnerAuthorization(person.getId(), token))
                 return statusCodes.unauthorized();
 
             if(person.getPosition()!=null){
@@ -134,14 +140,14 @@ public class UserService { //utente loggato
 
     public ResponseEntity deleteUser(RequestCancellation requestCancellation, String token){ //id person
         try {
-            if(!authorizationControll.checkOwnerOrAdminAuthorization(requestCancellation.getId(), token))
+            if(!authorizationService.checkOwnerOrAdminAuthorization(requestCancellation.getId(), token))
                 return statusCodes.unauthorized();
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(requestCancellation.getId());
             if(personDb==null)
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkAdminAuthorization(token)){
+            if(!authorizationService.checkAdminAuthorization(token)){
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 personDb.getUsername(),
@@ -150,7 +156,7 @@ public class UserService { //utente loggato
                 );
             }
             else{
-                if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
+                if(personDb.getRole()==Role.ADMIN&&!authorizationService.checkSuperAdmin(token))
                     return statusCodes.unauthorized();
 
                 //Il super admin non si puo eliminare da solo??
@@ -187,13 +193,13 @@ public class UserService { //utente loggato
             if(personDb==null)
                 return statusCodes.notFound();
 
-            if(!authorizationControll.checkAdminAuthorization(token))
+            if(!authorizationService.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
 
-            if(personDb.getUsername().equals(authorizationControll.returnUsername(token))) //non posso bannarmi da solo
+            if(personDb.getUsername().equals(authorizationService.returnUsername(token))) //non posso bannarmi da solo
                 return statusCodes.unauthorized();
 
-            if(personDb.getRole()==Role.ADMIN&&!authorizationControll.checkSuperAdmin(token))
+            if(personDb.getRole()==Role.ADMIN&&!authorizationService.checkSuperAdmin(token))
                 return statusCodes.unauthorized();
 
 
@@ -282,7 +288,7 @@ public class UserService { //utente loggato
     }
 
     public ResponseEntity activateUser(String token) {
-        Person person = DBManager.getInstance().getPersonDao().findByUsername(authorizationControll.extractUsername(token));
+        Person person = DBManager.getInstance().getPersonDao().findByUsername(authorizationService.extractUsername(token));
         person.setEnabled(true);
         DBManager.getInstance().getPersonDao().saveOrUpdate(person);
         return statusCodes.ok();
@@ -307,7 +313,7 @@ public class UserService { //utente loggato
     }
 
     public ResponseEntity<Iterable<ResponsePerson>> getPersons(String token) {
-        if(!authorizationControll.checkAdminAuthorization(token))
+        if(!authorizationService.checkAdminAuthorization(token))
             return statusCodes.unauthorized();
         List<Person> people = DBManager.getInstance().getPersonDao().findAll();
         List<ResponsePerson> responsePeople = new ArrayList<>();
@@ -333,7 +339,7 @@ public class UserService { //utente loggato
     public ResponseEntity promoteToAdmin(Long id, String token){
         // TODO: 18/01/2023 solo l'admin principale con la email del sito, può promuovere ad admin, e inviare email di notifica all'utente promosso
         try {
-            if (!authorizationControll.checkSuperAdmin(token))  //controllo se è super admin
+            if (!authorizationService.checkSuperAdmin(token))  //controllo se è super admin
                 return statusCodes.unauthorized();
 
             Person person= DBManager.getInstance().getPersonDao().findByPrimaryKey(id);

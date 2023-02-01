@@ -3,8 +3,9 @@ package it.sad.students.eventboard.persistenza.dao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.EventsStats;
-import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
+import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EventDao {
@@ -20,7 +21,7 @@ public interface EventDao {
 
     void delete(Event event);
 
-    List<Event> findBySomeData(RequestSearchEvent requestSearchEvent);
+    List<Event> findBySomeData(LocalDate initialDate, LocalDate finalDate, String region, String city);
 
 
     List<EventsStats> topFiveRating();
