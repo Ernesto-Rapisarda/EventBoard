@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SimilarEventsBoxComponent } from './similar-events-box.component';
+import {SimilarEventsBoxComponent} from './similar-events-box.component';
 
 describe('SimilarEventsBoxComponent', () => {
   let component: SimilarEventsBoxComponent;

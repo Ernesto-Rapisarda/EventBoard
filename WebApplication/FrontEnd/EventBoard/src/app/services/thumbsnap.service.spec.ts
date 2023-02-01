@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ThumbsnapService } from './thumbsnap.service';
+import {ThumbsnapService} from './thumbsnap.service';
 
 describe('ThumbsnapService', () => {
   let service: ThumbsnapService;
