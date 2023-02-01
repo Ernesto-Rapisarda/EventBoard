@@ -2,10 +2,9 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
-import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Report;
 import it.sad.students.eventboard.persistenza.model.ReportType;
-import it.sad.students.eventboard.service.httpbody.StatusCodes;
+import it.sad.students.eventboard.service.custom.StatusCodes;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 public class ReportService {
     private EmailSenderService emailSenderService;
     private StatusCodes statusCodes;
-    private final AuthorizationControll authorizationControll;
+    private final AuthorizationService authorizationService;
 
 
     public ResponseEntity addReport(Long id,Long person, Report report, String type,String token) {
@@ -25,7 +24,7 @@ public class ReportService {
             if(report==null)
                 return statusCodes.commandError();//400
 
-            if(!authorizationControll.checkOwnerAuthorization(report.getPerson(),token))
+            if(!authorizationService.checkOwnerAuthorization(report.getPerson(),token))
                 return statusCodes.unauthorized();
 
             report.setDate(LocalDateTime.now());
@@ -61,7 +60,7 @@ public class ReportService {
             if(id_report==null)
                 return statusCodes.commandError();//400
 
-            if(!authorizationControll.checkAdminAuthorization(token))
+            if(!authorizationService.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
 
             Report report=DBManager.getInstance().getReportDao().findByPrimaryKey(id_report);
@@ -80,7 +79,7 @@ public class ReportService {
 
     // TODO: 18/01/2023 gestire errori
     public ResponseEntity<Iterable<Report>> getReports(String token) {
-        if(!authorizationControll.checkAdminAuthorization(token))
+        if(!authorizationService.checkAdminAuthorization(token))
             return statusCodes.unauthorized();
         return statusCodes.okGetElements(DBManager.getInstance().getReportDao().findAll());
     }
@@ -90,7 +89,7 @@ public class ReportService {
             if (id==null)
                 return statusCodes.commandError();//400
 
-            if(!authorizationControll.checkAdminAuthorization(token))
+            if(!authorizationService.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
 
             Report report = DBManager.getInstance().getReportDao().findByPrimaryKey(id);

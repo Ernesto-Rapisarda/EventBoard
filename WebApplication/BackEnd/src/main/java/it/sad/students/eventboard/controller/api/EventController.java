@@ -1,12 +1,17 @@
 package it.sad.students.eventboard.controller.api;
 
 
-import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.service.AuthenticationService;
 import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.service.EventService;
-import it.sad.students.eventboard.service.httpbody.*;
+import it.sad.students.eventboard.service.custom.request.RequestCreationEvent;
+import it.sad.students.eventboard.service.custom.request.RequestMotivation;
+import it.sad.students.eventboard.service.custom.request.RequestMotivationObject;
+import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
+import it.sad.students.eventboard.service.custom.response.ResponseEvent;
+import it.sad.students.eventboard.service.custom.response.ResponseEventCreation;
+import it.sad.students.eventboard.service.custom.response.ResponseEventDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

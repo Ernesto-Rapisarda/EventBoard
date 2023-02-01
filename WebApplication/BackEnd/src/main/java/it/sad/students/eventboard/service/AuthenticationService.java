@@ -3,13 +3,13 @@ package it.sad.students.eventboard.service;
 
 import it.sad.students.eventboard.communication.EmailMessage;
 import it.sad.students.eventboard.communication.EmailSenderService;
-import it.sad.students.eventboard.service.httpbody.RequestAuthentication;
-import it.sad.students.eventboard.service.httpbody.ResponseAuthentication;
+import it.sad.students.eventboard.service.custom.request.RequestAuthentication;
+import it.sad.students.eventboard.service.custom.response.ResponseAuthentication;
 import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.Person;
-import it.sad.students.eventboard.service.httpbody.RegisterRequest;
-import it.sad.students.eventboard.service.httpbody.StatusCodes;
+import it.sad.students.eventboard.service.custom.request.RequestRegister;
+import it.sad.students.eventboard.service.custom.StatusCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +27,7 @@ public class AuthenticationService {
     private final StatusCodes statusCodes;
 
 
-    public ResponseEntity register (RegisterRequest request) {
+    public ResponseEntity register (RequestRegister request) {
       try {
         var user = new Person();
         user.setId(null);

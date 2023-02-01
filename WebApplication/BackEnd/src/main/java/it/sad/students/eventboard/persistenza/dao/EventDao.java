@@ -3,7 +3,7 @@ package it.sad.students.eventboard.persistenza.dao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.EventsStats;
-import it.sad.students.eventboard.service.httpbody.RequestSearchEvent;
+import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
 
 import java.util.List;
 

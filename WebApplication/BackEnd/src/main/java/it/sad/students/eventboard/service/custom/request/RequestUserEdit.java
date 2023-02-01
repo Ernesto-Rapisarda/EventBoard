@@ -1,9 +1,7 @@
-package it.sad.students.eventboard.service.httpbody;
+package it.sad.students.eventboard.service.custom.request;
 
-import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Position;
 import it.sad.students.eventboard.persistenza.model.Preference;
-import it.sad.students.eventboard.persistenza.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,14 +13,12 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsePerson {
+public class RequestUserEdit {
     private Long id;
     private String name;
     private String lastName;
-    private String username;
+    private String password;
     private String email;
-    private Role role;
-    private Boolean is_not_locked;
-    private List<Preference> preferences;
     private Position position;
+    private List<Preference> preferences;
 }

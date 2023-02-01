@@ -5,12 +5,14 @@ import it.sad.students.eventboard.communication.EmailSenderService;
 import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.model.*;
 import it.sad.students.eventboard.configsecurity.JwtService;
-import it.sad.students.eventboard.service.httpbody.*;
+import it.sad.students.eventboard.service.custom.*;
+import it.sad.students.eventboard.service.custom.request.RequestCreationEvent;
+import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
+import it.sad.students.eventboard.service.custom.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventService {
     private final JwtService jwtService;
-    private final AuthorizationControll authorizationControll;
+    private final AuthorizationService authorizationService;
 
     private final StatusCodes statusCodes;
     private final EmailSenderService emailSenderService;
@@ -74,7 +76,7 @@ public class EventService {
             //event.setDate(LocalDateTime.now());
 
 
-            if(authorizationControll.checkOwnerAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
+            if(authorizationService.checkOwnerAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
                 if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
                     requestCreationEvent.getEvent().setPosition(requestCreationEvent.getPosition().getId());
                     if(DBManager.getInstance().getEventDao().saveOrUpdate(requestCreationEvent.getEvent()))
@@ -99,9 +101,9 @@ public class EventService {
                 return statusCodes.notFound();
 
 
-            if(authorizationControll.checkOwnerOrAdminAuthorization(event.getOrganizer(), token)){
+            if(authorizationService.checkOwnerOrAdminAuthorization(event.getOrganizer(), token)){
                 DBManager.getInstance().getEventDao().delete(event);
-                if(authorizationControll.checkAdminAuthorization( token)){
+                if(authorizationService.checkAdminAuthorization( token)){
                     String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer()).getEmail();
                     emailSenderService.sendEmail(AdminActionEventNotification(email,
                             "Notifica rimozione evento "+event.getTitle(), message));
@@ -124,11 +126,11 @@ public class EventService {
         try{
             if(requestCreationEvent.getEvent()==null)
                 return statusCodes.notFound();
-            if (authorizationControll.checkOwnerOrAdminAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
+            if (authorizationService.checkOwnerOrAdminAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
                 if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
                     requestCreationEvent.getEvent().setPosition(requestCreationEvent.getPosition().getId());
                     if(DBManager.getInstance().getEventDao().saveOrUpdate(requestCreationEvent.getEvent())) {
-                        if (authorizationControll.checkAdminAuthorization(token)) {
+                        if (authorizationService.checkAdminAuthorization(token)) {
                             String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(requestCreationEvent.getEvent().getOrganizer()).getEmail();
                             emailSenderService.sendEmail(AdminActionEventNotification(email,
                                     "Notifica modifica evento " + requestCreationEvent.getEvent().getTitle(), message));
