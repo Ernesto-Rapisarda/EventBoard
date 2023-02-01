@@ -246,7 +246,15 @@ public class EventService {
                 tmp = DBManager.getInstance().getEventDao().findByKeywords(requestSearchEvent.getTitle());
             }
             else{
-                tmp =DBManager.getInstance().getEventDao().findBySomeData(requestSearchEvent);
+                //if(requestSearchEvent.getFinalRangeDate().compareTo(requestSearchEvent.getInitialRangeDate())<0)
+                //    return statusCodes.commandError();
+
+                tmp =DBManager.getInstance().getEventDao().findBySomeData(
+                        requestSearchEvent.getInitialRangeDate(),
+                        requestSearchEvent.getFinalRangeDate(),
+                        requestSearchEvent.getRegion(),
+                        requestSearchEvent.getCity()
+                );
 
             }
             eventList = createList(tmp);

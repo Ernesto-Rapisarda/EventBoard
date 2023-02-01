@@ -9,6 +9,7 @@ import it.sad.students.eventboard.persistenza.model.EventsStats;
 import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,34 +197,25 @@ public class EventDaoPostgres implements EventDao {
     }
 
     @Override
-    public List<Event> findBySomeData(RequestSearchEvent requestSearchEvent) {
+    public List<Event> findBySomeData(LocalDate initialDate, LocalDate finalDate, String region, String city) {
         ArrayList<Event> events = new ArrayList<>();
-        String queryF ="select * from event as e";
-        String queryB =" where ";
-        if (requestSearchEvent.getInitialRangeDate()!=null && requestSearchEvent.getFinalRangeDate()!=null){
-            /*query= query+"date >= "+requestSearchEvent.getInitialRangeDate()+
-            " date <= "+requestSearchEvent.getFinalRangeDate();*/
-            queryB= queryB + "(DATE(e.date) between '"+requestSearchEvent.getInitialRangeDate().toString()+"' and '"+requestSearchEvent.getFinalRangeDate().toString()+"')";
 
-        }
-        if (requestSearchEvent.getRegion()!=null || requestSearchEvent.getCity()!=null){
-            queryF = queryF+",position as p";
-
-            if (requestSearchEvent.getInitialRangeDate()!=null && requestSearchEvent.getFinalRangeDate()!=null)
-                queryB =queryB +" and ";
-
-            queryB=queryB+"e.position=p.id and ";
-            if (requestSearchEvent.getRegion()!=null)
-                queryB=queryB+"p.region ='"+requestSearchEvent.getRegion()+"'";
-            if (requestSearchEvent.getRegion()!=null && requestSearchEvent.getCity()!=null ) {
-                queryB = queryB + " and "+"p.city='"+requestSearchEvent.getCity()+"'";
-            }
-
-        }
-        String query=queryF+queryB+" order by e.date";
+        String query=searchQueryBuilding(initialDate,finalDate,region,city);
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
-            //stmt.setString(1,keywords);
+            Integer x=1;
+
+            if(initialDate!=null&&finalDate!=null) {
+                stmt.setDate(x++, Date.valueOf(initialDate));
+                stmt.setDate(x++,Date.valueOf(finalDate));
+            }
+            if(region!=null){
+                stmt.setString(x++,region);
+                if(city!=null)
+                    stmt.setString(x, city);
+
+            }
+
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Event event = readEvent(rs);
@@ -235,6 +227,31 @@ public class EventDaoPostgres implements EventDao {
             return null;
         }
         return events;
+    }
+
+
+
+    private String searchQueryBuilding(LocalDate initialDate, LocalDate finalDate, String region, String city){
+        String selectAndFrom ="select * from event as e";
+        String where =" where ";
+        if (initialDate!=null && finalDate!=null)                   //controllo le date
+            where= where + "(DATE(e.date) between ? and ?)";
+
+        if (region!=null || city!=null){
+            selectAndFrom = selectAndFrom+",position as p";
+
+            if (initialDate!=null && finalDate!=null)
+                where =where +" and ";
+
+            where=where+"e.position=p.id and ";
+            if (region!=null){
+                where=where+"p.region =?";
+                if(city!=null )
+                    where = where + " and "+"p.city=?";
+            }
+
+        }
+        return selectAndFrom+where+" order by e.date";
     }
 
     @Override
