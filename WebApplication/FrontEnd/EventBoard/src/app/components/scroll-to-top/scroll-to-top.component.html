@@ -1,4 +1,4 @@
-<div class="scroll-to-top-container" [ngClass]="{'show-scrollTop animate__animated animate__bounceInUp animate__fast': windowScrolled}">
+<div class="scroll-to-top-container" *ngIf="windowScrolled" [ngClass]="{'show-scrollTop animate__animated animate__bounceInUp animate__fast': windowScrolled}">
   <button mat-fab class="scroll-to-top-button" aria-label="Back to top button" (click)="scrollToTop()" matTooltip="{{windowScrolled ? 'Torna su' : ''}}">
     <mat-icon>arrow_upward</mat-icon>
   </button>
