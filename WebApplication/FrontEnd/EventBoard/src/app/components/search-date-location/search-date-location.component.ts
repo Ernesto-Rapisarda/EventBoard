@@ -88,7 +88,17 @@ export class SearchDateLocationComponent implements OnInit {
   }
 
   private errorHandler(error: any) {
-    // TODO: Implementare gestione errori
+    switch (error.status) {
+      case 400:
+        alert("ERRORE: Operazione non valida")
+        break
+      case 403:
+        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        break
+      case 404:
+        alert("ERRORE: Nessun evento trovato")
+        break
+    }
   }
 
   private setRegions() {

@@ -42,9 +42,22 @@ export class SearchTitleComponent implements OnInit {
           }
         },
         error: error => {
-          // TODO: Gestire errori
+          this.errorHandler(error)
         }
       })
+    }
+  }
+
+  private errorHandler(error: any) {
+    switch(error.status) {
+      case 400:
+        alert("ERRORE: Operazione non valida")
+        break
+      case 403:
+        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        break
+      case 404:
+        alert("ERRORE: Nessun evento trovato")
     }
   }
 }
