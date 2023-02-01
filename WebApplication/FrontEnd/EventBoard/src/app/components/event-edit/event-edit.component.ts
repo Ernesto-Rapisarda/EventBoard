@@ -11,6 +11,8 @@ import {LocationChooserDialogComponent} from "../location-chooser-dialog/locatio
 import {Location} from "../../models/location.model";
 import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {ImgurService} from "../../services/imgur.service";
+import {ThumbsnapService} from "../../services/thumbsnap.service";
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
@@ -33,7 +35,9 @@ export class EventEditComponent implements OnInit {
     private comuniItaService: ComuniItaService,
     private requestService: RequestService,
     private dialog: MatDialog,
-    private imgService: ImgbbService,
+    private imgbbService: ImgbbService,
+    private imgurService: ImgurService,
+    private thumbsnapService: ThumbsnapService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -139,14 +143,7 @@ export class EventEditComponent implements OnInit {
 
     // Check if file size exceeds 10MB
     if(element.files[0].size < 10000000) {
-      this.imgService.upload(element.files[0]).subscribe({
-        next: (response: any) => {
-          this.urlPoster = response.data.url
-        },
-        error: error => {
-          this.errorHandler(error)
-        }
-      })
+      this.imgbbUpload(element.files[0])
     }
     else
       alert("ERRORE: La dimensione del file supera i 10MB")
@@ -215,6 +212,48 @@ export class EventEditComponent implements OnInit {
 
   private goToEventPage() {
     this.router.navigateByUrl(`/event/${this.event.id}`)
+  }
+
+  private imgbbUpload(b64Image: any){
+    this.imgbbService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventEditForm.patchValue({
+          poster: response.data.url
+        })
+      },
+      error: error => {
+        alert(error.error.error.message)
+      }
+    })
+  }
+
+
+  /** Called only if IMGBB is down */
+  private imgurUpload(b64Image: any) {
+    this.imgurService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventEditForm.patchValue({
+          poster: response.data.link
+        })
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
+  /** Called only if IMGUR is down */
+  private thumbsnapUpload(b64Image: any) {
+    this.thumbsnapService.upload(b64Image).subscribe({
+      next: (response: any) => {
+        this.eventEditForm.patchValue({
+          poster: response.data.media
+        })
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
   }
 
   private errorHandler(error: any) {

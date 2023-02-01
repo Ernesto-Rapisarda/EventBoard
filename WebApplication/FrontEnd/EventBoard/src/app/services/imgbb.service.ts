@@ -12,6 +12,6 @@ export class ImgbbService {
     const formData = new FormData();
     formData.append('image', b64Image);
     console.log(formData)
-    return this.http.post("/upload", formData, { params: {key: IMGBB_KEY}});    // This call is going to use the proxy detailed in /proxy.conf.json to bypass CORS
+    return this.http.post("/upload/imgbb", formData, { params: {key: IMGBB_KEY}});    // This call is going to use the proxy detailed in /proxy.conf.json to bypass CORS
   }
 }
