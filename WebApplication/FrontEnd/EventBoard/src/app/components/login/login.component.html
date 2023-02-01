@@ -1,61 +1,71 @@
 <div class="container">
-  <mat-card class="card">
 
-    <!-- Card Header -->
-    <mat-card-header class="card-header">
-      <mat-card-title>Accedi</mat-card-title>
-      <mat-card-subtitle>Bentornato! Effettua l'accesso.</mat-card-subtitle>
-    </mat-card-header>
+  <div class="image-card-container">
+    <div class="left-side">
+      <img class="login-image" src="
+https://i.pinimg.com/564x/26/c8/87/26c887a8c7bfe045400fb820ee0d590d.jpg"></div>
+    <div class="right-side">
+      <mat-card class="card">
 
-    <!-- Card Body -->
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <!-- Username -->
-        <div class="field-container">
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput placeholder="" formControlName="username">
-            <mat-icon matSuffix>person</mat-icon>
-            <mat-error *ngIf="loginForm.get('password').hasError('required')">
-              Inserisci lo username
-            </mat-error>
-          </mat-form-field>
-        </div>
+        <!-- Card Header -->
+        <mat-card-header class="card-header">
+          <mat-card-title>Accedi</mat-card-title>
+          <mat-card-subtitle>Bentornato! Effettua l'accesso.</mat-card-subtitle>
+        </mat-card-header>
 
-        <!-- Password -->
-        <div class="field-container">
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" (keyup.enter)="onSubmit()">
-            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePassword" type="button">
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <mat-error *ngIf="loginForm.get('password').hasError('required')">
-              Inserisci la password
-            </mat-error>
-          </mat-form-field>
-        </div>
+        <!-- Card Body -->
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Username -->
+            <div class="field-container">
+              <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="" formControlName="username">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                  Inserisci lo username
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-        <!-- Login button -->
-        <mat-card-actions>
-          <button [disabled]="!loginForm.valid" mat-raised-button color="primary" class="login-btn" type="submit" matTooltip="Effettua il login">
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            Login
-          </button>
-        </mat-card-actions>
-      </form>
-    </mat-card-content>
+            <!-- Password -->
+            <div class="field-container">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" (keyup.enter)="onSubmit()">
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hidePassword" type="button">
+                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                  Inserisci la password
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-
-    <mat-divider></mat-divider>
-
-    <!-- Redirect to register -->
-    <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
-
-    <!-- Redirect to forgot password -->
-    <span class="forgot-password-container" (click)="onForgotPassword()"><p class="forgot-password-txt">Hai dimenticato la password?</p></span>
+            <!-- Login button -->
+            <mat-card-actions>
+              <button [disabled]="!loginForm.valid" mat-raised-button color="primary" class="login-btn" type="submit" matTooltip="Effettua il login">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+                Login
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-card-content>
 
 
-  </mat-card>
+        <mat-divider></mat-divider>
+
+        <!-- Redirect to register -->
+        <a class="register-container" routerLink="/register"><p class="register-txt">Non hai un account? Iscriviti</p></a>
+
+        <!-- Redirect to forgot password -->
+        <span class="forgot-password-container" (click)="onForgotPassword()"><p class="forgot-password-txt">Hai dimenticato la password?</p></span>
+
+      </mat-card>
+    </div>
+  </div>
+
+
+
 </div>

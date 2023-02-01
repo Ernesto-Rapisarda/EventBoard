@@ -15,6 +15,34 @@
 
 }
 
+.image-card-container {
+  display: flex;
+  flex-direction: row;
+  margin: auto auto;
+  justify-content: center;
+  align-items: center;
+}
+.image-card-container .left-side {
+  /* image */
+  max-height: 528px;
+  max-width: 360px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 1px 1px 2px #000000;
+;
+}
+.image-card-container .right-side {
+  /* card */
+  height: auto;
+  width: auto;
+}
+.login-image {
+  vertical-align: var(--banner-image-vertical-align);
+  width: var(--banner-image-width);
+  position: var(--banner-image-position);
+}
+
 /* Card */
 .card {
   display:flex;
@@ -74,11 +102,15 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
 
   .container {
     display: flex;
     flex-direction: column;
+  }
+
+  .left-side {
+    display: none;
   }
 
   /* Container principale */
@@ -142,5 +174,6 @@
   .forgot-password-container:hover {
     cursor: pointer;
   }
+
 }
 
