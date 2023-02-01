@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RequestAuthentication {
 
-    private String username;// TODO: 04/01/2023 email???
+    private String username;
     String password;
 
 }

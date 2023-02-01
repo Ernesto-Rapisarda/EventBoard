@@ -16,7 +16,7 @@ public class AuthorizationService {
         try{
             String jwt = token.substring(7);
             Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-            if(person==null) return false;
+            if(person == null) return false;
             return (person.getId().equals(id) || person.getRole().toString().equals("ADMIN"));
         }catch(Exception e){
             e.printStackTrace();
@@ -29,7 +29,7 @@ public class AuthorizationService {
         try{
             String jwt = token.substring(7);
             Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-            if(person==null) return false;
+            if(person == null) return false;
             return person.getId().equals(id);
         }catch(Exception e){
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class AuthorizationService {
         try{
             String jwt = token.substring(7);
             Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-            if(person==null) return false;
+            if(person == null) return false;
             return person.getRole().toString().equals("ADMIN");
         }catch(Exception e){
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class AuthorizationService {
 
         String jwt = token.substring(7);
         Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-        if(person==null || !(person.getUsername().equals(usernameSuperAdmin)&&person.getId()==idSuperAdmin) ) return false;
+        if(person == null || !(person.getUsername().equals(usernameSuperAdmin) && person.getId()==idSuperAdmin) ) return false;
         return person.getRole().toString().equals("ADMIN");
     }
     public String returnUsername(String token){ //restituisce l'username che puoi confrontare

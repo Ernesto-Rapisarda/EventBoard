@@ -51,7 +51,10 @@ public class UserService { //utente loggato
                 DBManager.getInstance().getLikeDao().findByPerson(person.getId())
                 //DBManager.getInstance().getLikeDao().findAll()
         );*/
-        if(person!=null)
+        if(person!=null){
+            Position position = new Position();
+            if(person.getPosition() != null)
+                position = DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition());
             return statusCodes.okGetElement(ResponsePerson
                     .builder()
                     .id(person.getId())
@@ -62,9 +65,10 @@ public class UserService { //utente loggato
                     .role(person.getRole())
                     .is_not_locked(person.isAccountNonLocked())
                             .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
-                            .position(DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition()))
+                            .position(position)
                     .build()
             );
+        }
         else
             return statusCodes.notFound();
     }
@@ -85,7 +89,7 @@ public class UserService { //utente loggato
             }
 
 
-            if(nullOrEmpty(person.getName())||nullOrEmpty(person.getLastName())||nullOrEmpty(person.getEmail()))
+            if(nullOrEmpty(person.getName()) || nullOrEmpty(person.getLastName()) || nullOrEmpty(person.getEmail()))
                 return statusCodes.commandError();          //non possono essere campi nulli
 
             Long tempId = null;
@@ -144,7 +148,7 @@ public class UserService { //utente loggato
                 return statusCodes.unauthorized();
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(requestCancellation.getId());
-            if(personDb==null)
+            if(personDb == null)
                 return statusCodes.notFound();
 
             if(!authorizationService.checkAdminAuthorization(token)){
@@ -156,7 +160,7 @@ public class UserService { //utente loggato
                 );
             }
             else{
-                if(personDb.getRole()==Role.ADMIN&&!authorizationService.checkSuperAdmin(token))
+                if(personDb.getRole() == Role.ADMIN && !authorizationService.checkSuperAdmin(token))
                     return statusCodes.unauthorized();
 
                 //Il super admin non si puo eliminare da solo??
@@ -186,11 +190,10 @@ public class UserService { //utente loggato
 
     //ban/sban
     public ResponseEntity setUserBan(RequestMotivation requestMotivation, Long id, String token) {
-        // TODO: 18/01/2023 solo il super admin può bannare altri admin
         try {
 
             Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
-            if(personDb==null)
+            if(personDb == null)
                 return statusCodes.notFound();
 
             if(!authorizationService.checkAdminAuthorization(token))
@@ -199,7 +202,7 @@ public class UserService { //utente loggato
             if(personDb.getUsername().equals(authorizationService.returnUsername(token))) //non posso bannarmi da solo
                 return statusCodes.unauthorized();
 
-            if(personDb.getRole()==Role.ADMIN&&!authorizationService.checkSuperAdmin(token))
+            if(personDb.getRole() == Role.ADMIN && !authorizationService.checkSuperAdmin(token))
                 return statusCodes.unauthorized();
 
 
@@ -211,9 +214,6 @@ public class UserService { //utente loggato
                 personDb.setIs_not_locked(false);
             else
                 personDb.setIs_not_locked(true);
-            // TODO: 14/01/2023 mandare messaggio se l'account viene sbloccato?
-
-
 
             if(DBManager.getInstance().getPersonDao().saveOrUpdate(personDb)) {
 
@@ -253,11 +253,8 @@ public class UserService { //utente loggato
 
     public ResponseEntity<ResponseOrganizer> getOrganizer(Long id){
         try {
-            // TODO: 10/01/2023 CONTROLLARE SE è DISABILITATO
-
-
             Person person=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
-            if(person==null)
+            if(person == null)
                 return statusCodes.notFound();
 
             if(!person.getRole().toString().equals("ORGANIZER"))
@@ -266,7 +263,7 @@ public class UserService { //utente loggato
             String name= person.getName()+" "+person.getLastName();
 
             List<Event> fullEvent=DBManager.getInstance().getEventDao().findByOrganizer(id);
-            if(fullEvent==null)
+            if(fullEvent == null)
                 return statusCodes.notFound();
 
             List<ResponseEvent> events=new ArrayList<>();
@@ -337,28 +334,27 @@ public class UserService { //utente loggato
     }
 
     public ResponseEntity promoteToAdmin(Long id, String token){
-        // TODO: 18/01/2023 solo l'admin principale con la email del sito, può promuovere ad admin, e inviare email di notifica all'utente promosso
         try {
             if (!authorizationService.checkSuperAdmin(token))  //controllo se è super admin
                 return statusCodes.unauthorized();
 
             Person person= DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
-            if(person==null)
+            if(person == null)
                 return statusCodes.notFound();
 
             if(!person.isEnabled())
                 return statusCodes.notFound();
 
-            if(person.getRole()==Role.ADMIN)
+            if(person.getRole() == Role.ADMIN)
                 person.setRole(Role.USER);
-            else if(person.getRole()==Role.USER)
+            else if(person.getRole() == Role.USER)
                 person.setRole(Role.ADMIN);
             else
                 return statusCodes.commandError();
 
 
             if(DBManager.getInstance().getPersonDao().saveOrUpdate(person)){
-                if(person.getRole()==Role.ADMIN)
+                if(person.getRole() == Role.ADMIN)
                     sendEmail(person.getEmail(),"Promozione ad Admin","Utente "+person.getUsername()+" sei stato promosso ad admin");
                 return statusCodes.ok();
             }
@@ -374,13 +370,13 @@ public class UserService { //utente loggato
 
     // FUNCTION EXTRA
     private boolean nullOrEmpty(String string){
-        return string==null||string.equals("");
+        return string == null || string.equals("");
     }
     private boolean nullOrNegative(Integer num){
-        return num==null||num<0;
+        return num == null || num<0;
     }
     private boolean nullOrNegative(Double num){
-        return num==null||num<0;
+        return num == null || num<0;
     }
 
     private boolean sendEmail(String email,String subject, String message) throws Exception{
@@ -395,7 +391,7 @@ public class UserService { //utente loggato
     private boolean checkPassword(String password){
         //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
         //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
-        return password.matches("^.{8,}$"); // TODO: 09/01/2023 CONTROLLA
+        return password.matches("^.{8,}$");
     }
 
 

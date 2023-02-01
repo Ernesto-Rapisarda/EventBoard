@@ -21,7 +21,7 @@ public class ReportService {
 
     public ResponseEntity addReport(Long id,Long person, Report report, String type,String token) {
         try{
-            if(report==null)
+            if(report == null)
                 return statusCodes.commandError();//400
 
             if(!authorizationService.checkOwnerAuthorization(report.getPerson(),token))
@@ -29,11 +29,11 @@ public class ReportService {
 
             report.setDate(LocalDateTime.now());
 
-            if(type.equals("event") && DBManager.getInstance().getEventDao().findByPrimaryKey(id)==null)
+            if(type.equals("event") && DBManager.getInstance().getEventDao().findByPrimaryKey(id) == null)
                 return statusCodes.notFound();//404
-            else if(type.equals("comment") && DBManager.getInstance().getCommentDao().findByPrimaryKey(id)==null)
+            else if(type.equals("comment") && DBManager.getInstance().getCommentDao().findByPrimaryKey(id) == null)
                 return statusCodes.notFound();//404
-            else if (type.equals("review") && DBManager.getInstance().getReviewDao().findByPrimaryKey(person,id)==null)
+            else if (type.equals("review") && DBManager.getInstance().getReviewDao().findByPrimaryKey(person,id) == null)
                 return statusCodes.notFound();//404
 
             String message=report.getMessage();
@@ -43,8 +43,11 @@ public class ReportService {
                 message=message+"\n\n| Oggetto segnalazione: "+type+"  id oggetto segnalato: "+id+" |";
             report.setMessage(message);
 
-            if(DBManager.getInstance().getReportDao().saveOrUpdate(report) && emailSenderService.sendReport(id,person, report,type))
+            if(DBManager.getInstance().getReportDao().saveOrUpdate(report) ){
+                emailSenderService.sendReport(id,person, report,type);
                 return statusCodes.ok();//200
+            }
+
             else
                 return statusCodes.commandError();//400
 
@@ -57,14 +60,14 @@ public class ReportService {
 
     public ResponseEntity closeReport(Long id_report,String token) {
         try{
-            if(id_report==null)
+            if(id_report == null)
                 return statusCodes.commandError();//400
 
             if(!authorizationService.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
 
             Report report=DBManager.getInstance().getReportDao().findByPrimaryKey(id_report);
-            if(report==null)
+            if(report == null)
                 return statusCodes.notFound();//404
             report.setStatus(false);
             if(DBManager.getInstance().getReportDao().saveOrUpdate(report))
@@ -77,7 +80,6 @@ public class ReportService {
         }
     }
 
-    // TODO: 18/01/2023 gestire errori
     public ResponseEntity<Iterable<Report>> getReports(String token) {
         if(!authorizationService.checkAdminAuthorization(token))
             return statusCodes.unauthorized();
@@ -86,7 +88,7 @@ public class ReportService {
 
     public ResponseEntity<Report> getReport(Long id,String token) {
         try{
-            if (id==null)
+            if (id == null)
                 return statusCodes.commandError();//400
 
             if(!authorizationService.checkAdminAuthorization(token))

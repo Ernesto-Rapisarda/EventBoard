@@ -2,9 +2,7 @@ package it.sad.students.eventboard.persistenza.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Event {
     private Long id = null;

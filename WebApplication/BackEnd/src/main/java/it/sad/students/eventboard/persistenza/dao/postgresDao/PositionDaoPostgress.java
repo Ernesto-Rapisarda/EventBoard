@@ -48,8 +48,10 @@ public class PositionDaoPostgress implements PositionDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public boolean saveOrUpdate(Position position) {
@@ -58,7 +60,7 @@ public class PositionDaoPostgress implements PositionDao {
 
         PreparedStatement st=null;
         try {
-            if (position.getId()==null){
+            if (position.getId() == null){
                 st = conn.prepareStatement(insertPosition);
                 position.setId(IdBroker.getNewPositionID(conn));
                 st.setLong(1,position.getId());

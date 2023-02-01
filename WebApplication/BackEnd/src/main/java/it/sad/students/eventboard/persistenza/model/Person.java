@@ -19,7 +19,7 @@ public class Person implements UserDetails {
     private Boolean is_not_locked; //ban
 
     //chiavi esterne
-    private Long position;
+    private Long position=null;
     private Role role;
 
     public Person(){}
@@ -135,5 +135,21 @@ public class Person implements UserDetails {
 
     public void setPosition(Long position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", is_not_locked=" + is_not_locked +
+                ", position=" + position +
+                ", role=" + role +
+                '}';
     }
 }

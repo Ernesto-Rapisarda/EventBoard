@@ -1,7 +1,6 @@
 package it.sad.students.eventboard.controller.api;
 
 
-import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.Report;
 import it.sad.students.eventboard.persistenza.model.ReportType;
 import it.sad.students.eventboard.service.ReportService;

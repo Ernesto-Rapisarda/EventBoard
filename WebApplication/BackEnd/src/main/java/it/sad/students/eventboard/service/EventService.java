@@ -70,7 +70,7 @@ public class EventService {
 
     public ResponseEntity<ResponseEventCreation> createEvent(RequestCreationEvent requestCreationEvent, String token) {
         try{
-            if (requestCreationEvent.getEvent()==null)
+            if (requestCreationEvent.getEvent() == null)
                 return ResponseEntity.notFound().build();
 
             //event.setDate(LocalDateTime.now());
@@ -97,7 +97,7 @@ public class EventService {
     public ResponseEntity deleteEvent (Long id, String token, String message){
         try{
             Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
-            if (event==null)
+            if (event == null)
                 return statusCodes.notFound();
 
 
@@ -124,7 +124,7 @@ public class EventService {
 
     public ResponseEntity updateEvent(RequestCreationEvent requestCreationEvent,String message, String token) {
         try{
-            if(requestCreationEvent.getEvent()==null)
+            if(requestCreationEvent.getEvent() == null)
                 return statusCodes.notFound();
             if (authorizationService.checkOwnerOrAdminAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
                 if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
@@ -160,7 +160,7 @@ public class EventService {
 
         try{
             Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
-            if (event==null)
+            if (event == null)
                 return statusCodes.notFound();
             List<Comment> comments = DBManager.getInstance().getCommentDao().findByEvent(id);
             List<ResponseComment> commentList = new ArrayList<>();

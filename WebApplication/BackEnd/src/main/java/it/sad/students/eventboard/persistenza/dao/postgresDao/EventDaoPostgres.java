@@ -6,7 +6,6 @@ import it.sad.students.eventboard.persistenza.dao.EventDao;
 import it.sad.students.eventboard.persistenza.model.Event;
 import it.sad.students.eventboard.persistenza.model.EventType;
 import it.sad.students.eventboard.persistenza.model.EventsStats;
-import it.sad.students.eventboard.service.custom.request.RequestSearchEvent;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -205,7 +204,7 @@ public class EventDaoPostgres implements EventDao {
             PreparedStatement stmt = conn.prepareStatement(query);
             Integer x=1;
 
-            if(initialDate!=null&&finalDate!=null) {
+            if(initialDate!=null && finalDate!=null) {
                 stmt.setDate(x++, Date.valueOf(initialDate));
                 stmt.setDate(x++,Date.valueOf(finalDate));
             }

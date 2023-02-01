@@ -18,7 +18,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> DBManager.getInstance().getPersonDao().findByUsername(username);// TODO: 04/01/2023 occhio, lui passa l'email,e lancia eccezione user non trovato
+        return username -> DBManager.getInstance().getPersonDao().findByUsername(username);
     }
 
     @Bean

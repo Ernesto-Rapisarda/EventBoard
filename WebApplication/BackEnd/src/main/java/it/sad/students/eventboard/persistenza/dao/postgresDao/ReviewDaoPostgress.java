@@ -1,11 +1,9 @@
 package it.sad.students.eventboard.persistenza.dao.postgresDao;
 
-import it.sad.students.eventboard.persistenza.DBManager;
 import it.sad.students.eventboard.persistenza.dao.ReviewDao;
 import it.sad.students.eventboard.persistenza.model.Review;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +77,7 @@ public class ReviewDaoPostgress implements ReviewDao {
         PreparedStatement st=null;
         try {
             Review revieDb= findByPrimaryKey(review.getPerson(), review.getEvent());
-            if (revieDb==null) {
+            if (revieDb == null) {
 
                 st = conn.prepareStatement(insertEvent);
                 st.setLong(1, review.getPerson());

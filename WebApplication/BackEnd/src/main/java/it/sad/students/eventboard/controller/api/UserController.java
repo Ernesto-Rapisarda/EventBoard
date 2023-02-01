@@ -1,6 +1,5 @@
 package it.sad.students.eventboard.controller.api;
 
-import it.sad.students.eventboard.service.InteractionService;
 import it.sad.students.eventboard.service.UserService;
 import it.sad.students.eventboard.service.custom.request.RequestUserEdit;
 import it.sad.students.eventboard.service.custom.request.RequestCancellation;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final InteractionService interactionService;
 
    @RequestMapping("/api/user/{username}")
     public ResponseEntity<ResponsePerson> getPerson(@PathVariable String username){

@@ -22,18 +22,3 @@ public class ResponseEvent {
 
 }
 
-/*card eventi:
-immagine,
-id, titolo
-data, ora, luogo
-Nome organizzatore
- */
-
-/*full details dell'evento:
-    Event event;
-    List<Comment> commentList;
-    List<Like> likeList;
-    List<Partecipation> partecipationList;
-    List<Review> reviewList;
-
- */

@@ -20,20 +20,17 @@ public class InteractionService {
     private final StatusCodes statusCodes;
     private final EmailSenderService emailSenderService;
 
-    // TODO: 06/01/2023 Settare eventuali error, Exception è generale??
-
-
     public ResponseEntity setLike(Long person,Long event,String token){
         try {
             if(!authorizationService.checkOwnerAuthorization(person,token))
                 return statusCodes.unauthorized();
 
-            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event) == null)
                 return statusCodes.notFound();
 
             Like like=DBManager.getInstance().getLikeDao().findByPrimaryKey(person,event);
 
-            if(like==null)
+            if(like == null)
                 DBManager.getInstance().getLikeDao().saveOrUpdate(new Like(person,event,LocalDate.from(date())));
             else
                 DBManager.getInstance().getLikeDao().delete(like);
@@ -51,12 +48,12 @@ public class InteractionService {
             if(!authorizationService.checkOwnerAuthorization(person,token))
                 return statusCodes.unauthorized();
 
-            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event)==null)
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(event) == null)
                 return statusCodes.notFound();
 
             Partecipation partecipation = DBManager.getInstance().getPartecipationDao().findByPrimaryKey(person, event);
 
-            if(partecipation==null)
+            if(partecipation == null)
                 DBManager.getInstance().getPartecipationDao().saveOrUpdate(new Partecipation(LocalDate.from(date()),person,event));
             else
                 DBManager.getInstance().getPartecipationDao().delete(partecipation);
@@ -74,7 +71,7 @@ public class InteractionService {
 
             if(!authorizationService.checkOwnerAuthorization(comment.getPerson(),token))
                 return statusCodes.unauthorized();
-            if(DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent())==null)
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent()) == null)
                 return statusCodes.notFound();
 
             comment.setDate(date());
@@ -100,10 +97,10 @@ public class InteractionService {
             //      PRIMO METODO
             if(!authorizationService.checkOwnerAuthorization(review.getPerson(),token))
                 return statusCodes.unauthorized();
-            if(DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent())==null)
+            if(DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent()) == null)
                 return statusCodes.notFound();
 
-            if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent())==null){
+            if(DBManager.getInstance().getReviewDao().findByPrimaryKey(review.getPerson(),review.getEvent()) == null){
                 review.setDate(date());
                 DBManager.getInstance().getReviewDao().saveOrUpdate(review);
                 Long organizer=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent()).getOrganizer();
@@ -131,7 +128,7 @@ public class InteractionService {
     public ResponseEntity deleteComment(Long id,String token,String message){
         try {
             Comment comment=DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
-            if(comment==null)
+            if(comment == null)
                 return statusCodes.notFound();
 
             if(!authorizationService.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
@@ -143,7 +140,6 @@ public class InteractionService {
                 String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(comment.getPerson()).getEmail();
                 emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,true,true,event.getTitle(), message));
             }
-            // TODO: 06/01/2023 valutare eliminazione solo con chiave e non passando tutto il commento
             return statusCodes.ok();
         }catch (Exception e){
             e.printStackTrace();
@@ -156,10 +152,9 @@ public class InteractionService {
             if(!authorizationService.checkOwnerOrAdminAuthorization(person, token))
                 return statusCodes.unauthorized();
 
-            //si potrebbe gestire come scritto sopra nel secondo metodo addReview
             Review review=DBManager.getInstance().getReviewDao().findByPrimaryKey(person, event);
 
-            if(review==null)
+            if(review == null)
                 return statusCodes.notFound();
             DBManager.getInstance().getReviewDao().delete(review);
             if(authorizationService.checkAdminAuthorization(token)){
@@ -167,7 +162,6 @@ public class InteractionService {
                 String email = DBManager.getInstance().getPersonDao().findByPrimaryKey(person).getEmail();
                 emailSenderService.sendEmail(newMessageDeleteOrUpdate(email,false,true,e.getTitle(), message));
             }
-            // TODO: 06/01/2023 valutare eliminazione solo con chiavi e non passando tutta la review
             return statusCodes.ok();
 
         }catch (Exception e){
@@ -179,7 +173,7 @@ public class InteractionService {
 
     public ResponseEntity updateComment(Comment comment, String token,String message) {
         try{
-            if(comment==null)
+            if(comment == null)
                 return statusCodes.notFound();
 
             if(!authorizationService.checkOwnerOrAdminAuthorization(comment.getPerson(), token))
@@ -208,17 +202,16 @@ public class InteractionService {
 
     public ResponseEntity updateReview(Review review, String token,String message) {
         try {
-            if(review==null)
+            if(review == null)
                 return statusCodes.notFound();
 
             if(!authorizationService.checkOwnerOrAdminAuthorization(review.getPerson(), token))
                 return statusCodes.unauthorized();
 
-            if(review.getRating()==null || review.getRating()<=0||review.getRating()>10||
-                    review.getMessage()==null ||review.getMessage().equals(""))
+            if(review.getRating() == null || review.getRating()<=0  || review.getRating()>10 ||
+                    review.getMessage() == null || review.getMessage().equals(""))
                 return statusCodes.commandError();
-            // TODO: 09/01/2023 modificare la data??
-            //review.setDate(LocalDate.from(date()));
+
             review.setDate(date());
             if(DBManager.getInstance().getReviewDao().saveOrUpdate(review)) {
                 if(authorizationService.checkAdminAuthorization(token)){
@@ -239,10 +232,10 @@ public class InteractionService {
 
     public ResponseEntity getReview(Long person,Long event){
         try {
-            if (person==null||event==null )
+            if (person == null || event == null )
                 return statusCodes.commandError();
             Review review = DBManager.getInstance().getReviewDao().findByPrimaryKey(person,event);
-            if (review==null)
+            if (review == null)
                 return  statusCodes.notFound();
             else
                 return statusCodes.okGetElement(review);
@@ -254,10 +247,10 @@ public class InteractionService {
 
     public ResponseEntity<Comment> getComment(Long id) {
         try{
-            if (id==null )
+            if (id == null )
                 return statusCodes.commandError();
             Comment comment = DBManager.getInstance().getCommentDao().findByPrimaryKey(id);
-            if (comment==null)
+            if (comment == null)
                 return  statusCodes.notFound();
             else
                 return ResponseEntity.ok(comment);
@@ -318,8 +311,7 @@ public class InteractionService {
 
 
 
-    // TODO: 06/01/2023 IL comando extractUsername da errore "  Illegal base64url character: ' '    "
-    //  (se metti il e.printStackTrace() nel metodo che richiama questo metodo lo noti)
+
     /*
     public boolean checkUserAndAdmin(Long id,String token){
         System.out.println(token);

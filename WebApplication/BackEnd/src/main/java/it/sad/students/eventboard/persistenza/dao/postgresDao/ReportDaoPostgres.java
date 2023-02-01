@@ -6,7 +6,6 @@ import it.sad.students.eventboard.persistenza.model.Report;
 import it.sad.students.eventboard.persistenza.model.ReportType;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

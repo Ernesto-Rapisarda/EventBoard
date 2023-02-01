@@ -2,7 +2,6 @@ package it.sad.students.eventboard.persistenza;
 
 import it.sad.students.eventboard.persistenza.dao.*;
 import it.sad.students.eventboard.persistenza.dao.postgresDao.*;
-import it.sad.students.eventboard.service.EventService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

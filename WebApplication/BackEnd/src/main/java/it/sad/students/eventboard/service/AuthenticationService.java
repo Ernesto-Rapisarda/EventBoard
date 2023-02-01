@@ -49,12 +49,6 @@ public class AuthenticationService {
           DBManager.getInstance().getPersonDao().delete(user);
           return statusCodes.commandError();
         }
-
-        /*
-        return statusCodes.okGetElement(ResponseAuthentication.builder()
-                .token(jwtToken)
-                .build()) ;*/
-
         return statusCodes.ok();
       } catch(Exception e) {
         e.printStackTrace();
@@ -105,7 +99,7 @@ public class AuthenticationService {
     }
 
     private String htmlActivation(String token){
-        return "<a title=\"ATTIVA L'ACCOUNT\" href=\"http://localhost:4200/profile/activate/"+token+"\">ATTIVA L'ACCOUNT</a>";
+        return "<a href=\"http://localhost:4200/profile/activate/"+token+"\">ATTIVA L'ACCOUNT</a>";
         //http://localhost:4200/activate/token
     }
 

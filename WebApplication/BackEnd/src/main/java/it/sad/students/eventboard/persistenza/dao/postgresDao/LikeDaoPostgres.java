@@ -115,7 +115,6 @@ public class LikeDaoPostgres implements LikeDao {
     public void delete(Like like) {
         String query = "DELETE FROM mipiace WHERE person = ? and event =?";
         try {
-            // TODO: 30/12/2022 rimozione a cascata
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, like.getPerson());
             st.setLong(2,like.getIdEvent());

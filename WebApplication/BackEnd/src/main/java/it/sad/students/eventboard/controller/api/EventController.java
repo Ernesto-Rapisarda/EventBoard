@@ -2,8 +2,6 @@ package it.sad.students.eventboard.controller.api;
 
 
 import it.sad.students.eventboard.persistenza.model.EventType;
-import it.sad.students.eventboard.service.AuthenticationService;
-import it.sad.students.eventboard.configsecurity.JwtService;
 import it.sad.students.eventboard.service.EventService;
 import it.sad.students.eventboard.service.custom.request.RequestCreationEvent;
 import it.sad.students.eventboard.service.custom.request.RequestMotivation;
@@ -23,9 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
 
-    private final AuthenticationService service;
     private final EventService eventService;
-    private final JwtService jwtService;
 
     @RequestMapping(value="/api/create/event",method= RequestMethod.POST)
     public ResponseEntity<ResponseEventCreation> createEvent(@RequestBody RequestCreationEvent requestCreationEvent, @RequestHeader (name="Authorization") String token){
@@ -64,7 +60,6 @@ public class EventController {
         //codice 200 ok
         return eventService.getAllEvents();
     }
-    // TODO: 05/01/2023 carichiamo tutti?senza limiti? 
 
     //post
     @RequestMapping("/api/noauth/events/filtered")

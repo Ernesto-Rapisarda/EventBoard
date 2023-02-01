@@ -160,7 +160,7 @@ public class PersonDaoPostgress implements PersonDao {
             person.setUsername(rs.getString("username"));
             person.setEmail(rs.getString("email"));
             person.setEnabled(rs.getBoolean("enabled"));
-            person.setPosition(rs.getLong("position"));
+            person.setPosition(rs.getObject("position",Long.class));
             person.setRole(Role.valueOf(rs.getString("role")));
             person.setPassword(rs.getString("password"));
             person.setIs_not_locked(rs.getBoolean("is_not_locked"));

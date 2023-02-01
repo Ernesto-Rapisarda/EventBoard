@@ -5,7 +5,6 @@ import it.sad.students.eventboard.persistenza.dao.CommentDao;
 import it.sad.students.eventboard.persistenza.model.Comment;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
