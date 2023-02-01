@@ -22,7 +22,7 @@
 
         <!-- date and time -->
         <div class="date-picker">
-          <app-datepicker controlName="date"></app-datepicker>
+          <app-datepicker class="datepicker" controlName="date"></app-datepicker>
         </div>
 
         <!-- event type -->
@@ -60,7 +60,7 @@
 
           <button mat-raised-button color="primary" class="login-btn" type="button" (click)="onLocation()">
             <mat-icon>gps_fixed</mat-icon>
-            Fornisci posizione precisa
+            Seleziona sulla mappa
           </button>
 
           <div class="field-container">
@@ -123,13 +123,17 @@
           <mat-checkbox formControlName="soldOut">Biglietti esauriti</mat-checkbox>
         </div>
 
-        <mat-card-actions>
-          <div class="action-button-container">
-            <button class="cancel-btn" mat-raised-button color="warn" type="button" (click)="onCancel()"><mat-icon>close</mat-icon>Annulla</button>
-            <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!eventEditForm.valid"><mat-icon>check</mat-icon>Conferma</button>
-          </div>
-        </mat-card-actions>
+        <!-- buttons -->
+        <div class="field-container">
+          <mat-card-actions>
+            <div class="action-button-container">
+              <button class="cancel-btn" mat-raised-button color="warn" type="button" (click)="onCancel()"><mat-icon>close</mat-icon>Annulla</button>
+              <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!eventEditForm.valid"><mat-icon>check</mat-icon>Conferma</button>
+            </div>
+          </mat-card-actions>
+        </div>
       </form>
+
     </mat-card-content>
   </mat-card>
 </div>
