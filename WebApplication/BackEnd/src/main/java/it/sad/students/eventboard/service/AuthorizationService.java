@@ -38,16 +38,6 @@ public class AuthorizationService {
 
     }
 
-
-    /*
-    public boolean checkSpecificAdminAuthorization(Long id,String token){
-        String jwt = token.substring(7);
-        Person person= DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-        if(person==null) return false;
-        return (person.getId().equals(id) && person.getRole().toString().equals("ADMIN"));
-    }
-     */
-
     public boolean checkAdminAuthorization(String token){
         try{
             String jwt = token.substring(7);
@@ -62,7 +52,7 @@ public class AuthorizationService {
     }
 
     public String extractUsername(String token){
-        //String jwt = token.substring(7);
+        //utilizzata in caso il token arrivi nell'url
         return jwtService.extractUsername(token);
     }
     public boolean checkSuperAdmin(String token){
@@ -74,7 +64,8 @@ public class AuthorizationService {
         if(person == null || !(person.getUsername().equals(usernameSuperAdmin) && person.getId()==idSuperAdmin) ) return false;
         return person.getRole().toString().equals("ADMIN");
     }
-    public String returnUsername(String token){ //restituisce l'username che puoi confrontare
+    public String returnUsername(String token){
+        //utilizzata in caso il token arrivi tramite header auth
         String jwt = token.substring(7);
         return jwtService.extractUsername(jwt);
     }

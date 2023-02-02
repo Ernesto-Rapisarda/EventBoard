@@ -114,11 +114,6 @@ public class InteractionService {
             }
             return statusCodes.notFound();
 
-            /*
-            //      SECONDO METODO: si puo gestire nel try cath del daoReview, se è gia esistente invia una eccezione
-            DBManager.getInstance().getReviewDao().saveOrUpdate(review);
-            return true;
-            */
         }catch (Exception e){
             e.printStackTrace();
             return statusCodes.commandError();
@@ -262,10 +257,6 @@ public class InteractionService {
     }
 
 
-
-
-
-
     //extra functions
     private LocalDateTime date(){
         LocalDateTime date = LocalDateTime.now();
@@ -306,34 +297,5 @@ public class InteractionService {
         }
         return new EmailMessage(to,object,message);
     }
-
-
-
-
-
-
-    /*
-    public boolean checkUserAndAdmin(Long id,String token){
-        System.out.println(token);
-        String jwt = token.substring(7);
-        //String jwt = token.split(" ")[1].trim();
-
-        System.out.println("|"+jwt+"|");
-        Person person=DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-        if(person==null) return false;
-        System.out.println(person.getId());
-        System.out.println(person.getId().equals(id));
-        System.out.println(person.getRole().toString().equals("ADMIN"));
-        return (person.getId().equals(id) || person.getRole().toString().equals("ADMIN"));
-    }
-
-
-    public boolean checkUser(Long id,String token){
-        String jwt = token.substring(7);
-        Person person=DBManager.getInstance().getPersonDao().findByUsername(jwtService.extractUsername(jwt));
-        if(person==null) return false;
-        return person.getId().equals(id);
-    }
-    */
 
 }
