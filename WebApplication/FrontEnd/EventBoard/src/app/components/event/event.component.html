@@ -4,7 +4,10 @@
 
     <!-- Poster -->
     <div class="poster-container">
-      <img class="poster" src="{{event.urlPoster !== '#'  ? event.urlPoster : '/assets/images/event-default.png'}}" alt="Image containing the event flyer" (click)="onImgClick()">
+      <img class="poster" src="{{event.urlPoster !== '#'  ? event.urlPoster : '/assets/images/event-default.png'}}"
+           onerror="this.src = '/assets/images/event-default.png'"
+           alt="Image containing the event flyer"
+           (click)="onImgClick()">
     </div>
 
     <div class="event-container">
