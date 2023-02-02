@@ -9,7 +9,7 @@ export class MapboxService {
   constructor(private http: HttpClient) {}
 
   getForwardGeocode(region: string, city: string, address: string) {
-    const query = region + ", " + city + (address.length > 0 ? " " + address : "")
+    const query = city + ", " + region + ", Italy"
     return this.http.get(MAPBOX_API_URL+"/mapbox.places"+`/${query}.json?access_token=${MAPBOX_KEY}`)
   }
 

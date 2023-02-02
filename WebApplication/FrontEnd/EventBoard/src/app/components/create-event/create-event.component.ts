@@ -96,30 +96,19 @@ export class CreateEventComponent implements OnInit{
   onLocation() {
     let longitude = DEFAULT_COORDINATES[0]
     let latitude = DEFAULT_COORDINATES[1]
+    // If region and city are filled, it will try to do forward geocoding for a better (not perfect) starting point
     if(this.eventCreateForm.value.region !== '' && this.eventCreateForm.value.city !== '') {
       this.mapboxService.getForwardGeocode(this.eventCreateForm.value.region, this.eventCreateForm.value.city, (this.eventCreateForm.value.address || '')).subscribe({
         next: (response: any) => {
           console.log(response)
           longitude = response.features[0].center[0]
           latitude = response.features[0].center[1]
-
-          let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
-            data: {
-              longitude: longitude,
-              latitude: latitude,
-              operationConfirmed: false
-            }, disableClose: true
-          })
-
-          dialogRef.afterClosed().subscribe(result => {
-            this.eventCreateForm.patchValue({
-              address: result.address
-            })
-            this.latitude = result.latitude
-            this.longitude = result.longitude
-          })
+          this.openLocationDialog(longitude, latitude)
         }
       })
+    }
+    else {
+      this.openLocationDialog(longitude, latitude)
     }
   }
 
@@ -175,6 +164,24 @@ export class CreateEventComponent implements OnInit{
       "URL biglietti: " + this.eventCreateForm.value.ticketUrl + "\n" +
       "Descrizione: " + this.eventCreateForm.value.description + "\n"
     return str
+  }
+
+  private openLocationDialog(longitude: number, latitude: number) {
+    let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
+      data: {
+        longitude: longitude,
+        latitude: latitude,
+        operationConfirmed: false
+      }, disableClose: true
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.eventCreateForm.patchValue({
+        address: result.address
+      })
+      this.latitude = result.latitude
+      this.longitude = result.longitude
+    })
   }
 
   private imgbbUpload(b64Image: any){
