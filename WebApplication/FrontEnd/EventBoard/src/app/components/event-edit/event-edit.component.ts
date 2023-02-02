@@ -13,6 +13,7 @@ import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {ImgurService} from "../../services/imgur.service";
 import {ThumbsnapService} from "../../services/thumbsnap.service";
+
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',

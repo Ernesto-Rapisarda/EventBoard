@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SearchDateLocationComponent } from './search-date-location.component';
+import {SearchDateLocationComponent} from './search-date-location.component';
 
 describe('SearchDateLocationComponent', () => {
   let component: SearchDateLocationComponent;

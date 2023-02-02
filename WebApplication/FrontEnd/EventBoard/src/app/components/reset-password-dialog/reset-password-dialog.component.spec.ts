@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ResetPasswordDialogComponent } from './reset-password-dialog.component';
+import {ResetPasswordDialogComponent} from './reset-password-dialog.component';
 
 describe('ResetPasswordDialogComponent', () => {
   let component: ResetPasswordDialogComponent;

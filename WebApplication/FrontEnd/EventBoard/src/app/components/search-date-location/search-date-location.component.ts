@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EventsService} from "../../services/events.service";
 import {ComuniItaService} from "../../services/comuni-ita.service";
 import {RequestService} from "../../services/request.service";

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EventImageDialogComponent } from './event-image-dialog.component';
+import {EventImageDialogComponent} from './event-image-dialog.component';
 
 describe('EventImageDialogComponent', () => {
   let component: EventImageDialogComponent;

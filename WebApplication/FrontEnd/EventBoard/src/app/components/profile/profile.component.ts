@@ -42,8 +42,6 @@ export class ProfileComponent implements OnInit {
           }
         })
       }
-      else
-        alert("Operazione annullata")
     }
   }
 
@@ -64,34 +62,36 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
         console.log(result)
         console.log(this.authService.user)
-        if(result.operationConfirmed && this.authService.user &&
-          (
-            (this.authService.user.name !== result.name) ||
-            (this.authService.user.lastName !== result.lastName) ||
-            (this.differentPreferences(result.preferences)) ||
-            (this.differentPosition(result.region, result.city)) ||
-            (result.password !== '')
-          )
-        ){
-          const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
-          const location: Location = {
-            id: this.authService.user.location.id,
-            region: result.region,
-            city: result.city,
-            address: null,
-            latitude: 0.0,
-            longitude: 0.0
+        if(result.operationConfirmed) {
+          if(this.authService.user &&
+            (
+              (this.authService.user.name !== result.name) ||
+              (this.authService.user.lastName !== result.lastName) ||
+              (this.differentPreferences(result.preferences)) ||
+              (this.differentPosition(result.region, result.city)) ||
+              (result.password !== '')
+            )
+          ){
+            const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
+            const location: Location = {
+              id: this.authService.user.location.id,
+              region: result.region,
+              city: result.city,
+              address: null,
+              latitude: 0.0,
+              longitude: 0.0
+            }
+            this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences, location).subscribe({
+              next: response => {
+                alert("Dati modificati con successo")
+                this.router.navigateByUrl('/profile')
+              },
+              error: error => { this.errorHandler(error) }
+            })
           }
-          this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences, location).subscribe({
-            next: response => {
-              alert("Dati modificati con successo")
-              this.router.navigateByUrl('/profile')
-            },
-            error: error => { this.errorHandler(error) }
-          })
+          else
+            alert("Operazione annullata: non è stato modificato alcun dato")
         }
-        else
-          alert("Operazione annullata, nessun dato modificato")
       }
     )
   }

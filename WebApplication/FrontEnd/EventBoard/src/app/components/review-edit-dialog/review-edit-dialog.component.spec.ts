@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ReviewEditDialogComponent } from './review-edit-dialog.component';
+import {ReviewEditDialogComponent} from './review-edit-dialog.component';
 
 describe('ReviewEditDialogComponent', () => {
   let component: ReviewEditDialogComponent;

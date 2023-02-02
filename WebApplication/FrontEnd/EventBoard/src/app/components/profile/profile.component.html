@@ -64,7 +64,7 @@
       </button>
     </div>
     <div>
-      <button class="delete-button" mat-fab color="warn" aria-label="Delete profile" (click)="onProfileRemove()">
+      <button *ngIf="authService.isAuthenticated() && !authService.isAdmin()" class="delete-button" mat-fab color="warn" aria-label="Delete profile" (click)="onProfileRemove()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

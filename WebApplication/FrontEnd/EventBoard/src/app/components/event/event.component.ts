@@ -1,11 +1,10 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RequestService} from "../../services/request.service";
 import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Event} from "../../models/event.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
-import {EventEditComponent} from "../event-edit/event-edit.component";
 import {EventImageDialogComponent} from "../event-image-dialog/event-image-dialog.component";
 
 @Component({

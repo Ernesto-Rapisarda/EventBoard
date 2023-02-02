@@ -1,6 +1,4 @@
-import {Component, OnChanges, SimpleChanges} from '@angular/core';
-import {EventsService} from "../../services/events.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-search',
