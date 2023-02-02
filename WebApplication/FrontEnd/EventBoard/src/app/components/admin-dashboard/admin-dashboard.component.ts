@@ -7,6 +7,7 @@ import {MatSort} from "@angular/material/sort";
 import {Report} from "../../models/report.model";
 import {Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -32,7 +33,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-  constructor(private requestService: RequestService, private router: Router, protected authService: AuthService) {
+  constructor(private requestService: RequestService, private router: Router, protected authService: AuthService, private snackbarService: SnackbarService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -70,7 +71,7 @@ export class AdminDashboardComponent implements OnInit {
   onPromote(id: number) {
     this.requestService.promoteUser(id).subscribe({
       next: response => {
-        alert("Operazione eseguita con successo. Ricarico la pagina")
+        this.snackbarService.openSnackBar("Operazione eseguita con successo.", "OK")
         this.router.navigate(['/admin/dashboard'])
       },
       error: error => { this.errorHandler(error) }
@@ -79,19 +80,21 @@ export class AdminDashboardComponent implements OnInit {
 
   onBanUnban(id: number) {
     let message = window.prompt('Inserisci la motivazione')
-    this.requestService.banUser(id, message).subscribe({
-      next: response => {
-        alert("Operazione eseguita con successo. Ricarico la pagina")
-        this.router.navigate(['/admin/dashboard'])
-      },
-      error: error => { this.errorHandler(error) }
-    })
+    if(message){
+      this.requestService.banUser(id, message).subscribe({
+        next: response => {
+          this.snackbarService.openSnackBar("Operazione eseguita con successo.", "OK")
+          this.router.navigate(['/admin/dashboard'])
+        },
+        error: error => { this.errorHandler(error) }
+      })
+    }
   }
   onSolve(id: number) {
     console.log("Solving report " + id)
     this.requestService.solveReport(id).subscribe({
       next: response => {
-        alert("Operazione eseguita con successo. Ricarico la pagina")
+        this.snackbarService.openSnackBar("Operazione eseguita con successo.", "OK")
         this.router.navigate(['/admin/dashboard'])
       },
       error: error => { this.errorHandler(error) }
@@ -101,16 +104,16 @@ export class AdminDashboardComponent implements OnInit {
   private errorHandler(error: any) {
     switch (error.status) {
       case 400:
-        alert("ERRORE: Errore di elaborazione del server")
+        this.snackbarService.openSnackBar("ERRORE: Errore di elaborazione del server", "OK")
         break
       case 403:
-        alert("ERRORE: Operazione non autorizzata")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non autorizzata", "OK")
         break;
       case 404:
-        alert("ERRORE: Id non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Id non trovato", "OK")
         break;
       default:
-        alert("ERRORE: Errore sconosciuto")
+        this.snackbarService.openSnackBar("ERRORE: Errore sconosciuto", "OK")
     }
   }
 }

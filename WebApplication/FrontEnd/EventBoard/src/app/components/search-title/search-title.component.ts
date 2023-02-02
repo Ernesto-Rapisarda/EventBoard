@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Event} from "../../models/event.model";
 import {RequestService} from "../../services/request.service";
 import {EventsService} from "../../services/events.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-search-title',
@@ -14,7 +15,7 @@ export class SearchTitleComponent implements OnInit {
 
   events: Array<Event>
 
-  constructor(private eventsService: EventsService, private requestService: RequestService) { }
+  constructor(private eventsService: EventsService, private requestService: RequestService, private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
     this.events = []
@@ -51,13 +52,13 @@ export class SearchTitleComponent implements OnInit {
   private errorHandler(error: any) {
     switch(error.status) {
       case 400:
-        alert("ERRORE: Operazione non valida")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non valida", "OK")
         break
       case 403:
-        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        this.snackbarService.openSnackBar("ERRORE: Non hai i permessi per eseguire questa operazione", "OK")
         break
       case 404:
-        alert("ERRORE: Nessun evento trovato")
+        this.snackbarService.openSnackBar("ERRORE: Nessun evento trovato", "OK")
     }
   }
 }

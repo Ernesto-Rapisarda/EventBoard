@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-activate',
@@ -8,7 +9,7 @@ import {AuthService} from "../../auth/auth.service";
   styleUrls: ['./activate.component.css']
 })
 export class ActivateComponent implements OnInit {
-  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private snackbarService: SnackbarService) {
   }
 
   ngOnInit(): void {
@@ -16,14 +17,14 @@ export class ActivateComponent implements OnInit {
     if(token){
       this.authService.activate(token).subscribe({
         next: response => {
-          alert("Attivazione avvenuta con successo, ritorno alla pagina principale")
+          this.snackbarService.openSnackBar("Attivazione avvenuta con successo, ritorno alla pagina principale", "OK")
           this.router.navigateByUrl('')
         },
-        error: error => { alert("Errore durante l'attivazione, ritorno alla pagina principale"); this.router.navigateByUrl('') }
+        error: error => { this.snackbarService.openSnackBar("Errore durante l'attivazione, ritorno alla pagina principale", "OK"); this.router.navigateByUrl('') }
       })
     }
     else {
-      alert("ERRORE: Parametro token non trovato")
+      this.snackbarService.openSnackBar("ERRORE: Parametro token non trovato", "OK")
     }
   }
 }

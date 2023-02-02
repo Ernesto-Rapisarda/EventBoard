@@ -4,6 +4,7 @@ import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ResetPasswordDialogComponent} from "../reset-password-dialog/reset-password-dialog.component";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import {ResetPasswordDialogComponent} from "../reset-password-dialog/reset-passw
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup
-  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) { }
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private snackbarService: SnackbarService) { }
 
 
 
@@ -89,19 +90,19 @@ export class LoginComponent implements OnInit {
   private sendPasswordResetRequest(username: string){
     this.authService.resetPassword(username).subscribe({
       next: () => {
-        alert("La tua password è stata resettata con successo! Controlla la tua email per maggiori informazioni")
+        this.snackbarService.openSnackBar("La tua password è stata resettata con successo! Controlla la tua email per maggiori informazioni", "OK")
       },
-      error: () => { alert("ERRORE: Qualcosa è andato storto, riprova") }
+      error: () => { this.snackbarService.openSnackBar("ERRORE: Qualcosa è andato storto, riprova", "OK") }
     })
   }
 
   private errorHandler(error: number){
     switch (error) {
       case 403:
-        alert("ERRORE: Le credenziali inserite non sono valide! Controlla e riprova")
+        this.snackbarService.openSnackBar("ERRORE: Le credenziali inserite non sono valide! Controlla e riprova", "OK")
         break
       default:
-        alert("ERRORE: Errore sconosciuto")
+        this.snackbarService.openSnackBar("ERRORE: Errore sconosciuto", "OK")
         break
     }
   }

@@ -65,7 +65,8 @@ Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), nec
 ### Eventuali bug
 
 - Se una parola contenuta in un commento/recensione dovesse essere molto lunga (in modo irrealistico) il testo della suddetta potrebbe fuoriuscire dalla card in cui è contenuto;
-- A volte può succedere che la mappa nel dialog di selezione della posizione di un nuovo evento sia inizializzata in un punto che non corrisponde esattamente a quanto richiesto nei campi Regione e Città.
+- A volte può succedere che la mappa mapbox nel dialog di selezione della posizione di un nuovo evento sia inizializzata in un punto che non corrisponde esattamente a quanto richiesto nei campi Regione e Città;
+- A volte può succedere (*per cause che non dipendono da noi*) che il servizio esterno per regioni e comuni italiani impieghi diverso tempo prima di rispondere, causando disagi alla UX. Ciò accade soprattutto nei form che attendono la compilazione dei suddetti dati per essere validati.
 
 ### Tecnologie utilizzate
 

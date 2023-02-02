@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {take} from "rxjs/operators";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-comment-form',
@@ -13,7 +14,7 @@ import {take} from "rxjs/operators";
 export class CommentFormComponent {
   text: string = ''
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  constructor(private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router, private _ngZone: NgZone) {
+  constructor(private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router, private snackbarService: SnackbarService, private _ngZone: NgZone) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -27,7 +28,7 @@ export class CommentFormComponent {
       })
     }
     else
-      alert("ERRORE: Testo del commento vuoto!")
+      this.snackbarService.openSnackBar("ERRORE: Testo del commento vuoto!", "OK")
   }
 
   /** DO NOT ABSOLUTELY REMOVE, IT SEEMS UNUSED BUT IT IS USED BY TEXTAREAs FOR RESIZING*/
@@ -39,16 +40,16 @@ export class CommentFormComponent {
   private errorHandler(error: any) {
     switch (error.status) {
       case 400:
-        alert("ERRORE: L'utente non è proprietario dell'account")
+        this.snackbarService.openSnackBar("ERRORE: L'utente non è proprietario dell'account", "OK")
         break
       case 403:
-        alert("ERRORE: Operazione non autorizzata")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non autorizzata", "OK")
         break;
       case 404:
-        alert("ERRORE: Evento non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Evento non trovato", "OK")
         break;
       default:
-        alert("ERRORE: Errore sconosciuto")
+        this.snackbarService.openSnackBar("ERRORE: Errore sconosciuto", "OK")
     }
   }
 }

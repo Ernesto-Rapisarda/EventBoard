@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, 
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 import {RequestService} from "../../services/request.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ import {RequestService} from "../../services/request.service";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private requestService: RequestService) { }
+  constructor(private authService: AuthService, private router: Router, private requestService: RequestService, private snackbarService: SnackbarService) { }
 
   registerForm!: FormGroup
   ngOnInit(): void {
@@ -37,11 +38,11 @@ export class RegisterComponent implements OnInit {
     if(confirm("Vuoi creare un account con i seguenti dati?\n" + this.getConfirmString())) {
       this.authService.signUp(name, lastName, email, username, password, role).subscribe({
         next: response => {
-          alert("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email")
+          this.snackbarService.openSnackBar("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email", "OK")
           this.router.navigate([''])
         },
         error: error => {
-          alert("Errore: C'è stato un errore in fase di registrazione, ti consigliamo di riprovare") }
+          this.snackbarService.openSnackBar("Errore: C'è stato un errore in fase di registrazione, ti consigliamo di riprovare", "OK") }
       })
     }
   }

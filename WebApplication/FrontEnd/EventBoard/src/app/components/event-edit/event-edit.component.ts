@@ -13,6 +13,7 @@ import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {ImgurService} from "../../services/imgur.service";
 import {ThumbsnapService} from "../../services/thumbsnap.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-event-edit',
@@ -43,6 +44,7 @@ export class EventEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private snackbarService: SnackbarService,
     private _ngZone: NgZone) { }
 
   ngOnInit(): void {
@@ -151,7 +153,7 @@ export class EventEditComponent implements OnInit {
       this.imgbbUpload(element.files[0])
     }
     else
-      alert("ERRORE: La dimensione del file supera i 10MB")
+      this.snackbarService.openSnackBar("ERRORE: La dimensione del file supera i 10MB", "OK")
   }
 
   private patchValues(){
@@ -167,6 +169,8 @@ export class EventEditComponent implements OnInit {
       description: this.event.description,
       poster: this.event.urlPoster
     })
+
+    console.log(this.eventEditForm)
   }
 
   onConfirm() {
@@ -181,29 +185,35 @@ export class EventEditComponent implements OnInit {
       }
 
       let message = ''
-      if(this.authService.isAdmin())
+      const isAdmin = this.authService.isAdmin()
+      if(isAdmin)
         message = window.prompt('Inserisci la motivazione')
 
-      this.requestService.editEvent(
-        this.eventEditForm.value.date,
-        this.eventEditForm.value.title,
-        Number.parseFloat(this.eventEditForm.value.price),
-        this.eventEditForm.value.soldOut,
-        this.eventEditForm.value.poster,
-        this.eventEditForm.value.ticketUrl,
-        this.eventEditForm.value.description,
-        this.eventEditForm.value.eventType,
-        location,
-        this.event.organizer,
-        this.event.id,
-        message
-      ).subscribe({
-        next: response => {
-          alert('Evento modificato con successo')
-          this.goToEventPage()
-        },
-        error: error => { this.errorHandler(error) }
-      })
+      if((isAdmin && message) || !isAdmin){
+        this.requestService.editEvent(
+          this.eventEditForm.value.date,
+          this.eventEditForm.value.title,
+          Number.parseFloat(this.eventEditForm.value.price),
+          this.eventEditForm.value.soldOut,
+          this.eventEditForm.value.poster,
+          this.eventEditForm.value.ticketUrl,
+          this.eventEditForm.value.description,
+          this.eventEditForm.value.eventType,
+          location,
+          this.event.organizer,
+          this.event.id,
+          message
+        ).subscribe({
+          next: response => {
+            this.snackbarService.openSnackBar('Evento modificato con successo', "OK")
+            this.goToEventPage()
+          },
+          error: error => { this.errorHandler(error) }
+        })
+      }
+      else {
+        this.snackbarService.openSnackBar("Operazione annullata", "OK")
+      }
     }
   }
 
@@ -229,7 +239,7 @@ export class EventEditComponent implements OnInit {
         this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi", "OK")
       }
     })
   }
@@ -243,7 +253,7 @@ export class EventEditComponent implements OnInit {
         this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi", "OK")
       }
     })
   }
@@ -257,7 +267,7 @@ export class EventEditComponent implements OnInit {
         this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi", "OK")
       }
     })
   }
@@ -272,16 +282,16 @@ export class EventEditComponent implements OnInit {
   private errorHandler(error: any) {
     switch (error.status) {
       case 400:
-        alert("ERRORE: Errore di elaborazione del server")
+        this.snackbarService.openSnackBar("ERRORE: Errore di elaborazione del server", "OK")
         break
       case 403:
-        alert("ERRORE: Operazione non autorizzata")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non autorizzata", "OK")
         break;
       case 404:
-        alert("ERRORE: Id non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Id non trovato", "OK")
         break;
       default:
-        alert("ERRORE: Errore generico")
+        this.snackbarService.openSnackBar("ERRORE: Errore generico", "OK")
     }
   }
 }

@@ -7,6 +7,7 @@ import {Preference} from "../../models/preference.model";
 import {Location} from "../../models/location.model";
 import {Event} from "../../models/event.model";
 import {RequestService} from "../../services/request.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ import {RequestService} from "../../services/request.service";
 })
 export class ProfileComponent implements OnInit {
   organizerEvents: Array<Event>
-  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router, private requestService: RequestService) {
+  constructor(protected authService: AuthService, private dialog: MatDialog, private router: Router, private requestService: RequestService, private snackbarService: SnackbarService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -33,7 +34,7 @@ export class ProfileComponent implements OnInit {
       if(id && password){
         this.authService.deleteUser(id, password).subscribe({
           next: response => {
-            alert("Rimozione avvenuta con successo")
+            this.snackbarService.openSnackBar("Rimozione avvenuta con successo", "OK")
             this.router.navigateByUrl('')
             this.authService.logout()
           },
@@ -83,14 +84,14 @@ export class ProfileComponent implements OnInit {
             }
             this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences, location).subscribe({
               next: response => {
-                alert("Dati modificati con successo")
+                this.snackbarService.openSnackBar("Dati modificati con successo", "OK")
                 this.router.navigateByUrl('/profile')
               },
               error: error => { this.errorHandler(error) }
             })
           }
           else
-            alert("Operazione annullata: non è stato modificato alcun dato")
+            this.snackbarService.openSnackBar("Operazione annullata: non è stato modificato alcun dato", "OK")
         }
       }
     )
@@ -180,13 +181,13 @@ export class ProfileComponent implements OnInit {
   private errorHandler(error: any) {
     switch (error.status) {
       case 400:
-        alert("ERRORE: Operazione non valida")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non valida", "OK")
         break;
       case 403:
-        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        this.snackbarService.openSnackBar("ERRORE: Non hai i permessi per eseguire questa operazione", "OK")
         break;
       case 404:
-        alert("ERRORE: Errore di elaborazione")
+        this.snackbarService.openSnackBar("ERRORE: Errore di elaborazione", "OK")
     }
   }
 }

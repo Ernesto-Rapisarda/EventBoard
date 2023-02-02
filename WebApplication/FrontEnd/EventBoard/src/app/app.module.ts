@@ -75,6 +75,7 @@ import {SearchDateLocationComponent} from './components/search-date-location/sea
 import {SearchTitleComponent} from './components/search-title/search-title.component';
 import {ResetPasswordDialogComponent} from './components/reset-password-dialog/reset-password-dialog.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 registerLocaleData(localeIt, 'it');
 
@@ -157,7 +158,8 @@ registerLocaleData(localeIt, 'it');
         MatTooltipModule,
         MatSlideToggleModule,
         FormsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSnackBarModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},

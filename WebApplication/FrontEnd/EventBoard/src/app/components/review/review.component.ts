@@ -6,6 +6,7 @@ import {RequestService} from "../../services/request.service";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ReviewEditDialogComponent} from "../review-edit-dialog/review-edit-dialog.component";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-review',
@@ -15,7 +16,7 @@ import {ReviewEditDialogComponent} from "../review-edit-dialog/review-edit-dialo
 export class ReviewComponent {
   @Input() review: Review
 
-  constructor(protected authService: AuthService, private route: ActivatedRoute, private requestService: RequestService, private router: Router, private dialog: MatDialog) { }
+  constructor(protected authService: AuthService, private route: ActivatedRoute, private requestService: RequestService, private router: Router, private dialog: MatDialog, private snackbarService: SnackbarService) { }
 
   onEdit() {
     let dialogRef = this.dialog.open(ReviewEditDialogComponent,{
@@ -28,45 +29,62 @@ export class ReviewComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.operationConfirmed){
-        alert("Operazione annullata")
+        this.snackbarService.openSnackBar("Operazione annullata", "OK")
       }
       else{
         const newText = result.text
         const newRating = result.rating
         let adminMessage = ''
-        if(this.authService.isAdmin())
+        const isAdmin = this.authService.isAdmin()
+        if(isAdmin)
           adminMessage = window.prompt("Qual è il motivo della rimozione?")
-        this.requestService.editReview(this.review, newText, newRating, adminMessage).subscribe({
-          next: response => {
-            const eventId = this.route.snapshot.params['id']
-            alert("La recensione è stata modificata con successo")
-            this.router.navigateByUrl(`/event/${eventId}`)
-          },
-          error: error => {
-            this.errorHandler(error)
-          }
-        })
+
+        if((isAdmin && adminMessage) || !isAdmin){
+          this.requestService.editReview(this.review, newText, newRating, adminMessage).subscribe({
+            next: response => {
+              const eventId = this.route.snapshot.params['id']
+              this.snackbarService.openSnackBar("La recensione è stata modificata con successo", "OK")
+              this.router.navigateByUrl(`/event/${eventId}`)
+            },
+            error: error => {
+              this.errorHandler(error)
+            }
+          })
+        }
+        else {
+          this.snackbarService.openSnackBar("Operazione annullata", "OK")
+        }
       }
     })
   }
 
   onDelete() {
     let message = ''
-    if(this.authService.isAdmin())
+    const isAdmin = this.authService.isAdmin()
+    if(isAdmin)
       message = window.prompt("Qual è il motivo della rimozione?")
 
-    let choice = confirm("Sei sicuro di voler rimuovere la recensione? Questa operazione è irreversibile.")
+    if((isAdmin && message) || !isAdmin){
+      let choice = confirm("Sei sicuro di voler rimuovere la recensione? Questa operazione è irreversibile.")
 
-    if(choice && this.review) {
-      const eventId = this.route.snapshot.params['id']
-      this.requestService.deleteReview(this.review.event, this.review.person, message).subscribe({
-        next: response => {
-          alert("La recensione è stata rimosso con successo! Ricarico la pagina.")
-          this.router.navigateByUrl(`/event/${eventId}`)
-        },
-        error: error => { this.errorHandler(error) }
-      })
+      if(choice && this.review) {
+        const eventId = this.route.snapshot.params['id']
+        this.requestService.deleteReview(this.review.event, this.review.person, message).subscribe({
+          next: response => {
+            this.snackbarService.openSnackBar("La recensione è stata rimossa con successo! Ricarico la pagina.", "OK")
+            this.router.navigateByUrl(`/event/${eventId}`)
+          },
+          error: error => { this.errorHandler(error) }
+        })
+      }
+      else {
+        this.snackbarService.openSnackBar("Operazione annullata.", "OK")
+      }
     }
+    else{
+      this.snackbarService.openSnackBar("Operazione annullata.", "OK")
+    }
+
   }
 
   onReport() {
@@ -80,14 +98,14 @@ export class ReviewComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.operationConfirmed){
-        alert("Operazione annullata")
+        this.snackbarService.openSnackBar("Operazione annullata", "OK")
       }
       else{
         const type = result.type
         const reason = result.reason
         this.requestService.doReportReview(this.review.event, this.review.person, type, reason).subscribe({
           next: response => {
-            alert("La recensione è stata segnalata con successo")
+            this.snackbarService.openSnackBar("La recensione è stata segnalata con successo", "OK")
           },
           error: error => {
             this.errorHandler(error)
@@ -100,13 +118,13 @@ export class ReviewComponent {
   private errorHandler(error: number) {
     switch (error) {
       case 400:
-        alert("ERRORE: Token non corrispondende all'id utente o all'admin")
+        this.snackbarService.openSnackBar("ERRORE: Token non corrispondende all'id utente o all'admin", "OK")
         break
       case 403:
-        alert("ERRORE: Utente non autorizzato")
+        this.snackbarService.openSnackBar("ERRORE: Utente non autorizzato", "OK")
         break
       case 404:
-        alert("ERRORE: Commento non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Commento non trovato", "OK")
         break
     }
   }

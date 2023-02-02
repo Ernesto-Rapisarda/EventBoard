@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./auth/auth.service";
+import {SnackbarService} from "./services/snackbar.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import {AuthService} from "./auth/auth.service";
 export class AppComponent implements OnInit {
   title = 'GoodVibes';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private snackbarService: SnackbarService) {
   }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
           this.authService.isLoggedIn = true
         },
         error: error => {
-          alert("ERRORE: Token scaduto, effettua nuovamente il login");
+          this.snackbarService.openSnackBar("ERRORE: Token scaduto, effettua nuovamente il login", "OK")
           localStorage.removeItem('token')
           localStorage.removeItem('username')
         }

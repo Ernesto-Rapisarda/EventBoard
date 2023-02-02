@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {take} from 'rxjs/operators';
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-review-form',
@@ -20,7 +21,7 @@ export class ReviewFormComponent {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
 
-  constructor(private _ngZone: NgZone, private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
+  constructor(private _ngZone: NgZone, private requestService: RequestService, private route: ActivatedRoute, private authService: AuthService, private router: Router, private snackbarService: SnackbarService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -35,11 +36,11 @@ export class ReviewFormComponent {
       const userId = this.authService.user.id
       this.requestService.addReview(this.rating, this.text, eventId, userId).subscribe( {
         next: response => { this.router.navigateByUrl(`/event/${eventId}`) },
-        error: error => {alert("ERRORE: Non è stato possibile memorizzare la recensione")}
+        error: error => {this.snackbarService.openSnackBar("ERRORE: Non è stato possibile memorizzare la recensione", "OK")}
       })
     }
     else
-      alert("ERRORE: Testo della recensione vuoto!")
+      this.snackbarService.openSnackBar("ERRORE: Testo della recensione vuoto!", "OK")
   }
 
   isBeforeEventDate() {

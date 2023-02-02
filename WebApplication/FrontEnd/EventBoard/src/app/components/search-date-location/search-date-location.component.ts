@@ -4,6 +4,7 @@ import {EventsService} from "../../services/events.service";
 import {ComuniItaService} from "../../services/comuni-ita.service";
 import {RequestService} from "../../services/request.service";
 import {Event} from "../../models/event.model";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-search-date-location',
@@ -19,7 +20,7 @@ export class SearchDateLocationComponent implements OnInit {
 
   events: Array<Event>
 
-  constructor(private eventsService: EventsService, private requestService: RequestService, private comuniItaService: ComuniItaService) {
+  constructor(private eventsService: EventsService, private requestService: RequestService, private comuniItaService: ComuniItaService, private snackbarService: SnackbarService) {
 
   }
 
@@ -90,13 +91,13 @@ export class SearchDateLocationComponent implements OnInit {
   private errorHandler(error: any) {
     switch (error.status) {
       case 400:
-        alert("ERRORE: Operazione non valida")
+        this.snackbarService.openSnackBar("ERRORE: Operazione non valida", "OK")
         break
       case 403:
-        alert("ERRORE: Non hai i permessi per eseguire questa operazione")
+        this.snackbarService.openSnackBar("ERRORE: Non hai i permessi per eseguire questa operazione", "OK")
         break
       case 404:
-        alert("ERRORE: Nessun evento trovato")
+        this.snackbarService.openSnackBar("ERRORE: Nessun evento trovato", "OK")
         break
     }
   }

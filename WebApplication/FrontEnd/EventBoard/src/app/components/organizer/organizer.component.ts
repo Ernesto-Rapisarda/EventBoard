@@ -3,6 +3,7 @@ import {EventsService} from "../../services/events.service";
 import {Event} from "../../models/event.model";
 import {RequestService} from "../../services/request.service";
 import {ActivatedRoute} from "@angular/router";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-organizer',
@@ -14,7 +15,7 @@ export class OrganizerComponent implements OnInit {
   email: string
   events: Array<Event>
 
-  constructor(protected eventsService: EventsService, private requestService: RequestService, private route: ActivatedRoute) { }
+  constructor(protected eventsService: EventsService, private requestService: RequestService, private route: ActivatedRoute, private snackbarService: SnackbarService) { }
   ngOnInit(): void {
     this.events = new Array<Event>()
     const id = this.route.snapshot.params['id']
@@ -22,7 +23,7 @@ export class OrganizerComponent implements OnInit {
     if(id)
       this.getOrganizer(id)
     else
-      alert("Qualcosa è andato storto, riprova")
+      this.snackbarService.openSnackBar("Qualcosa è andato storto, riprova", "OK")
   }
 
   private getOrganizer(id: number) {

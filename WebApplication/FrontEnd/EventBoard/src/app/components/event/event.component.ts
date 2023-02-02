@@ -6,6 +6,7 @@ import {Event} from "../../models/event.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 import {EventImageDialogComponent} from "../event-image-dialog/event-image-dialog.component";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-event',
@@ -20,7 +21,7 @@ export class EventComponent implements OnInit {
   participantsNumber: number
   interactionsNumber: number
   averageRating: number;
-  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
+  constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
@@ -123,22 +124,32 @@ export class EventComponent implements OnInit {
 
   onDelete() {
     let message = ''
-    if(this.authService.isAdmin())
+    const isAdmin = this.authService.isAdmin()
+    if(isAdmin)
       message = window.prompt("Qual è il motivo della rimozione?")
 
-    let choice = confirm("Sei sicuro di voler rimuovere l'evento? Questa operazione è irreversibile.")
+    if((isAdmin && message) || !isAdmin){
+      let choice = confirm("Sei sicuro di voler rimuovere l'evento? Questa operazione è irreversibile.")
 
-    if(choice && this.event){
-      this.requestService.deleteEvent(this.event.id, message).subscribe({
-        next: response => {
-          alert("L'evento è stato rimosso con successo, ritorno alla pagina principale.")
-          this.router.navigateByUrl('')
-        },
-        error: error => {
-          this.errorHandler(error)
-        }
-      })
+      if(choice && this.event){
+        this.requestService.deleteEvent(this.event.id, message).subscribe({
+          next: response => {
+            this.snackbarService.openSnackBar("L'evento è stato rimosso con successo, ritorno alla pagina principale.", "OK")
+            this.router.navigateByUrl('')
+          },
+          error: error => {
+            this.errorHandler(error)
+          }
+        })
+      }
+      else{
+        this.snackbarService.openSnackBar("Operazione annullata.", "OK")
+      }
     }
+    else {
+      this.snackbarService.openSnackBar("Operazione annullata.", "OK")
+    }
+
   }
 
   onTicketPage() {
@@ -169,14 +180,14 @@ export class EventComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.operationConfirmed){
-        alert("Operazione annullata")
+        this.snackbarService.openSnackBar("Operazione annullata", "OK")
       }
       else{
         const type = result.type
         const reason = result.reason
         this.requestService.doReportEvent(this.event.id, reason, type).subscribe({
           next: response => {
-            alert("L'evento è stato segnalato con successo")
+            this.snackbarService.openSnackBar("L'evento è stato segnalato con successo", "OK")
           },
           error: error => {
             this.errorHandler(error)
@@ -189,13 +200,13 @@ export class EventComponent implements OnInit {
   private errorHandler(error: number) {
     switch (error) {
       case 400:
-        alert("ERRORE: Token non corrispondende all'id utente")
+        this.snackbarService.openSnackBar("ERRORE: Token non corrispondende all'id utente", "OK")
         break
       case 403:
-        alert("ERRORE: Utente non autorizzato")
+        this.snackbarService.openSnackBar("ERRORE: Utente non autorizzato", "OK")
         break
       case 404:
-        alert("ERRORE: Evento non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Evento non trovato", "OK")
         break
     }
   }

@@ -14,6 +14,7 @@ import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {ImgurService} from "../../services/imgur.service";
 import {ThumbsnapService} from "../../services/thumbsnap.service";
 import {MapboxService} from "../../services/mapbox.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-create-event',
@@ -32,7 +33,7 @@ export class CreateEventComponent implements OnInit{
   isUploading: boolean
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private mapboxService: MapboxService, private _ngZone: NgZone) { }
+  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private mapboxService: MapboxService, private snackbarService: SnackbarService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
     this.isUploading = false
@@ -77,7 +78,7 @@ export class CreateEventComponent implements OnInit{
         this.authService.user.id
       ).subscribe({
         next: response => {
-          alert("Evento creato con successo, ritorno alla homepage")
+          this.snackbarService.openSnackBar("Evento creato con successo, ritorno alla homepage", "OK")
           this.router.navigate([''])
         },
         error: error => { this.errorHandler(error) }
@@ -93,7 +94,7 @@ export class CreateEventComponent implements OnInit{
       this.imgbbUpload(element.files[0])
     }
     else
-      alert("ERRORE: La dimensione del file supera i 10MB")
+      this.snackbarService.openSnackBar("ERRORE: La dimensione del file supera i 10MB", "OK")
   }
 
   onLocation() {
@@ -140,22 +141,6 @@ export class CreateEventComponent implements OnInit{
     this.requestService.getEventTypes().subscribe({ next: response => { this.eventTypes = response.sort() }})
   }
 
-  private errorHandler(error: any) {
-    switch (error.status) {
-      case 400:
-        alert("ERRORE: Errore di elaborazione del server")
-        break
-      case 403:
-        alert("ERRORE: Operazione non autorizzata")
-        break;
-      case 404:
-        alert("ERRORE: Id non trovato")
-        break;
-      default:
-        alert("ERRORE: Errore generico")
-    }
-  }
-
   private getConfirmString() {
     const str = "Titolo: " + this.eventCreateForm.value.title + "\n" +
       "Data: " + this.eventCreateForm.value.date + "\n" +
@@ -196,7 +181,7 @@ export class CreateEventComponent implements OnInit{
       },
       error: error => {
         posterUrl = '#'
-        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default.\nTi consigliamo di riprovare più tardi.", "OK")
         this.patchPosterValue(posterUrl)
       },
     })
@@ -212,7 +197,7 @@ export class CreateEventComponent implements OnInit{
       },
       error: error => {
         posterUrl = '#'
-        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default.\nTi consigliamo di riprovare più tardi.", "OK")
         this.patchPosterValue(posterUrl)
       }
     })
@@ -228,7 +213,7 @@ export class CreateEventComponent implements OnInit{
       },
       error: error => {
         posterUrl = '#'
-        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.snackbarService.openSnackBar("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default.\nTi consigliamo di riprovare più tardi.", "OK")
         this.patchPosterValue(posterUrl)
       }
     })
@@ -240,5 +225,21 @@ export class CreateEventComponent implements OnInit{
     })
     this.imageUploaded = true
     this.isUploading = false
+  }
+
+  private errorHandler(error: any) {
+    switch (error.status) {
+      case 400:
+        this.snackbarService.openSnackBar("ERRORE: Errore di elaborazione del server", "OK")
+        break
+      case 403:
+        this.snackbarService.openSnackBar("ERRORE: Operazione non autorizzata", "OK")
+        break;
+      case 404:
+        this.snackbarService.openSnackBar("ERRORE: Id non trovato", "OK")
+        break;
+      default:
+        this.snackbarService.openSnackBar("ERRORE: Errore generico", "OK")
+    }
   }
 }

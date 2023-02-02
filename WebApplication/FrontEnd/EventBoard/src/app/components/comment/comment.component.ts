@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialogComponent} from "../report-dialog/report-dialog.component";
 import {CommentEditDialogComponent} from "../comment-edit-dialog/comment-edit-dialog.component";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-comment',
@@ -16,7 +17,7 @@ export class CommentComponent {
   @Input() comment: Comment
   @Input() isOrganizer: boolean
 
-  constructor(protected authService: AuthService, private requestService: RequestService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
+  constructor(protected authService: AuthService, private requestService: RequestService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog , private snackbarService: SnackbarService) {
     // Necessary to enable reloading
     this.router.routeReuseStrategy.shouldReuseRoute = () => {return false;};
   }
@@ -31,43 +32,59 @@ export class CommentComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.operationConfirmed){
-        alert("Operazione annullata")
+        this.snackbarService.openSnackBar("Operazione annullata.", "OK")
       }
       else{
         const newText = result.text
         let adminMessage = ''
-        if(this.authService.isAdmin())
+        const isAdmin = this.authService.isAdmin()
+        if(isAdmin)
           adminMessage = window.prompt("Qual è il motivo della modifica?")
-        this.requestService.editComment(this.comment, newText, adminMessage).subscribe({
-          next: response => {
-            const eventId = this.route.snapshot.params['id']
-            alert("Il commento è stato modificato con successo")
-            this.router.navigateByUrl(`/event/${eventId}`)
-          },
-          error: error => {
-            this.errorHandler(error)
-          }
-        })
+
+        if((isAdmin && adminMessage) || !isAdmin){
+          this.requestService.editComment(this.comment, newText, adminMessage).subscribe({
+            next: response => {
+              const eventId = this.route.snapshot.params['id']
+              this.snackbarService.openSnackBar("Il commento è stato modificato con successo", "OK")
+              this.router.navigateByUrl(`/event/${eventId}`)
+            },
+            error: error => {
+              this.errorHandler(error)
+            }
+          })
+        }
+        else {
+          this.snackbarService.openSnackBar("Operazione annullata", "OK")
+        }
       }
     })
   }
 
   onDelete() {
     let message = ''
-    if(this.authService.isAdmin())
+    const isAdmin = this.authService.isAdmin()
+    if(isAdmin)
       message = window.prompt("Qual è il motivo della rimozione?")
 
-    let choice = confirm("Sei sicuro di voler rimuovere il commento? Questa operazione è irreversibile.")
+    if((isAdmin && message) || !isAdmin){
+      let choice = confirm("Sei sicuro di voler rimuovere il commento? Questa operazione è irreversibile.")
 
-    if(choice && this.comment) {
-      const eventId = this.route.snapshot.params['id']
-      this.requestService.deleteComment(this.comment.id, message).subscribe({
-        next: response => {
-          alert("Il commento è stato rimosso con successo! Ricarico la pagina.")
-          this.router.navigateByUrl(`/event/${eventId}`)
-        },
-        error: error => { this.errorHandler(error) }
-      })
+      if(choice && this.comment) {
+        const eventId = this.route.snapshot.params['id']
+        this.requestService.deleteComment(this.comment.id, message).subscribe({
+          next: response => {
+            this.snackbarService.openSnackBar("Il commento è stato rimosso con successo! Ricarico la pagina.", "OK")
+            this.router.navigateByUrl(`/event/${eventId}`)
+          },
+          error: error => { this.errorHandler(error) }
+        })
+      }
+      else{
+        this.snackbarService.openSnackBar("Operazione annullata.", "OK")
+      }
+    }
+    else {
+      this.snackbarService.openSnackBar("Operazione annullata.", "OK")
     }
   }
 
@@ -82,14 +99,14 @@ export class CommentComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.operationConfirmed){
-        alert("Operazione annullata")
+        this.snackbarService.openSnackBar("Operazione annullata", "OK")
       }
       else{
         const type = result.type
         const reason = result.reason
         this.requestService.doReportComment(this.comment.id, reason, type).subscribe({
           next: response => {
-            alert("Il commento è stato segnalato con successo")
+            this.snackbarService.openSnackBar("Il commento è stato segnalato con successo", "OK")
           },
           error: error => {
             this.errorHandler(error)
@@ -102,16 +119,16 @@ export class CommentComponent {
   private errorHandler(error: number) {
     switch (error) {
       case 400:
-        alert("ERRORE: Token non corrispondende all'id utente o all'admin")
+        this.snackbarService.openSnackBar("ERRORE: Token non corrispondende all'id utente o all'admin", "OK")
         break
       case 403:
-        alert("ERRORE: Utente non autorizzato")
+        this.snackbarService.openSnackBar("ERRORE: Utente non autorizzato", "OK")
         break
       case 404:
-        alert("ERRORE: Commento non trovato")
+        this.snackbarService.openSnackBar("ERRORE: Commento non trovato", "OK")
         break
       default:
-        alert("ERRORE: Errore sconosciuto")
+        this.snackbarService.openSnackBar("ERRORE: Errore sconosciuto", "OK")
         break
     }
   }
