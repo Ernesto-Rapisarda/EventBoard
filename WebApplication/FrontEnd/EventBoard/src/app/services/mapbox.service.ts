@@ -8,6 +8,10 @@ import {MAPBOX_API_URL, MAPBOX_KEY} from "../../constants";
 export class MapboxService {
   constructor(private http: HttpClient) {}
 
+  getForwardGeocode(region: string, city: string, address: string) {
+    const query = region + ", " + city + (address.length > 0 ? " " + address : "")
+    return this.http.get(MAPBOX_API_URL+"/mapbox.places"+`/${query}.json?access_token=${MAPBOX_KEY}`)
+  }
 
   getReverseGeocode(longitude: number, latitude: number) {
     return this.http.get(MAPBOX_API_URL+"/mapbox.places"+`/${longitude},${latitude}.json?access_token=${MAPBOX_KEY}`)

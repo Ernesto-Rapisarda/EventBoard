@@ -13,6 +13,7 @@ import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {ImgurService} from "../../services/imgur.service";
 import {ThumbsnapService} from "../../services/thumbsnap.service";
+import {MapboxService} from "../../services/mapbox.service";
 
 @Component({
   selector: 'app-create-event',
@@ -30,7 +31,7 @@ export class CreateEventComponent implements OnInit{
   imageUploaded: boolean
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private _ngZone: NgZone) { }
+  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private mapboxService: MapboxService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
     this.setEventTypes()
@@ -93,21 +94,33 @@ export class CreateEventComponent implements OnInit{
   }
 
   onLocation() {
-    let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
-      data: {
-        longitude: DEFAULT_COORDINATES[0],
-        latitude: DEFAULT_COORDINATES[1],
-        operationConfirmed: false
-      }, disableClose: true
-    })
+    let longitude = DEFAULT_COORDINATES[0]
+    let latitude = DEFAULT_COORDINATES[1]
+    if(this.eventCreateForm.value.region !== '' && this.eventCreateForm.value.city !== '') {
+      this.mapboxService.getForwardGeocode(this.eventCreateForm.value.region, this.eventCreateForm.value.city, (this.eventCreateForm.value.address || '')).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          longitude = response.features[0].center[0]
+          latitude = response.features[0].center[1]
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.eventCreateForm.patchValue({
-        address: result.address
+          let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
+            data: {
+              longitude: longitude,
+              latitude: latitude,
+              operationConfirmed: false
+            }, disableClose: true
+          })
+
+          dialogRef.afterClosed().subscribe(result => {
+            this.eventCreateForm.patchValue({
+              address: result.address
+            })
+            this.latitude = result.latitude
+            this.longitude = result.longitude
+          })
+        }
       })
-      this.latitude = result.latitude
-      this.longitude = result.longitude
-    })
+    }
   }
 
   /** DO NOT ABSOLUTELY REMOVE, IT SEEMS UNUSED BUT IT IS USED BY TEXTAREAs FOR RESIZING*/
@@ -165,47 +178,56 @@ export class CreateEventComponent implements OnInit{
   }
 
   private imgbbUpload(b64Image: any){
+    let posterUrl: string
     this.imgbbService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.url
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.url
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert(error.error.error.message)
-      }
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
+      },
     })
   }
 
-
-  /** Called only if IMGBB is down */
+  /** To be used if ImgBB/Thumbsnap service is down */
   private imgurUpload(b64Image: any) {
+    let posterUrl: string
     this.imgurService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.link
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.link
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
       }
     })
   }
 
-  /** Called only if IMGUR is down */
+  /** To be used if ImgBB/ImgUR service is down */
   private thumbsnapUpload(b64Image: any) {
+    let posterUrl: string
     this.thumbsnapService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.media
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.media
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
       }
     })
+  }
+
+  private patchPosterValue(posterUrl: string){
+    this.eventCreateForm.patchValue({
+      poster: posterUrl
+    })
+    this.imageUploaded = true
   }
 }

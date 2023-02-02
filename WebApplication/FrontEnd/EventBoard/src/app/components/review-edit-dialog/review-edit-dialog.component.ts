@@ -46,6 +46,7 @@ export class ReviewEditDialogComponent implements OnInit {
     this.dialogRef.close(this.data)
   }
 
+  /** DO NOT ABSOLUTELY REMOVE, IT SEEMS UNUSED BUT IT IS USED BY TEXTAREAs FOR RESIZING*/
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
