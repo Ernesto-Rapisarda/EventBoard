@@ -29,6 +29,7 @@ export class EventEditComponent implements OnInit {
   cities: string[]
   latitude: number
   longitude: number
+  isUploading: boolean
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -46,6 +47,7 @@ export class EventEditComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
+    this.isUploading = false
 
     this.initializeForm()
     this.getEvent(id)
@@ -145,6 +147,7 @@ export class EventEditComponent implements OnInit {
 
     // Check if file size exceeds 10MB
     if(element.files[0].size < 10000000) {
+      this.isUploading = true
       this.imgbbUpload(element.files[0])
     }
     else
@@ -263,6 +266,7 @@ export class EventEditComponent implements OnInit {
     this.eventEditForm.patchValue({
       poster: posterUrl
     })
+    this.isUploading = false
   }
 
   private errorHandler(error: any) {

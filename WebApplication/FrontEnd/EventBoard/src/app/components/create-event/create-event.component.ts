@@ -29,11 +29,13 @@ export class CreateEventComponent implements OnInit{
   regions: string[]
   cities: string[]
   imageUploaded: boolean
+  isUploading: boolean
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private mapboxService: MapboxService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
+    this.isUploading = false
     this.setEventTypes()
     this.setRegions()
 
@@ -87,6 +89,7 @@ export class CreateEventComponent implements OnInit{
     const element = event.currentTarget as HTMLInputElement
     // Check if file size exceeds 10MB
     if(element.files[0].size < 10000000) {
+      this.isUploading = true
       this.imgbbUpload(element.files[0])
     }
     else
@@ -236,5 +239,6 @@ export class CreateEventComponent implements OnInit{
       poster: posterUrl
     })
     this.imageUploaded = true
+    this.isUploading = false
   }
 }

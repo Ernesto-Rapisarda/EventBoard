@@ -116,6 +116,7 @@
         <div>
           <mat-label>Carica locandina (max 10MB)</mat-label>
           <input type="file" (change)="onFileUpload($event)">
+          <mat-spinner *ngIf="isUploading"></mat-spinner>
         </div>
 
         <!-- sold out -->

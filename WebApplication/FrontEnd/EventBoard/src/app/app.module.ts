@@ -74,6 +74,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {SearchDateLocationComponent} from './components/search-date-location/search-date-location.component';
 import {SearchTitleComponent} from './components/search-title/search-title.component';
 import {ResetPasswordDialogComponent} from './components/reset-password-dialog/reset-password-dialog.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 registerLocaleData(localeIt, 'it');
 
@@ -155,7 +156,8 @@ registerLocaleData(localeIt, 'it');
         ShareIconsModule,
         MatTooltipModule,
         MatSlideToggleModule,
-        FormsModule
+        FormsModule,
+        MatProgressSpinnerModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: "it-IT"},

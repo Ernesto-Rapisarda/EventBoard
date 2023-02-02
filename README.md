@@ -13,6 +13,15 @@ Il dato sul **luogo** viene dettagliato tramite l'implementazione delle **API** 
 Al fine di rendere più coinvolgente l’applicazione, oltre alle funzioni dell’utente registrato, è possibile **condividere** la pagina di un evento sui principali canali **social**.
 Le interazioni sono lo strumento attraverso il quale è possibile farsi un’idea dell’indice di gradimento di un evento: questo dato torna utile sia agli organizzatori che agli altri utenti.
 
+**NOTA per il docente**: TUTTE le funzionalità descritte nella relazione di Ingegneria del Software, che si può trovare in:
+
+> /SoftwareEngineering/MonettiRapisardaRotundoTocci-GoodVibes.pdf
+> 
+
+sono state implementate.
+
+---
+
 ## Istruzioni per l’utilizzo
 
 ### Operazioni preliminari
@@ -23,6 +32,13 @@ Prima di avviare normalmente il progetto, sarà necessario effettuare il riprist
 
 > /WebApplication/BackEnd/DatabaseDUMP/*.tar
 > 
+
+Una volta effettuato il ripristino del database, sarà inoltre necessario recarsi nel file
+
+> /WebApplication/BackEnd/src/main/java/persistenza/DBManager.java
+> 
+
+E, alla riga 36, inserire i propri dati per la connessione al DB
 
 ---
 
@@ -42,28 +58,38 @@ ng serve --proxy-config proxy.conf.json
 
 Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), necessario per bypassare il CORS nelle richieste rivolte verso l’API di imgBB (*utilizzato per l’upload delle locandine degli eventi*)
 
+---
+
 ## Note
+
+### Eventuali bug
+
+- Se una parola contenuta in un commento/recensione dovesse essere molto lunga (in modo irrealistico) il testo della suddetta potrebbe fuoriuscire dalla card in cui è contenuto;
+- A volte può succedere che la mappa nel dialog di selezione della posizione di un nuovo evento sia inizializzata in un punto che non corrisponde esattamente a quanto richiesto nei campi Regione e Città.
 
 ### Tecnologie utilizzate
 
 **Front-end**:
 
-- [Angular 15](https://angular.io/)
-- [Angular Material](https://material.angular.io/)
-- Typescript 4.8.3
-- [API Mapbox](https://docs.mapbox.com/api/overview/) (Per posizionamento e mappe)
-- [API Imgbb](https://api.imgbb.com/) (Per upload immagini in rete)
-- [Api ComuniITA](https://github.com/Samurai016/Comuni-ITA) (Per raccolta dati su regioni e comuni italiani)
+- [Angular 15](https://angular.io/);
+- [Angular Material](https://material.angular.io/);
+- [Typescript 4.8.3](https://www.typescriptlang.org/);
+- [Animate.css](https://animate.style/) (******************************************Per ALCUNE delle animazioni presenti nell’applicazione);******************************************
+- [API Mapbox](https://docs.mapbox.com/api/overview/) (*Per posizionamento e mappe*);
+- [API ComuniITA](https://github.com/Samurai016/Comuni-ITA) (*Per raccolta dati su regioni e comuni italiani*);
+- [API Imgbb](https://api.imgbb.com/) (*Per upload immagini in rete*);
+- ~~[API Imgur](https://apidocs.imgur.com/)~~ (*Come sopra, non utilizzata, ma implementata, testata e pronta per sostituire eventualmente Imgbb/Thumbsnap in caso di guasti/manutenzioni*);
+- ~~[API Thumbsnap](https://thumbsnap.com/api)~~ (*Come sopra, non utilizzata, ma implementata, testata e pronta per sostituire eventualmente Imgbb/Imgur in caso di guasti/manutenzioni*).
 
 ****************Back-end****************:
 
-- Java 17
-- Springboot 3.0.1
-- Tomcat 10.1.4
-- Thymeleaf
-- Postgres
-- Lombok
-- Spring Security
-- Spring Mail
+- [Java 17](https://openjdk.org/projects/jdk/17/);
+- [Springboot 3.0.1](https://spring.io/projects/spring-boot);
+- [Tomcat 10.1.4](https://tomcat.apache.org/);
+- [Thymeleaf](https://www.thymeleaf.org/);
+- [Postgres](https://www.postgresql.org/);
+- [Lombok](https://projectlombok.org/);
+- [Spring Security](https://spring.io/projects/spring-security);
+- [Spring Mail](https://www.baeldung.com/spring-email).
 
 # ENG (To be written)
