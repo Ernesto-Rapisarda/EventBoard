@@ -13,6 +13,7 @@ import {take} from "rxjs/operators";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {ImgurService} from "../../services/imgur.service";
 import {ThumbsnapService} from "../../services/thumbsnap.service";
+import {MapboxService} from "../../services/mapbox.service";
 
 @Component({
   selector: 'app-create-event',
@@ -30,7 +31,7 @@ export class CreateEventComponent implements OnInit{
   imageUploaded: boolean
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private _ngZone: NgZone) { }
+  constructor(private dialog: MatDialog, private requestService: RequestService, private authService: AuthService, private router: Router, private imgurService: ImgurService, private imgbbService: ImgbbService, private thumbsnapService: ThumbsnapService, private comuniItaService: ComuniItaService, private mapboxService: MapboxService, private _ngZone: NgZone) { }
   ngOnInit(): void {
     this.imageUploaded = false
     this.setEventTypes()
@@ -93,21 +94,33 @@ export class CreateEventComponent implements OnInit{
   }
 
   onLocation() {
-    let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
-      data: {
-        longitude: DEFAULT_COORDINATES[0],
-        latitude: DEFAULT_COORDINATES[1],
-        operationConfirmed: false
-      }, disableClose: true
-    })
+    let longitude = DEFAULT_COORDINATES[0]
+    let latitude = DEFAULT_COORDINATES[1]
+    if(this.eventCreateForm.value.region !== '' && this.eventCreateForm.value.city !== '') {
+      this.mapboxService.getForwardGeocode(this.eventCreateForm.value.region, this.eventCreateForm.value.city, (this.eventCreateForm.value.address || '')).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          longitude = response.features[0].center[0]
+          latitude = response.features[0].center[1]
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.eventCreateForm.patchValue({
-        address: result.address
+          let dialogRef = this.dialog.open(LocationChooserDialogComponent, {
+            data: {
+              longitude: longitude,
+              latitude: latitude,
+              operationConfirmed: false
+            }, disableClose: true
+          })
+
+          dialogRef.afterClosed().subscribe(result => {
+            this.eventCreateForm.patchValue({
+              address: result.address
+            })
+            this.latitude = result.latitude
+            this.longitude = result.longitude
+          })
+        }
       })
-      this.latitude = result.latitude
-      this.longitude = result.longitude
-    })
+    }
   }
 
   /** DO NOT ABSOLUTELY REMOVE, IT SEEMS UNUSED BUT IT IS USED BY TEXTAREAs FOR RESIZING*/
