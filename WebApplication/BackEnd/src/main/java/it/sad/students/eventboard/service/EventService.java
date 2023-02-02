@@ -26,8 +26,6 @@ public class EventService {
     private final EmailSenderService emailSenderService;
 
     public ResponseEntity<Iterable<ResponseEvent>>  getAllEvents(){
-        //errore 404 not found...lista vuota
-        //codice 200 ok
         try{
             List<Event> tmp = DBManager.getInstance().getEventDao().findAll();
             if (tmp.isEmpty())
@@ -39,15 +37,9 @@ public class EventService {
             e.printStackTrace();
             return statusCodes.commandError();
         }
-
-
-
     }
 
     public ResponseEntity<Iterable<ResponseEvent>> getPreferredEvents(List<EventType> eventTypes) {
-        //errore 404 not found...lista tipi di eventi vuota e/o lista filtrata vuota
-        //codice 200 ok
-
         try{
             List<Event> tmp = new ArrayList<>();
             for (EventType eventType: eventTypes){
@@ -72,10 +64,6 @@ public class EventService {
         try{
             if (requestCreationEvent.getEvent() == null)
                 return ResponseEntity.notFound().build();
-
-            //event.setDate(LocalDateTime.now());
-
-
             if(authorizationService.checkOwnerAuthorization(requestCreationEvent.getEvent().getOrganizer(),token)){
                 if (DBManager.getInstance().getPositionDao().saveOrUpdate(requestCreationEvent.getPosition())){
                     requestCreationEvent.getEvent().setPosition(requestCreationEvent.getPosition().getId());
@@ -90,8 +78,6 @@ public class EventService {
             e.printStackTrace();
             return statusCodes.commandError();
         }
-
-
     }
 
     public ResponseEntity deleteEvent (Long id, String token, String message){
@@ -100,7 +86,6 @@ public class EventService {
             if (event == null)
                 return statusCodes.notFound();
 
-
             if(authorizationService.checkOwnerOrAdminAuthorization(event.getOrganizer(), token)){
                 DBManager.getInstance().getEventDao().delete(event);
                 if(authorizationService.checkAdminAuthorization( token)){
@@ -108,18 +93,14 @@ public class EventService {
                     emailSenderService.sendEmail(AdminActionEventNotification(email,
                             "Notifica rimozione evento "+event.getTitle(), message));
                 }
-                //return ResponseEntity.ok("Rimozione effettuata");
                 return statusCodes.ok();
             }
             else
                 return statusCodes.unauthorized();
-                //return ResponseEntity.badRequest().body("Non hai i permessi per rimuovere l'evento");
         }catch (Exception e){
             e.printStackTrace();
             return statusCodes.commandError();
         }
-
-
     }
 
     public ResponseEntity updateEvent(RequestCreationEvent requestCreationEvent,String message, String token) {
@@ -135,16 +116,12 @@ public class EventService {
                             emailSenderService.sendEmail(AdminActionEventNotification(email,
                                     "Notifica modifica evento " + requestCreationEvent.getEvent().getTitle(), message));
                         }
-                        //return ResponseEntity.ok("Evento modificato");
                         return  statusCodes.ok();
                     }
                     else
                         DBManager.getInstance().getPositionDao().delete(requestCreationEvent.getPosition());
                 }
-
-
             }
-            //return ResponseEntity.badRequest().body("Non hai i permessi per modificare l'evento");
             return statusCodes.commandError();
         }catch (Exception e){
             e.printStackTrace();
@@ -155,9 +132,6 @@ public class EventService {
 
 
     public ResponseEntity<ResponseEventDetails> getEventFullDetails(Long id) {
-        //errore 404 not found...evento non trovato
-        //codice 200 ok
-
         try{
             Event event = DBManager.getInstance().getEventDao().findByPrimaryKey(id);
             if (event == null)
@@ -175,7 +149,6 @@ public class EventService {
                         (person.getName()+" "+person.getLastName())));
             }
 
-
             List<Like> likeList = DBManager.getInstance().getLikeDao().findByEvent(id);
             List<Partecipation> partecipationList = DBManager.getInstance().getPartecipationDao().findByEvent(id);
 
@@ -192,8 +165,6 @@ public class EventService {
                         (person.getName()+" "+person.getLastName())));
             }
 
-
-
             Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(event.getOrganizer());
             String organizerFullName =person.getName() + " "+person.getLastName();
             Position position = DBManager.getInstance().getPositionDao().findByPrimaryKey(event.getPosition());
@@ -203,8 +174,6 @@ public class EventService {
             e.printStackTrace();
             return statusCodes.commandError();
         }
-
-
     }
 
 
@@ -222,7 +191,6 @@ public class EventService {
         try {
             List<EventsStats> events=DBManager.getInstance().getEventDao().topFiveLikes();
             return events;
-
         }catch (Exception e) {
             return null;
         }
@@ -246,19 +214,14 @@ public class EventService {
                 tmp = DBManager.getInstance().getEventDao().findByKeywords(requestSearchEvent.getTitle());
             }
             else{
-                //if(requestSearchEvent.getFinalRangeDate().compareTo(requestSearchEvent.getInitialRangeDate())<0)
-                //    return statusCodes.commandError();
-
                 tmp =DBManager.getInstance().getEventDao().findBySomeData(
                         requestSearchEvent.getInitialRangeDate(),
                         requestSearchEvent.getFinalRangeDate(),
                         requestSearchEvent.getRegion(),
                         requestSearchEvent.getCity()
                 );
-
             }
             eventList = createList(tmp);
-
 
             return statusCodes.okGetElements(eventList);
         }catch (Exception exception){

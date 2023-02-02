@@ -35,42 +35,31 @@ public class UserService { //utente loggato
 
 
     public ResponseEntity<ResponsePerson> getPerson(String username) {
+        try{
+            Person person= DBManager.getInstance().getPersonDao().findByUsername(username);
 
-        Person person= DBManager.getInstance().getPersonDao().findByUsername(username);
-        /*
-        person.setComments(
-                DBManager.getInstance().getCommentDao().findByPerson(person.getId())
-        );
-        person.setReviews(
-                DBManager.getInstance().getReviewDao().findByPerson(person.getId())
-        );
-        person.setPreferences(
-                DBManager.getInstance().getPreferenceDao().findPreferences(person.getId())
-        );
-        person.setLikes(
-                DBManager.getInstance().getLikeDao().findByPerson(person.getId())
-                //DBManager.getInstance().getLikeDao().findAll()
-        );*/
-        if(person!=null){
-            Position position = new Position();
-            if(person.getPosition() != null)
-                position = DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition());
-            return statusCodes.okGetElement(ResponsePerson
-                    .builder()
-                    .id(person.getId())
-                    .name(person.getName())
-                    .lastName(person.getLastName())
-                    .username(username)
-                    .email(person.getEmail())
-                    .role(person.getRole())
-                    .is_not_locked(person.isAccountNonLocked())
-                            .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
-                            .position(position)
-                    .build()
-            );
+            if(person!=null){
+
+                return statusCodes.okGetElement(ResponsePerson
+                        .builder()
+                        .id(person.getId())
+                        .name(person.getName())
+                        .lastName(person.getLastName())
+                        .username(username)
+                        .email(person.getEmail())
+                        .role(person.getRole())
+                        .is_not_locked(person.isAccountNonLocked())
+                        .preferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()))
+                        .position(getPosition(person.getPosition()))
+                        .build()
+                );
+            }
+            else
+                return statusCodes.notFound();
+        }catch (Exception e){
+            e.printStackTrace();
+            return statusCodes.commandError();
         }
-        else
-            return statusCodes.notFound();
     }
 
 
@@ -88,7 +77,6 @@ public class UserService { //utente loggato
                 DBManager.getInstance().getPositionDao().saveOrUpdate(person.getPosition());
             }
 
-
             if(nullOrEmpty(person.getName()) || nullOrEmpty(person.getLastName()) || nullOrEmpty(person.getEmail()))
                 return statusCodes.commandError();          //non possono essere campi nulli
 
@@ -100,20 +88,10 @@ public class UserService { //utente loggato
                 return statusCodes.commandError();          //se la email è gia esistente (non contato la sua vecchia nel db) ritorna errore
 
 
-
-            //verifica email esatta
-            //if(tempId!= personDb.getId())
-            //    if(!sendEmail(person.getEmail(),"Cambio email effettuato","Questa email è stata associata ad un accout utente del sito GoodVibes.\n\nBuona giornata.")
-            //        return statusCodes.commandError();
-
-
-
-
             if(person.getPassword()!=null && checkPassword(person.getPassword()))
                 personDb.setPassword(passwordEncoder.encode(person.getPassword())); //se l'utente ha cambiato password la setto
             else if(person.getPassword()!=null)
                 return statusCodes.commandError();
-
 
             personDb.setName(person.getName());
             personDb.setLastName(person.getLastName());
@@ -132,8 +110,6 @@ public class UserService { //utente loggato
                 return statusCodes.ok();
             else
                 return statusCodes.notFound();
-
-
 
         }catch (Exception e){
             e.printStackTrace();
@@ -162,10 +138,6 @@ public class UserService { //utente loggato
             else{
                 if(personDb.getRole() == Role.ADMIN && !authorizationService.checkSuperAdmin(token))
                     return statusCodes.unauthorized();
-
-                //Il super admin non si puo eliminare da solo??
-                //if(authorizationControll.checkSuperAdmin(token)&&personDb.getUsername().equals(authorizationControll.returnUsername(token)))
-                //    return statusCodes.unauthorized();
 
                 if(personDb.isEnabled())
                     sendEmail(personDb.getEmail(),
@@ -205,8 +177,6 @@ public class UserService { //utente loggato
             if(personDb.getRole() == Role.ADMIN && !authorizationService.checkSuperAdmin(token))
                 return statusCodes.unauthorized();
 
-
-
             if(!personDb.isEnabled())
                 return statusCodes.notFound();
 
@@ -231,25 +201,6 @@ public class UserService { //utente loggato
             return statusCodes.commandError();
         }
     }
-
-/*
-    public ResponseEntity enableUser(Long id,String token) { //id person
-        try {
-            if(!authorizationControll.checkAdminAuthorization(token))
-                return statusCodes.unauthorized();
-
-            Person personDb=DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
-            if(personDb.getActiveStatus())
-                return statusCodes.commandError();
-
-            personDb.setActiveStatus(true);
-            DBManager.getInstance().getPersonDao().saveOrUpdate(personDb);
-            return statusCodes.ok();
-
-        }catch (Exception e){
-            return statusCodes.notFound();
-        }
-    }*/
 
     public ResponseEntity<ResponseOrganizer> getOrganizer(Long id){
         try {
@@ -324,7 +275,7 @@ public class UserService { //utente loggato
             responsePerson.setRole(person.getRole());
             responsePerson.setIs_not_locked(person.isAccountNonLocked());
             responsePerson.setPreferences(DBManager.getInstance().getPreferenceDao().findPreferences(person.getId()));
-            responsePerson.setPosition(DBManager.getInstance().getPositionDao().findByPrimaryKey(person.getPosition()));
+            responsePerson.setPosition(getPosition(person.getPosition()));
             responsePeople.add(responsePerson);
 
         }
@@ -392,6 +343,14 @@ public class UserService { //utente loggato
         //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
         //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
         return password.matches("^.{8,}$");
+    }
+
+    private Position getPosition(Long id){
+        Position position = new Position();
+        if(id != null)
+            position = DBManager.getInstance().getPositionDao().findByPrimaryKey(id);
+
+        return position;
     }
 
 
