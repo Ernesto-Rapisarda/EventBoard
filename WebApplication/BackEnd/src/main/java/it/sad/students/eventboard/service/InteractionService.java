@@ -269,10 +269,10 @@ public class InteractionService {
         String message="";
         if(type){
             object="Hai ricevuto un commento ad un tuo Evento";
-            message="L'utente "+person.getName()+" "+person.getLastName()+"ha commentato il tuo evento '"+title+"'";
+            message="L'utente "+person.getName()+" "+person.getLastName()+" ha commentato il tuo evento '"+title+"'";
         }else{
             object="Hai ricevuto una recensione ad un tuo Evento";
-            message="L'utente "+person.getName()+" "+person.getLastName()+"ha recensito il tuo evento '"+title+"'";
+            message="L'utente "+person.getName()+" "+person.getLastName()+" ha recensito il tuo evento '"+title+"'";
         }
 
         return new EmailMessage(
