@@ -165,17 +165,20 @@ export class CreateEventComponent implements OnInit{
   }
 
   private imgbbUpload(b64Image: any){
+    let posterUrl: string
     this.imgbbService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.url
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.url
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert(error.error.error.message)
-      }
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
+      },
     })
+
+
   }
 
 
@@ -207,5 +210,12 @@ export class CreateEventComponent implements OnInit{
         console.log(error)
       }
     })
+  }
+
+  private patchPosterValue(posterUrl: string){
+    this.eventCreateForm.patchValue({
+      poster: posterUrl
+    })
+    this.imageUploaded = true
   }
 }
