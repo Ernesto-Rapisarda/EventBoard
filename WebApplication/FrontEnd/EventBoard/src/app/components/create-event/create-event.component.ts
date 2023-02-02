@@ -177,37 +177,36 @@ export class CreateEventComponent implements OnInit{
         this.patchPosterValue(posterUrl)
       },
     })
-
-
   }
 
-
-  /** Called only if IMGBB is down */
+  /** To be used if ImgBB/Thumbsnap service is down */
   private imgurUpload(b64Image: any) {
+    let posterUrl: string
     this.imgurService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.link
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.link
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
       }
     })
   }
 
-  /** Called only if IMGUR is down */
+  /** To be used if ImgBB/ImgUR service is down */
   private thumbsnapUpload(b64Image: any) {
+    let posterUrl: string
     this.thumbsnapService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventCreateForm.patchValue({
-          poster: response.data.media
-        })
-        this.imageUploaded = true
+        posterUrl = response.data.media
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        posterUrl = '#'
+        alert("ERRORE: Impossibile caricare l'immagine, verrà utilizzata quella di default")
+        this.patchPosterValue(posterUrl)
       }
     })
   }

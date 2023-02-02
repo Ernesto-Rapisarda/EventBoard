@@ -63,7 +63,8 @@ export class EventEditComponent implements OnInit {
       price: new FormControl('', [Validators.required, Validators.pattern('^((\\d+)|(\\d+\\.\\d+))$')]),
       eventType: new FormControl('', Validators.required),
       ticketUrl: new FormControl(''),
-      description: new FormControl('')
+      description: new FormControl(''),
+      poster: new FormControl('')
     })
   }
 
@@ -160,7 +161,8 @@ export class EventEditComponent implements OnInit {
       soldOut: this.event.soldOut,
       price: this.event.price,
       ticketUrl: this.event.urlTicket,
-      description: this.event.description
+      description: this.event.description,
+      poster: this.event.urlPoster
     })
   }
 
@@ -184,7 +186,7 @@ export class EventEditComponent implements OnInit {
         this.eventEditForm.value.title,
         Number.parseFloat(this.eventEditForm.value.price),
         this.eventEditForm.value.soldOut,
-        this.urlPoster,
+        this.eventEditForm.value.poster,
         this.eventEditForm.value.ticketUrl,
         this.eventEditForm.value.description,
         this.eventEditForm.value.eventType,
@@ -216,44 +218,49 @@ export class EventEditComponent implements OnInit {
   }
 
   private imgbbUpload(b64Image: any){
+    let posterUrl: string
     this.imgbbService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventEditForm.patchValue({
-          poster: response.data.url
-        })
+        posterUrl = response.data.url
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        alert(error.error.error.message)
+        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
       }
     })
   }
 
-
-  /** Called only if IMGBB is down */
+  /** To be used if ImgBB/Thumbsnap service is down */
   private imgurUpload(b64Image: any) {
+    let posterUrl: string
     this.imgurService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventEditForm.patchValue({
-          poster: response.data.link
-        })
+        posterUrl = response.data.link
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
       }
     })
   }
 
-  /** Called only if IMGUR is down */
+  /** To be used if ImgBB/ImgUR service is down */
   private thumbsnapUpload(b64Image: any) {
+    let posterUrl: string
     this.thumbsnapService.upload(b64Image).subscribe({
       next: (response: any) => {
-        this.eventEditForm.patchValue({
-          poster: response.data.media
-        })
+        posterUrl = response.data.media
+        this.patchPosterValue(posterUrl)
       },
       error: error => {
-        console.log(error)
+        alert("ERRORE: Impossibile caricare l'immagine, la locandina rimarrà invariata.\nTi consigliamo di riprovare più tardi")
       }
+    })
+  }
+
+  private patchPosterValue(posterUrl: string){
+    this.eventEditForm.patchValue({
+      poster: posterUrl
     })
   }
 
