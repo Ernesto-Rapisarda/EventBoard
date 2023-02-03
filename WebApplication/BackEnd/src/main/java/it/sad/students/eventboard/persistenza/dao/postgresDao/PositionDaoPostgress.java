@@ -103,6 +103,18 @@ public class PositionDaoPostgress implements PositionDao {
             e.printStackTrace();
         }
     }
+    @Override
+    public void deleteById(Long id) {
+        String query = "DELETE FROM position WHERE id = ?";
+
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Position readPosition(ResultSet rs){
         try{

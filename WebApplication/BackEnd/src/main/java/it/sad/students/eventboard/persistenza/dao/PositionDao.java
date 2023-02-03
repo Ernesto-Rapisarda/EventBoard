@@ -12,4 +12,6 @@ public interface PositionDao {
     boolean saveOrUpdate(Position position);
 
     void delete(Position position);
+
+    void deleteById(Long id);
 }

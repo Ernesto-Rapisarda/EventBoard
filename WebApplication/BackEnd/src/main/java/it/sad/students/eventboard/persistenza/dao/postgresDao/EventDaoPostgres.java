@@ -173,7 +173,7 @@ public class EventDaoPostgres implements EventDao {
             DBManager.getInstance().getLikeDao().deleteByEvent(event.getId());
             DBManager.getInstance().getPartecipationDao().deleteByEvent(event.getId());
             DBManager.getInstance().getReviewDao().deleteByEvent(event.getId());
-
+            DBManager.getInstance().getPositionDao().deleteById(event.getPosition());
 
             PreparedStatement deleteEvent = conn.prepareStatement(eventQuery);
             deleteEvent.setLong(1, event.getId());
