@@ -78,7 +78,7 @@ public class InteractionService {
             DBManager.getInstance().getCommentDao().saveOrUpdate(comment);
 
             Long organizer=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent()).getOrganizer();
-            if(organizer!=comment.getPerson()){ //se chi ha fatto il commento è diverso da chi ha creato il post dell'evento
+            if(organizer!=comment.getPerson()){
 
                 Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(organizer);
                 Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(comment.getEvent());
@@ -94,7 +94,6 @@ public class InteractionService {
 
     public ResponseEntity addReview(Review review,String token){
         try {
-            //      PRIMO METODO
             if(!authorizationService.checkOwnerAuthorization(review.getPerson(),token))
                 return statusCodes.unauthorized();
             if(DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent()) == null)
@@ -104,7 +103,7 @@ public class InteractionService {
                 review.setDate(date());
                 DBManager.getInstance().getReviewDao().saveOrUpdate(review);
                 Long organizer=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent()).getOrganizer();
-                if(organizer!=review.getPerson()){ //se chi ha fatto il commento è diverso da chi ha creato il post dell'evento
+                if(organizer!=review.getPerson()){
 
                     Person person = DBManager.getInstance().getPersonDao().findByPrimaryKey(organizer);
                     Event event=DBManager.getInstance().getEventDao().findByPrimaryKey(review.getEvent());
@@ -257,14 +256,13 @@ public class InteractionService {
     }
 
 
-    //extra functions
     private LocalDateTime date(){
         LocalDateTime date = LocalDateTime.now();
         return date;
     }
 
 
-    private EmailMessage newMessageAdd(Person person,Boolean type,String title){ // type: true(comment) false(review)
+    private EmailMessage newMessageAdd(Person person,Boolean type,String title){
         String object="";
         String message="";
         if(type){

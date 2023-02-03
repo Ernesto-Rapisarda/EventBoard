@@ -45,7 +45,6 @@ public class DBManager {
     public PartecipationDao getPartecipationDao(){return new PartecipationDaoPostgress(getConnection());}
     public ReviewDao getReviewDao() {return new ReviewDaoPostgress(getConnection());}
     public PositionDao getPositionDao() {return new PositionDaoPostgress(getConnection());}
-    //public RoleDao getRoleDao() {return new RoleDaoPostgress(getConnection());}
     public EventDao getEventDao (){return new EventDaoPostgres(getConnection());}
     public PreferenceDao getPreferenceDao(){return new PreferenceDaoPostgress(getConnection());}
     public CommentDao getCommentDao(){return new CommentDaoPostgres(getConnection());}

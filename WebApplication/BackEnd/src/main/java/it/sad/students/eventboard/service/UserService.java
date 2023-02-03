@@ -23,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService { //utente loggato
+public class UserService {
 
     private final AuthorizationService authorizationService;
     private final StatusCodes statusCodes;
@@ -79,18 +79,18 @@ public class UserService { //utente loggato
             }
 
             if(nullOrEmpty(person.getName()) || nullOrEmpty(person.getLastName()) || nullOrEmpty(person.getEmail()))
-                return statusCodes.commandError();          //non possono essere campi nulli
+                return statusCodes.commandError();
 
             Long tempId = null;
             Person temp = DBManager.getInstance().getPersonDao().findByEmail(person.getEmail());
             if (temp != null)
                 tempId = temp.getId();
             if(tempId!=null && tempId!= person.getId())
-                return statusCodes.commandError();          //se la email è gia esistente (non contato la sua vecchia nel db) ritorna errore
+                return statusCodes.commandError();
 
 
             if(person.getPassword()!=null && checkPassword(person.getPassword()))
-                personDb.setPassword(passwordEncoder.encode(person.getPassword())); //se l'utente ha cambiato password la setto
+                personDb.setPassword(passwordEncoder.encode(person.getPassword()));
             else if(person.getPassword()!=null)
                 return statusCodes.commandError();
 
@@ -119,7 +119,7 @@ public class UserService { //utente loggato
     }
 
 
-    public ResponseEntity deleteUser(RequestCancellation requestCancellation, String token){ //id person
+    public ResponseEntity deleteUser(RequestCancellation requestCancellation, String token){
         try {
             if(!authorizationService.checkOwnerOrAdminAuthorization(requestCancellation.getId(), token))
                 return statusCodes.unauthorized();
@@ -161,7 +161,7 @@ public class UserService { //utente loggato
         }
     }
 
-    //ban/sban
+
     public ResponseEntity setUserBan(RequestMotivation requestMotivation, Long id, String token) {
         try {
 
@@ -172,7 +172,7 @@ public class UserService { //utente loggato
             if(!authorizationService.checkAdminAuthorization(token))
                 return statusCodes.unauthorized();
 
-            if(personDb.getUsername().equals(authorizationService.returnUsername(token))) //non posso bannarmi da solo
+            if(personDb.getUsername().equals(authorizationService.returnUsername(token)))
                 return statusCodes.unauthorized();
 
             if(personDb.getRole() == Role.ADMIN && !authorizationService.checkSuperAdmin(token))
@@ -287,7 +287,7 @@ public class UserService { //utente loggato
 
     public ResponseEntity promoteToAdmin(Long id, String token){
         try {
-            if (!authorizationService.checkSuperAdmin(token))  //controllo se è super admin
+            if (!authorizationService.checkSuperAdmin(token))
                 return statusCodes.unauthorized();
 
             Person person= DBManager.getInstance().getPersonDao().findByPrimaryKey(id);
@@ -320,7 +320,7 @@ public class UserService { //utente loggato
         }
     }
 
-    // FUNCTION EXTRA
+
     private boolean nullOrEmpty(String string){
         return string == null || string.equals("");
     }
@@ -341,8 +341,6 @@ public class UserService { //utente loggato
 
 
     private boolean checkPassword(String password){
-        //return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
-        //return password.matches("^[A-Za-z][A-Za-z1-9\\!\\_]{7,}$");
         return password.matches("^.{8,}$");
     }
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class AuthorizationService {
     private final JwtService jwtService;
 
-    //id della persona associata all'evento,commento,ecc
     public boolean checkOwnerOrAdminAuthorization(Long id,String token){
         try{
             String jwt = token.substring(7);
@@ -24,7 +23,6 @@ public class AuthorizationService {
         }
     }
 
-    //id della persona
     public boolean checkOwnerAuthorization(Long id,String token){
         try{
             String jwt = token.substring(7);
