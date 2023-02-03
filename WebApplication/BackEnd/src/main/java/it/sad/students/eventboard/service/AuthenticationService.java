@@ -99,7 +99,7 @@ public class AuthenticationService {
     }
 
     private String htmlActivation(String token){
-        return "<a href=\"http://localhost:4200/profile/activate/"+token+"\">ATTIVA L'ACCOUNT</a>";
+        return "http://localhost:4200/profile/activate/"+token;
         //http://localhost:4200/activate/token
     }
 

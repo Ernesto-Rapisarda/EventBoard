@@ -17,10 +17,10 @@ export class ActivateComponent implements OnInit {
     if(token){
       this.authService.activate(token).subscribe({
         next: response => {
-          this.snackbarService.openSnackBar("Attivazione avvenuta con successo, ritorno alla pagina principale", "OK")
+          this.snackbarService.openSnackBar("Attivazione avvenuta con successo.", "OK")
           this.router.navigateByUrl('')
         },
-        error: error => { this.snackbarService.openSnackBar("Errore durante l'attivazione, ritorno alla pagina principale", "OK"); this.router.navigateByUrl('') }
+        error: error => { this.snackbarService.openSnackBar("Errore durante l'attivazione.", "OK"); this.router.navigateByUrl('') }
       })
     }
     else {
