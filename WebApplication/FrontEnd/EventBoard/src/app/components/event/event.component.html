@@ -78,17 +78,15 @@
             <button class="participate-button" mat-fab color="primary" aria-label="Participate" [disabled]="!this.authService.isAuthenticated()" (click)="onParticipate()"
                     [ngClass]="participate ? 'participate-button-true animate__animated animate__shakeY' : 'participate-button-false'" matTooltip="Partecipo" matTooltipPosition="above">
               <mat-icon>how_to_reg</mat-icon>
-            </button>
-            <br><br>
+            </button><br><br>
             <p class="partecipants-number">{{participantsNumber.toString()}}</p>
-
           </div>
+
           <div class="like-button-container">
             <button class="like-button" mat-fab aria-label="Like" [disabled]="!this.authService.isAuthenticated()" (click)="onLike()"
                     [ngClass]="liked ? 'like-button-true animate__animated animate__heartBeat' : 'like-button-false'" matTooltip="Mi piace" matTooltipPosition="above">
               <mat-icon>favorite</mat-icon>
-            </button>
-            <br><br>
+            </button><br><br>
             <p class="likes-number">{{likesNumber.toString()}}</p>
           </div>
         </div>

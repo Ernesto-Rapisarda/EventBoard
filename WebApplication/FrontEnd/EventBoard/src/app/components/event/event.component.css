@@ -273,11 +273,13 @@
 .like-participate-container {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 75px;
 }
 
-.participate-button-container, .like-button-container { }
+.participate-button-container, .like-button-container {
+  margin: 0 3%;
+}
 .participate-button-container {
   float: left;
 }
