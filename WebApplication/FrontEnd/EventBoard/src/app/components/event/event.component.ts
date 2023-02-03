@@ -20,7 +20,8 @@ export class EventComponent implements OnInit {
   likesNumber: number
   participantsNumber: number
   interactionsNumber: number
-  averageRating: number;
+  averageRating: number
+  nowDate: Date
   constructor(private requestService: RequestService, protected authService: AuthService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class EventComponent implements OnInit {
     this.participate = false
     this.likesNumber = 0
     this.participantsNumber = 0
+    this.nowDate = new Date()
     window.scroll({top: 0})   // Scroll to top of the page when the component is loaded
   }
 
@@ -37,8 +39,6 @@ export class EventComponent implements OnInit {
     this.requestService.getEventById(id).subscribe(
       {
         next: (response: any) => {
-          console.log(response)
-
           // Event setup
           this.event = response.event
           this.event.description = this.event.description.replace(/\n/g, '<br>')
@@ -134,7 +134,7 @@ export class EventComponent implements OnInit {
       if(choice && this.event){
         this.requestService.deleteEvent(this.event.id, message).subscribe({
           next: response => {
-            this.snackbarService.openSnackBar("L'evento è stato rimosso con successo, ritorno alla pagina principale.", "OK")
+            this.snackbarService.openSnackBar("L'evento è stato rimosso con successo.", "OK")
             this.router.navigateByUrl('')
           },
           error: error => {
@@ -168,7 +168,6 @@ export class EventComponent implements OnInit {
     })
   }
 
-
   onReport() {
     let dialogRef = this.dialog.open(ReportDialogComponent,{
       data: {
@@ -195,6 +194,11 @@ export class EventComponent implements OnInit {
         })
       }
     })
+  }
+
+  isAPastEvent() : boolean{
+    const eventDate = new Date(this.event.date)
+    return eventDate < this.nowDate
   }
 
   private errorHandler(error: number) {

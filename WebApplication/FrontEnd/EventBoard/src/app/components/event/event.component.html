@@ -145,7 +145,7 @@
     <!-- Floating buttons -->
     <div class="floating-buttons-left">
       <div class="edit-button-container">
-        <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')" matTooltip="Modifica" matTooltipPosition="after">
+        <button class="edit-button" mat-fab aria-label="Edit" color="primary" (click)="onEdit()" *ngIf="!isAPastEvent() && authService.isAuthenticated() && (authService.user.id === event.organizer || authService.user.role === 'ADMIN')" matTooltip="Modifica" matTooltipPosition="after">
           <mat-icon class="icon-edit">edit</mat-icon>
         </button>
       </div>

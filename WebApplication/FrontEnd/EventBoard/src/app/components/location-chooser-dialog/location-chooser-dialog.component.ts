@@ -45,10 +45,8 @@ export class LocationChooserDialogComponent {
   setAddressViaReverseGeocode(lng: number, lat: number) {
     this.mapboxService.getReverseGeocode(lng, lat).subscribe({
       next: (response: any) => {
-        console.log(response)
         const placeName = response.features[0].place_name
         this.address = placeName.substring(0, placeName.indexOf(","))     // The field will be like this: { place_name: "Via Tal dei Tali 25, (...Other info we won't need...)" }
-        console.log(this.address)
       },
       error: error => { }
     })

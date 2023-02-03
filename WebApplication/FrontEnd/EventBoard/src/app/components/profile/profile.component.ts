@@ -61,8 +61,6 @@ export class ProfileComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
-        console.log(this.authService.user)
         if(result.operationConfirmed) {
           if(this.authService.user &&
             (
@@ -74,14 +72,23 @@ export class ProfileComponent implements OnInit {
             )
           ){
             const preferences = this.buildPreferences(result.preferences)      // Must build preferences list which follow the back-end expected format
-            const location: Location = {
-              id: this.authService.user.location.id,
-              region: result.region,
-              city: result.city,
-              address: null,
-              latitude: 0.0,
-              longitude: 0.0
+
+            let location: Location
+
+            if(result.city !== null && result.region !== null){
+              location = {
+                id: this.authService.user.location.id,
+                region: result.region,
+                city: result.city,
+                address: null,
+                latitude: 0.0,
+                longitude: 0.0
+              }
             }
+            else {
+              location = null
+            }
+
             this.authService.editUser(result.name, result.lastName, result.email, result.password, preferences, location).subscribe({
               next: response => {
                 this.snackbarService.openSnackBar("Dati modificati con successo", "OK")
@@ -127,7 +134,6 @@ export class ProfileComponent implements OnInit {
           userData.location
         )
         this.authService.isLoggedIn = true;
-        console.log(this.authService.user)
       },
       error: error => { this.errorHandler(error) }
     })

@@ -46,7 +46,6 @@ export class AdminDashboardComponent implements OnInit {
     /* Users */
     this.requestService.getUsers().subscribe({
       next: response => {
-        console.log(response)
         this.userList = response
         this.userDataSource = new MatTableDataSource<User>(this.userList)
         this.userDataSource.paginator = this.userPaginator
@@ -58,7 +57,6 @@ export class AdminDashboardComponent implements OnInit {
     /* Reports */
     this.requestService.getReports().subscribe({
         next: response => {
-          console.log(response)
           this.reportList = response
           this.reportDataSource = new MatTableDataSource<Report>(this.reportList)
           this.reportDataSource.paginator = this.reportPaginator
@@ -91,7 +89,6 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
   onSolve(id: number) {
-    console.log("Solving report " + id)
     this.requestService.solveReport(id).subscribe({
       next: response => {
         this.snackbarService.openSnackBar("Operazione eseguita con successo.", "OK")

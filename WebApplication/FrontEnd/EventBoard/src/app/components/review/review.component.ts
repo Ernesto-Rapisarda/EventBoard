@@ -71,7 +71,7 @@ export class ReviewComponent {
         const eventId = this.route.snapshot.params['id']
         this.requestService.deleteReview(this.review.event, this.review.person, message).subscribe({
           next: response => {
-            this.snackbarService.openSnackBar("La recensione è stata rimossa con successo! Ricarico la pagina.", "OK")
+            this.snackbarService.openSnackBar("La recensione è stata rimossa con successo!", "OK")
             this.router.navigateByUrl(`/event/${eventId}`)
           },
           error: error => { this.errorHandler(error) }

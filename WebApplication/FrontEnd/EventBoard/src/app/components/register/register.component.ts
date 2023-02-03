@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     if(confirm("Vuoi creare un account con i seguenti dati?\n" + this.getConfirmString())) {
       this.authService.signUp(name, lastName, email, username, password, role).subscribe({
         next: response => {
-          this.snackbarService.openSnackBar("Ti sei registrato con successo! Per poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email", "OK")
+          this.snackbarService.openSnackBar("Ti sei registrato con successo!\nPer poter utilizzare il tuo profilo devi prima eseguire l'attivazione tramite il link che ti è stato recapitato sull'email", "OK")
           this.router.navigate([''])
         },
         error: error => {
