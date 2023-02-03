@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AboutComponent} from './components/about/about.component';
 import {CardComponent} from './components/card/card.component';
 import {CreateEventComponent} from './components/create-event/create-event.component';
 import {EventComponent} from './components/event/event.component';
@@ -81,7 +80,6 @@ registerLocaleData(localeIt, 'it');
 @NgModule({
     declarations: [
         AppComponent,
-        AboutComponent,
         CardComponent,
         CreateEventComponent,
         EventComponent,

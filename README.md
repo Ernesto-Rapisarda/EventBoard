@@ -2,6 +2,18 @@
 
 # ITA
 
+## Il team
+
+Il team di sviluppo è così composto:
+
+- ****************Back-end****************
+    - [Ernesto Rapisarda](https://github.com/Ernesto-Rapisarda)
+    - [Andrea Tocci](https://github.com/AndreaYpmY)
+    
+- ********************Front-end********************
+    - [Alessandro Monetti](https://github.com/ilveron)
+    - [Simone Rotundo](https://github.com/simonerotundo)
+
 ## Descrizione del progetto
 
 “*GoodVibes*” è una Web Application che si pone come obiettivo quello di aiutare le persone a trovare l’**evento** ideale a cui partecipare.
@@ -12,13 +24,6 @@ Essa si aggiorna **dinamicamente**: può mostrare gli eventi in base alle **cate
 Il dato sul **luogo** viene dettagliato tramite l'implementazione delle **API** di **Mapbox**, che permettono di visualizzarne la posizione sulla mappa.
 Al fine di rendere più coinvolgente l’applicazione, oltre alle funzioni dell’utente registrato, è possibile **condividere** la pagina di un evento sui principali canali **social**.
 Le interazioni sono lo strumento attraverso il quale è possibile farsi un’idea dell’indice di gradimento di un evento: questo dato torna utile sia agli organizzatori che agli altri utenti.
-
-**NOTA per il docente**: TUTTE le funzionalità descritte nella relazione di Ingegneria del Software, che si può trovare in:
-
-> /SoftwareEngineering/MonettiRapisardaRotundoTocci-GoodVibes.pdf
-> 
-
-sono state implementate.
 
 ---
 
@@ -64,7 +69,6 @@ Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), nec
 
 ### Eventuali bug
 
-- Se una parola contenuta in un commento/recensione dovesse essere molto lunga (in modo irrealistico) il testo della suddetta potrebbe fuoriuscire dalla card in cui è contenuto;
 - A volte può succedere che la mappa mapbox nel dialog di selezione della posizione di un nuovo evento sia inizializzata in un punto che non corrisponde esattamente a quanto richiesto nei campi Regione e Città;
 - A volte può succedere (*per cause che non dipendono da noi*) che il servizio esterno per regioni e comuni italiani impieghi diverso tempo prima di rispondere, causando disagi alla UX. Ciò accade soprattutto nei form che attendono la compilazione dei suddetti dati per essere validati.
 

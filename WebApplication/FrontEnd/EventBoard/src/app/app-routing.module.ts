@@ -11,7 +11,6 @@ import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {OrganizerComponent} from "./components/organizer/organizer.component";
 import {ActivateComponent} from "./components/activate/activate.component";
-import {AboutComponent} from "./components/about/about.component";
 import {EventEditComponent} from "./components/event-edit/event-edit.component";
 import {AdminDashboardComponent} from "./components/admin-dashboard/admin-dashboard.component";
 
@@ -27,7 +26,6 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent},
 ];
 
