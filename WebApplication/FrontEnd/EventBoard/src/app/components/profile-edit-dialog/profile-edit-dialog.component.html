@@ -105,14 +105,14 @@
         <div class="position-container">
           <mat-form-field appearance="fill">
             <mat-label>Regione</mat-label>
-            <mat-select formControlName="region" (selectionChange)="setCities()" required>
+            <mat-select formControlName="region" (selectionChange)="setCities()">
               <mat-option *ngFor="let region of regions" value="{{region}}">{{region}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Città</mat-label>
-            <mat-select formControlName="city" required>
+            <mat-select formControlName="city">
               <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
             </mat-select>
           </mat-form-field>

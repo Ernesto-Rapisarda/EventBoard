@@ -29,7 +29,6 @@ export class OrganizerComponent implements OnInit {
   private getOrganizer(id: number) {
     this.requestService.getOrganizer(id).subscribe({
       next: (response: any) => {
-        console.log(response)
         this.fullName = response.organizer
         this.email = response.email
         for (let element in response.events) {

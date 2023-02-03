@@ -32,6 +32,7 @@ export class EventEditComponent implements OnInit {
   longitude: number
   isUploading: boolean
 
+  myCityInitialized: boolean;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(
@@ -50,6 +51,7 @@ export class EventEditComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
     this.isUploading = false
+    this.myCityInitialized = false
 
     this.initializeForm()
     this.getEvent(id)
@@ -91,9 +93,17 @@ export class EventEditComponent implements OnInit {
     this.comuniItaService.getCities(this.eventEditForm.value.region).subscribe({
       next: response => {
         this.cities = (response as string[])
-        this.eventEditForm.patchValue({
-          city: this.event.position.city
-        })
+        if(!this.myCityInitialized){
+          this.eventEditForm.patchValue({
+            city: this.event.position.city
+          })
+          this.myCityInitialized = true
+        }
+        else {
+          this.eventEditForm.patchValue({
+            city: this.cities[0]
+          })
+        }
       },
       error: error => { this.errorHandler(error) }
     })
@@ -132,7 +142,6 @@ export class EventEditComponent implements OnInit {
     this.requestService.getEventById(id).subscribe(
       {
         next: (response: any) => {
-          console.log(response)
           this.event = response.event
           this.setEventTypes()                      // Once I have the event, I can set the event types (and the event type)
           this.event.position = response.position
@@ -169,8 +178,6 @@ export class EventEditComponent implements OnInit {
       description: this.event.description,
       poster: this.event.urlPoster
     })
-
-    console.log(this.eventEditForm)
   }
 
   onConfirm() {

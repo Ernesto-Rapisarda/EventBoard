@@ -15,6 +15,7 @@ export class ProfileEditDialogComponent implements OnInit {
   hidePassword = true
   hidePasswordConfirm = true
   operationConfirmed = false
+  myCityInitialized = false
   eventTypes: string[];
   regions: string[]
   cities: string[]
@@ -128,9 +129,17 @@ export class ProfileEditDialogComponent implements OnInit {
     this.comuniItaService.getCities(this.editForm.value.region).subscribe({
       next: response => {
         this.cities = (response as string[])
-        this.editForm.patchValue({
-          city: this.data.city
-        })
+        if(!this.myCityInitialized){
+          this.editForm.patchValue({
+            city: this.data.city
+          })
+          this.myCityInitialized = true
+        }
+        else {
+          this.editForm.patchValue({
+            city: this.cities[0]
+          })
+        }
       },
       error: error => { }
     })

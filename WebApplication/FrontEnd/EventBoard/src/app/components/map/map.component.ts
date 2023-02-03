@@ -37,7 +37,6 @@ export class MapComponent implements OnInit {
 
     let coordinatesToSend: number[]
     marker.on('dragend', () => {
-      console.log(marker.getLngLat()),
       coordinatesToSend = [marker.getLngLat().lng, marker.getLngLat().lat],
       this.sendCoordinatesToParent.emit(coordinatesToSend)
     })

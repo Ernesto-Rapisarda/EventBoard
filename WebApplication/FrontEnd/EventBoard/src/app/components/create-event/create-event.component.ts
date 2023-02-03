@@ -104,7 +104,6 @@ export class CreateEventComponent implements OnInit{
     if(this.eventCreateForm.value.region !== '' && this.eventCreateForm.value.city !== '') {
       this.mapboxService.getForwardGeocode(this.eventCreateForm.value.region, this.eventCreateForm.value.city, (this.eventCreateForm.value.address || '')).subscribe({
         next: (response: any) => {
-          console.log(response)
           longitude = response.features[0].center[0]
           latitude = response.features[0].center[1]
           this.openLocationDialog(longitude, latitude)
@@ -132,7 +131,14 @@ export class CreateEventComponent implements OnInit{
 
   protected setCities() {
     this.comuniItaService.getCities(this.eventCreateForm.value.region).subscribe({
-      next: response => { this.cities = (response as string[]) },
+      next: response => {
+        this.cities = (response as string[])
+
+        // Resets the city to the first in ascendant lexicographic order
+        this.eventCreateForm.patchValue({
+          city: this.cities[0]
+        })
+      },
       error: error => { this.errorHandler(error) }
     })
   }
