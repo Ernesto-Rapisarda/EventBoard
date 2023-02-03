@@ -32,7 +32,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
                     preferences.add(preference);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return preferences;
     }
@@ -51,7 +51,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
                     preferences.add(preference);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return preferences;
     }
@@ -71,7 +71,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
                     return preference;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
                 st.executeUpdate();
 
         }catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -101,7 +101,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
             st.setString(2,preference.getEvent_type().toString());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
     private Preference readPreference(ResultSet rs){
@@ -110,7 +110,7 @@ public class PreferenceDaoPostgress implements PreferenceDao {
             preference.setPerson(rs.getLong("person"));
             preference.setEvent_type(EventType.valueOf(rs.getString("event_type")));
             return preference;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

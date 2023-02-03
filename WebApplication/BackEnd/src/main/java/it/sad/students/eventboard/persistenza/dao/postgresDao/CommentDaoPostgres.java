@@ -28,7 +28,8 @@ public class CommentDaoPostgres implements CommentDao {
                     eventsComment.add(comment);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
+            
         }
         return eventsComment;
     }
@@ -47,7 +48,7 @@ public class CommentDaoPostgres implements CommentDao {
                     eventsComment.add(comment);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return eventsComment;
     }
@@ -66,7 +67,7 @@ public class CommentDaoPostgres implements CommentDao {
                     eventsComment.add(comment);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return eventsComment;
     }
@@ -87,7 +88,7 @@ public class CommentDaoPostgres implements CommentDao {
                     return comment;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -125,7 +126,7 @@ public class CommentDaoPostgres implements CommentDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
             return false;
         }
 
@@ -139,7 +140,7 @@ public class CommentDaoPostgres implements CommentDao {
             st.setLong(1, comment.getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
     }
@@ -163,7 +164,7 @@ public class CommentDaoPostgres implements CommentDao {
             comment.setPerson(rs.getLong("person"));
             comment.setEvent(rs.getLong("event"));
             return comment;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

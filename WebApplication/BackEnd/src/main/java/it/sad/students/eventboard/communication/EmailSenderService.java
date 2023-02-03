@@ -36,7 +36,7 @@ public class EmailSenderService implements EmailSender {
             return true;
 
         }catch (MailException e){
-            e.printStackTrace();
+            
             return false;
         }
     }
@@ -80,7 +80,7 @@ public class EmailSenderService implements EmailSender {
 
 
         }catch (MailException e){
-            e.printStackTrace();
+            
             return false;
         }
     }

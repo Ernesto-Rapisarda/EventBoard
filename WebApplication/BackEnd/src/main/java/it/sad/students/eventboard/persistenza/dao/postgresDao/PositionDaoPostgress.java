@@ -29,7 +29,7 @@ public class PositionDaoPostgress implements PositionDao {
                     positions.add(position);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return positions;
     }
@@ -47,7 +47,6 @@ public class PositionDaoPostgress implements PositionDao {
                     return position;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         return null;
@@ -85,7 +84,6 @@ public class PositionDaoPostgress implements PositionDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
 
@@ -100,7 +98,7 @@ public class PositionDaoPostgress implements PositionDao {
             st.setLong(1, position.getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
     @Override
@@ -112,7 +110,7 @@ public class PositionDaoPostgress implements PositionDao {
             st.setLong(1, id);
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -126,7 +124,7 @@ public class PositionDaoPostgress implements PositionDao {
             position.setLongitude(rs.getDouble("longitude"));
             position.setLatitude(rs.getDouble("latitude"));
             return position;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

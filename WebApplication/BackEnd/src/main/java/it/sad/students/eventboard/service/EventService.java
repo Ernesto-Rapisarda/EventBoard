@@ -34,7 +34,7 @@ public class EventService {
                 return statusCodes.okGetElements(createList(tmp));
             }
         }catch(Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -53,7 +53,7 @@ public class EventService {
             else
                 return statusCodes.okGetElements(events);
         }catch(Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -75,7 +75,7 @@ public class EventService {
             }
             return statusCodes.commandError();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -98,7 +98,7 @@ public class EventService {
             else
                 return statusCodes.unauthorized();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -124,7 +124,7 @@ public class EventService {
             }
             return statusCodes.commandError();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
 
@@ -171,7 +171,7 @@ public class EventService {
 
             return statusCodes.okGetElement(new ResponseEventDetails(event,organizerFullName,position ,commentList,likeList,partecipationList,reviewList));
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -225,7 +225,7 @@ public class EventService {
 
             return statusCodes.okGetElements(eventList);
         }catch (Exception exception){
-            exception.printStackTrace();
+
             return statusCodes.commandError();
         }
     }
@@ -252,7 +252,7 @@ public class EventService {
             }
             return events;
         }catch(Exception e){
-            e.printStackTrace();
+            
             return events;
         }
 

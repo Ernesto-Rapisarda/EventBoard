@@ -40,7 +40,7 @@ public class StatsServlet extends HttpServlet {
             RequestDispatcher dispacher = req.getRequestDispatcher("views/stats.html");
             dispacher.forward(req, resp);
         }catch(Exception e){
-            e.printStackTrace();
+            
         }
     }
 }

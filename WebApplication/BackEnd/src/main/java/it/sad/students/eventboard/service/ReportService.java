@@ -53,7 +53,7 @@ public class ReportService {
 
 
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -75,7 +75,7 @@ public class ReportService {
             else
                 return statusCodes.commandError();//400
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -100,7 +100,7 @@ public class ReportService {
             else
                 return statusCodes.notFound();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
 

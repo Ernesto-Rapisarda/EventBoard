@@ -30,7 +30,7 @@ public class ReportDaoPostgres implements ReportDao {
                     reports.add(report);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return reports;
     }
@@ -51,7 +51,7 @@ public class ReportDaoPostgres implements ReportDao {
                     return report;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class ReportDaoPostgres implements ReportDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
             return false;
         }
 
@@ -103,7 +103,7 @@ public class ReportDaoPostgres implements ReportDao {
             st.setLong(1, report.getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
 
     }
@@ -118,7 +118,7 @@ public class ReportDaoPostgres implements ReportDao {
             report.setDate(rs.getTimestamp("date").toLocalDateTime());
             report.setPerson(rs.getLong("person"));
             return report;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

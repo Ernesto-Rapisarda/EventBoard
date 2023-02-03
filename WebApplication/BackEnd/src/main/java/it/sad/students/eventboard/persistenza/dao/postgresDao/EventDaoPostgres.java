@@ -32,7 +32,7 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return events;
     }
@@ -50,7 +50,7 @@ public class EventDaoPostgres implements EventDao {
                     return event;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -69,7 +69,7 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return events;
     }
@@ -88,7 +88,6 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         return events;
@@ -109,7 +108,6 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         return events;
@@ -158,7 +156,6 @@ public class EventDaoPostgres implements EventDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -183,12 +180,12 @@ public class EventDaoPostgres implements EventDao {
             conn.setAutoCommit(true);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
             if (conn != null){
                 try{
                     conn.rollback();
                 }catch (SQLException exception){
-                    exception.printStackTrace();
+
                 }
             }
         }
@@ -222,7 +219,6 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         return events;
@@ -276,7 +272,7 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return events;
     }
@@ -302,7 +298,7 @@ public class EventDaoPostgres implements EventDao {
                     events.add(event);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return events;
     }
@@ -324,8 +320,8 @@ public class EventDaoPostgres implements EventDao {
             event.setUrlTicket(rs.getString("urlticket"));
 
             return event;
-        }catch (SQLException e){e.printStackTrace();}
-
-        return null;
+        }catch (SQLException e){
+            return null;
+        }
     }
 }

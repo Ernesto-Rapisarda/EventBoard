@@ -38,7 +38,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -61,7 +61,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -87,7 +87,7 @@ public class InteractionService {
 
              return statusCodes.ok();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -115,7 +115,7 @@ public class InteractionService {
             return statusCodes.notFound();
 
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -137,7 +137,7 @@ public class InteractionService {
             }
             return statusCodes.ok();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return  statusCodes.commandError();
         }
     }
@@ -160,7 +160,7 @@ public class InteractionService {
             return statusCodes.ok();
 
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -189,7 +189,7 @@ public class InteractionService {
                     return statusCodes.commandError();
             }
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -219,7 +219,7 @@ public class InteractionService {
             else
                 return statusCodes.commandError();
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
 
@@ -235,7 +235,7 @@ public class InteractionService {
             else
                 return statusCodes.okGetElement(review);
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
     }
@@ -250,7 +250,7 @@ public class InteractionService {
             else
                 return ResponseEntity.ok(comment);
         }catch (Exception e){
-            e.printStackTrace();
+            
             return statusCodes.commandError();
         }
 

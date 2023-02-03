@@ -30,7 +30,7 @@ public class PersonDaoPostgress implements PersonDao {
                     people.add(person);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return people;
     }
@@ -48,7 +48,7 @@ public class PersonDaoPostgress implements PersonDao {
                     return person;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -66,7 +66,7 @@ public class PersonDaoPostgress implements PersonDao {
                     return person;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -84,7 +84,7 @@ public class PersonDaoPostgress implements PersonDao {
                     return person;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -131,7 +131,6 @@ public class PersonDaoPostgress implements PersonDao {
             }
             return true;
         }catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
 
@@ -145,7 +144,7 @@ public class PersonDaoPostgress implements PersonDao {
             st.setLong(1, person.getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -165,7 +164,7 @@ public class PersonDaoPostgress implements PersonDao {
             person.setPassword(rs.getString("password"));
             person.setIs_not_locked(rs.getBoolean("is_not_locked"));
             return person;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

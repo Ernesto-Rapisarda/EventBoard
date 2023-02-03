@@ -59,7 +59,7 @@ public class IdBroker {
 			result.next();
 			id = result.getLong("id");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 		}
 		
 		return id;

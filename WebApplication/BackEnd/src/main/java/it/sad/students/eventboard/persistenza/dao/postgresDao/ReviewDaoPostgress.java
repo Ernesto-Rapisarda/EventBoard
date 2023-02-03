@@ -25,7 +25,7 @@ public class ReviewDaoPostgress implements ReviewDao {
                     reviews.add(review);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return reviews;
     }
@@ -44,7 +44,7 @@ public class ReviewDaoPostgress implements ReviewDao {
                     reviews.add(review);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return reviews;
     }
@@ -64,7 +64,7 @@ public class ReviewDaoPostgress implements ReviewDao {
                     return review;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -103,7 +103,6 @@ public class ReviewDaoPostgress implements ReviewDao {
 
             return true;
         }catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -117,7 +116,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             st.setLong(2,review.getEvent());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -143,7 +142,7 @@ public class ReviewDaoPostgress implements ReviewDao {
                     reviews.add(review);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return reviews;
     }
@@ -158,7 +157,7 @@ public class ReviewDaoPostgress implements ReviewDao {
             review.setMessage(rs.getString("message"));
             review.setRating(rs.getInt("rating"));
             return review;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

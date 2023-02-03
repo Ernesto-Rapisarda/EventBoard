@@ -28,7 +28,7 @@ public class LikeDaoPostgres implements LikeDao {
                     likes.add(like);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return likes;
     }
@@ -48,7 +48,7 @@ public class LikeDaoPostgres implements LikeDao {
                     likes.add(like);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return likes;
     }
@@ -67,7 +67,7 @@ public class LikeDaoPostgres implements LikeDao {
                     likes.add(like);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return likes;
     }
@@ -88,7 +88,7 @@ public class LikeDaoPostgres implements LikeDao {
                     return like;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -107,7 +107,7 @@ public class LikeDaoPostgres implements LikeDao {
             st.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -120,7 +120,7 @@ public class LikeDaoPostgres implements LikeDao {
             st.setLong(2,like.getIdEvent());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
 
     }
@@ -140,8 +140,8 @@ public class LikeDaoPostgres implements LikeDao {
             like.setIdEvent(rs.getLong("event"));
             like.setDate(rs.getDate("date").toLocalDate());
             return like;
-        }catch (SQLException e){e.printStackTrace();}
-
-        return null;
+        }catch (SQLException e){
+            return null;
+        }
     }
 }

@@ -25,7 +25,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
                     partecipations.add(partecipation);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return partecipations;    }
 
@@ -44,7 +44,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
                     return partecipation;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;    }
 
@@ -62,7 +62,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
                     partecipations.add(partecipation);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return partecipations;
     }
@@ -82,7 +82,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
 
 
         }catch (SQLException e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -95,7 +95,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
             st.setLong(2,partecipation.getEvent());
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -117,7 +117,7 @@ public class PartecipationDaoPostgress implements PartecipationDao {
             partecipation.setEvent(rs.getLong("event"));
             partecipation.setDate(rs.getDate("date").toLocalDate());
             return partecipation;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
 
         return null;
     }

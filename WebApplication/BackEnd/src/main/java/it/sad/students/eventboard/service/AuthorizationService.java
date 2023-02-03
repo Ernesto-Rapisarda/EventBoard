@@ -19,7 +19,7 @@ public class AuthorizationService {
             if(person == null) return false;
             return (person.getId().equals(id) || person.getRole().toString().equals("ADMIN"));
         }catch(Exception e){
-            e.printStackTrace();
+            
             return false;
         }
     }
@@ -32,7 +32,7 @@ public class AuthorizationService {
             if(person == null) return false;
             return person.getId().equals(id);
         }catch(Exception e){
-            e.printStackTrace();
+            
             return false;
         }
 
@@ -45,7 +45,7 @@ public class AuthorizationService {
             if(person == null) return false;
             return person.getRole().toString().equals("ADMIN");
         }catch(Exception e){
-            e.printStackTrace();
+            
             return false;
         }
 

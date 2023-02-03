@@ -51,7 +51,7 @@ public class AuthenticationService {
         }
         return statusCodes.ok();
       } catch(Exception e) {
-        e.printStackTrace();
+        
         return statusCodes.commandError();
       }
 
@@ -93,7 +93,7 @@ public class AuthenticationService {
                 return true;
             return false;
         }catch (Exception e){
-            e.printStackTrace();
+            
             return false;
         }
     }
