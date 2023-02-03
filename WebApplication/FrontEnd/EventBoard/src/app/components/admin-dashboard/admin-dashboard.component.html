@@ -8,7 +8,7 @@
       <mat-tab label="Utenti">
           <!-- Users table -->
           <div class="mat-elevation-z8 users-table">
-            <table mat-table matSort [dataSource]="userDataSource">
+            <table mat-table matSort #userSort="matSort" [dataSource]="userDataSource">
 
               <!-- Id Column -->
               <ng-container matColumnDef="id">
@@ -81,7 +81,7 @@
         <!-- Report table -->
         <div class="mat-elevation-z8 users-table">
 
-          <table mat-table matSort [dataSource]="reportDataSource">
+          <table mat-table matSort #reportSort="matSort" [dataSource]="reportDataSource">
 
             <!-- Id Column -->
             <ng-container matColumnDef="id">

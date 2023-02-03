@@ -26,9 +26,10 @@ export class AdminDashboardComponent implements OnInit {
   reportList: Report[];
   reportDataSource: any
 
-  @ViewChild('userPaginator' , {static: true}) userPaginator: MatPaginator;
-  @ViewChild('reportPaginator' , {static: true}) reportPaginator: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('userPaginator' , {static: true}) userPaginator: MatPaginator
+  @ViewChild('reportPaginator' , {static: true}) reportPaginator: MatPaginator
+  @ViewChild('userSort') userSort!: MatSort
+  @ViewChild('reportSort') reportSort!: MatSort
 
 
 
@@ -49,7 +50,7 @@ export class AdminDashboardComponent implements OnInit {
         this.userList = response
         this.userDataSource = new MatTableDataSource<User>(this.userList)
         this.userDataSource.paginator = this.userPaginator
-        this.userDataSource.sort = this.sort
+        this.userDataSource.sort = this.userSort
       },
       error: error => { this.errorHandler(error) }
     });
@@ -60,7 +61,7 @@ export class AdminDashboardComponent implements OnInit {
           this.reportList = response
           this.reportDataSource = new MatTableDataSource<Report>(this.reportList)
           this.reportDataSource.paginator = this.reportPaginator
-          this.reportDataSource.sort = this.sort
+          this.reportDataSource.sort = this.reportSort
         },
         error: error => { this.errorHandler(error) }
       });
