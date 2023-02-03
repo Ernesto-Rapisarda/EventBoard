@@ -65,12 +65,11 @@ Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), nec
 
 ---
 
-## Note
-
-### Eventuali bug
+## Note (Bug e Precisazioni)
 
 - A volte può succedere che la mappa mapbox nel dialog di selezione della posizione di un nuovo evento sia inizializzata in un punto che non corrisponde esattamente a quanto richiesto nei campi Regione e Città;
-- A volte può succedere (*per cause che non dipendono da noi*) che il servizio esterno per regioni e comuni italiani impieghi diverso tempo prima di rispondere, causando disagi alla UX. Ciò accade soprattutto nei form che attendono la compilazione dei suddetti dati per essere validati.
+- A volte può succedere (*per cause che non dipendono da noi*) che il servizio esterno per regioni e comuni italiani impieghi diverso tempo prima di rispondere, causando disagi alla UX. Ciò accade soprattutto nei form che attendono la compilazione dei suddetti dati per essere validati;
+- Il sistema di notifiche dell’applicazione, come descritto nei casi d’uso (i quali sono dettagliati all’interno della relazione di Ingegneria del Software, anch’essa disponibile in questo repository) si basa sull’invio di email attraverso SMTP Gmail, servizio solitamente molto affidabile e rapido ma che non è scevro da rallentamenti, i quali potrebbero minare la qualità dell’UX.
 
 ### Tecnologie utilizzate
 
@@ -91,10 +90,10 @@ Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), nec
 - [Java 17](https://openjdk.org/projects/jdk/17/);
 - [Springboot 3.0.1](https://spring.io/projects/spring-boot);
 - [Tomcat 10.1.4](https://tomcat.apache.org/);
-- [Thymeleaf](https://www.thymeleaf.org/);
+- [Thymeleaf](https://www.thymeleaf.org/) e [Servlet](https://jakarta.ee/specifications/servlet/) (*Per la pagina delle statistiche del sito*);
 - [Postgres](https://www.postgresql.org/);
 - [Lombok](https://projectlombok.org/);
-- [Spring Security](https://spring.io/projects/spring-security);
-- [Spring Mail](https://www.baeldung.com/spring-email).
+- [Spring Security](https://spring.io/projects/spring-security) (*Per l’implementazione di un sistema di autenticazione e autorizzazione basato sul JWT Token*);
+- [Spring Mail](https://www.baeldung.com/spring-email) (*Per implementare il sistema di notifica e completamento registrazione*).
 
 # ENG (To be written)
