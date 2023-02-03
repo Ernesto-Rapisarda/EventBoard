@@ -75,6 +75,7 @@ public class UserService { //utente loggato
 
             if(person.getPosition()!=null){
                 DBManager.getInstance().getPositionDao().saveOrUpdate(person.getPosition());
+                personDb.setPosition(person.getPosition().getId());
             }
 
             if(nullOrEmpty(person.getName()) || nullOrEmpty(person.getLastName()) || nullOrEmpty(person.getEmail()))
@@ -96,7 +97,7 @@ public class UserService { //utente loggato
             personDb.setName(person.getName());
             personDb.setLastName(person.getLastName());
             personDb.setEmail(person.getEmail());
-            personDb.setPosition(person.getPosition().getId());
+
 
             List<Preference> tempList = DBManager.getInstance().getPreferenceDao().findPreferences(person.getId());
             for(Preference preference: tempList)
