@@ -76,45 +76,29 @@ mat-form-field {
 
 }
 
+.image-upload-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 20px;
+}
 
+.carica-locandina {
+  width: auto;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
 .action-button-container {
   display: flex;
