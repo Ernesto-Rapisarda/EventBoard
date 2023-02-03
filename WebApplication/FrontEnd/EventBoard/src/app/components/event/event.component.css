@@ -147,12 +147,16 @@
   margin-top: var(--elements-margin-top);
 }
 .card-when-where {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   width: 30%;
   margin: 20px;
   padding: 20px;
   background-color: var(--elements-background-color-light);
   border-radius: 10px;
-  text-align: center;
 }
 .card-when-where .when-where-cpy {
   font-weight: 600;
@@ -518,11 +522,360 @@
     height: auto;
     display: flex;
     flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: var(--elements-margin-top);
+  }
+  .card-when-where {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--elements-background-color-light);
+    border-radius: 10px;
+  }
+  .map-container {
+    margin-top: var(--elements-margin-top);
+    width: auto;
+  }
+  .map {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: auto;
+  }
+
+  .comments-reviews-container {
+    background-color: var(--elements-background-color-dark);
+    border-radius: 10px;
+    margin-top: 36px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .comments-tab {
+    background-color: var(--elements-background-color-light);
+    border-radius: 10px;
+  }
+  .comments-header-cpy {
+    padding-top: 24px;
+  }
+
+
+
+  /* RIGHT SIDE */
+  .price-header {
+    text-align: right;
+    font-size: 12px;    /* va cambiato insieme al margin-top */
+    margin-top: -18px;  /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+    font-weight: normal;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-top: 5px;
+    font-style: italic;
+  }
+
+  .organizer-name:hover { cursor: pointer }
+
+  /* Date and Location */
+  .date-location-container {
+    width: auto;
+    height: auto;
+    display: inline;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+
+    /* variables */
+    --icon-header-size: 14px; /* devono essere uguali! */
+    --cpy-size: 14px;         /* ^^^^^^^^^^^^^^^^^^^^^ */
+    --cpy-margin-top: 4px;   /* e va aggiornato questo */
+    --icon-float: left;
+    --cpy-float: right;
+    --margin: 15%;
+    --height: auto;
+    --width: 30%;
+    --display: inline-block;
+    --icon-color: #3a0ca3;
+
+    --bg-card-color: #dee2e6;
+    --bg-card-header-color: #d1d1d1;
+    --bg-card-border-radius: 12px;
+
+    --border-radius-card: 10px;
+    --padding-card: 6px;
+  }
+  .date-container, .location-container {
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius-card);
+    background-color: var(--bg-card-color);
+    display: table-column;
+    align-items: center;
+    padding: 8px 5px 8px 5px;
+  }
+  .date-container {
+    float: left;
+    margin-left: var(--margin);
+  }
+  .location-container {
+    float: right;
+    margin-right: var(--margin);
+  }
+  .card-date-header, .card-location-header {
+    display: var(--display);
+  }
+  .date-icon, .location-icon {
+    font-size: var(--icon-header-size);
+    color: var(--icon-color);
+    float: var(--icon-float);
+    height: var(--height);
+    margin-top: 6px;
+    margin-right: 6px;
+    width: auto;
+  }
+  .date-cpy, .location-cpy {
+    float: var(--cpy-float);
+    width: auto;
+    height: auto;
+    font-size: var(--cpy-size);
+    margin-top: var(--cpy-margin-top);
+    font-weight: bold;
+  }
+
+  .like-participate-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: 0 7.5vw;
+  }
+  .participate-button-container, .like-button-container { }
+  .participate-button-container {
+    float: left;
+  }
+  .like-button-container {
+    float: right;
+  }
+  .participate-button, .like-button {
+
+    --bg-color-partecipate-notpressed: #ced4da;
+    --bg-color-partecipate-pressed: primary;
+
+    --bg-color-like-notpressed: #ced4da;
+    --bg-color-like-pressed: accent;
+
+  }
+  .participate-button {
+    background-color: var(--bg-color-partecipate-notpressed);
+    /* da cambiare quando è pressed con angular */
+  }
+  .like-button {
+    background-color: var(--bg-color-like-notpressed);
+    /* da cambiare quando è pressed con angular */
+  }
+  .participate-button-false .like-button-false {
+    background-color: #ced4da
+  }
+  .participate-button-true {
+    background-color: #0F9D58;
+  }
+  .like-button-true {
+    background-color: #DB4437;
+  }
+
+  /* TODO */
+  .partecipants-number,
+  .likes-number {
+    margin: 0 auto;
+    margin-top: -12px;
+    text-align: center;
+  }
+
+  /* card ordina biglietti */
+  .get-tickets-container {
+    margin-top: var(--elements-margin-top);
+    padding: 20px;
+    background-color: var(--elements-background-color-light);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .get-tickets-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  .get-ticket-copy {
+    margin-bottom: 10px;
+  }
+  .get-ticket-button {
+    background-color: var(--button-primary-color);
+    color: white;
+    width: 90%;
+    transition: transform 0.2s;
+  }
+  .get-ticket-button:hover {
+    transform: scale(1.1);
+  }
+
+  .social-buttons {
+    margin-top: var(--elements-margin-top);
+    text-align: center;
+  }
+
+
+  /* ????? */
+  .line-break {
+    display: flex;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+  }
+
+
+  .blank-space-at-bottom {
+    margin-top: 30px;
+    width: 1920px;
+    height: 300px;
+    background-color: lightgrey;
+  }
+  .floating-buttons-left {
+    display: table-column;
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    gap: 12px;
+  }
+  .floating-buttons-right {
+    display: inline-flex;
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+  }
+  .report-button-container {
+    float: top;
+  }
+  .report-button {
+    background-color: orange;
+  }
+  .delete-button {
+    margin-top: 12px;
+    background-color: #DB4437;
+  }
+  .edit-button {
+    /* background-color: #0000FF; SI è OPTATO PER I COLORI DI MATERIAL */
+  }
+}
+
+@media screen and (max-width: 524px) {
+  .center-and-space {
+    display: var(--display-center-space-display);
+    flex-direction: var(--display-center-space-flex-direction);
+    align-items: var(--display-center-space-align-items);
+    justify-content: var(--display-center-space-justify-content);
+    height: var(--display-center-space-height);
+    width: var(--display-center-space-width);
+  }
+  .event-main-container {
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    margin: auto auto;
+  }
+
+  .poster-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .poster {
+    max-width: 90%;
+    max-height: 90%;
+    width: 1300px;
+    height: 450px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    margin: 30px auto;
+  }
+
+  /* colonna destra e sinistra */
+  .event-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .event-container .event-left-side,
+  .event-container .event-right-side {
+    width: auto;
+    height: auto;
+    padding: var(--space-from-container-vertical) var(--space-from-container-horizontal);
+  }
+
+  /* LEFT SIDE */
+  .left-side {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    margin-bottom: -8px;
+  }
+  .left-side .card-calendar-mmm {
+    font-size: var(--date-font-size);
+    color: red;
+    font-weight: 500;
+    width: auto;
+    margin-right: 2px;
+  }
+  .left-side .card-calendar-dd {
+    font-size: var(--date-font-size);
+    color: black;
+    flex: 1;
+    font-weight: 400;
+    width: auto;
+    margin-left: 2px;
+  }
+  .title-header {
+    font-size: var(--title-font-size);
+    font-weight: var(--title-font-weight);
+    height: auto;
+  }
+  .description-header {
+    margin-top: 20px;
+    font-size: var(--description-font-size);
+    margin-top: var(--elements-margin-top);
+  }
+  .organizer-container {
+    height: auto;
+    font-style: italic;
+    display: inline-block;
+    font-size: var(--organizer-font-size);
+    margin-top: var(--elements-margin-top);
+  }
+  .organizer-container .organizer-cpy {
+    float: left;
+    width: auto;
+  }
+  .organizer-container .organizer-name {
+    float: right;
+    width: auto;
+    margin-left: 5px;
+    text-decoration: underline;
+  }
+  .card-when-where-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
     justify-content: space-between;
     margin-top: var(--elements-margin-top);
   }
   .card-when-where {
-    width: 30%;
+    width: 80%;
     margin: 20px;
     padding: 20px;
     background-color: var(--elements-background-color-light);
