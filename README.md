@@ -96,4 +96,92 @@ Ciò è dovuto alla presenza di un proxy (***proxy.conf.json***, *appunto*), nec
 - [Spring Security](https://spring.io/projects/spring-security) (*Per l’implementazione di un sistema di autenticazione e autorizzazione basato sul JWT Token*);
 - [Spring Mail](https://www.baeldung.com/spring-email) (*Per implementare il sistema di notifica e completamento registrazione*).
 
-# ENG (To be written)
+# ENG
+
+## The Team
+
+The development team is composed of:
+
+- **Back-end**
+    - [Ernesto Rapisarda](https://github.com/Ernesto-Rapisarda)
+    - [Andrea Tocci](https://github.com/AndreaYpmY)
+- **Front-end**
+    - [Alessandro Monetti](https://github.com/ilveron)
+    - [Simone Rotundo](https://github.com/simonerotundo)
+
+## Project Description
+
+"GoodVibes" is a Web Application that aims to help people find the ideal **event** to attend. The main page allows you to **explore** the available events. It updates **dynamically**: it can show events based on the user's **preferred categories**, if set in the user's profile, or show them in chronological order, regardless of their category.
+
+**Each event** has a **page containing** all the **necessary information** (*Title, date and time, location, description, etc...*). The **location** data is detailed through the implementation of **Mapbox APIs**, which allow you to view its position on the map. To make the application more engaging, in addition to the functions of the registered user, it is possible to **share** an event page on the main **social channels**. Interactions are the tool through which it is possible to get an idea of the approval rating of an event: this data is useful both to organizers and to other users.
+
+---
+
+## Instructions for Use
+
+### Preliminary operations
+
+**Back-end**: Repo Path → “/WebApplication/BackEnd”
+
+Before starting the project normally, it will be necessary to restore the database, through the dump present inside this repository at
+
+> /WebApplication/BackEnd/DatabaseDUMP/*.tar
+> 
+
+Once the database is restored, it will also be necessary to go to the file
+
+> /WebApplication/BackEnd/src/main/java/persistenza/DBManager.java
+> 
+
+And, at line 36, enter your data for connecting to the DB
+
+---
+
+**Front-end**: Repo Path → “/WebApplication/FrontEnd/EventBoard/”
+
+For a one-time thing, at the first start-up, it will be necessary to use the following command beforehand, to install all the required modules for the front-end app
+
+```
+npm install
+```
+
+To start the **Angular** project it will be necessary to use the following command
+
+```
+ng serve --proxy-config proxy.conf.json
+```
+
+This is due to the presence of a proxy (***proxy.conf.json***, *in fact*), necessary to bypass CORS in requests directed toward the imgBB API (*used for uploading event posters*)
+
+---
+
+## Notes (Bugs and Clarifications)
+
+- Sometimes the Mapbox map in the selection dialog of the position of a new event may be initialized at a point that does not exactly correspond to what is required in the Region and City fields;
+- Sometimes it can happen (*for reasons that do not depend on us*) that the external service for Italian regions and municipalities takes different times to respond, causing UX discomfort. This happens especially in forms that wait for the compilation of the aforementioned data to be validated;
+- The notification system of the application, as described in the use cases (which are detailed in the Software Engineering report, also available in this repository) is based on sending emails through SMTP Gmail, a service usually very reliable and fast but not free from slowdowns, which could undermine the quality of the UX.
+
+### Technologies Used
+
+**Front-end**:
+
+- [Angular 15](https://angular.io/);
+- [Angular Material](https://material.angular.io/);
+- [Typescript 4.8.3](https://www.typescriptlang.org/);
+- [Animate.css](https://animate.style/) (**For SOME of the animations present in the application);**
+- [API Mapbox](https://docs.mapbox.com/api/overview/) (*For positioning and maps*);
+- [API ComuniITA](https://github.com/Samurai016/Comuni-ITA) (*For collecting data on Italian regions and municipalities*);
+- [API Imgbb](https://api.imgbb.com/) (*For uploading images online*);
+- ~~[API Imgur](https://apidocs.imgur.com/)~~ (*As above, not used, but implemented, tested, and ready to replace Imgbb/Thumbsnap in case of malfunctions/maintenance*);
+- ~~[API Thumbsnap](https://thumbsnap.com/api)~~ (*As above, not used, but implemented, tested, and ready to replace Imgbb/Imgur in case of malfunctions/maintenance*).
+
+**Back-end**:
+
+- [Java 17](https://openjdk.org/projects/jdk/17/);
+- [Springboot 3.0.1](https://spring.io/projects/spring-boot);
+- [Tomcat 10.1.4](https://tomcat.apache.org/);
+- [Thymeleaf](https://www.thymeleaf.org/) and [Servlet](https://jakarta.ee/specifications/servlet/) (*For the site statistics page*);
+- [Postgres](https://www.postgresql.org/);
+- [Lombok](https://projectlombok.org/);
+- [Spring Security](https://spring.io/projects/spring-security) (*For implementing an authentication and authorization system based on the JWT Token*);
+- [Spring Mail](https://www.baeldung.com/spring-email) (*To implement the notification and completion registration system*).
